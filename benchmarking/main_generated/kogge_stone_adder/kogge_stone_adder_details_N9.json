@@ -1,0 +1,418 @@
+{
+    "component_name": "kogge_stone_adder",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "8"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "8:0",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "8:0",
+            "b"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "8:0",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "others": {
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "for": [
+            "wire",
+            "",
+            "s"
+        ]
+    },
+    "submodules": {
+        "big_circle": {
+            "component_name": "big_circle",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Gi"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Pi"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "GiPrev"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "PiPrev"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "G"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "P"
+                ]
+            ],
+            "others": {
+                "i": [
+                    "wire",
+                    "",
+                    "P"
+                ],
+                "v": [
+                    "wire",
+                    "",
+                    "PiPre"
+                ]
+            },
+            "submodules": {}
+        },
+        "small_circle": {
+            "component_name": "small_circle",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Gi"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Ci"
+                ]
+            ],
+            "others": {
+                "i": [
+                    "wire",
+                    "",
+                    "C"
+                ]
+            },
+            "submodules": {}
+        },
+        "square": {
+            "component_name": "square",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Ai"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Bi"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "G"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "P"
+                ]
+            ],
+            "others": {
+                "i": [
+                    "wire",
+                    "",
+                    "B"
+                ]
+            },
+            "submodules": {}
+        },
+        "triangle": {
+            "component_name": "triangle",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Pi"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "CiPrev"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Si"
+                ]
+            ],
+            "others": {
+                "i": [
+                    "wire",
+                    "",
+                    "S"
+                ],
+                "v": [
+                    "wire",
+                    "",
+                    "CiPre"
+                ]
+            },
+            "submodules": {}
+        }
+    },
+    "param_comb": [
+        [
+            "N",
+            9
+        ]
+    ],
+    "rules": [
+        "AdderRule"
+    ],
+    "stimuli": [
+        "a = 9'b111100100; b = 9'b010001011;",
+        "a = 9'b100001011; b = 9'b011111000;",
+        "a = 9'b010110010; b = 9'b001010000;",
+        "a = 9'b110000100; b = 9'b001000100;",
+        "a = 9'b110101111; b = 9'b111000101;",
+        "a = 9'b101001001; b = 9'b101110001;",
+        "a = 9'b100101110; b = 9'b101010111;",
+        "a = 9'b100001010; b = 9'b011100011;",
+        "a = 9'b111000100; b = 9'b011011010;",
+        "a = 9'b101000000; b = 9'b010010001;",
+        "a = 9'b110111100; b = 9'b101010010;",
+        "a = 9'b011110001; b = 9'b110100001;",
+        "a = 9'b111111001; b = 9'b101000010;",
+        "a = 9'b000101000; b = 9'b110011000;",
+        "a = 9'b000010001; b = 9'b000011000;",
+        "a = 9'b011110011; b = 9'b001010000;",
+        "a = 9'b100110100; b = 9'b001100011;",
+        "a = 9'b000011110; b = 9'b001110001;",
+        "a = 9'b111110011; b = 9'b110111110;",
+        "a = 9'b111101011; b = 9'b101000010;",
+        "a = 9'b111111110; b = 9'b111011010;",
+        "a = 9'b011100110; b = 9'b101111001;",
+        "a = 9'b001111011; b = 9'b001001100;",
+        "a = 9'b100001100; b = 9'b011000110;",
+        "a = 9'b100010001; b = 9'b101100001;",
+        "a = 9'b000010001; b = 9'b110010000;",
+        "a = 9'b000000011; b = 9'b011001010;",
+        "a = 9'b011001100; b = 9'b100111110;",
+        "a = 9'b011101011; b = 9'b101011001;",
+        "a = 9'b100100001; b = 9'b110011101;",
+        "a = 9'b011000011; b = 9'b011011011;",
+        "a = 9'b111100011; b = 9'b000111100;",
+        "a = 9'b010111100; b = 9'b111110011;"
+    ],
+    "expected": [
+        {
+            "sum": 111,
+            "cout": 1
+        },
+        {
+            "sum": 3,
+            "cout": 1
+        },
+        {
+            "sum": 258,
+            "cout": 0
+        },
+        {
+            "sum": 456,
+            "cout": 0
+        },
+        {
+            "sum": 372,
+            "cout": 1
+        },
+        {
+            "sum": 186,
+            "cout": 1
+        },
+        {
+            "sum": 133,
+            "cout": 1
+        },
+        {
+            "sum": 493,
+            "cout": 0
+        },
+        {
+            "sum": 158,
+            "cout": 1
+        },
+        {
+            "sum": 465,
+            "cout": 0
+        },
+        {
+            "sum": 270,
+            "cout": 1
+        },
+        {
+            "sum": 146,
+            "cout": 1
+        },
+        {
+            "sum": 315,
+            "cout": 1
+        },
+        {
+            "sum": 448,
+            "cout": 0
+        },
+        {
+            "sum": 41,
+            "cout": 0
+        },
+        {
+            "sum": 323,
+            "cout": 0
+        },
+        {
+            "sum": 407,
+            "cout": 0
+        },
+        {
+            "sum": 143,
+            "cout": 0
+        },
+        {
+            "sum": 433,
+            "cout": 1
+        },
+        {
+            "sum": 301,
+            "cout": 1
+        },
+        {
+            "sum": 472,
+            "cout": 1
+        },
+        {
+            "sum": 95,
+            "cout": 1
+        },
+        {
+            "sum": 199,
+            "cout": 0
+        },
+        {
+            "sum": 466,
+            "cout": 0
+        },
+        {
+            "sum": 114,
+            "cout": 1
+        },
+        {
+            "sum": 417,
+            "cout": 0
+        },
+        {
+            "sum": 205,
+            "cout": 0
+        },
+        {
+            "sum": 10,
+            "cout": 1
+        },
+        {
+            "sum": 68,
+            "cout": 1
+        },
+        {
+            "sum": 190,
+            "cout": 1
+        },
+        {
+            "sum": 414,
+            "cout": 0
+        },
+        {
+            "sum": 31,
+            "cout": 1
+        },
+        {
+            "sum": 175,
+            "cout": 1
+        }
+    ],
+    "param_component_name": "N9_kogge_stone_adder"
+}

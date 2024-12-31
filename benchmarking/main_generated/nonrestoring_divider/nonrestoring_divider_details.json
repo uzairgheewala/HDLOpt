@@ -1,0 +1,114 @@
+{
+    "component_name": "nonrestoring_divider",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "2"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "N-1:0",
+            "Q"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "N-1:0",
+            "M"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "N-1:0",
+            "quo"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "N-1:0",
+            "r"
+        ]
+    ],
+    "others": {
+        "N": [
+            "wire",
+            "",
+            ""
+        ]
+    },
+    "mode": "combinational",
+    "submodules": {
+        "csa_16bit": {
+            "component_name": "csa_16bit",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "15:0",
+                    "M"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "15:0",
+                    "T"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "D"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "ctrl"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "Q"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "15:0",
+                    "R"
+                ]
+            ],
+            "others": {
+                "l": [
+                    "wire",
+                    "",
+                    "ctr"
+                ],
+                "temp": [
+                    "wire",
+                    "",
+                    "14:0"
+                ]
+            },
+            "mode": "combinational"
+        }
+    }
+}

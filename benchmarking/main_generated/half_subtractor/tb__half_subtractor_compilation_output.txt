@@ -1,0 +1,10 @@
+Start time: 15:26:04 on Jul 29,2024
+vlog generated\half_subtractor\half_subtractor.v generated\half_subtractor\tb__half_subtractor.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module half_subtractor
+-- Compiling module tb__half_subtractor
+
+Top level modules:
+	tb__half_subtractor
+End time: 15:26:04 on Jul 29,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

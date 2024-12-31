@@ -1,0 +1,518 @@
+{
+    "component_name": "carry_skip_adder",
+    "parameters": [
+        {
+            "name": "BLOCK_SIZE",
+            "value": "4"
+        },
+        {
+            "name": "N",
+            "value": "8"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "4:0",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "4:0",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cin"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "4:0",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "others": {
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ],
+        "S": [
+            "wire",
+            "",
+            "NUM_BLOCK"
+        ],
+        "carries": [
+            "wire",
+            "",
+            "NUM_BLOCKS:0"
+        ]
+    },
+    "submodules": {
+        "carry_skip_block": {
+            "component_name": "carry_skip_block",
+            "parameters": [
+                {
+                    "name": "WIDTH",
+                    "value": "4"
+                }
+            ],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "WIDTH-1:0",
+                    "a"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "WIDTH-1:0",
+                    "b"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cin"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "WIDTH-1:0",
+                    "sum"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cout"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "block_carry_out"
+                ]
+            ],
+            "others": {
+                "H": [
+                    "wire",
+                    "",
+                    "WIDT"
+                ],
+                "n": [
+                    "wire",
+                    "",
+                    "ci"
+                ],
+                "t": [
+                    "wire",
+                    "",
+                    "block_carry_ou"
+                ],
+                "carry": [
+                    "wire",
+                    "",
+                    "WIDTH:0"
+                ]
+            },
+            "submodules": {
+                "full_adder": {
+                    "component_name": "full_adder",
+                    "parameters": [],
+                    "inputs": [
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "a"
+                        ],
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "b"
+                        ],
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "cin"
+                        ]
+                    ],
+                    "outputs": [
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "sum"
+                        ],
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "cout"
+                        ]
+                    ],
+                    "others": {
+                        "n": [
+                            "reg",
+                            "",
+                            "ci"
+                        ],
+                        "m": [
+                            "wire",
+                            "",
+                            "su"
+                        ],
+                        "t": [
+                            "wire",
+                            "",
+                            "cou"
+                        ],
+                        "1": [
+                            "wire",
+                            "",
+                            "c"
+                        ]
+                    },
+                    "submodules": {
+                        "half_adder": {
+                            "component_name": "half_adder",
+                            "parameters": [],
+                            "inputs": [
+                                [
+                                    "input",
+                                    "wire",
+                                    "unsigned",
+                                    "1",
+                                    "a"
+                                ],
+                                [
+                                    "input",
+                                    "wire",
+                                    "unsigned",
+                                    "1",
+                                    "b"
+                                ]
+                            ],
+                            "outputs": [
+                                [
+                                    "output",
+                                    "wire",
+                                    "unsigned",
+                                    "1",
+                                    "s"
+                                ],
+                                [
+                                    "output",
+                                    "wire",
+                                    "unsigned",
+                                    "1",
+                                    "c"
+                                ]
+                            ],
+                            "others": {},
+                            "submodules": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "param_comb": [
+        2,
+        5
+    ],
+    "stimuli": [
+        "a = 01011; b = 10001; cin = 0;",
+        "a = 11010; b = 00101; cin = 0;",
+        "a = 00010; b = 10010; cin = 0;",
+        "a = 10001; b = 10100; cin = 0;",
+        "a = 11000; b = 01111; cin = 0;",
+        "a = 11010; b = 10110; cin = 1;",
+        "a = 00010; b = 01100; cin = 0;",
+        "a = 01101; b = 01100; cin = 0;",
+        "a = 10010; b = 00111; cin = 1;",
+        "a = 01001; b = 01111; cin = 1;",
+        "a = 00110; b = 01111; cin = 0;",
+        "a = 00111; b = 10110; cin = 1;",
+        "a = 00110; b = 00001; cin = 0;",
+        "a = 01100; b = 01101; cin = 1;",
+        "a = 00100; b = 10111; cin = 0;",
+        "a = 01000; b = 10100; cin = 1;",
+        "a = 01101; b = 10010; cin = 1;",
+        "a = 11001; b = 11000; cin = 1;",
+        "a = 10100; b = 11111; cin = 0;",
+        "a = 00101; b = 11001; cin = 1;",
+        "a = 11000; b = 11101; cin = 1;",
+        "a = 11111; b = 11001; cin = 0;",
+        "a = 10001; b = 11111; cin = 0;",
+        "a = 10110; b = 10110; cin = 0;",
+        "a = 11100; b = 01010; cin = 1;",
+        "a = 11010; b = 11000; cin = 1;",
+        "a = 11111; b = 11110; cin = 0;",
+        "a = 00000; b = 11001; cin = 0;",
+        "a = 00000; b = 00101; cin = 1;",
+        "a = 11011; b = 00110; cin = 1;",
+        "a = 11000; b = 10001; cin = 0;",
+        "a = 10001; b = 10101; cin = 1;",
+        "a = 11010; b = 00000; cin = 1;",
+        "a = 10010; b = 11000; cin = 1;",
+        "a = 10101; b = 01000; cin = 1;",
+        "a = 01110; b = 00101; cin = 1;",
+        "a = 00111; b = 11000; cin = 0;",
+        "a = 10000; b = 10010; cin = 1;",
+        "a = 01000; b = 01111; cin = 0;",
+        "a = 11010; b = 01001; cin = 0;",
+        "a = 01111; b = 10110; cin = 0;",
+        "a = 10111; b = 11000; cin = 1;",
+        "a = 10011; b = 10011; cin = 1;",
+        "a = 10010; b = 10101; cin = 1;",
+        "a = 11011; b = 11111; cin = 0;",
+        "a = 10101; b = 11011; cin = 1;",
+        "a = 10100; b = 10100; cin = 1;",
+        "a = 10010; b = 10111; cin = 1;",
+        "a = 11010; b = 10010; cin = 1;"
+    ],
+    "expected": [
+        {
+            "sum": 28,
+            "cout": 0
+        },
+        {
+            "sum": 31,
+            "cout": 0
+        },
+        {
+            "sum": 20,
+            "cout": 0
+        },
+        {
+            "sum": 5,
+            "cout": 1
+        },
+        {
+            "sum": 7,
+            "cout": 1
+        },
+        {
+            "sum": 17,
+            "cout": 1
+        },
+        {
+            "sum": 14,
+            "cout": 0
+        },
+        {
+            "sum": 25,
+            "cout": 0
+        },
+        {
+            "sum": 26,
+            "cout": 0
+        },
+        {
+            "sum": 25,
+            "cout": 0
+        },
+        {
+            "sum": 21,
+            "cout": 0
+        },
+        {
+            "sum": 30,
+            "cout": 0
+        },
+        {
+            "sum": 7,
+            "cout": 0
+        },
+        {
+            "sum": 26,
+            "cout": 0
+        },
+        {
+            "sum": 27,
+            "cout": 0
+        },
+        {
+            "sum": 29,
+            "cout": 0
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 18,
+            "cout": 1
+        },
+        {
+            "sum": 19,
+            "cout": 1
+        },
+        {
+            "sum": 31,
+            "cout": 0
+        },
+        {
+            "sum": 22,
+            "cout": 1
+        },
+        {
+            "sum": 24,
+            "cout": 1
+        },
+        {
+            "sum": 16,
+            "cout": 1
+        },
+        {
+            "sum": 12,
+            "cout": 1
+        },
+        {
+            "sum": 7,
+            "cout": 1
+        },
+        {
+            "sum": 19,
+            "cout": 1
+        },
+        {
+            "sum": 29,
+            "cout": 1
+        },
+        {
+            "sum": 25,
+            "cout": 0
+        },
+        {
+            "sum": 6,
+            "cout": 0
+        },
+        {
+            "sum": 2,
+            "cout": 1
+        },
+        {
+            "sum": 9,
+            "cout": 1
+        },
+        {
+            "sum": 7,
+            "cout": 1
+        },
+        {
+            "sum": 27,
+            "cout": 0
+        },
+        {
+            "sum": 11,
+            "cout": 1
+        },
+        {
+            "sum": 30,
+            "cout": 0
+        },
+        {
+            "sum": 20,
+            "cout": 0
+        },
+        {
+            "sum": 31,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 1
+        },
+        {
+            "sum": 23,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 1
+        },
+        {
+            "sum": 5,
+            "cout": 1
+        },
+        {
+            "sum": 16,
+            "cout": 1
+        },
+        {
+            "sum": 7,
+            "cout": 1
+        },
+        {
+            "sum": 8,
+            "cout": 1
+        },
+        {
+            "sum": 26,
+            "cout": 1
+        },
+        {
+            "sum": 17,
+            "cout": 1
+        },
+        {
+            "sum": 9,
+            "cout": 1
+        },
+        {
+            "sum": 10,
+            "cout": 1
+        },
+        {
+            "sum": 13,
+            "cout": 1
+        }
+    ]
+}

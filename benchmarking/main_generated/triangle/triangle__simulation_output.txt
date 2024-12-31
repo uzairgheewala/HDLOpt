@@ -1,0 +1,21 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb__triangle 
+# Start time: 14:46:08 on Jul 24,2024
+# Loading work.tb__triangle
+# Loading work.triangle
+# run -all
+# Test 0: Inputs: Pi = 1'b0; CiPrev = 1'b1; | Outputs: Si=1 | Expected: Si=          1
+# Simulation time: 110.0 ns
+# Test 1: Inputs: Pi = 1'b1; CiPrev = 1'b1; | Outputs: Si=0 | Expected: Si=          0
+# Simulation time: 120.0 ns
+# Test 2: Inputs: Pi = 1'b1; CiPrev = 1'b0; | Outputs: Si=1 | Expected: Si=          1
+# Simulation time: 130.0 ns
+# Test 3: Inputs: Pi = 1'b0; CiPrev = 1'b0; | Outputs: Si=0 | Expected: Si=          0
+# Simulation time: 140.0 ns
+# ** Note: $finish    : generated/triangle/tb__triangle.v(102)
+#    Time: 140 ns  Iteration: 0  Instance: /tb__triangle
+# End time: 14:46:08 on Jul 24,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

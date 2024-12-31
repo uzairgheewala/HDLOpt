@@ -1,0 +1,8 @@
+
+    read_verilog generated\full_subtractor\full_subtractor.v
+read_verilog generated\full_subtractor\half_subtractor\half_subtractor.v
+
+    synth -top full_subtractor
+    write_json generated\full_subtractor\full_subtractor_netlist.json
+    stat
+    

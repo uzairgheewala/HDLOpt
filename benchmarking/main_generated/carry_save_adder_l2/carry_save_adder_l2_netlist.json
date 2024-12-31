@@ -1,0 +1,508 @@
+{
+  "creator": "Yosys 0.42+40 (git sha1 a739e21a5, x86_64-w64-mingw32-g++ 13.2.1 -Os)",
+  "modules": {
+    "carry_save_adder_l2": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:1.1-22.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000001000"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+        },
+        "c": {
+          "direction": "input",
+          "bits": [ 18, 19, 20, 21, 22, 23, 24, 25 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ]
+        },
+        "carry": {
+          "direction": "output",
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ]
+        }
+      },
+      "cells": {
+        "full_adder_gen[0].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 2 ],
+            "b": [ 10 ],
+            "cin": [ 18 ],
+            "cout": [ 34 ],
+            "sum": [ 26 ]
+          }
+        },
+        "full_adder_gen[1].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 3 ],
+            "b": [ 11 ],
+            "cin": [ 19 ],
+            "cout": [ 35 ],
+            "sum": [ 27 ]
+          }
+        },
+        "full_adder_gen[2].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 4 ],
+            "b": [ 12 ],
+            "cin": [ 20 ],
+            "cout": [ 36 ],
+            "sum": [ 28 ]
+          }
+        },
+        "full_adder_gen[3].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 5 ],
+            "b": [ 13 ],
+            "cin": [ 21 ],
+            "cout": [ 37 ],
+            "sum": [ 29 ]
+          }
+        },
+        "full_adder_gen[4].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 6 ],
+            "b": [ 14 ],
+            "cin": [ 22 ],
+            "cout": [ 38 ],
+            "sum": [ 30 ]
+          }
+        },
+        "full_adder_gen[5].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 7 ],
+            "b": [ 15 ],
+            "cin": [ 23 ],
+            "cout": [ 39 ],
+            "sum": [ 31 ]
+          }
+        },
+        "full_adder_gen[6].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 8 ],
+            "b": [ 16 ],
+            "cin": [ 24 ],
+            "cout": [ 40 ],
+            "sum": [ 32 ]
+          }
+        },
+        "full_adder_gen[7].fa": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:13.24-19.14"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cin": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 9 ],
+            "b": [ 17 ],
+            "cin": [ 25 ],
+            "cout": [ 41 ],
+            "sum": [ 33 ]
+          }
+        }
+      },
+      "netnames": {
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:2.24-2.25"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:3.24-3.25"
+          }
+        },
+        "c": {
+          "hide_name": 0,
+          "bits": [ 18, 19, 20, 21, 22, 23, 24, 25 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:4.24-4.25"
+          }
+        },
+        "carry": {
+          "hide_name": 0,
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:7.25-7.30"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\carry_save_adder_l2.v:6.25-6.28"
+          }
+        }
+      }
+    },
+    "full_adder": {
+      "attributes": {
+        "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:1.1-25.10"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        }
+      },
+      "cells": {
+        "$abc$85$auto$blifparse.cc:396:parse_blif$86": {
+          "hide_name": 1,
+          "type": "$_OR_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 7 ],
+            "B": [ 8 ],
+            "Y": [ 6 ]
+          }
+        },
+        "u1": {
+          "hide_name": 0,
+          "type": "half_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:10.16-15.6"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 2 ],
+            "b": [ 3 ],
+            "cout": [ 8 ],
+            "sum": [ 9 ]
+          }
+        },
+        "u2": {
+          "hide_name": 0,
+          "type": "half_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:17.16-22.6"
+          },
+          "port_directions": {
+            "a": "input",
+            "b": "input",
+            "cout": "output",
+            "sum": "output"
+          },
+          "connections": {
+            "a": [ 9 ],
+            "b": [ 4 ],
+            "cout": [ 7 ],
+            "sum": [ 5 ]
+          }
+        }
+      },
+      "netnames": {
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:2.16-2.17"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:3.16-3.17"
+          }
+        },
+        "c1": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:8.10-8.12"
+          }
+        },
+        "c2": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:8.18-8.20"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:4.16-4.19"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:6.17-6.21"
+          }
+        },
+        "s1": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:8.14-8.16"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\full_adder.v:5.17-5.20"
+          }
+        }
+      }
+    },
+    "half_adder": {
+      "attributes": {
+        "src": "generated\\carry_save_adder_l2\\full_adder\\half_adder\\half_adder.v:2.1-10.10"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 4 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+        "$abc$87$auto$blifparse.cc:396:parse_blif$88": {
+          "hide_name": 1,
+          "type": "$_AND_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "Y": [ 5 ]
+          }
+        },
+        "$abc$87$auto$blifparse.cc:396:parse_blif$89": {
+          "hide_name": 1,
+          "type": "$_XOR_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "Y": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\half_adder\\half_adder.v:3.16-3.17"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\half_adder\\half_adder.v:4.16-4.17"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\half_adder\\half_adder.v:6.17-6.21"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "generated\\carry_save_adder_l2\\full_adder\\half_adder\\half_adder.v:5.17-5.20"
+          }
+        }
+      }
+    }
+  }
+}

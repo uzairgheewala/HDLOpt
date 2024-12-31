@@ -1,0 +1,97 @@
+{
+  "creator": "Yosys 0.42+40 (git sha1 a739e21a5, x86_64-w64-mingw32-g++ 13.2.1 -Os)",
+  "modules": {
+    "half_adder": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "generated\\half_adder\\half_adder.v:2.1-10.10"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 4 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+        "$abc$82$auto$blifparse.cc:396:parse_blif$83": {
+          "hide_name": 1,
+          "type": "$_AND_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "Y": [ 5 ]
+          }
+        },
+        "$abc$82$auto$blifparse.cc:396:parse_blif$84": {
+          "hide_name": 1,
+          "type": "$_XOR_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "Y": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "generated\\half_adder\\half_adder.v:3.16-3.17"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "generated\\half_adder\\half_adder.v:4.16-4.17"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "generated\\half_adder\\half_adder.v:6.17-6.21"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "generated\\half_adder\\half_adder.v:5.17-5.20"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+    "component_name": "skip_logic",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "4"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cin"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cin_next"
+        ]
+    ],
+    "others": {
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ],
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "P": [
+            "wire",
+            "",
+            ""
+        ]
+    },
+    "submodules": {},
+    "param_comb": [
+        [
+            "N",
+            1
+        ]
+    ],
+    "rules": [
+        "SkipLogicRule"
+    ],
+    "stimuli": [
+        "a = 1'b1; b = 1'b0; cin = 1'b1; cout = 1'b1;",
+        "a = 1'b0; b = 1'b1; cin = 1'b0; cout = 1'b1;",
+        "a = 1'b0; b = 1'b1; cin = 1'b1; cout = 1'b0;",
+        "a = 1'b1; b = 1'b0; cin = 1'b0; cout = 1'b1;",
+        "a = 1'b1; b = 1'b0; cin = 1'b1; cout = 1'b0;",
+        "a = 1'b0; b = 1'b0; cin = 1'b0; cout = 1'b0;",
+        "a = 1'b0; b = 1'b0; cin = 1'b0; cout = 1'b1;",
+        "a = 1'b1; b = 1'b1; cin = 1'b1; cout = 1'b0;",
+        "a = 1'b0; b = 1'b1; cin = 1'b1; cout = 1'b1;",
+        "a = 1'b1; b = 1'b1; cin = 1'b0; cout = 1'b1;",
+        "a = 1'b0; b = 1'b0; cin = 1'b1; cout = 1'b1;",
+        "a = 1'b1; b = 1'b1; cin = 1'b0; cout = 1'b0;",
+        "a = 1'b1; b = 1'b1; cin = 1'b1; cout = 1'b1;",
+        "a = 1'b0; b = 1'b1; cin = 1'b0; cout = 1'b0;",
+        "a = 1'b1; b = 1'b0; cin = 1'b0; cout = 1'b0;",
+        "a = 1'b0; b = 1'b0; cin = 1'b1; cout = 1'b0;"
+    ],
+    "expected": [
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        }
+    ],
+    "param_component_name": "N1_skip_logic"
+}

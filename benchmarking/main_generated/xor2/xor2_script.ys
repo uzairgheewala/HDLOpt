@@ -1,0 +1,7 @@
+
+    read_verilog generated\xor2\xor2.v
+
+    synth -top xor2
+    write_json generated\xor2\xor2_netlist.json
+    stat
+    

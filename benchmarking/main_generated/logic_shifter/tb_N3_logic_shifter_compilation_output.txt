@@ -1,0 +1,22 @@
+Start time: 10:54:13 on Aug 27,2024
+vlog generated\logic_shifter\logic_shifter.v generated\logic_shifter\tb_N2_logic_shifter.v generated\logic_shifter\tb_N3_logic_shifter.v generated\logic_shifter\tb_N4_logic_shifter.v generated\logic_shifter\tb_N5_logic_shifter.v generated\logic_shifter\tb_N6_logic_shifter.v generated\logic_shifter\tb_N7_logic_shifter.v generated\logic_shifter\tb_N8_logic_shifter.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module logic_shifter
+-- Compiling module tb_N2_logic_shifter
+-- Compiling module tb_N3_logic_shifter
+-- Compiling module tb_N4_logic_shifter
+-- Compiling module tb_N5_logic_shifter
+-- Compiling module tb_N6_logic_shifter
+-- Compiling module tb_N7_logic_shifter
+-- Compiling module tb_N8_logic_shifter
+
+Top level modules:
+	tb_N2_logic_shifter
+	tb_N3_logic_shifter
+	tb_N4_logic_shifter
+	tb_N5_logic_shifter
+	tb_N6_logic_shifter
+	tb_N7_logic_shifter
+	tb_N8_logic_shifter
+End time: 10:54:14 on Aug 27,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

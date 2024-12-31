@@ -1,0 +1,7 @@
+
+    read_verilog generated\half_adder\half_adder.v
+
+    synth -top half_adder
+    write_json generated\half_adder\half_adder_netlist.json
+    stat
+    

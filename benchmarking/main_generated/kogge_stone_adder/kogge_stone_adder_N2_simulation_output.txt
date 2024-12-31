@@ -1,0 +1,78 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N2_kogge_stone_adder 
+# Start time: 20:34:03 on Jul 22,2024
+# Loading work.tb_N2_kogge_stone_adder
+# Loading work.kogge_stone_adder
+# Loading work.carry_logic
+# run -all
+# Test 0: Inputs: a = 2'b11; b = 2'b11; cin = 1'b0; | Outputs: sum=10, cout=1 | Expected: sum=          2, cout=          1
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 2'b11; b = 2'b11; cin = 1'b1; | Outputs: sum=11, cout=1 | Expected: sum=          3, cout=          1
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 2'b11; b = 2'b01; cin = 1'b1; | Outputs: sum=01, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 2'b10; b = 2'b11; cin = 1'b0; | Outputs: sum=01, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 2'b01; b = 2'b11; cin = 1'b1; | Outputs: sum=01, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 2'b11; b = 2'b01; cin = 1'b0; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 2'b10; b = 2'b01; cin = 1'b1; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 2'b11; b = 2'b00; cin = 1'b0; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 180.0 ns
+# Test 8: Inputs: a = 2'b01; b = 2'b00; cin = 1'b0; | Outputs: sum=01, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 190.0 ns
+# Test 9: Inputs: a = 2'b10; b = 2'b00; cin = 1'b1; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 200.0 ns
+# Test 10: Inputs: a = 2'b01; b = 2'b01; cin = 1'b1; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 210.0 ns
+# Test 11: Inputs: a = 2'b00; b = 2'b10; cin = 1'b1; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 220.0 ns
+# Test 12: Inputs: a = 2'b10; b = 2'b00; cin = 1'b0; | Outputs: sum=10, cout=0 | Expected: sum=          2, cout=          0
+# Simulation time: 230.0 ns
+# Test 13: Inputs: a = 2'b11; b = 2'b00; cin = 1'b1; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 240.0 ns
+# Test 14: Inputs: a = 2'b11; b = 2'b10; cin = 1'b0; | Outputs: sum=01, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 250.0 ns
+# Test 15: Inputs: a = 2'b01; b = 2'b01; cin = 1'b0; | Outputs: sum=10, cout=0 | Expected: sum=          2, cout=          0
+# Simulation time: 260.0 ns
+# Test 16: Inputs: a = 2'b10; b = 2'b10; cin = 1'b0; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 270.0 ns
+# Test 17: Inputs: a = 2'b00; b = 2'b01; cin = 1'b1; | Outputs: sum=10, cout=0 | Expected: sum=          2, cout=          0
+# Simulation time: 280.0 ns
+# Test 18: Inputs: a = 2'b01; b = 2'b10; cin = 1'b0; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 290.0 ns
+# Test 19: Inputs: a = 2'b00; b = 2'b10; cin = 1'b0; | Outputs: sum=10, cout=0 | Expected: sum=          2, cout=          0
+# Simulation time: 300.0 ns
+# Test 20: Inputs: a = 2'b01; b = 2'b00; cin = 1'b1; | Outputs: sum=10, cout=0 | Expected: sum=          2, cout=          0
+# Simulation time: 310.0 ns
+# Test 21: Inputs: a = 2'b11; b = 2'b10; cin = 1'b1; | Outputs: sum=10, cout=1 | Expected: sum=          2, cout=          1
+# Simulation time: 320.0 ns
+# Test 22: Inputs: a = 2'b01; b = 2'b11; cin = 1'b0; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 330.0 ns
+# Test 23: Inputs: a = 2'b10; b = 2'b11; cin = 1'b1; | Outputs: sum=10, cout=1 | Expected: sum=          2, cout=          1
+# Simulation time: 340.0 ns
+# Test 24: Inputs: a = 2'b00; b = 2'b11; cin = 1'b0; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 350.0 ns
+# Test 25: Inputs: a = 2'b10; b = 2'b10; cin = 1'b1; | Outputs: sum=01, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 360.0 ns
+# Test 26: Inputs: a = 2'b00; b = 2'b11; cin = 1'b1; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 370.0 ns
+# Test 27: Inputs: a = 2'b00; b = 2'b00; cin = 1'b1; | Outputs: sum=01, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 380.0 ns
+# Test 28: Inputs: a = 2'b01; b = 2'b10; cin = 1'b1; | Outputs: sum=00, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 390.0 ns
+# Test 29: Inputs: a = 2'b10; b = 2'b01; cin = 1'b0; | Outputs: sum=11, cout=0 | Expected: sum=          3, cout=          0
+# Simulation time: 400.0 ns
+# Test 30: Inputs: a = 2'b00; b = 2'b01; cin = 1'b0; | Outputs: sum=01, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 410.0 ns
+# Test 31: Inputs: a = 2'b00; b = 2'b00; cin = 1'b0; | Outputs: sum=00, cout=0 | Expected: sum=          0, cout=          0
+# Simulation time: 420.0 ns
+# ** Note: $finish    : generated/kogge_stone_adder/tb_N2_kogge_stone_adder.v(634)
+#    Time: 420 ns  Iteration: 0  Instance: /tb_N2_kogge_stone_adder
+# End time: 20:34:04 on Jul 22,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

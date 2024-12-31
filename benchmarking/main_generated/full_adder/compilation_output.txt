@@ -1,0 +1,13 @@
+Start time: 14:33:55 on Jul 02,2024
+vlog generated\full_adder\full_adder.v generated\full_adder\half_adder\half_adder.v generated\full_adder\half_adder\tb_half_adder.v generated\full_adder\tb_full_adder.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module full_adder
+-- Compiling module half_adder
+-- Compiling module tb_half_adder
+-- Compiling module tb_full_adder
+
+Top level modules:
+	tb_half_adder
+	tb_full_adder
+End time: 14:33:55 on Jul 02,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

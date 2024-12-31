@@ -1,0 +1,44 @@
+{
+    "component_name": "square",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "Ai"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "Bi"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "G"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "P"
+        ]
+    ],
+    "others": {
+        "i": [
+            "wire",
+            "",
+            "B"
+        ]
+    },
+    "submodules": {}
+}

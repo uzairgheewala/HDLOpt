@@ -1,0 +1,8 @@
+
+    read_verilog src/half_adder.v
+read_verilog src/full_adder.v
+
+    synth -top full_adder
+    write_json netlist.json
+    stat
+    

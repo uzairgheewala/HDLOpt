@@ -1,0 +1,227 @@
+{
+    "component_name": "carry_save_adder_l2",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "8"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "c"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "carry"
+        ]
+    ],
+    "others": {
+        "N": [
+            "wire",
+            "",
+            ""
+        ]
+    },
+    "submodules": {
+        "full_adder": {
+            "component_name": "full_adder",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "a"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "b"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cin"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "sum"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cout"
+                ]
+            ],
+            "others": {
+                "n": [
+                    "wire",
+                    "",
+                    "ci"
+                ],
+                "m": [
+                    "wire",
+                    "",
+                    "su"
+                ],
+                "t": [
+                    "wire",
+                    "",
+                    "cou"
+                ],
+                "1": [
+                    "wire",
+                    "",
+                    "c"
+                ]
+            },
+            "submodules": {
+                "half_adder": {
+                    "component_name": "half_adder",
+                    "parameters": [],
+                    "inputs": [
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "a"
+                        ],
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "b"
+                        ]
+                    ],
+                    "outputs": [
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "sum"
+                        ],
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "cout"
+                        ]
+                    ],
+                    "others": {
+                        "m": [
+                            "wire",
+                            "",
+                            "su"
+                        ],
+                        "t": [
+                            "wire",
+                            "",
+                            "cou"
+                        ]
+                    },
+                    "submodules": {}
+                }
+            }
+        }
+    },
+    "param_comb": [
+        [
+            "N",
+            1
+        ]
+    ],
+    "rules": [
+        "CarrySaveAdderRule"
+    ],
+    "stimuli": [
+        "a = 1'b1; b = 1'b0; c = 1'b1;",
+        "a = 1'b1; b = 1'b1; c = 1'b1;",
+        "a = 1'b0; b = 1'b0; c = 1'b1;",
+        "a = 1'b0; b = 1'b1; c = 1'b1;",
+        "a = 1'b0; b = 1'b0; c = 1'b0;",
+        "a = 1'b1; b = 1'b0; c = 1'b0;",
+        "a = 1'b1; b = 1'b1; c = 1'b0;",
+        "a = 1'b0; b = 1'b1; c = 1'b0;"
+    ],
+    "expected": [
+        {
+            "sum": 0,
+            "carry": 1
+        },
+        {
+            "sum": 1,
+            "carry": 1
+        },
+        {
+            "sum": 1,
+            "carry": 0
+        },
+        {
+            "sum": 0,
+            "carry": 1
+        },
+        {
+            "sum": 0,
+            "carry": 0
+        },
+        {
+            "sum": 1,
+            "carry": 0
+        },
+        {
+            "sum": 0,
+            "carry": 1
+        },
+        {
+            "sum": 1,
+            "carry": 0
+        }
+    ],
+    "param_component_name": "N1_carry_save_adder_l2"
+}

@@ -1,0 +1,79 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N2_ripple_carry_subtractor 
+# Start time: 15:31:54 on Jul 29,2024
+# Loading work.tb_N2_ripple_carry_subtractor
+# Loading work.ripple_carry_subtractor
+# Loading work.full_subtractor
+# Loading work.half_subtractor
+# run -all
+# Test 0: Inputs: a = 2'b10; b = 2'b10; bin = 1'b0; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 2'b00; b = 2'b01; bin = 1'b1; | Outputs: diff=10, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 2'b10; b = 2'b00; bin = 1'b0; | Outputs: diff=10, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 2'b00; b = 2'b00; bin = 1'b1; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 2'b11; b = 2'b11; bin = 1'b0; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 2'b11; b = 2'b00; bin = 1'b0; | Outputs: diff=11, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 2'b11; b = 2'b01; bin = 1'b0; | Outputs: diff=10, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 2'b10; b = 2'b00; bin = 1'b1; | Outputs: diff=01, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 180.0 ns
+# Test 8: Inputs: a = 2'b10; b = 2'b11; bin = 1'b1; | Outputs: diff=10, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 190.0 ns
+# Test 9: Inputs: a = 2'b00; b = 2'b01; bin = 1'b0; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 200.0 ns
+# Test 10: Inputs: a = 2'b01; b = 2'b01; bin = 1'b0; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 210.0 ns
+# Test 11: Inputs: a = 2'b11; b = 2'b00; bin = 1'b1; | Outputs: diff=10, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 220.0 ns
+# Test 12: Inputs: a = 2'b00; b = 2'b11; bin = 1'b1; | Outputs: diff=00, bout=1 | Expected: diff=          0, bout=          1
+# Simulation time: 230.0 ns
+# Test 13: Inputs: a = 2'b01; b = 2'b10; bin = 1'b1; | Outputs: diff=10, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 240.0 ns
+# Test 14: Inputs: a = 2'b00; b = 2'b11; bin = 1'b0; | Outputs: diff=01, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 250.0 ns
+# Test 15: Inputs: a = 2'b01; b = 2'b01; bin = 1'b1; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 260.0 ns
+# Test 16: Inputs: a = 2'b11; b = 2'b11; bin = 1'b1; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 270.0 ns
+# Test 17: Inputs: a = 2'b11; b = 2'b01; bin = 1'b1; | Outputs: diff=01, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 280.0 ns
+# Test 18: Inputs: a = 2'b10; b = 2'b10; bin = 1'b1; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 290.0 ns
+# Test 19: Inputs: a = 2'b10; b = 2'b11; bin = 1'b0; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 300.0 ns
+# Test 20: Inputs: a = 2'b11; b = 2'b10; bin = 1'b0; | Outputs: diff=01, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 310.0 ns
+# Test 21: Inputs: a = 2'b01; b = 2'b11; bin = 1'b1; | Outputs: diff=01, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 320.0 ns
+# Test 22: Inputs: a = 2'b10; b = 2'b01; bin = 1'b1; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 330.0 ns
+# Test 23: Inputs: a = 2'b00; b = 2'b10; bin = 1'b1; | Outputs: diff=01, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 340.0 ns
+# Test 24: Inputs: a = 2'b11; b = 2'b10; bin = 1'b1; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 350.0 ns
+# Test 25: Inputs: a = 2'b10; b = 2'b01; bin = 1'b0; | Outputs: diff=01, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 360.0 ns
+# Test 26: Inputs: a = 2'b01; b = 2'b00; bin = 1'b0; | Outputs: diff=01, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 370.0 ns
+# Test 27: Inputs: a = 2'b00; b = 2'b10; bin = 1'b0; | Outputs: diff=10, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 380.0 ns
+# Test 28: Inputs: a = 2'b01; b = 2'b10; bin = 1'b0; | Outputs: diff=11, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 390.0 ns
+# Test 29: Inputs: a = 2'b00; b = 2'b00; bin = 1'b0; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 400.0 ns
+# Test 30: Inputs: a = 2'b01; b = 2'b00; bin = 1'b1; | Outputs: diff=00, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 410.0 ns
+# Test 31: Inputs: a = 2'b01; b = 2'b11; bin = 1'b0; | Outputs: diff=10, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 420.0 ns
+# ** Note: $finish    : generated/ripple_carry_subtractor/tb_N2_ripple_carry_subtractor.v(634)
+#    Time: 420 ns  Iteration: 0  Instance: /tb_N2_ripple_carry_subtractor
+# End time: 15:31:54 on Jul 29,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

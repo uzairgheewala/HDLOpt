@@ -1,0 +1,624 @@
+{
+  "creator": "Yosys 0.42+40 (git sha1 a739e21a5, x86_64-w64-mingw32-g++ 13.2.1 -Os)",
+  "modules": {
+    "$paramod\\arithmetic_shifter\\N=s32'00000000000000000000000000000010": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "hdlname": "arithmetic_shifter",
+        "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:1.1-33.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000000010"
+      },
+      "ports": {
+        "data_in": {
+          "direction": "input",
+          "signed": 1,
+          "bits": [ 2, 3 ]
+        },
+        "shift_amount": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "direction": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "data_out": {
+          "direction": "output",
+          "signed": 1,
+          "bits": [ 6, 7 ]
+        }
+      },
+      "cells": {
+        "$abc$133$auto$blifparse.cc:396:parse_blif$134": {
+          "hide_name": 1,
+          "type": "$_ANDNOT_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 4 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$abc$133$auto$blifparse.cc:396:parse_blif$135": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 3 ],
+            "S": [ 4 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$abc$133$auto$blifparse.cc:396:parse_blif$136": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 8 ],
+            "B": [ 9 ],
+            "S": [ 5 ],
+            "Y": [ 6 ]
+          }
+        },
+        "$abc$133$auto$blifparse.cc:396:parse_blif$137": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "S": [ 4 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$abc$133$auto$blifparse.cc:396:parse_blif$138": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 10 ],
+            "B": [ 3 ],
+            "S": [ 5 ],
+            "Y": [ 7 ]
+          }
+        }
+      },
+      "netnames": {
+        "$abc$133$new_n10": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$abc$133$new_n7": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+          }
+        },
+        "$abc$133$new_n8": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+          }
+        },
+        "data_in": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:2.31-2.38"
+          }
+        },
+        "data_out": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:5.31-5.39"
+          }
+        },
+        "direction": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:4.16-4.25"
+          }
+        },
+        "shift_amount": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:3.32-3.44"
+          }
+        },
+        "shift_stages[0].shifted_left": {
+          "hide_name": 0,
+          "bits": [ "0", 2 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:14.29-14.41"
+          }
+        },
+        "shift_stages[0].shifted_right": {
+          "hide_name": 0,
+          "bits": [ 3, 3 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:14.43-14.56"
+          }
+        },
+        "stage[0]": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:8.21-8.26"
+          }
+        },
+        "stage[1]": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\arithmetic_shifter\\arithmetic_shifter.v:8.21-8.26"
+          }
+        }
+      }
+    },
+    "$paramod\\logic_shifter\\N=s32'00000000000000000000000000000010": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "hdlname": "logic_shifter",
+        "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:1.1-29.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000000010"
+      },
+      "ports": {
+        "data_in": {
+          "direction": "input",
+          "bits": [ 2, 3 ]
+        },
+        "shift_amount": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "direction": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "data_out": {
+          "direction": "output",
+          "bits": [ 6, 7 ]
+        }
+      },
+      "cells": {
+        "$abc$139$auto$blifparse.cc:396:parse_blif$140": {
+          "hide_name": 1,
+          "type": "$_ANDNOT_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 4 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$abc$139$auto$blifparse.cc:396:parse_blif$141": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 3 ],
+            "S": [ 4 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$abc$139$auto$blifparse.cc:396:parse_blif$142": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 8 ],
+            "B": [ 9 ],
+            "S": [ 5 ],
+            "Y": [ 6 ]
+          }
+        },
+        "$abc$139$auto$blifparse.cc:396:parse_blif$143": {
+          "hide_name": 1,
+          "type": "$_ANDNOT_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 4 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$abc$139$auto$blifparse.cc:396:parse_blif$144": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 2 ],
+            "S": [ 4 ],
+            "Y": [ 11 ]
+          }
+        },
+        "$abc$139$auto$blifparse.cc:396:parse_blif$145": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 11 ],
+            "B": [ 10 ],
+            "S": [ 5 ],
+            "Y": [ 7 ]
+          }
+        }
+      },
+      "netnames": {
+        "$abc$139$new_n10": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$abc$139$new_n11": {
+          "hide_name": 1,
+          "bits": [ 11 ],
+          "attributes": {
+          }
+        },
+        "$abc$139$new_n7": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+          }
+        },
+        "$abc$139$new_n8": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+          }
+        },
+        "data_in": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:2.24-2.31"
+          }
+        },
+        "data_out": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:5.24-5.32"
+          }
+        },
+        "direction": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:4.16-4.25"
+          }
+        },
+        "shift_amount": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:3.32-3.44"
+          }
+        },
+        "shift_stages[0].shifted_left": {
+          "hide_name": 0,
+          "bits": [ "0", 2 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:14.22-14.34"
+          }
+        },
+        "shift_stages[0].shifted_right": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+          }
+        },
+        "stage[0]": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:8.14-8.19"
+          }
+        },
+        "stage[1]": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\logic_shifter\\logic_shifter.v:8.14-8.19"
+          }
+        }
+      }
+    },
+    "conditional_shifter": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "generated\\conditional_shifter\\conditional_shifter.v:1.1-36.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000000010"
+      },
+      "ports": {
+        "signed_data_in": {
+          "direction": "input",
+          "signed": 1,
+          "bits": [ 2, 3 ]
+        },
+        "unsigned_data_in": {
+          "direction": "input",
+          "bits": [ 4, 5 ]
+        },
+        "shift_amount": {
+          "direction": "input",
+          "bits": [ 6 ]
+        },
+        "shifter_sel": {
+          "direction": "input",
+          "bits": [ 7 ]
+        },
+        "direction": {
+          "direction": "input",
+          "bits": [ 8 ]
+        },
+        "data_out": {
+          "direction": "output",
+          "bits": [ 9, 10 ]
+        }
+      },
+      "cells": {
+        "$abc$146$auto$blifparse.cc:396:parse_blif$147": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 11 ],
+            "B": [ 12 ],
+            "S": [ 7 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$abc$146$auto$blifparse.cc:396:parse_blif$148": {
+          "hide_name": 1,
+          "type": "$_MUX_",
+          "parameters": {
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 13 ],
+            "B": [ 14 ],
+            "S": [ 7 ],
+            "Y": [ 10 ]
+          }
+        },
+        "arith_shifter": {
+          "hide_name": 0,
+          "type": "$paramod\\arithmetic_shifter\\N=s32'00000000000000000000000000000010",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:13.29-18.6"
+          },
+          "port_directions": {
+            "data_in": "input",
+            "data_out": "output",
+            "direction": "input",
+            "shift_amount": "input"
+          },
+          "connections": {
+            "data_in": [ 2, 3 ],
+            "data_out": [ 11, 13 ],
+            "direction": [ 8 ],
+            "shift_amount": [ 6 ]
+          }
+        },
+        "logic_shifter": {
+          "hide_name": 0,
+          "type": "$paramod\\logic_shifter\\N=s32'00000000000000000000000000000010",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:21.24-26.6"
+          },
+          "port_directions": {
+            "data_in": "input",
+            "data_out": "output",
+            "direction": "input",
+            "shift_amount": "input"
+          },
+          "connections": {
+            "data_in": [ 4, 5 ],
+            "data_out": [ 12, 14 ],
+            "direction": [ 8 ],
+            "shift_amount": [ 6 ]
+          }
+        }
+      },
+      "netnames": {
+        "arith_out": {
+          "hide_name": 0,
+          "bits": [ 11, 13 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:10.18-10.27"
+          }
+        },
+        "data_out": {
+          "hide_name": 0,
+          "bits": [ 9, 10 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:7.24-7.32"
+          }
+        },
+        "direction": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:6.16-6.25"
+          }
+        },
+        "logic_out": {
+          "hide_name": 0,
+          "bits": [ 12, 14 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:10.29-10.38"
+          }
+        },
+        "shift_amount": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:4.32-4.44"
+          }
+        },
+        "shifter_sel": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:5.16-5.27"
+          }
+        },
+        "signed_data_in": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "signed": 1,
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:2.31-2.45"
+          }
+        },
+        "unsigned_data_in": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "generated\\conditional_shifter\\conditional_shifter.v:3.24-3.40"
+          }
+        }
+      }
+    }
+  }
+}

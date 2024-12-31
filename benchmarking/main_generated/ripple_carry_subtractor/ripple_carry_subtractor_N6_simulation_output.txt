@@ -1,0 +1,1137 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N6_ripple_carry_subtractor 
+# Start time: 15:32:03 on Jul 29,2024
+# Loading work.tb_N6_ripple_carry_subtractor
+# Loading work.ripple_carry_subtractor
+# Loading work.full_subtractor
+# Loading work.half_subtractor
+# run -all
+# Test 0: Inputs: a = 6'b010001; b = 6'b010000; bin = 1'b1; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 6'b101100; b = 6'b111011; bin = 1'b1; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 6'b100110; b = 6'b100010; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 6'b101100; b = 6'b011101; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 6'b011101; b = 6'b110100; bin = 1'b0; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 6'b110110; b = 6'b010100; bin = 1'b1; | Outputs: diff=100001, bout=0 | Expected: diff=         33, bout=          0
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 6'b000101; b = 6'b001001; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 6'b001101; b = 6'b100101; bin = 1'b1; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 180.0 ns
+# Test 8: Inputs: a = 6'b111010; b = 6'b110100; bin = 1'b0; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 190.0 ns
+# Test 9: Inputs: a = 6'b001001; b = 6'b000010; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 200.0 ns
+# Test 10: Inputs: a = 6'b100110; b = 6'b001111; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 210.0 ns
+# Test 11: Inputs: a = 6'b101011; b = 6'b011110; bin = 1'b1; | Outputs: diff=001100, bout=0 | Expected: diff=         12, bout=          0
+# Simulation time: 220.0 ns
+# Test 12: Inputs: a = 6'b110011; b = 6'b011101; bin = 1'b0; | Outputs: diff=010110, bout=0 | Expected: diff=         22, bout=          0
+# Simulation time: 230.0 ns
+# Test 13: Inputs: a = 6'b011100; b = 6'b101110; bin = 1'b0; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 240.0 ns
+# Test 14: Inputs: a = 6'b001101; b = 6'b001110; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 250.0 ns
+# Test 15: Inputs: a = 6'b000100; b = 6'b010100; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 260.0 ns
+# Test 16: Inputs: a = 6'b010101; b = 6'b101100; bin = 1'b1; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 270.0 ns
+# Test 17: Inputs: a = 6'b100011; b = 6'b001010; bin = 1'b0; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 280.0 ns
+# Test 18: Inputs: a = 6'b111000; b = 6'b010111; bin = 1'b1; | Outputs: diff=100000, bout=0 | Expected: diff=         32, bout=          0
+# Simulation time: 290.0 ns
+# Test 19: Inputs: a = 6'b000110; b = 6'b101000; bin = 1'b1; | Outputs: diff=011101, bout=1 | Expected: diff=         29, bout=          1
+# Simulation time: 300.0 ns
+# Test 20: Inputs: a = 6'b111101; b = 6'b011111; bin = 1'b0; | Outputs: diff=011110, bout=0 | Expected: diff=         30, bout=          0
+# Simulation time: 310.0 ns
+# Test 21: Inputs: a = 6'b100101; b = 6'b101000; bin = 1'b1; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 320.0 ns
+# Test 22: Inputs: a = 6'b001000; b = 6'b010011; bin = 1'b0; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 330.0 ns
+# Test 23: Inputs: a = 6'b100110; b = 6'b100101; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 340.0 ns
+# Test 24: Inputs: a = 6'b011110; b = 6'b110100; bin = 1'b0; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 350.0 ns
+# Test 25: Inputs: a = 6'b010100; b = 6'b010101; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 360.0 ns
+# Test 26: Inputs: a = 6'b010010; b = 6'b001001; bin = 1'b1; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 370.0 ns
+# Test 27: Inputs: a = 6'b011001; b = 6'b010001; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 380.0 ns
+# Test 28: Inputs: a = 6'b010110; b = 6'b001110; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 390.0 ns
+# Test 29: Inputs: a = 6'b100111; b = 6'b011010; bin = 1'b1; | Outputs: diff=001100, bout=0 | Expected: diff=         12, bout=          0
+# Simulation time: 400.0 ns
+# Test 30: Inputs: a = 6'b101101; b = 6'b111111; bin = 1'b0; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 410.0 ns
+# Test 31: Inputs: a = 6'b010010; b = 6'b110111; bin = 1'b0; | Outputs: diff=011011, bout=1 | Expected: diff=         27, bout=          1
+# Simulation time: 420.0 ns
+# Test 32: Inputs: a = 6'b001100; b = 6'b111100; bin = 1'b1; | Outputs: diff=001111, bout=1 | Expected: diff=         15, bout=          1
+# Simulation time: 430.0 ns
+# Test 33: Inputs: a = 6'b001011; b = 6'b101000; bin = 1'b1; | Outputs: diff=100010, bout=1 | Expected: diff=         34, bout=          1
+# Simulation time: 440.0 ns
+# Test 34: Inputs: a = 6'b011001; b = 6'b001110; bin = 1'b0; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 450.0 ns
+# Test 35: Inputs: a = 6'b101011; b = 6'b011101; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 460.0 ns
+# Test 36: Inputs: a = 6'b010101; b = 6'b101001; bin = 1'b1; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 470.0 ns
+# Test 37: Inputs: a = 6'b111001; b = 6'b100001; bin = 1'b0; | Outputs: diff=011000, bout=0 | Expected: diff=         24, bout=          0
+# Simulation time: 480.0 ns
+# Test 38: Inputs: a = 6'b000110; b = 6'b101100; bin = 1'b0; | Outputs: diff=011010, bout=1 | Expected: diff=         26, bout=          1
+# Simulation time: 490.0 ns
+# Test 39: Inputs: a = 6'b110010; b = 6'b110100; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 500.0 ns
+# Test 40: Inputs: a = 6'b100101; b = 6'b001100; bin = 1'b1; | Outputs: diff=011000, bout=0 | Expected: diff=         24, bout=          0
+# Simulation time: 510.0 ns
+# Test 41: Inputs: a = 6'b111010; b = 6'b001001; bin = 1'b0; | Outputs: diff=110001, bout=0 | Expected: diff=         49, bout=          0
+# Simulation time: 520.0 ns
+# Test 42: Inputs: a = 6'b011000; b = 6'b001001; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 530.0 ns
+# Test 43: Inputs: a = 6'b010000; b = 6'b101010; bin = 1'b1; | Outputs: diff=100101, bout=1 | Expected: diff=         37, bout=          1
+# Simulation time: 540.0 ns
+# Test 44: Inputs: a = 6'b010000; b = 6'b000001; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 550.0 ns
+# Test 45: Inputs: a = 6'b000001; b = 6'b000010; bin = 1'b1; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 560.0 ns
+# Test 46: Inputs: a = 6'b000111; b = 6'b010101; bin = 1'b1; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 570.0 ns
+# Test 47: Inputs: a = 6'b010110; b = 6'b101110; bin = 1'b0; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 580.0 ns
+# Test 48: Inputs: a = 6'b101110; b = 6'b100011; bin = 1'b0; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 590.0 ns
+# Test 49: Inputs: a = 6'b011000; b = 6'b010100; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 600.0 ns
+# Test 50: Inputs: a = 6'b001010; b = 6'b010101; bin = 1'b1; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 610.0 ns
+# Test 51: Inputs: a = 6'b101110; b = 6'b101100; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 620.0 ns
+# Test 52: Inputs: a = 6'b000001; b = 6'b111100; bin = 1'b0; | Outputs: diff=000101, bout=1 | Expected: diff=          5, bout=          1
+# Simulation time: 630.0 ns
+# Test 53: Inputs: a = 6'b011101; b = 6'b110000; bin = 1'b0; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 640.0 ns
+# Test 54: Inputs: a = 6'b101000; b = 6'b101111; bin = 1'b0; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 650.0 ns
+# Test 55: Inputs: a = 6'b000010; b = 6'b110110; bin = 1'b1; | Outputs: diff=001011, bout=1 | Expected: diff=         11, bout=          1
+# Simulation time: 660.0 ns
+# Test 56: Inputs: a = 6'b100101; b = 6'b110011; bin = 1'b1; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 670.0 ns
+# Test 57: Inputs: a = 6'b101111; b = 6'b000101; bin = 1'b0; | Outputs: diff=101010, bout=0 | Expected: diff=         42, bout=          0
+# Simulation time: 680.0 ns
+# Test 58: Inputs: a = 6'b110010; b = 6'b110000; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 690.0 ns
+# Test 59: Inputs: a = 6'b111000; b = 6'b111110; bin = 1'b1; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 700.0 ns
+# Test 60: Inputs: a = 6'b101111; b = 6'b011101; bin = 1'b1; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 710.0 ns
+# Test 61: Inputs: a = 6'b010010; b = 6'b100111; bin = 1'b0; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 720.0 ns
+# Test 62: Inputs: a = 6'b011101; b = 6'b000011; bin = 1'b0; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 730.0 ns
+# Test 63: Inputs: a = 6'b111001; b = 6'b010101; bin = 1'b1; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 740.0 ns
+# Test 64: Inputs: a = 6'b011110; b = 6'b010100; bin = 1'b0; | Outputs: diff=001010, bout=0 | Expected: diff=         10, bout=          0
+# Simulation time: 750.0 ns
+# Test 65: Inputs: a = 6'b101000; b = 6'b101010; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 760.0 ns
+# Test 66: Inputs: a = 6'b011010; b = 6'b010110; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 770.0 ns
+# Test 67: Inputs: a = 6'b101010; b = 6'b001100; bin = 1'b1; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 780.0 ns
+# Test 68: Inputs: a = 6'b111100; b = 6'b100010; bin = 1'b1; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 790.0 ns
+# Test 69: Inputs: a = 6'b111100; b = 6'b001010; bin = 1'b0; | Outputs: diff=110010, bout=0 | Expected: diff=         50, bout=          0
+# Simulation time: 800.0 ns
+# Test 70: Inputs: a = 6'b110110; b = 6'b000111; bin = 1'b1; | Outputs: diff=101110, bout=0 | Expected: diff=         46, bout=          0
+# Simulation time: 810.0 ns
+# Test 71: Inputs: a = 6'b101100; b = 6'b100111; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 820.0 ns
+# Test 72: Inputs: a = 6'b011111; b = 6'b011110; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 830.0 ns
+# Test 73: Inputs: a = 6'b011011; b = 6'b000000; bin = 1'b0; | Outputs: diff=011011, bout=0 | Expected: diff=         27, bout=          0
+# Simulation time: 840.0 ns
+# Test 74: Inputs: a = 6'b101011; b = 6'b000111; bin = 1'b1; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 850.0 ns
+# Test 75: Inputs: a = 6'b110001; b = 6'b110111; bin = 1'b0; | Outputs: diff=111010, bout=1 | Expected: diff=         58, bout=          1
+# Simulation time: 860.0 ns
+# Test 76: Inputs: a = 6'b110010; b = 6'b110100; bin = 1'b1; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 870.0 ns
+# Test 77: Inputs: a = 6'b100001; b = 6'b110111; bin = 1'b0; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 880.0 ns
+# Test 78: Inputs: a = 6'b000110; b = 6'b000010; bin = 1'b1; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 890.0 ns
+# Test 79: Inputs: a = 6'b001111; b = 6'b111100; bin = 1'b1; | Outputs: diff=010010, bout=1 | Expected: diff=         18, bout=          1
+# Simulation time: 900.0 ns
+# Test 80: Inputs: a = 6'b011100; b = 6'b001111; bin = 1'b1; | Outputs: diff=001100, bout=0 | Expected: diff=         12, bout=          0
+# Simulation time: 910.0 ns
+# Test 81: Inputs: a = 6'b111011; b = 6'b011101; bin = 1'b1; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 920.0 ns
+# Test 82: Inputs: a = 6'b110010; b = 6'b111010; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 930.0 ns
+# Test 83: Inputs: a = 6'b110011; b = 6'b111101; bin = 1'b1; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 940.0 ns
+# Test 84: Inputs: a = 6'b101001; b = 6'b010000; bin = 1'b0; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 950.0 ns
+# Test 85: Inputs: a = 6'b001000; b = 6'b000111; bin = 1'b1; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 960.0 ns
+# Test 86: Inputs: a = 6'b110101; b = 6'b110101; bin = 1'b1; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 970.0 ns
+# Test 87: Inputs: a = 6'b000101; b = 6'b101101; bin = 1'b0; | Outputs: diff=011000, bout=1 | Expected: diff=         24, bout=          1
+# Simulation time: 980.0 ns
+# Test 88: Inputs: a = 6'b010011; b = 6'b001011; bin = 1'b1; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 990.0 ns
+# Test 89: Inputs: a = 6'b000001; b = 6'b010100; bin = 1'b0; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 1000.0 ns
+# Test 90: Inputs: a = 6'b100001; b = 6'b100101; bin = 1'b0; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 1010.0 ns
+# Test 91: Inputs: a = 6'b011110; b = 6'b000001; bin = 1'b0; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 1020.0 ns
+# Test 92: Inputs: a = 6'b111100; b = 6'b011111; bin = 1'b1; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 1030.0 ns
+# Test 93: Inputs: a = 6'b101111; b = 6'b110111; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 1040.0 ns
+# Test 94: Inputs: a = 6'b000010; b = 6'b111000; bin = 1'b0; | Outputs: diff=001010, bout=1 | Expected: diff=         10, bout=          1
+# Simulation time: 1050.0 ns
+# Test 95: Inputs: a = 6'b011010; b = 6'b001110; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 1060.0 ns
+# Test 96: Inputs: a = 6'b001101; b = 6'b101011; bin = 1'b0; | Outputs: diff=100010, bout=1 | Expected: diff=         34, bout=          1
+# Simulation time: 1070.0 ns
+# Test 97: Inputs: a = 6'b010010; b = 6'b010110; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 1080.0 ns
+# Test 98: Inputs: a = 6'b100011; b = 6'b100100; bin = 1'b1; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 1090.0 ns
+# Test 99: Inputs: a = 6'b000110; b = 6'b010110; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 1100.0 ns
+# Test 100: Inputs: a = 6'b101111; b = 6'b000001; bin = 1'b0; | Outputs: diff=101110, bout=0 | Expected: diff=         46, bout=          0
+# Simulation time: 1110.0 ns
+# Test 101: Inputs: a = 6'b101000; b = 6'b100111; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 1120.0 ns
+# Test 102: Inputs: a = 6'b000010; b = 6'b011000; bin = 1'b1; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 1130.0 ns
+# Test 103: Inputs: a = 6'b001100; b = 6'b111111; bin = 1'b1; | Outputs: diff=001100, bout=1 | Expected: diff=         12, bout=          1
+# Simulation time: 1140.0 ns
+# Test 104: Inputs: a = 6'b110110; b = 6'b111001; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 1150.0 ns
+# Test 105: Inputs: a = 6'b100110; b = 6'b001101; bin = 1'b0; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 1160.0 ns
+# Test 106: Inputs: a = 6'b100101; b = 6'b011101; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 1170.0 ns
+# Test 107: Inputs: a = 6'b010110; b = 6'b011001; bin = 1'b1; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 1180.0 ns
+# Test 108: Inputs: a = 6'b110111; b = 6'b011011; bin = 1'b0; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 1190.0 ns
+# Test 109: Inputs: a = 6'b001110; b = 6'b000101; bin = 1'b0; | Outputs: diff=001001, bout=0 | Expected: diff=          9, bout=          0
+# Simulation time: 1200.0 ns
+# Test 110: Inputs: a = 6'b001000; b = 6'b100100; bin = 1'b0; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 1210.0 ns
+# Test 111: Inputs: a = 6'b101101; b = 6'b101100; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 1220.0 ns
+# Test 112: Inputs: a = 6'b110100; b = 6'b000101; bin = 1'b0; | Outputs: diff=101111, bout=0 | Expected: diff=         47, bout=          0
+# Simulation time: 1230.0 ns
+# Test 113: Inputs: a = 6'b010111; b = 6'b100101; bin = 1'b1; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 1240.0 ns
+# Test 114: Inputs: a = 6'b000000; b = 6'b100000; bin = 1'b0; | Outputs: diff=100000, bout=1 | Expected: diff=         32, bout=          1
+# Simulation time: 1250.0 ns
+# Test 115: Inputs: a = 6'b011000; b = 6'b001101; bin = 1'b1; | Outputs: diff=001010, bout=0 | Expected: diff=         10, bout=          0
+# Simulation time: 1260.0 ns
+# Test 116: Inputs: a = 6'b010011; b = 6'b101111; bin = 1'b1; | Outputs: diff=100011, bout=1 | Expected: diff=         35, bout=          1
+# Simulation time: 1270.0 ns
+# Test 117: Inputs: a = 6'b100001; b = 6'b001110; bin = 1'b0; | Outputs: diff=010011, bout=0 | Expected: diff=         19, bout=          0
+# Simulation time: 1280.0 ns
+# Test 118: Inputs: a = 6'b110000; b = 6'b111111; bin = 1'b0; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 1290.0 ns
+# Test 119: Inputs: a = 6'b010100; b = 6'b000001; bin = 1'b1; | Outputs: diff=010010, bout=0 | Expected: diff=         18, bout=          0
+# Simulation time: 1300.0 ns
+# Test 120: Inputs: a = 6'b110111; b = 6'b010010; bin = 1'b0; | Outputs: diff=100101, bout=0 | Expected: diff=         37, bout=          0
+# Simulation time: 1310.0 ns
+# Test 121: Inputs: a = 6'b001000; b = 6'b101011; bin = 1'b0; | Outputs: diff=011101, bout=1 | Expected: diff=         29, bout=          1
+# Simulation time: 1320.0 ns
+# Test 122: Inputs: a = 6'b100101; b = 6'b110111; bin = 1'b1; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 1330.0 ns
+# Test 123: Inputs: a = 6'b100110; b = 6'b000010; bin = 1'b0; | Outputs: diff=100100, bout=0 | Expected: diff=         36, bout=          0
+# Simulation time: 1340.0 ns
+# Test 124: Inputs: a = 6'b100111; b = 6'b111100; bin = 1'b0; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 1350.0 ns
+# Test 125: Inputs: a = 6'b000011; b = 6'b111111; bin = 1'b1; | Outputs: diff=000011, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 1360.0 ns
+# Test 126: Inputs: a = 6'b110101; b = 6'b110011; bin = 1'b0; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 1370.0 ns
+# Test 127: Inputs: a = 6'b100011; b = 6'b010110; bin = 1'b0; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 1380.0 ns
+# Test 128: Inputs: a = 6'b100101; b = 6'b101100; bin = 1'b1; | Outputs: diff=111000, bout=1 | Expected: diff=         56, bout=          1
+# Simulation time: 1390.0 ns
+# Test 129: Inputs: a = 6'b111000; b = 6'b110100; bin = 1'b1; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 1400.0 ns
+# Test 130: Inputs: a = 6'b110001; b = 6'b011011; bin = 1'b0; | Outputs: diff=010110, bout=0 | Expected: diff=         22, bout=          0
+# Simulation time: 1410.0 ns
+# Test 131: Inputs: a = 6'b000101; b = 6'b111100; bin = 1'b1; | Outputs: diff=001000, bout=1 | Expected: diff=          8, bout=          1
+# Simulation time: 1420.0 ns
+# Test 132: Inputs: a = 6'b101011; b = 6'b001111; bin = 1'b0; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 1430.0 ns
+# Test 133: Inputs: a = 6'b000010; b = 6'b000101; bin = 1'b1; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 1440.0 ns
+# Test 134: Inputs: a = 6'b001011; b = 6'b010000; bin = 1'b0; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 1450.0 ns
+# Test 135: Inputs: a = 6'b011001; b = 6'b100010; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 1460.0 ns
+# Test 136: Inputs: a = 6'b010111; b = 6'b100111; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 1470.0 ns
+# Test 137: Inputs: a = 6'b000111; b = 6'b101100; bin = 1'b0; | Outputs: diff=011011, bout=1 | Expected: diff=         27, bout=          1
+# Simulation time: 1480.0 ns
+# Test 138: Inputs: a = 6'b000010; b = 6'b110011; bin = 1'b0; | Outputs: diff=001111, bout=1 | Expected: diff=         15, bout=          1
+# Simulation time: 1490.0 ns
+# Test 139: Inputs: a = 6'b110001; b = 6'b111111; bin = 1'b1; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 1500.0 ns
+# Test 140: Inputs: a = 6'b010101; b = 6'b011001; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 1510.0 ns
+# Test 141: Inputs: a = 6'b101000; b = 6'b100001; bin = 1'b0; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 1520.0 ns
+# Test 142: Inputs: a = 6'b001100; b = 6'b100111; bin = 1'b1; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 1530.0 ns
+# Test 143: Inputs: a = 6'b000110; b = 6'b101111; bin = 1'b0; | Outputs: diff=010111, bout=1 | Expected: diff=         23, bout=          1
+# Simulation time: 1540.0 ns
+# Test 144: Inputs: a = 6'b000110; b = 6'b010001; bin = 1'b1; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 1550.0 ns
+# Test 145: Inputs: a = 6'b111100; b = 6'b110101; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 1560.0 ns
+# Test 146: Inputs: a = 6'b101000; b = 6'b001110; bin = 1'b1; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 1570.0 ns
+# Test 147: Inputs: a = 6'b001001; b = 6'b011100; bin = 1'b0; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 1580.0 ns
+# Test 148: Inputs: a = 6'b110111; b = 6'b000000; bin = 1'b1; | Outputs: diff=110110, bout=0 | Expected: diff=         54, bout=          0
+# Simulation time: 1590.0 ns
+# Test 149: Inputs: a = 6'b011001; b = 6'b000000; bin = 1'b1; | Outputs: diff=011000, bout=0 | Expected: diff=         24, bout=          0
+# Simulation time: 1600.0 ns
+# Test 150: Inputs: a = 6'b011110; b = 6'b101010; bin = 1'b0; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 1610.0 ns
+# Test 151: Inputs: a = 6'b001101; b = 6'b010101; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 1620.0 ns
+# Test 152: Inputs: a = 6'b100101; b = 6'b101111; bin = 1'b0; | Outputs: diff=110110, bout=1 | Expected: diff=         54, bout=          1
+# Simulation time: 1630.0 ns
+# Test 153: Inputs: a = 6'b101011; b = 6'b101100; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 1640.0 ns
+# Test 154: Inputs: a = 6'b001011; b = 6'b010111; bin = 1'b0; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 1650.0 ns
+# Test 155: Inputs: a = 6'b001100; b = 6'b001000; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 1660.0 ns
+# Test 156: Inputs: a = 6'b001110; b = 6'b100101; bin = 1'b1; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 1670.0 ns
+# Test 157: Inputs: a = 6'b010010; b = 6'b111100; bin = 1'b1; | Outputs: diff=010101, bout=1 | Expected: diff=         21, bout=          1
+# Simulation time: 1680.0 ns
+# Test 158: Inputs: a = 6'b001100; b = 6'b010001; bin = 1'b0; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 1690.0 ns
+# Test 159: Inputs: a = 6'b111101; b = 6'b011100; bin = 1'b1; | Outputs: diff=100000, bout=0 | Expected: diff=         32, bout=          0
+# Simulation time: 1700.0 ns
+# Test 160: Inputs: a = 6'b010011; b = 6'b000010; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 1710.0 ns
+# Test 161: Inputs: a = 6'b011101; b = 6'b010101; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 1720.0 ns
+# Test 162: Inputs: a = 6'b000010; b = 6'b010001; bin = 1'b1; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 1730.0 ns
+# Test 163: Inputs: a = 6'b001100; b = 6'b101010; bin = 1'b0; | Outputs: diff=100010, bout=1 | Expected: diff=         34, bout=          1
+# Simulation time: 1740.0 ns
+# Test 164: Inputs: a = 6'b000010; b = 6'b111100; bin = 1'b1; | Outputs: diff=000101, bout=1 | Expected: diff=          5, bout=          1
+# Simulation time: 1750.0 ns
+# Test 165: Inputs: a = 6'b110001; b = 6'b001111; bin = 1'b0; | Outputs: diff=100010, bout=0 | Expected: diff=         34, bout=          0
+# Simulation time: 1760.0 ns
+# Test 166: Inputs: a = 6'b110101; b = 6'b000100; bin = 1'b1; | Outputs: diff=110000, bout=0 | Expected: diff=         48, bout=          0
+# Simulation time: 1770.0 ns
+# Test 167: Inputs: a = 6'b110011; b = 6'b011000; bin = 1'b1; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 1780.0 ns
+# Test 168: Inputs: a = 6'b010101; b = 6'b110100; bin = 1'b1; | Outputs: diff=100000, bout=1 | Expected: diff=         32, bout=          1
+# Simulation time: 1790.0 ns
+# Test 169: Inputs: a = 6'b110011; b = 6'b001001; bin = 1'b0; | Outputs: diff=101010, bout=0 | Expected: diff=         42, bout=          0
+# Simulation time: 1800.0 ns
+# Test 170: Inputs: a = 6'b100011; b = 6'b111100; bin = 1'b0; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 1810.0 ns
+# Test 171: Inputs: a = 6'b110111; b = 6'b100010; bin = 1'b0; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 1820.0 ns
+# Test 172: Inputs: a = 6'b011011; b = 6'b101101; bin = 1'b1; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 1830.0 ns
+# Test 173: Inputs: a = 6'b000111; b = 6'b100010; bin = 1'b1; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 1840.0 ns
+# Test 174: Inputs: a = 6'b000000; b = 6'b100000; bin = 1'b1; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 1850.0 ns
+# Test 175: Inputs: a = 6'b101010; b = 6'b101000; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 1860.0 ns
+# Test 176: Inputs: a = 6'b101010; b = 6'b011110; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 1870.0 ns
+# Test 177: Inputs: a = 6'b011100; b = 6'b110100; bin = 1'b0; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 1880.0 ns
+# Test 178: Inputs: a = 6'b011101; b = 6'b110101; bin = 1'b1; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 1890.0 ns
+# Test 179: Inputs: a = 6'b010000; b = 6'b110100; bin = 1'b1; | Outputs: diff=011011, bout=1 | Expected: diff=         27, bout=          1
+# Simulation time: 1900.0 ns
+# Test 180: Inputs: a = 6'b111111; b = 6'b101111; bin = 1'b0; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 1910.0 ns
+# Test 181: Inputs: a = 6'b000011; b = 6'b001010; bin = 1'b1; | Outputs: diff=111000, bout=1 | Expected: diff=         56, bout=          1
+# Simulation time: 1920.0 ns
+# Test 182: Inputs: a = 6'b000010; b = 6'b101011; bin = 1'b1; | Outputs: diff=010110, bout=1 | Expected: diff=         22, bout=          1
+# Simulation time: 1930.0 ns
+# Test 183: Inputs: a = 6'b010110; b = 6'b011111; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 1940.0 ns
+# Test 184: Inputs: a = 6'b101111; b = 6'b010010; bin = 1'b1; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 1950.0 ns
+# Test 185: Inputs: a = 6'b101011; b = 6'b100110; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 1960.0 ns
+# Test 186: Inputs: a = 6'b110101; b = 6'b010001; bin = 1'b1; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 1970.0 ns
+# Test 187: Inputs: a = 6'b011110; b = 6'b110011; bin = 1'b1; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 1980.0 ns
+# Test 188: Inputs: a = 6'b110011; b = 6'b100010; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 1990.0 ns
+# Test 189: Inputs: a = 6'b001111; b = 6'b110011; bin = 1'b0; | Outputs: diff=011100, bout=1 | Expected: diff=         28, bout=          1
+# Simulation time: 2000.0 ns
+# Test 190: Inputs: a = 6'b011101; b = 6'b111011; bin = 1'b0; | Outputs: diff=100010, bout=1 | Expected: diff=         34, bout=          1
+# Simulation time: 2010.0 ns
+# Test 191: Inputs: a = 6'b111001; b = 6'b110110; bin = 1'b1; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 2020.0 ns
+# Test 192: Inputs: a = 6'b000111; b = 6'b111101; bin = 1'b0; | Outputs: diff=001010, bout=1 | Expected: diff=         10, bout=          1
+# Simulation time: 2030.0 ns
+# Test 193: Inputs: a = 6'b110000; b = 6'b001110; bin = 1'b0; | Outputs: diff=100010, bout=0 | Expected: diff=         34, bout=          0
+# Simulation time: 2040.0 ns
+# Test 194: Inputs: a = 6'b111010; b = 6'b011000; bin = 1'b0; | Outputs: diff=100010, bout=0 | Expected: diff=         34, bout=          0
+# Simulation time: 2050.0 ns
+# Test 195: Inputs: a = 6'b001011; b = 6'b001010; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 2060.0 ns
+# Test 196: Inputs: a = 6'b100010; b = 6'b001011; bin = 1'b1; | Outputs: diff=010110, bout=0 | Expected: diff=         22, bout=          0
+# Simulation time: 2070.0 ns
+# Test 197: Inputs: a = 6'b101111; b = 6'b111110; bin = 1'b0; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 2080.0 ns
+# Test 198: Inputs: a = 6'b001000; b = 6'b010001; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 2090.0 ns
+# Test 199: Inputs: a = 6'b100011; b = 6'b100110; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 2100.0 ns
+# Test 200: Inputs: a = 6'b001010; b = 6'b101001; bin = 1'b0; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 2110.0 ns
+# Test 201: Inputs: a = 6'b100100; b = 6'b011101; bin = 1'b0; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 2120.0 ns
+# Test 202: Inputs: a = 6'b100101; b = 6'b011111; bin = 1'b1; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 2130.0 ns
+# Test 203: Inputs: a = 6'b110010; b = 6'b001001; bin = 1'b1; | Outputs: diff=101000, bout=0 | Expected: diff=         40, bout=          0
+# Simulation time: 2140.0 ns
+# Test 204: Inputs: a = 6'b100111; b = 6'b110100; bin = 1'b0; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 2150.0 ns
+# Test 205: Inputs: a = 6'b110110; b = 6'b111101; bin = 1'b0; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 2160.0 ns
+# Test 206: Inputs: a = 6'b001100; b = 6'b000100; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 2170.0 ns
+# Test 207: Inputs: a = 6'b110000; b = 6'b111101; bin = 1'b1; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 2180.0 ns
+# Test 208: Inputs: a = 6'b010100; b = 6'b000100; bin = 1'b0; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 2190.0 ns
+# Test 209: Inputs: a = 6'b111000; b = 6'b101010; bin = 1'b1; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 2200.0 ns
+# Test 210: Inputs: a = 6'b000110; b = 6'b110001; bin = 1'b1; | Outputs: diff=010100, bout=1 | Expected: diff=         20, bout=          1
+# Simulation time: 2210.0 ns
+# Test 211: Inputs: a = 6'b111010; b = 6'b001100; bin = 1'b0; | Outputs: diff=101110, bout=0 | Expected: diff=         46, bout=          0
+# Simulation time: 2220.0 ns
+# Test 212: Inputs: a = 6'b010110; b = 6'b000110; bin = 1'b1; | Outputs: diff=001111, bout=0 | Expected: diff=         15, bout=          0
+# Simulation time: 2230.0 ns
+# Test 213: Inputs: a = 6'b111100; b = 6'b110110; bin = 1'b1; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 2240.0 ns
+# Test 214: Inputs: a = 6'b110111; b = 6'b111100; bin = 1'b0; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 2250.0 ns
+# Test 215: Inputs: a = 6'b011011; b = 6'b000100; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 2260.0 ns
+# Test 216: Inputs: a = 6'b010011; b = 6'b100110; bin = 1'b0; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 2270.0 ns
+# Test 217: Inputs: a = 6'b010000; b = 6'b110000; bin = 1'b1; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 2280.0 ns
+# Test 218: Inputs: a = 6'b100000; b = 6'b000001; bin = 1'b1; | Outputs: diff=011110, bout=0 | Expected: diff=         30, bout=          0
+# Simulation time: 2290.0 ns
+# Test 219: Inputs: a = 6'b110101; b = 6'b000111; bin = 1'b1; | Outputs: diff=101101, bout=0 | Expected: diff=         45, bout=          0
+# Simulation time: 2300.0 ns
+# Test 220: Inputs: a = 6'b010100; b = 6'b000000; bin = 1'b1; | Outputs: diff=010011, bout=0 | Expected: diff=         19, bout=          0
+# Simulation time: 2310.0 ns
+# Test 221: Inputs: a = 6'b011100; b = 6'b001100; bin = 1'b0; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 2320.0 ns
+# Test 222: Inputs: a = 6'b001101; b = 6'b010100; bin = 1'b1; | Outputs: diff=111000, bout=1 | Expected: diff=         56, bout=          1
+# Simulation time: 2330.0 ns
+# Test 223: Inputs: a = 6'b011001; b = 6'b111111; bin = 1'b1; | Outputs: diff=011001, bout=1 | Expected: diff=         25, bout=          1
+# Simulation time: 2340.0 ns
+# Test 224: Inputs: a = 6'b011000; b = 6'b101101; bin = 1'b0; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 2350.0 ns
+# Test 225: Inputs: a = 6'b100110; b = 6'b000001; bin = 1'b0; | Outputs: diff=100101, bout=0 | Expected: diff=         37, bout=          0
+# Simulation time: 2360.0 ns
+# Test 226: Inputs: a = 6'b000110; b = 6'b000000; bin = 1'b1; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 2370.0 ns
+# Test 227: Inputs: a = 6'b111111; b = 6'b011011; bin = 1'b1; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 2380.0 ns
+# Test 228: Inputs: a = 6'b010110; b = 6'b100011; bin = 1'b0; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 2390.0 ns
+# Test 229: Inputs: a = 6'b100101; b = 6'b000111; bin = 1'b1; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 2400.0 ns
+# Test 230: Inputs: a = 6'b011000; b = 6'b001010; bin = 1'b1; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 2410.0 ns
+# Test 231: Inputs: a = 6'b100001; b = 6'b010011; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 2420.0 ns
+# Test 232: Inputs: a = 6'b001001; b = 6'b100111; bin = 1'b1; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 2430.0 ns
+# Test 233: Inputs: a = 6'b000001; b = 6'b011001; bin = 1'b0; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 2440.0 ns
+# Test 234: Inputs: a = 6'b110001; b = 6'b000110; bin = 1'b0; | Outputs: diff=101011, bout=0 | Expected: diff=         43, bout=          0
+# Simulation time: 2450.0 ns
+# Test 235: Inputs: a = 6'b011010; b = 6'b100010; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 2460.0 ns
+# Test 236: Inputs: a = 6'b010000; b = 6'b101000; bin = 1'b1; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 2470.0 ns
+# Test 237: Inputs: a = 6'b001000; b = 6'b110001; bin = 1'b1; | Outputs: diff=010110, bout=1 | Expected: diff=         22, bout=          1
+# Simulation time: 2480.0 ns
+# Test 238: Inputs: a = 6'b011000; b = 6'b001100; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 2490.0 ns
+# Test 239: Inputs: a = 6'b111110; b = 6'b111110; bin = 1'b0; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 2500.0 ns
+# Test 240: Inputs: a = 6'b100110; b = 6'b000001; bin = 1'b1; | Outputs: diff=100100, bout=0 | Expected: diff=         36, bout=          0
+# Simulation time: 2510.0 ns
+# Test 241: Inputs: a = 6'b100111; b = 6'b000101; bin = 1'b1; | Outputs: diff=100001, bout=0 | Expected: diff=         33, bout=          0
+# Simulation time: 2520.0 ns
+# Test 242: Inputs: a = 6'b011111; b = 6'b100001; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 2530.0 ns
+# Test 243: Inputs: a = 6'b010100; b = 6'b100010; bin = 1'b0; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 2540.0 ns
+# Test 244: Inputs: a = 6'b001100; b = 6'b011100; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 2550.0 ns
+# Test 245: Inputs: a = 6'b000100; b = 6'b100011; bin = 1'b0; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 2560.0 ns
+# Test 246: Inputs: a = 6'b111000; b = 6'b110010; bin = 1'b0; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 2570.0 ns
+# Test 247: Inputs: a = 6'b101111; b = 6'b111001; bin = 1'b1; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 2580.0 ns
+# Test 248: Inputs: a = 6'b001111; b = 6'b101010; bin = 1'b1; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 2590.0 ns
+# Test 249: Inputs: a = 6'b100110; b = 6'b110011; bin = 1'b1; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 2600.0 ns
+# Test 250: Inputs: a = 6'b001001; b = 6'b111100; bin = 1'b0; | Outputs: diff=001101, bout=1 | Expected: diff=         13, bout=          1
+# Simulation time: 2610.0 ns
+# Test 251: Inputs: a = 6'b111011; b = 6'b101010; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 2620.0 ns
+# Test 252: Inputs: a = 6'b010000; b = 6'b000101; bin = 1'b1; | Outputs: diff=001010, bout=0 | Expected: diff=         10, bout=          0
+# Simulation time: 2630.0 ns
+# Test 253: Inputs: a = 6'b101000; b = 6'b001010; bin = 1'b0; | Outputs: diff=011110, bout=0 | Expected: diff=         30, bout=          0
+# Simulation time: 2640.0 ns
+# Test 254: Inputs: a = 6'b000000; b = 6'b111110; bin = 1'b1; | Outputs: diff=000001, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 2650.0 ns
+# Test 255: Inputs: a = 6'b001101; b = 6'b111010; bin = 1'b0; | Outputs: diff=010011, bout=1 | Expected: diff=         19, bout=          1
+# Simulation time: 2660.0 ns
+# Test 256: Inputs: a = 6'b101110; b = 6'b111010; bin = 1'b1; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 2670.0 ns
+# Test 257: Inputs: a = 6'b000011; b = 6'b111111; bin = 1'b0; | Outputs: diff=000100, bout=1 | Expected: diff=          4, bout=          1
+# Simulation time: 2680.0 ns
+# Test 258: Inputs: a = 6'b000111; b = 6'b111001; bin = 1'b0; | Outputs: diff=001110, bout=1 | Expected: diff=         14, bout=          1
+# Simulation time: 2690.0 ns
+# Test 259: Inputs: a = 6'b101000; b = 6'b100100; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 2700.0 ns
+# Test 260: Inputs: a = 6'b111010; b = 6'b010001; bin = 1'b0; | Outputs: diff=101001, bout=0 | Expected: diff=         41, bout=          0
+# Simulation time: 2710.0 ns
+# Test 261: Inputs: a = 6'b010101; b = 6'b011110; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 2720.0 ns
+# Test 262: Inputs: a = 6'b110101; b = 6'b001100; bin = 1'b1; | Outputs: diff=101000, bout=0 | Expected: diff=         40, bout=          0
+# Simulation time: 2730.0 ns
+# Test 263: Inputs: a = 6'b110011; b = 6'b110110; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 2740.0 ns
+# Test 264: Inputs: a = 6'b010010; b = 6'b010100; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 2750.0 ns
+# Test 265: Inputs: a = 6'b111100; b = 6'b100110; bin = 1'b1; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 2760.0 ns
+# Test 266: Inputs: a = 6'b101010; b = 6'b001011; bin = 1'b1; | Outputs: diff=011110, bout=0 | Expected: diff=         30, bout=          0
+# Simulation time: 2770.0 ns
+# Test 267: Inputs: a = 6'b001110; b = 6'b000001; bin = 1'b0; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 2780.0 ns
+# Test 268: Inputs: a = 6'b111011; b = 6'b111010; bin = 1'b1; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 2790.0 ns
+# Test 269: Inputs: a = 6'b011111; b = 6'b000011; bin = 1'b1; | Outputs: diff=011011, bout=0 | Expected: diff=         27, bout=          0
+# Simulation time: 2800.0 ns
+# Test 270: Inputs: a = 6'b110011; b = 6'b011011; bin = 1'b0; | Outputs: diff=011000, bout=0 | Expected: diff=         24, bout=          0
+# Simulation time: 2810.0 ns
+# Test 271: Inputs: a = 6'b000110; b = 6'b000100; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 2820.0 ns
+# Test 272: Inputs: a = 6'b101000; b = 6'b000111; bin = 1'b0; | Outputs: diff=100001, bout=0 | Expected: diff=         33, bout=          0
+# Simulation time: 2830.0 ns
+# Test 273: Inputs: a = 6'b100000; b = 6'b110011; bin = 1'b1; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 2840.0 ns
+# Test 274: Inputs: a = 6'b000001; b = 6'b100001; bin = 1'b1; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 2850.0 ns
+# Test 275: Inputs: a = 6'b010001; b = 6'b001101; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 2860.0 ns
+# Test 276: Inputs: a = 6'b001001; b = 6'b000110; bin = 1'b1; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 2870.0 ns
+# Test 277: Inputs: a = 6'b110111; b = 6'b001001; bin = 1'b1; | Outputs: diff=101101, bout=0 | Expected: diff=         45, bout=          0
+# Simulation time: 2880.0 ns
+# Test 278: Inputs: a = 6'b100000; b = 6'b100001; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 2890.0 ns
+# Test 279: Inputs: a = 6'b011110; b = 6'b000000; bin = 1'b1; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 2900.0 ns
+# Test 280: Inputs: a = 6'b110011; b = 6'b010110; bin = 1'b1; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 2910.0 ns
+# Test 281: Inputs: a = 6'b100010; b = 6'b001000; bin = 1'b0; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 2920.0 ns
+# Test 282: Inputs: a = 6'b010010; b = 6'b111111; bin = 1'b1; | Outputs: diff=010010, bout=1 | Expected: diff=         18, bout=          1
+# Simulation time: 2930.0 ns
+# Test 283: Inputs: a = 6'b011110; b = 6'b110110; bin = 1'b0; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 2940.0 ns
+# Test 284: Inputs: a = 6'b100011; b = 6'b101110; bin = 1'b0; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 2950.0 ns
+# Test 285: Inputs: a = 6'b111101; b = 6'b100110; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 2960.0 ns
+# Test 286: Inputs: a = 6'b110110; b = 6'b011011; bin = 1'b1; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 2970.0 ns
+# Test 287: Inputs: a = 6'b111100; b = 6'b001101; bin = 1'b0; | Outputs: diff=101111, bout=0 | Expected: diff=         47, bout=          0
+# Simulation time: 2980.0 ns
+# Test 288: Inputs: a = 6'b101100; b = 6'b101010; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 2990.0 ns
+# Test 289: Inputs: a = 6'b000110; b = 6'b010101; bin = 1'b0; | Outputs: diff=110001, bout=1 | Expected: diff=         49, bout=          1
+# Simulation time: 3000.0 ns
+# Test 290: Inputs: a = 6'b001010; b = 6'b000011; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 3010.0 ns
+# Test 291: Inputs: a = 6'b100001; b = 6'b011111; bin = 1'b1; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 3020.0 ns
+# Test 292: Inputs: a = 6'b001001; b = 6'b101001; bin = 1'b0; | Outputs: diff=100000, bout=1 | Expected: diff=         32, bout=          1
+# Simulation time: 3030.0 ns
+# Test 293: Inputs: a = 6'b011110; b = 6'b111011; bin = 1'b0; | Outputs: diff=100011, bout=1 | Expected: diff=         35, bout=          1
+# Simulation time: 3040.0 ns
+# Test 294: Inputs: a = 6'b100111; b = 6'b010111; bin = 1'b0; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 3050.0 ns
+# Test 295: Inputs: a = 6'b101000; b = 6'b111100; bin = 1'b0; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 3060.0 ns
+# Test 296: Inputs: a = 6'b110001; b = 6'b101100; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 3070.0 ns
+# Test 297: Inputs: a = 6'b111111; b = 6'b011110; bin = 1'b1; | Outputs: diff=100000, bout=0 | Expected: diff=         32, bout=          0
+# Simulation time: 3080.0 ns
+# Test 298: Inputs: a = 6'b110100; b = 6'b001100; bin = 1'b0; | Outputs: diff=101000, bout=0 | Expected: diff=         40, bout=          0
+# Simulation time: 3090.0 ns
+# Test 299: Inputs: a = 6'b100111; b = 6'b001101; bin = 1'b1; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 3100.0 ns
+# Test 300: Inputs: a = 6'b101001; b = 6'b110111; bin = 1'b0; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 3110.0 ns
+# Test 301: Inputs: a = 6'b111001; b = 6'b101010; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 3120.0 ns
+# Test 302: Inputs: a = 6'b001010; b = 6'b011111; bin = 1'b0; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 3130.0 ns
+# Test 303: Inputs: a = 6'b100111; b = 6'b110111; bin = 1'b1; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 3140.0 ns
+# Test 304: Inputs: a = 6'b011011; b = 6'b100100; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 3150.0 ns
+# Test 305: Inputs: a = 6'b100111; b = 6'b000100; bin = 1'b0; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 3160.0 ns
+# Test 306: Inputs: a = 6'b011001; b = 6'b000011; bin = 1'b0; | Outputs: diff=010110, bout=0 | Expected: diff=         22, bout=          0
+# Simulation time: 3170.0 ns
+# Test 307: Inputs: a = 6'b010110; b = 6'b101101; bin = 1'b0; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 3180.0 ns
+# Test 308: Inputs: a = 6'b101011; b = 6'b001100; bin = 1'b1; | Outputs: diff=011110, bout=0 | Expected: diff=         30, bout=          0
+# Simulation time: 3190.0 ns
+# Test 309: Inputs: a = 6'b110000; b = 6'b001101; bin = 1'b0; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 3200.0 ns
+# Test 310: Inputs: a = 6'b010001; b = 6'b000010; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 3210.0 ns
+# Test 311: Inputs: a = 6'b011010; b = 6'b000011; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 3220.0 ns
+# Test 312: Inputs: a = 6'b100000; b = 6'b110111; bin = 1'b0; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 3230.0 ns
+# Test 313: Inputs: a = 6'b011001; b = 6'b110010; bin = 1'b1; | Outputs: diff=100110, bout=1 | Expected: diff=         38, bout=          1
+# Simulation time: 3240.0 ns
+# Test 314: Inputs: a = 6'b111100; b = 6'b100111; bin = 1'b1; | Outputs: diff=010100, bout=0 | Expected: diff=         20, bout=          0
+# Simulation time: 3250.0 ns
+# Test 315: Inputs: a = 6'b011101; b = 6'b001010; bin = 1'b1; | Outputs: diff=010010, bout=0 | Expected: diff=         18, bout=          0
+# Simulation time: 3260.0 ns
+# Test 316: Inputs: a = 6'b011001; b = 6'b111101; bin = 1'b0; | Outputs: diff=011100, bout=1 | Expected: diff=         28, bout=          1
+# Simulation time: 3270.0 ns
+# Test 317: Inputs: a = 6'b100111; b = 6'b000100; bin = 1'b1; | Outputs: diff=100010, bout=0 | Expected: diff=         34, bout=          0
+# Simulation time: 3280.0 ns
+# Test 318: Inputs: a = 6'b011011; b = 6'b110101; bin = 1'b0; | Outputs: diff=100110, bout=1 | Expected: diff=         38, bout=          1
+# Simulation time: 3290.0 ns
+# Test 319: Inputs: a = 6'b110111; b = 6'b100110; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 3300.0 ns
+# Test 320: Inputs: a = 6'b001010; b = 6'b010010; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 3310.0 ns
+# Test 321: Inputs: a = 6'b011000; b = 6'b000010; bin = 1'b1; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 3320.0 ns
+# Test 322: Inputs: a = 6'b111001; b = 6'b010110; bin = 1'b0; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 3330.0 ns
+# Test 323: Inputs: a = 6'b101100; b = 6'b010111; bin = 1'b0; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 3340.0 ns
+# Test 324: Inputs: a = 6'b001001; b = 6'b100010; bin = 1'b1; | Outputs: diff=100110, bout=1 | Expected: diff=         38, bout=          1
+# Simulation time: 3350.0 ns
+# Test 325: Inputs: a = 6'b011111; b = 6'b110011; bin = 1'b1; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 3360.0 ns
+# Test 326: Inputs: a = 6'b001000; b = 6'b001011; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 3370.0 ns
+# Test 327: Inputs: a = 6'b101111; b = 6'b000111; bin = 1'b0; | Outputs: diff=101000, bout=0 | Expected: diff=         40, bout=          0
+# Simulation time: 3380.0 ns
+# Test 328: Inputs: a = 6'b100011; b = 6'b100101; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 3390.0 ns
+# Test 329: Inputs: a = 6'b101111; b = 6'b010010; bin = 1'b0; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 3400.0 ns
+# Test 330: Inputs: a = 6'b010011; b = 6'b101001; bin = 1'b1; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 3410.0 ns
+# Test 331: Inputs: a = 6'b000011; b = 6'b000010; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 3420.0 ns
+# Test 332: Inputs: a = 6'b101101; b = 6'b001000; bin = 1'b0; | Outputs: diff=100101, bout=0 | Expected: diff=         37, bout=          0
+# Simulation time: 3430.0 ns
+# Test 333: Inputs: a = 6'b100000; b = 6'b101100; bin = 1'b0; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 3440.0 ns
+# Test 334: Inputs: a = 6'b001111; b = 6'b100000; bin = 1'b1; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 3450.0 ns
+# Test 335: Inputs: a = 6'b110101; b = 6'b001010; bin = 1'b1; | Outputs: diff=101010, bout=0 | Expected: diff=         42, bout=          0
+# Simulation time: 3460.0 ns
+# Test 336: Inputs: a = 6'b111010; b = 6'b010110; bin = 1'b0; | Outputs: diff=100100, bout=0 | Expected: diff=         36, bout=          0
+# Simulation time: 3470.0 ns
+# Test 337: Inputs: a = 6'b111101; b = 6'b110001; bin = 1'b0; | Outputs: diff=001100, bout=0 | Expected: diff=         12, bout=          0
+# Simulation time: 3480.0 ns
+# Test 338: Inputs: a = 6'b001010; b = 6'b001101; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 3490.0 ns
+# Test 339: Inputs: a = 6'b001010; b = 6'b101000; bin = 1'b1; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 3500.0 ns
+# Test 340: Inputs: a = 6'b101111; b = 6'b011110; bin = 1'b1; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 3510.0 ns
+# Test 341: Inputs: a = 6'b010010; b = 6'b101111; bin = 1'b0; | Outputs: diff=100011, bout=1 | Expected: diff=         35, bout=          1
+# Simulation time: 3520.0 ns
+# Test 342: Inputs: a = 6'b101100; b = 6'b110011; bin = 1'b0; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 3530.0 ns
+# Test 343: Inputs: a = 6'b000101; b = 6'b110111; bin = 1'b0; | Outputs: diff=001110, bout=1 | Expected: diff=         14, bout=          1
+# Simulation time: 3540.0 ns
+# Test 344: Inputs: a = 6'b101110; b = 6'b011001; bin = 1'b0; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 3550.0 ns
+# Test 345: Inputs: a = 6'b010011; b = 6'b011000; bin = 1'b0; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 3560.0 ns
+# Test 346: Inputs: a = 6'b000111; b = 6'b011010; bin = 1'b1; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 3570.0 ns
+# Test 347: Inputs: a = 6'b001111; b = 6'b110110; bin = 1'b0; | Outputs: diff=011001, bout=1 | Expected: diff=         25, bout=          1
+# Simulation time: 3580.0 ns
+# Test 348: Inputs: a = 6'b100011; b = 6'b011110; bin = 1'b0; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 3590.0 ns
+# Test 349: Inputs: a = 6'b011011; b = 6'b111001; bin = 1'b1; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 3600.0 ns
+# Test 350: Inputs: a = 6'b000100; b = 6'b001110; bin = 1'b0; | Outputs: diff=110110, bout=1 | Expected: diff=         54, bout=          1
+# Simulation time: 3610.0 ns
+# Test 351: Inputs: a = 6'b011100; b = 6'b100101; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 3620.0 ns
+# Test 352: Inputs: a = 6'b000001; b = 6'b111110; bin = 1'b0; | Outputs: diff=000011, bout=1 | Expected: diff=          3, bout=          1
+# Simulation time: 3630.0 ns
+# Test 353: Inputs: a = 6'b010111; b = 6'b100110; bin = 1'b1; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 3640.0 ns
+# Test 354: Inputs: a = 6'b111101; b = 6'b110000; bin = 1'b0; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 3650.0 ns
+# Test 355: Inputs: a = 6'b110011; b = 6'b000110; bin = 1'b1; | Outputs: diff=101100, bout=0 | Expected: diff=         44, bout=          0
+# Simulation time: 3660.0 ns
+# Test 356: Inputs: a = 6'b100010; b = 6'b010011; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 3670.0 ns
+# Test 357: Inputs: a = 6'b011000; b = 6'b010011; bin = 1'b0; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 3680.0 ns
+# Test 358: Inputs: a = 6'b101111; b = 6'b001100; bin = 1'b0; | Outputs: diff=100011, bout=0 | Expected: diff=         35, bout=          0
+# Simulation time: 3690.0 ns
+# Test 359: Inputs: a = 6'b010011; b = 6'b001010; bin = 1'b1; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 3700.0 ns
+# Test 360: Inputs: a = 6'b010000; b = 6'b111010; bin = 1'b0; | Outputs: diff=010110, bout=1 | Expected: diff=         22, bout=          1
+# Simulation time: 3710.0 ns
+# Test 361: Inputs: a = 6'b100110; b = 6'b000110; bin = 1'b0; | Outputs: diff=100000, bout=0 | Expected: diff=         32, bout=          0
+# Simulation time: 3720.0 ns
+# Test 362: Inputs: a = 6'b110010; b = 6'b101111; bin = 1'b0; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 3730.0 ns
+# Test 363: Inputs: a = 6'b000110; b = 6'b011100; bin = 1'b0; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 3740.0 ns
+# Test 364: Inputs: a = 6'b001001; b = 6'b011011; bin = 1'b0; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 3750.0 ns
+# Test 365: Inputs: a = 6'b000100; b = 6'b000011; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 3760.0 ns
+# Test 366: Inputs: a = 6'b011010; b = 6'b100111; bin = 1'b0; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 3770.0 ns
+# Test 367: Inputs: a = 6'b110001; b = 6'b100000; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 3780.0 ns
+# Test 368: Inputs: a = 6'b111001; b = 6'b111101; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 3790.0 ns
+# Test 369: Inputs: a = 6'b001010; b = 6'b101100; bin = 1'b1; | Outputs: diff=011101, bout=1 | Expected: diff=         29, bout=          1
+# Simulation time: 3800.0 ns
+# Test 370: Inputs: a = 6'b110010; b = 6'b101101; bin = 1'b0; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 3810.0 ns
+# Test 371: Inputs: a = 6'b100010; b = 6'b010100; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 3820.0 ns
+# Test 372: Inputs: a = 6'b111001; b = 6'b010010; bin = 1'b0; | Outputs: diff=100111, bout=0 | Expected: diff=         39, bout=          0
+# Simulation time: 3830.0 ns
+# Test 373: Inputs: a = 6'b010010; b = 6'b101110; bin = 1'b1; | Outputs: diff=100011, bout=1 | Expected: diff=         35, bout=          1
+# Simulation time: 3840.0 ns
+# Test 374: Inputs: a = 6'b010101; b = 6'b010110; bin = 1'b1; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 3850.0 ns
+# Test 375: Inputs: a = 6'b000110; b = 6'b001111; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 3860.0 ns
+# Test 376: Inputs: a = 6'b100100; b = 6'b011111; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 3870.0 ns
+# Test 377: Inputs: a = 6'b101101; b = 6'b000111; bin = 1'b1; | Outputs: diff=100101, bout=0 | Expected: diff=         37, bout=          0
+# Simulation time: 3880.0 ns
+# Test 378: Inputs: a = 6'b001000; b = 6'b100110; bin = 1'b1; | Outputs: diff=100001, bout=1 | Expected: diff=         33, bout=          1
+# Simulation time: 3890.0 ns
+# Test 379: Inputs: a = 6'b111110; b = 6'b001101; bin = 1'b0; | Outputs: diff=110001, bout=0 | Expected: diff=         49, bout=          0
+# Simulation time: 3900.0 ns
+# Test 380: Inputs: a = 6'b111001; b = 6'b100010; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 3910.0 ns
+# Test 381: Inputs: a = 6'b101111; b = 6'b101001; bin = 1'b0; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 3920.0 ns
+# Test 382: Inputs: a = 6'b010101; b = 6'b001101; bin = 1'b1; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 3930.0 ns
+# Test 383: Inputs: a = 6'b010001; b = 6'b011111; bin = 1'b0; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 3940.0 ns
+# Test 384: Inputs: a = 6'b101000; b = 6'b111000; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 3950.0 ns
+# Test 385: Inputs: a = 6'b010101; b = 6'b010000; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 3960.0 ns
+# Test 386: Inputs: a = 6'b000010; b = 6'b010011; bin = 1'b0; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 3970.0 ns
+# Test 387: Inputs: a = 6'b010000; b = 6'b110010; bin = 1'b1; | Outputs: diff=011101, bout=1 | Expected: diff=         29, bout=          1
+# Simulation time: 3980.0 ns
+# Test 388: Inputs: a = 6'b111010; b = 6'b111001; bin = 1'b1; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 3990.0 ns
+# Test 389: Inputs: a = 6'b111100; b = 6'b000010; bin = 1'b1; | Outputs: diff=111001, bout=0 | Expected: diff=         57, bout=          0
+# Simulation time: 4000.0 ns
+# Test 390: Inputs: a = 6'b110011; b = 6'b010011; bin = 1'b0; | Outputs: diff=100000, bout=0 | Expected: diff=         32, bout=          0
+# Simulation time: 4010.0 ns
+# Test 391: Inputs: a = 6'b010001; b = 6'b000011; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 4020.0 ns
+# Test 392: Inputs: a = 6'b001000; b = 6'b000101; bin = 1'b0; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 4030.0 ns
+# Test 393: Inputs: a = 6'b000001; b = 6'b000000; bin = 1'b1; | Outputs: diff=000000, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 4040.0 ns
+# Test 394: Inputs: a = 6'b101010; b = 6'b010000; bin = 1'b1; | Outputs: diff=011001, bout=0 | Expected: diff=         25, bout=          0
+# Simulation time: 4050.0 ns
+# Test 395: Inputs: a = 6'b110010; b = 6'b100110; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 4060.0 ns
+# Test 396: Inputs: a = 6'b001010; b = 6'b101001; bin = 1'b1; | Outputs: diff=100000, bout=1 | Expected: diff=         32, bout=          1
+# Simulation time: 4070.0 ns
+# Test 397: Inputs: a = 6'b100000; b = 6'b011011; bin = 1'b1; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 4080.0 ns
+# Test 398: Inputs: a = 6'b101001; b = 6'b011011; bin = 1'b1; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 4090.0 ns
+# Test 399: Inputs: a = 6'b010100; b = 6'b111110; bin = 1'b0; | Outputs: diff=010110, bout=1 | Expected: diff=         22, bout=          1
+# Simulation time: 4100.0 ns
+# Test 400: Inputs: a = 6'b100010; b = 6'b011001; bin = 1'b0; | Outputs: diff=001001, bout=0 | Expected: diff=          9, bout=          0
+# Simulation time: 4110.0 ns
+# Test 401: Inputs: a = 6'b110011; b = 6'b111001; bin = 1'b0; | Outputs: diff=111010, bout=1 | Expected: diff=         58, bout=          1
+# Simulation time: 4120.0 ns
+# Test 402: Inputs: a = 6'b010000; b = 6'b100100; bin = 1'b1; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 4130.0 ns
+# Test 403: Inputs: a = 6'b000101; b = 6'b010010; bin = 1'b1; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 4140.0 ns
+# Test 404: Inputs: a = 6'b111100; b = 6'b111101; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 4150.0 ns
+# Test 405: Inputs: a = 6'b000100; b = 6'b111000; bin = 1'b0; | Outputs: diff=001100, bout=1 | Expected: diff=         12, bout=          1
+# Simulation time: 4160.0 ns
+# Test 406: Inputs: a = 6'b101010; b = 6'b010000; bin = 1'b0; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 4170.0 ns
+# Test 407: Inputs: a = 6'b100000; b = 6'b111111; bin = 1'b1; | Outputs: diff=100000, bout=1 | Expected: diff=         32, bout=          1
+# Simulation time: 4180.0 ns
+# Test 408: Inputs: a = 6'b000111; b = 6'b110100; bin = 1'b0; | Outputs: diff=010011, bout=1 | Expected: diff=         19, bout=          1
+# Simulation time: 4190.0 ns
+# Test 409: Inputs: a = 6'b000100; b = 6'b001100; bin = 1'b0; | Outputs: diff=111000, bout=1 | Expected: diff=         56, bout=          1
+# Simulation time: 4200.0 ns
+# Test 410: Inputs: a = 6'b100000; b = 6'b111100; bin = 1'b0; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 4210.0 ns
+# Test 411: Inputs: a = 6'b010110; b = 6'b100011; bin = 1'b1; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 4220.0 ns
+# Test 412: Inputs: a = 6'b010111; b = 6'b111011; bin = 1'b0; | Outputs: diff=011100, bout=1 | Expected: diff=         28, bout=          1
+# Simulation time: 4230.0 ns
+# Test 413: Inputs: a = 6'b101010; b = 6'b010010; bin = 1'b1; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 4240.0 ns
+# Test 414: Inputs: a = 6'b001111; b = 6'b111011; bin = 1'b0; | Outputs: diff=010100, bout=1 | Expected: diff=         20, bout=          1
+# Simulation time: 4250.0 ns
+# Test 415: Inputs: a = 6'b000011; b = 6'b001101; bin = 1'b1; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 4260.0 ns
+# Test 416: Inputs: a = 6'b000010; b = 6'b011010; bin = 1'b0; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 4270.0 ns
+# Test 417: Inputs: a = 6'b001111; b = 6'b011111; bin = 1'b1; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 4280.0 ns
+# Test 418: Inputs: a = 6'b111100; b = 6'b101110; bin = 1'b1; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 4290.0 ns
+# Test 419: Inputs: a = 6'b011100; b = 6'b000110; bin = 1'b1; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 4300.0 ns
+# Test 420: Inputs: a = 6'b101000; b = 6'b011111; bin = 1'b0; | Outputs: diff=001001, bout=0 | Expected: diff=          9, bout=          0
+# Simulation time: 4310.0 ns
+# Test 421: Inputs: a = 6'b011011; b = 6'b001101; bin = 1'b1; | Outputs: diff=001101, bout=0 | Expected: diff=         13, bout=          0
+# Simulation time: 4320.0 ns
+# Test 422: Inputs: a = 6'b100101; b = 6'b100001; bin = 1'b1; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 4330.0 ns
+# Test 423: Inputs: a = 6'b111011; b = 6'b110111; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 4340.0 ns
+# Test 424: Inputs: a = 6'b001100; b = 6'b011000; bin = 1'b0; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 4350.0 ns
+# Test 425: Inputs: a = 6'b011100; b = 6'b010000; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 4360.0 ns
+# Test 426: Inputs: a = 6'b011010; b = 6'b010100; bin = 1'b0; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 4370.0 ns
+# Test 427: Inputs: a = 6'b001010; b = 6'b100001; bin = 1'b0; | Outputs: diff=101001, bout=1 | Expected: diff=         41, bout=          1
+# Simulation time: 4380.0 ns
+# Test 428: Inputs: a = 6'b110101; b = 6'b101100; bin = 1'b1; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 4390.0 ns
+# Test 429: Inputs: a = 6'b010001; b = 6'b100101; bin = 1'b1; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 4400.0 ns
+# Test 430: Inputs: a = 6'b100101; b = 6'b101110; bin = 1'b0; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 4410.0 ns
+# Test 431: Inputs: a = 6'b000101; b = 6'b011111; bin = 1'b0; | Outputs: diff=100110, bout=1 | Expected: diff=         38, bout=          1
+# Simulation time: 4420.0 ns
+# Test 432: Inputs: a = 6'b000110; b = 6'b010010; bin = 1'b0; | Outputs: diff=110100, bout=1 | Expected: diff=         52, bout=          1
+# Simulation time: 4430.0 ns
+# Test 433: Inputs: a = 6'b110101; b = 6'b011101; bin = 1'b0; | Outputs: diff=011000, bout=0 | Expected: diff=         24, bout=          0
+# Simulation time: 4440.0 ns
+# Test 434: Inputs: a = 6'b101011; b = 6'b111100; bin = 1'b0; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 4450.0 ns
+# Test 435: Inputs: a = 6'b011100; b = 6'b110001; bin = 1'b1; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 4460.0 ns
+# Test 436: Inputs: a = 6'b010100; b = 6'b101000; bin = 1'b1; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 4470.0 ns
+# Test 437: Inputs: a = 6'b110110; b = 6'b100001; bin = 1'b0; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 4480.0 ns
+# Test 438: Inputs: a = 6'b100010; b = 6'b001011; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 4490.0 ns
+# Test 439: Inputs: a = 6'b100000; b = 6'b000101; bin = 1'b1; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 4500.0 ns
+# Test 440: Inputs: a = 6'b010101; b = 6'b001010; bin = 1'b0; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 4510.0 ns
+# Test 441: Inputs: a = 6'b011101; b = 6'b000001; bin = 1'b0; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 4520.0 ns
+# Test 442: Inputs: a = 6'b110010; b = 6'b110110; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 4530.0 ns
+# Test 443: Inputs: a = 6'b001010; b = 6'b000010; bin = 1'b1; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 4540.0 ns
+# Test 444: Inputs: a = 6'b001011; b = 6'b011010; bin = 1'b1; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 4550.0 ns
+# Test 445: Inputs: a = 6'b111101; b = 6'b011101; bin = 1'b1; | Outputs: diff=011111, bout=0 | Expected: diff=         31, bout=          0
+# Simulation time: 4560.0 ns
+# Test 446: Inputs: a = 6'b001111; b = 6'b010011; bin = 1'b0; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 4570.0 ns
+# Test 447: Inputs: a = 6'b010011; b = 6'b010110; bin = 1'b1; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 4580.0 ns
+# Test 448: Inputs: a = 6'b110011; b = 6'b101011; bin = 1'b1; | Outputs: diff=000111, bout=0 | Expected: diff=          7, bout=          0
+# Simulation time: 4590.0 ns
+# Test 449: Inputs: a = 6'b001011; b = 6'b001111; bin = 1'b0; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 4600.0 ns
+# Test 450: Inputs: a = 6'b101110; b = 6'b000001; bin = 1'b1; | Outputs: diff=101100, bout=0 | Expected: diff=         44, bout=          0
+# Simulation time: 4610.0 ns
+# Test 451: Inputs: a = 6'b011110; b = 6'b011100; bin = 1'b0; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 4620.0 ns
+# Test 452: Inputs: a = 6'b101000; b = 6'b011100; bin = 1'b1; | Outputs: diff=001011, bout=0 | Expected: diff=         11, bout=          0
+# Simulation time: 4630.0 ns
+# Test 453: Inputs: a = 6'b000011; b = 6'b000001; bin = 1'b0; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 4640.0 ns
+# Test 454: Inputs: a = 6'b011000; b = 6'b010001; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 4650.0 ns
+# Test 455: Inputs: a = 6'b101100; b = 6'b111001; bin = 1'b1; | Outputs: diff=110010, bout=1 | Expected: diff=         50, bout=          1
+# Simulation time: 4660.0 ns
+# Test 456: Inputs: a = 6'b101101; b = 6'b000101; bin = 1'b1; | Outputs: diff=100111, bout=0 | Expected: diff=         39, bout=          0
+# Simulation time: 4670.0 ns
+# Test 457: Inputs: a = 6'b000101; b = 6'b011111; bin = 1'b1; | Outputs: diff=100101, bout=1 | Expected: diff=         37, bout=          1
+# Simulation time: 4680.0 ns
+# Test 458: Inputs: a = 6'b100000; b = 6'b110011; bin = 1'b0; | Outputs: diff=101101, bout=1 | Expected: diff=         45, bout=          1
+# Simulation time: 4690.0 ns
+# Test 459: Inputs: a = 6'b011111; b = 6'b010001; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 4700.0 ns
+# Test 460: Inputs: a = 6'b001100; b = 6'b001011; bin = 1'b0; | Outputs: diff=000001, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 4710.0 ns
+# Test 461: Inputs: a = 6'b100001; b = 6'b100111; bin = 1'b1; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 4720.0 ns
+# Test 462: Inputs: a = 6'b101110; b = 6'b110110; bin = 1'b0; | Outputs: diff=111000, bout=1 | Expected: diff=         56, bout=          1
+# Simulation time: 4730.0 ns
+# Test 463: Inputs: a = 6'b101011; b = 6'b001011; bin = 1'b1; | Outputs: diff=011111, bout=0 | Expected: diff=         31, bout=          0
+# Simulation time: 4740.0 ns
+# Test 464: Inputs: a = 6'b011000; b = 6'b110100; bin = 1'b0; | Outputs: diff=100100, bout=1 | Expected: diff=         36, bout=          1
+# Simulation time: 4750.0 ns
+# Test 465: Inputs: a = 6'b011010; b = 6'b111011; bin = 1'b0; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 4760.0 ns
+# Test 466: Inputs: a = 6'b011111; b = 6'b110000; bin = 1'b0; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 4770.0 ns
+# Test 467: Inputs: a = 6'b100000; b = 6'b010001; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 4780.0 ns
+# Test 468: Inputs: a = 6'b000011; b = 6'b000101; bin = 1'b1; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 4790.0 ns
+# Test 469: Inputs: a = 6'b011011; b = 6'b101101; bin = 1'b0; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 4800.0 ns
+# Test 470: Inputs: a = 6'b110111; b = 6'b110101; bin = 1'b0; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 4810.0 ns
+# Test 471: Inputs: a = 6'b100100; b = 6'b110000; bin = 1'b1; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 4820.0 ns
+# Test 472: Inputs: a = 6'b101010; b = 6'b000010; bin = 1'b1; | Outputs: diff=100111, bout=0 | Expected: diff=         39, bout=          0
+# Simulation time: 4830.0 ns
+# Test 473: Inputs: a = 6'b001101; b = 6'b000101; bin = 1'b0; | Outputs: diff=001000, bout=0 | Expected: diff=          8, bout=          0
+# Simulation time: 4840.0 ns
+# Test 474: Inputs: a = 6'b100100; b = 6'b010110; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 4850.0 ns
+# Test 475: Inputs: a = 6'b010110; b = 6'b100000; bin = 1'b1; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 4860.0 ns
+# Test 476: Inputs: a = 6'b010111; b = 6'b101011; bin = 1'b0; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 4870.0 ns
+# Test 477: Inputs: a = 6'b101100; b = 6'b100010; bin = 1'b0; | Outputs: diff=001010, bout=0 | Expected: diff=         10, bout=          0
+# Simulation time: 4880.0 ns
+# Test 478: Inputs: a = 6'b111100; b = 6'b101011; bin = 1'b0; | Outputs: diff=010001, bout=0 | Expected: diff=         17, bout=          0
+# Simulation time: 4890.0 ns
+# Test 479: Inputs: a = 6'b110101; b = 6'b010111; bin = 1'b1; | Outputs: diff=011101, bout=0 | Expected: diff=         29, bout=          0
+# Simulation time: 4900.0 ns
+# Test 480: Inputs: a = 6'b000101; b = 6'b000010; bin = 1'b0; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 4910.0 ns
+# Test 481: Inputs: a = 6'b001111; b = 6'b010001; bin = 1'b0; | Outputs: diff=111110, bout=1 | Expected: diff=         62, bout=          1
+# Simulation time: 4920.0 ns
+# Test 482: Inputs: a = 6'b011110; b = 6'b101000; bin = 1'b0; | Outputs: diff=110110, bout=1 | Expected: diff=         54, bout=          1
+# Simulation time: 4930.0 ns
+# Test 483: Inputs: a = 6'b101001; b = 6'b010011; bin = 1'b0; | Outputs: diff=010110, bout=0 | Expected: diff=         22, bout=          0
+# Simulation time: 4940.0 ns
+# Test 484: Inputs: a = 6'b100010; b = 6'b100101; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 4950.0 ns
+# Test 485: Inputs: a = 6'b110110; b = 6'b010101; bin = 1'b0; | Outputs: diff=100001, bout=0 | Expected: diff=         33, bout=          0
+# Simulation time: 4960.0 ns
+# Test 486: Inputs: a = 6'b010010; b = 6'b000011; bin = 1'b1; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 4970.0 ns
+# Test 487: Inputs: a = 6'b101001; b = 6'b001111; bin = 1'b0; | Outputs: diff=011010, bout=0 | Expected: diff=         26, bout=          0
+# Simulation time: 4980.0 ns
+# Test 488: Inputs: a = 6'b110011; b = 6'b111111; bin = 1'b1; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 4990.0 ns
+# Test 489: Inputs: a = 6'b111000; b = 6'b111110; bin = 1'b0; | Outputs: diff=111010, bout=1 | Expected: diff=         58, bout=          1
+# Simulation time: 5000.0 ns
+# Test 490: Inputs: a = 6'b100100; b = 6'b100101; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 5010.0 ns
+# Test 491: Inputs: a = 6'b110110; b = 6'b101011; bin = 1'b1; | Outputs: diff=001010, bout=0 | Expected: diff=         10, bout=          0
+# Simulation time: 5020.0 ns
+# Test 492: Inputs: a = 6'b110011; b = 6'b001100; bin = 1'b0; | Outputs: diff=100111, bout=0 | Expected: diff=         39, bout=          0
+# Simulation time: 5030.0 ns
+# Test 493: Inputs: a = 6'b010000; b = 6'b100101; bin = 1'b0; | Outputs: diff=101011, bout=1 | Expected: diff=         43, bout=          1
+# Simulation time: 5040.0 ns
+# Test 494: Inputs: a = 6'b000000; b = 6'b011010; bin = 1'b0; | Outputs: diff=100110, bout=1 | Expected: diff=         38, bout=          1
+# Simulation time: 5050.0 ns
+# Test 495: Inputs: a = 6'b111011; b = 6'b001010; bin = 1'b1; | Outputs: diff=110000, bout=0 | Expected: diff=         48, bout=          0
+# Simulation time: 5060.0 ns
+# Test 496: Inputs: a = 6'b011001; b = 6'b011010; bin = 1'b0; | Outputs: diff=111111, bout=1 | Expected: diff=         63, bout=          1
+# Simulation time: 5070.0 ns
+# Test 497: Inputs: a = 6'b001101; b = 6'b100100; bin = 1'b1; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 5080.0 ns
+# Test 498: Inputs: a = 6'b100101; b = 6'b100010; bin = 1'b0; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 5090.0 ns
+# Test 499: Inputs: a = 6'b001000; b = 6'b010100; bin = 1'b1; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 5100.0 ns
+# Test 500: Inputs: a = 6'b110010; b = 6'b111110; bin = 1'b1; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 5110.0 ns
+# Test 501: Inputs: a = 6'b000000; b = 6'b110101; bin = 1'b0; | Outputs: diff=001011, bout=1 | Expected: diff=         11, bout=          1
+# Simulation time: 5120.0 ns
+# Test 502: Inputs: a = 6'b000011; b = 6'b010111; bin = 1'b0; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 5130.0 ns
+# Test 503: Inputs: a = 6'b011011; b = 6'b010111; bin = 1'b1; | Outputs: diff=000011, bout=0 | Expected: diff=          3, bout=          0
+# Simulation time: 5140.0 ns
+# Test 504: Inputs: a = 6'b100111; b = 6'b010110; bin = 1'b1; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 5150.0 ns
+# Test 505: Inputs: a = 6'b000110; b = 6'b010110; bin = 1'b1; | Outputs: diff=101111, bout=1 | Expected: diff=         47, bout=          1
+# Simulation time: 5160.0 ns
+# Test 506: Inputs: a = 6'b111111; b = 6'b010001; bin = 1'b1; | Outputs: diff=101101, bout=0 | Expected: diff=         45, bout=          0
+# Simulation time: 5170.0 ns
+# Test 507: Inputs: a = 6'b100011; b = 6'b101101; bin = 1'b1; | Outputs: diff=110101, bout=1 | Expected: diff=         53, bout=          1
+# Simulation time: 5180.0 ns
+# Test 508: Inputs: a = 6'b001000; b = 6'b010101; bin = 1'b0; | Outputs: diff=110011, bout=1 | Expected: diff=         51, bout=          1
+# Simulation time: 5190.0 ns
+# Test 509: Inputs: a = 6'b010001; b = 6'b101001; bin = 1'b1; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 5200.0 ns
+# Test 510: Inputs: a = 6'b010110; b = 6'b011000; bin = 1'b1; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 5210.0 ns
+# Test 511: Inputs: a = 6'b111101; b = 6'b100010; bin = 1'b0; | Outputs: diff=011011, bout=0 | Expected: diff=         27, bout=          0
+# Simulation time: 5220.0 ns
+# Test 512: Inputs: a = 6'b010110; b = 6'b000011; bin = 1'b1; | Outputs: diff=010010, bout=0 | Expected: diff=         18, bout=          0
+# Simulation time: 5230.0 ns
+# Test 513: Inputs: a = 6'b011000; b = 6'b110001; bin = 1'b0; | Outputs: diff=100111, bout=1 | Expected: diff=         39, bout=          1
+# Simulation time: 5240.0 ns
+# Test 514: Inputs: a = 6'b010011; b = 6'b001101; bin = 1'b1; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 5250.0 ns
+# Test 515: Inputs: a = 6'b100111; b = 6'b000110; bin = 1'b0; | Outputs: diff=100001, bout=0 | Expected: diff=         33, bout=          0
+# Simulation time: 5260.0 ns
+# Test 516: Inputs: a = 6'b111010; b = 6'b000101; bin = 1'b1; | Outputs: diff=110100, bout=0 | Expected: diff=         52, bout=          0
+# Simulation time: 5270.0 ns
+# Test 517: Inputs: a = 6'b100000; b = 6'b010010; bin = 1'b0; | Outputs: diff=001110, bout=0 | Expected: diff=         14, bout=          0
+# Simulation time: 5280.0 ns
+# Test 518: Inputs: a = 6'b010101; b = 6'b111110; bin = 1'b0; | Outputs: diff=010111, bout=1 | Expected: diff=         23, bout=          1
+# Simulation time: 5290.0 ns
+# Test 519: Inputs: a = 6'b000001; b = 6'b111110; bin = 1'b1; | Outputs: diff=000010, bout=1 | Expected: diff=          2, bout=          1
+# Simulation time: 5300.0 ns
+# Test 520: Inputs: a = 6'b011110; b = 6'b100001; bin = 1'b0; | Outputs: diff=111101, bout=1 | Expected: diff=         61, bout=          1
+# Simulation time: 5310.0 ns
+# Test 521: Inputs: a = 6'b001000; b = 6'b011111; bin = 1'b1; | Outputs: diff=101000, bout=1 | Expected: diff=         40, bout=          1
+# Simulation time: 5320.0 ns
+# Test 522: Inputs: a = 6'b001001; b = 6'b110011; bin = 1'b1; | Outputs: diff=010101, bout=1 | Expected: diff=         21, bout=          1
+# Simulation time: 5330.0 ns
+# Test 523: Inputs: a = 6'b100001; b = 6'b101001; bin = 1'b1; | Outputs: diff=110111, bout=1 | Expected: diff=         55, bout=          1
+# Simulation time: 5340.0 ns
+# Test 524: Inputs: a = 6'b010001; b = 6'b010101; bin = 1'b1; | Outputs: diff=111011, bout=1 | Expected: diff=         59, bout=          1
+# Simulation time: 5350.0 ns
+# Test 525: Inputs: a = 6'b111010; b = 6'b100100; bin = 1'b1; | Outputs: diff=010101, bout=0 | Expected: diff=         21, bout=          0
+# Simulation time: 5360.0 ns
+# Test 526: Inputs: a = 6'b011110; b = 6'b111100; bin = 1'b0; | Outputs: diff=100010, bout=1 | Expected: diff=         34, bout=          1
+# Simulation time: 5370.0 ns
+# Test 527: Inputs: a = 6'b100001; b = 6'b011010; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 5380.0 ns
+# Test 528: Inputs: a = 6'b001100; b = 6'b100000; bin = 1'b0; | Outputs: diff=101100, bout=1 | Expected: diff=         44, bout=          1
+# Simulation time: 5390.0 ns
+# Test 529: Inputs: a = 6'b011101; b = 6'b011010; bin = 1'b1; | Outputs: diff=000010, bout=0 | Expected: diff=          2, bout=          0
+# Simulation time: 5400.0 ns
+# Test 530: Inputs: a = 6'b111100; b = 6'b110011; bin = 1'b0; | Outputs: diff=001001, bout=0 | Expected: diff=          9, bout=          0
+# Simulation time: 5410.0 ns
+# Test 531: Inputs: a = 6'b111111; b = 6'b101011; bin = 1'b0; | Outputs: diff=010100, bout=0 | Expected: diff=         20, bout=          0
+# Simulation time: 5420.0 ns
+# Test 532: Inputs: a = 6'b000100; b = 6'b100101; bin = 1'b0; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 5430.0 ns
+# Test 533: Inputs: a = 6'b000101; b = 6'b001011; bin = 1'b1; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 5440.0 ns
+# Test 534: Inputs: a = 6'b001000; b = 6'b010111; bin = 1'b1; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 5450.0 ns
+# Test 535: Inputs: a = 6'b010110; b = 6'b101011; bin = 1'b1; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 5460.0 ns
+# Test 536: Inputs: a = 6'b100000; b = 6'b100100; bin = 1'b0; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 5470.0 ns
+# Test 537: Inputs: a = 6'b101110; b = 6'b010111; bin = 1'b0; | Outputs: diff=010111, bout=0 | Expected: diff=         23, bout=          0
+# Simulation time: 5480.0 ns
+# Test 538: Inputs: a = 6'b000010; b = 6'b110001; bin = 1'b1; | Outputs: diff=010000, bout=1 | Expected: diff=         16, bout=          1
+# Simulation time: 5490.0 ns
+# Test 539: Inputs: a = 6'b000100; b = 6'b010101; bin = 1'b1; | Outputs: diff=101110, bout=1 | Expected: diff=         46, bout=          1
+# Simulation time: 5500.0 ns
+# Test 540: Inputs: a = 6'b100110; b = 6'b111011; bin = 1'b1; | Outputs: diff=101010, bout=1 | Expected: diff=         42, bout=          1
+# Simulation time: 5510.0 ns
+# Test 541: Inputs: a = 6'b001011; b = 6'b001110; bin = 1'b1; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 5520.0 ns
+# Test 542: Inputs: a = 6'b011001; b = 6'b011111; bin = 1'b1; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 5530.0 ns
+# Test 543: Inputs: a = 6'b010111; b = 6'b000111; bin = 1'b0; | Outputs: diff=010000, bout=0 | Expected: diff=         16, bout=          0
+# Simulation time: 5540.0 ns
+# Test 544: Inputs: a = 6'b111011; b = 6'b111111; bin = 1'b0; | Outputs: diff=111100, bout=1 | Expected: diff=         60, bout=          1
+# Simulation time: 5550.0 ns
+# Test 545: Inputs: a = 6'b110101; b = 6'b111011; bin = 1'b1; | Outputs: diff=111001, bout=1 | Expected: diff=         57, bout=          1
+# Simulation time: 5560.0 ns
+# Test 546: Inputs: a = 6'b010001; b = 6'b111111; bin = 1'b1; | Outputs: diff=010001, bout=1 | Expected: diff=         17, bout=          1
+# Simulation time: 5570.0 ns
+# Test 547: Inputs: a = 6'b011011; b = 6'b111011; bin = 1'b1; | Outputs: diff=011111, bout=1 | Expected: diff=         31, bout=          1
+# Simulation time: 5580.0 ns
+# Test 548: Inputs: a = 6'b111100; b = 6'b111000; bin = 1'b0; | Outputs: diff=000100, bout=0 | Expected: diff=          4, bout=          0
+# Simulation time: 5590.0 ns
+# Test 549: Inputs: a = 6'b001110; b = 6'b101000; bin = 1'b1; | Outputs: diff=100101, bout=1 | Expected: diff=         37, bout=          1
+# Simulation time: 5600.0 ns
+# Test 550: Inputs: a = 6'b001010; b = 6'b110101; bin = 1'b0; | Outputs: diff=010101, bout=1 | Expected: diff=         21, bout=          1
+# Simulation time: 5610.0 ns
+# Test 551: Inputs: a = 6'b001110; b = 6'b011110; bin = 1'b0; | Outputs: diff=110000, bout=1 | Expected: diff=         48, bout=          1
+# Simulation time: 5620.0 ns
+# Test 552: Inputs: a = 6'b001111; b = 6'b110111; bin = 1'b0; | Outputs: diff=011000, bout=1 | Expected: diff=         24, bout=          1
+# Simulation time: 5630.0 ns
+# Test 553: Inputs: a = 6'b010101; b = 6'b010000; bin = 1'b0; | Outputs: diff=000101, bout=0 | Expected: diff=          5, bout=          0
+# Simulation time: 5640.0 ns
+# Test 554: Inputs: a = 6'b011110; b = 6'b010111; bin = 1'b1; | Outputs: diff=000110, bout=0 | Expected: diff=          6, bout=          0
+# Simulation time: 5650.0 ns
+# Test 555: Inputs: a = 6'b101011; b = 6'b110000; bin = 1'b1; | Outputs: diff=111010, bout=1 | Expected: diff=         58, bout=          1
+# Simulation time: 5660.0 ns
+# Test 556: Inputs: a = 6'b111000; b = 6'b011011; bin = 1'b1; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 5670.0 ns
+# Test 557: Inputs: a = 6'b111010; b = 6'b110001; bin = 1'b0; | Outputs: diff=001001, bout=0 | Expected: diff=          9, bout=          0
+# Simulation time: 5680.0 ns
+# Test 558: Inputs: a = 6'b110001; b = 6'b010101; bin = 1'b0; | Outputs: diff=011100, bout=0 | Expected: diff=         28, bout=          0
+# Simulation time: 5690.0 ns
+# Test 559: Inputs: a = 6'b010101; b = 6'b111011; bin = 1'b0; | Outputs: diff=011010, bout=1 | Expected: diff=         26, bout=          1
+# Simulation time: 5700.0 ns
+# Test 560: Inputs: a = 6'b010101; b = 6'b000110; bin = 1'b0; | Outputs: diff=001111, bout=0 | Expected: diff=         15, bout=          0
+# Simulation time: 5710.0 ns
+# ** Note: $finish    : generated/ripple_carry_subtractor/tb_N6_ripple_carry_subtractor.v(10156)
+#    Time: 5710 ns  Iteration: 0  Instance: /tb_N6_ripple_carry_subtractor
+# End time: 15:32:04 on Jul 29,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

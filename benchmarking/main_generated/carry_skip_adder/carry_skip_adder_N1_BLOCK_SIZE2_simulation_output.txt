@@ -1,0 +1,18 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N1_BLOCK_SIZE2_carry_skip_adder 
+# Start time: 09:07:32 on Jul 23,2024
+# Loading work.tb_N1_BLOCK_SIZE2_carry_skip_adder
+# Loading work.carry_skip_adder
+# Loading work.ripple_carry_adder
+# Loading work.full_adder
+# Loading work.half_adder
+# Loading work.skip_logic
+# ** Fatal: (vsim-3374) generated/carry_skip_adder/carry_skip_adder.v(15): MSB of part-select into 'a' is out of bounds.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_N1_BLOCK_SIZE2_carry_skip_adder/uut File: generated/carry_skip_adder/carry_skip_adder.v
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 09:07:32 on Jul 23,2024, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

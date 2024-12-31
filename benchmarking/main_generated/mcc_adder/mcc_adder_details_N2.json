@@ -1,0 +1,362 @@
+{
+    "component_name": "mcc_adder",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "8"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1:0",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1:0",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cin"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1:0",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "others": {
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ],
+        "carry": [
+            "wire",
+            "",
+            "N:0"
+        ]
+    },
+    "submodules": {
+        "full_adder": {
+            "component_name": "full_adder",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "a"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "b"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cin"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "sum"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "cout"
+                ]
+            ],
+            "others": {
+                "n": [
+                    "wire",
+                    "",
+                    "ci"
+                ],
+                "m": [
+                    "wire",
+                    "",
+                    "su"
+                ],
+                "t": [
+                    "wire",
+                    "",
+                    "cou"
+                ],
+                "1": [
+                    "wire",
+                    "",
+                    "c"
+                ]
+            },
+            "submodules": {
+                "half_adder": {
+                    "component_name": "half_adder",
+                    "parameters": [],
+                    "inputs": [
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "a"
+                        ],
+                        [
+                            "input",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "b"
+                        ]
+                    ],
+                    "outputs": [
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "sum"
+                        ],
+                        [
+                            "output",
+                            "wire",
+                            "unsigned",
+                            "1",
+                            "cout"
+                        ]
+                    ],
+                    "others": {
+                        "m": [
+                            "wire",
+                            "",
+                            "su"
+                        ],
+                        "t": [
+                            "wire",
+                            "",
+                            "cou"
+                        ]
+                    },
+                    "submodules": {}
+                }
+            }
+        }
+    },
+    "param_comb": [
+        [
+            "N",
+            2
+        ]
+    ],
+    "rules": [
+        "AdderRule"
+    ],
+    "stimuli": [
+        "a = 2'b01; b = 2'b00; cin = 1'b1;",
+        "a = 2'b01; b = 2'b10; cin = 1'b0;",
+        "a = 2'b11; b = 2'b11; cin = 1'b0;",
+        "a = 2'b11; b = 2'b11; cin = 1'b1;",
+        "a = 2'b00; b = 2'b00; cin = 1'b1;",
+        "a = 2'b11; b = 2'b01; cin = 1'b1;",
+        "a = 2'b10; b = 2'b01; cin = 1'b0;",
+        "a = 2'b01; b = 2'b00; cin = 1'b0;",
+        "a = 2'b00; b = 2'b10; cin = 1'b0;",
+        "a = 2'b11; b = 2'b00; cin = 1'b0;",
+        "a = 2'b01; b = 2'b01; cin = 1'b1;",
+        "a = 2'b10; b = 2'b00; cin = 1'b1;",
+        "a = 2'b10; b = 2'b10; cin = 1'b1;",
+        "a = 2'b10; b = 2'b11; cin = 1'b0;",
+        "a = 2'b10; b = 2'b00; cin = 1'b0;",
+        "a = 2'b01; b = 2'b10; cin = 1'b1;",
+        "a = 2'b00; b = 2'b00; cin = 1'b0;",
+        "a = 2'b10; b = 2'b11; cin = 1'b1;",
+        "a = 2'b01; b = 2'b11; cin = 1'b0;",
+        "a = 2'b00; b = 2'b01; cin = 1'b1;",
+        "a = 2'b11; b = 2'b01; cin = 1'b0;",
+        "a = 2'b10; b = 2'b10; cin = 1'b0;",
+        "a = 2'b00; b = 2'b01; cin = 1'b0;",
+        "a = 2'b01; b = 2'b11; cin = 1'b1;",
+        "a = 2'b11; b = 2'b00; cin = 1'b1;",
+        "a = 2'b11; b = 2'b10; cin = 1'b0;",
+        "a = 2'b10; b = 2'b01; cin = 1'b1;",
+        "a = 2'b01; b = 2'b01; cin = 1'b0;",
+        "a = 2'b11; b = 2'b10; cin = 1'b1;",
+        "a = 2'b00; b = 2'b11; cin = 1'b0;",
+        "a = 2'b00; b = 2'b10; cin = 1'b1;",
+        "a = 2'b00; b = 2'b11; cin = 1'b1;"
+    ],
+    "expected": [
+        {
+            "sum": 2,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 2,
+            "cout": 1
+        },
+        {
+            "sum": 3,
+            "cout": 1
+        },
+        {
+            "sum": 1,
+            "cout": 0
+        },
+        {
+            "sum": 1,
+            "cout": 1
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 1,
+            "cout": 0
+        },
+        {
+            "sum": 2,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 1,
+            "cout": 1
+        },
+        {
+            "sum": 1,
+            "cout": 1
+        },
+        {
+            "sum": 2,
+            "cout": 0
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 0,
+            "cout": 0
+        },
+        {
+            "sum": 2,
+            "cout": 1
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 2,
+            "cout": 0
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 1,
+            "cout": 0
+        },
+        {
+            "sum": 1,
+            "cout": 1
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 1,
+            "cout": 1
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 2,
+            "cout": 0
+        },
+        {
+            "sum": 2,
+            "cout": 1
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 3,
+            "cout": 0
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        }
+    ],
+    "param_component_name": "N2_mcc_adder"
+}

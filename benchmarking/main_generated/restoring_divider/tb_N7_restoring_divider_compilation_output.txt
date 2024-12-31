@@ -1,0 +1,22 @@
+Start time: 16:20:26 on Sep 08,2024
+vlog generated\restoring_divider\restoring_divider.v generated\restoring_divider\tb_N2_restoring_divider.v generated\restoring_divider\tb_N3_restoring_divider.v generated\restoring_divider\tb_N4_restoring_divider.v generated\restoring_divider\tb_N5_restoring_divider.v generated\restoring_divider\tb_N6_restoring_divider.v generated\restoring_divider\tb_N7_restoring_divider.v generated\restoring_divider\tb_N8_restoring_divider.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module restoring_divider
+-- Compiling module tb_N2_restoring_divider
+-- Compiling module tb_N3_restoring_divider
+-- Compiling module tb_N4_restoring_divider
+-- Compiling module tb_N5_restoring_divider
+-- Compiling module tb_N6_restoring_divider
+-- Compiling module tb_N7_restoring_divider
+-- Compiling module tb_N8_restoring_divider
+
+Top level modules:
+	tb_N2_restoring_divider
+	tb_N3_restoring_divider
+	tb_N4_restoring_divider
+	tb_N5_restoring_divider
+	tb_N6_restoring_divider
+	tb_N7_restoring_divider
+	tb_N8_restoring_divider
+End time: 16:20:28 on Sep 08,2024, Elapsed time: 0:00:02
+Errors: 0, Warnings: 0

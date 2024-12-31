@@ -1,0 +1,49 @@
+{
+    "component_name": "half_adder",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "b"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "others": {
+        "m": [
+            "wire",
+            "",
+            "su"
+        ],
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ]
+    },
+    "submodules": {}
+}

@@ -1,0 +1,30 @@
+{
+    "component_name": "small_circle",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "Gi"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "Ci"
+        ]
+    ],
+    "others": {
+        "i": [
+            "wire",
+            "",
+            "C"
+        ]
+    },
+    "submodules": {}
+}

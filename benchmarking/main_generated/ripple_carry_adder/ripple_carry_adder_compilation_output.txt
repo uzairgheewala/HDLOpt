@@ -1,0 +1,11 @@
+Start time: 14:17:02 on Aug 02,2024
+vlog generated\ripple_carry_adder\full_adder\full_adder.v generated\ripple_carry_adder\full_adder\half_adder\half_adder.v generated\ripple_carry_adder\ripple_carry_adder.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module full_adder
+-- Compiling module half_adder
+-- Compiling module ripple_carry_adder
+
+Top level modules:
+	ripple_carry_adder
+End time: 14:17:02 on Aug 02,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

@@ -1,0 +1,10 @@
+Start time: 14:46:07 on Jul 24,2024
+vlog generated\triangle\tb__triangle.v generated\triangle\triangle.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb__triangle
+-- Compiling module triangle
+
+Top level modules:
+	tb__triangle
+End time: 14:46:08 on Jul 24,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

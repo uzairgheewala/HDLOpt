@@ -1,0 +1,152 @@
+{
+    "component_name": "prefix_sum_logic",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "p_i"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "g_i"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "p_j"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "g_j"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "p_kj"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "g_kj"
+        ]
+    ],
+    "others": {
+        "i": [
+            "wire",
+            "",
+            "g_"
+        ],
+        "j": [
+            "wire",
+            "",
+            "g_k"
+        ]
+    },
+    "submodules": {},
+    "param_comb": [],
+    "rules": [
+        "PrefixSumLogicRule"
+    ],
+    "stimuli": [
+        "p_i = 1'b1; g_i = 1'b1; p_j = 1'b0; g_j = 1'b0;",
+        "p_i = 1'b0; g_i = 1'b0; p_j = 1'b0; g_j = 1'b1;",
+        "p_i = 1'b0; g_i = 1'b0; p_j = 1'b1; g_j = 1'b1;",
+        "p_i = 1'b1; g_i = 1'b0; p_j = 1'b0; g_j = 1'b0;",
+        "p_i = 1'b1; g_i = 1'b0; p_j = 1'b1; g_j = 1'b1;",
+        "p_i = 1'b1; g_i = 1'b1; p_j = 1'b0; g_j = 1'b1;",
+        "p_i = 1'b1; g_i = 1'b0; p_j = 1'b1; g_j = 1'b0;",
+        "p_i = 1'b0; g_i = 1'b0; p_j = 1'b1; g_j = 1'b0;",
+        "p_i = 1'b0; g_i = 1'b0; p_j = 1'b0; g_j = 1'b0;",
+        "p_i = 1'b0; g_i = 1'b1; p_j = 1'b1; g_j = 1'b0;",
+        "p_i = 1'b1; g_i = 1'b0; p_j = 1'b0; g_j = 1'b1;",
+        "p_i = 1'b1; g_i = 1'b1; p_j = 1'b1; g_j = 1'b0;",
+        "p_i = 1'b0; g_i = 1'b1; p_j = 1'b0; g_j = 1'b1;",
+        "p_i = 1'b0; g_i = 1'b1; p_j = 1'b1; g_j = 1'b1;",
+        "p_i = 1'b0; g_i = 1'b1; p_j = 1'b0; g_j = 1'b0;",
+        "p_i = 1'b1; g_i = 1'b1; p_j = 1'b1; g_j = 1'b1;"
+    ],
+    "expected": [
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 1,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 1,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 0
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 1,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 0,
+            "g_kj": 1
+        },
+        {
+            "p_kj": 1,
+            "g_kj": 1
+        }
+    ],
+    "param_component_name": "_prefix_sum_logic"
+}

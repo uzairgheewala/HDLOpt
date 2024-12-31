@@ -1,0 +1,31 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N1_ripple_carry_subtractor 
+# Start time: 15:31:52 on Jul 29,2024
+# Loading work.tb_N1_ripple_carry_subtractor
+# Loading work.ripple_carry_subtractor
+# Loading work.full_subtractor
+# Loading work.half_subtractor
+# run -all
+# Test 0: Inputs: a = 1'b0; b = 1'b0; bin = 1'b1; | Outputs: diff=1, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 1'b0; b = 1'b1; bin = 1'b1; | Outputs: diff=0, bout=1 | Expected: diff=          0, bout=          1
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 1'b1; b = 1'b1; bin = 1'b1; | Outputs: diff=1, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 1'b1; b = 1'b0; bin = 1'b1; | Outputs: diff=0, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 1'b0; b = 1'b0; bin = 1'b0; | Outputs: diff=0, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 1'b0; b = 1'b1; bin = 1'b0; | Outputs: diff=1, bout=1 | Expected: diff=          1, bout=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 1'b1; b = 1'b1; bin = 1'b0; | Outputs: diff=0, bout=0 | Expected: diff=          0, bout=          0
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 1'b1; b = 1'b0; bin = 1'b0; | Outputs: diff=1, bout=0 | Expected: diff=          1, bout=          0
+# Simulation time: 180.0 ns
+# ** Note: $finish    : generated/ripple_carry_subtractor/tb_N1_ripple_carry_subtractor.v(202)
+#    Time: 180 ns  Iteration: 0  Instance: /tb_N1_ripple_carry_subtractor
+# End time: 15:31:52 on Jul 29,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

@@ -1,0 +1,9 @@
+Start time: 14:15:36 on Aug 02,2024
+vlog generated\square\square.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module square
+
+Top level modules:
+	square
+End time: 14:15:37 on Aug 02,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

@@ -1,0 +1,85 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_WIDTH7_carry_skip_block 
+# Start time: 15:13:37 on Jul 22,2024
+# Loading work.tb_WIDTH7_carry_skip_block
+# Loading work.carry_skip_block
+# Loading work.full_adder
+# Loading work.half_adder
+# run -all
+# Test 0: Inputs: a = 7'b0001011; b = 7'b1001111; cin = 1'b1; | Outputs: sum=1011011, cout=0, block_carry_out=0 | Expected: sum=         91, cout=          0, block_carry_out=          0
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 7'b1000011; b = 7'b0110000; cin = 1'b0; | Outputs: sum=1110011, cout=0, block_carry_out=0 | Expected: sum=        115, cout=          0, block_carry_out=          0
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 7'b0000000; b = 7'b0000011; cin = 1'b1; | Outputs: sum=0000100, cout=0, block_carry_out=0 | Expected: sum=          4, cout=          0, block_carry_out=          0
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 7'b0001001; b = 7'b1011110; cin = 1'b1; | Outputs: sum=1101000, cout=0, block_carry_out=0 | Expected: sum=        104, cout=          0, block_carry_out=          0
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 7'b1001001; b = 7'b1101111; cin = 1'b1; | Outputs: sum=0111001, cout=1, block_carry_out=1 | Expected: sum=         57, cout=          1, block_carry_out=          1
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 7'b1111011; b = 7'b0001001; cin = 1'b1; | Outputs: sum=0000101, cout=1, block_carry_out=1 | Expected: sum=          5, cout=          1, block_carry_out=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 7'b1001100; b = 7'b0100111; cin = 1'b1; | Outputs: sum=1110100, cout=0, block_carry_out=0 | Expected: sum=        116, cout=          0, block_carry_out=          0
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 7'b0000000; b = 7'b1000001; cin = 1'b0; | Outputs: sum=1000001, cout=0, block_carry_out=0 | Expected: sum=         65, cout=          0, block_carry_out=          0
+# Simulation time: 180.0 ns
+# Test 8: Inputs: a = 7'b1000011; b = 7'b0101011; cin = 1'b0; | Outputs: sum=1101110, cout=0, block_carry_out=0 | Expected: sum=        110, cout=          0, block_carry_out=          0
+# Simulation time: 190.0 ns
+# Test 9: Inputs: a = 7'b0011010; b = 7'b0000010; cin = 1'b1; | Outputs: sum=0011101, cout=0, block_carry_out=0 | Expected: sum=         29, cout=          0, block_carry_out=          0
+# Simulation time: 200.0 ns
+# Test 10: Inputs: a = 7'b0000101; b = 7'b0011000; cin = 1'b1; | Outputs: sum=0011110, cout=0, block_carry_out=0 | Expected: sum=         30, cout=          0, block_carry_out=          0
+# Simulation time: 210.0 ns
+# Test 11: Inputs: a = 7'b0111101; b = 7'b0000101; cin = 1'b1; | Outputs: sum=1000011, cout=0, block_carry_out=0 | Expected: sum=         67, cout=          0, block_carry_out=          0
+# Simulation time: 220.0 ns
+# Test 12: Inputs: a = 7'b1101011; b = 7'b0100111; cin = 1'b1; | Outputs: sum=0010011, cout=1, block_carry_out=1 | Expected: sum=         19, cout=          1, block_carry_out=          1
+# Simulation time: 230.0 ns
+# Test 13: Inputs: a = 7'b0011010; b = 7'b1111010; cin = 1'b0; | Outputs: sum=0010100, cout=1, block_carry_out=1 | Expected: sum=         20, cout=          1, block_carry_out=          1
+# Simulation time: 240.0 ns
+# Test 14: Inputs: a = 7'b0101010; b = 7'b1100011; cin = 1'b0; | Outputs: sum=0001101, cout=1, block_carry_out=1 | Expected: sum=         13, cout=          1, block_carry_out=          1
+# Simulation time: 250.0 ns
+# Test 15: Inputs: a = 7'b1011101; b = 7'b1111111; cin = 1'b0; | Outputs: sum=1011100, cout=1, block_carry_out=1 | Expected: sum=         92, cout=          1, block_carry_out=          1
+# Simulation time: 260.0 ns
+# Test 16: Inputs: a = 7'b1100010; b = 7'b0000100; cin = 1'b1; | Outputs: sum=1100111, cout=0, block_carry_out=0 | Expected: sum=        103, cout=          0, block_carry_out=          0
+# Simulation time: 270.0 ns
+# Test 17: Inputs: a = 7'b1010101; b = 7'b0100001; cin = 1'b0; | Outputs: sum=1110110, cout=0, block_carry_out=0 | Expected: sum=        118, cout=          0, block_carry_out=          0
+# Simulation time: 280.0 ns
+# Test 18: Inputs: a = 7'b1111110; b = 7'b0000101; cin = 1'b0; | Outputs: sum=0000011, cout=1, block_carry_out=1 | Expected: sum=          3, cout=          1, block_carry_out=          1
+# Simulation time: 290.0 ns
+# Test 19: Inputs: a = 7'b0101100; b = 7'b0111000; cin = 1'b1; | Outputs: sum=1100101, cout=0, block_carry_out=0 | Expected: sum=        101, cout=          0, block_carry_out=          0
+# Simulation time: 300.0 ns
+# Test 20: Inputs: a = 7'b0000010; b = 7'b1101000; cin = 1'b0; | Outputs: sum=1101010, cout=0, block_carry_out=0 | Expected: sum=        106, cout=          0, block_carry_out=          0
+# Simulation time: 310.0 ns
+# Test 21: Inputs: a = 7'b0100111; b = 7'b1001111; cin = 1'b1; | Outputs: sum=1110111, cout=0, block_carry_out=0 | Expected: sum=        119, cout=          0, block_carry_out=          0
+# Simulation time: 320.0 ns
+# Test 22: Inputs: a = 7'b0111011; b = 7'b0110011; cin = 1'b1; | Outputs: sum=1101111, cout=0, block_carry_out=0 | Expected: sum=        111, cout=          0, block_carry_out=          0
+# Simulation time: 330.0 ns
+# Test 23: Inputs: a = 7'b1111001; b = 7'b1101111; cin = 1'b1; | Outputs: sum=1101001, cout=1, block_carry_out=1 | Expected: sum=        105, cout=          1, block_carry_out=          1
+# Simulation time: 340.0 ns
+# Test 24: Inputs: a = 7'b0010111; b = 7'b1100111; cin = 1'b0; | Outputs: sum=1111110, cout=0, block_carry_out=0 | Expected: sum=        126, cout=          0, block_carry_out=          0
+# Simulation time: 350.0 ns
+# Test 25: Inputs: a = 7'b1000011; b = 7'b1101110; cin = 1'b1; | Outputs: sum=0110010, cout=1, block_carry_out=1 | Expected: sum=         50, cout=          1, block_carry_out=          1
+# Simulation time: 360.0 ns
+# Test 26: Inputs: a = 7'b0110011; b = 7'b1011111; cin = 1'b1; | Outputs: sum=0010011, cout=1, block_carry_out=1 | Expected: sum=         19, cout=          1, block_carry_out=          1
+# Simulation time: 370.0 ns
+# Test 27: Inputs: a = 7'b1001111; b = 7'b1010010; cin = 1'b1; | Outputs: sum=0100010, cout=1, block_carry_out=1 | Expected: sum=         34, cout=          1, block_carry_out=          1
+# Simulation time: 380.0 ns
+# Test 28: Inputs: a = 7'b1001101; b = 7'b0001111; cin = 1'b0; | Outputs: sum=1011100, cout=0, block_carry_out=0 | Expected: sum=         92, cout=          0, block_carry_out=          0
+# Simulation time: 390.0 ns
+# Test 29: Inputs: a = 7'b1010110; b = 7'b0000001; cin = 1'b0; | Outputs: sum=1010111, cout=0, block_carry_out=0 | Expected: sum=         87, cout=          0, block_carry_out=          0
+# Simulation time: 400.0 ns
+# Test 30: Inputs: a = 7'b0001010; b = 7'b0110101; cin = 1'b0; | Outputs: sum=0111111, cout=0, block_carry_out=0 | Expected: sum=         63, cout=          0, block_carry_out=          0
+# Simulation time: 410.0 ns
+# Test 31: Inputs: a = 7'b1011001; b = 7'b1001111; cin = 1'b1; | Outputs: sum=0101001, cout=1, block_carry_out=1 | Expected: sum=         41, cout=          1, block_carry_out=          1
+# Simulation time: 420.0 ns
+# Test 32: Inputs: a = 7'b1000100; b = 7'b1010011; cin = 1'b1; | Outputs: sum=0011000, cout=1, block_carry_out=1 | Expected: sum=         24, cout=          1, block_carry_out=          1
+# Simulation time: 430.0 ns
+# Test 33: Inputs: a = 7'b1001111; b = 7'b0010010; cin = 1'b1; | Outputs: sum=1100010, cout=0, block_carry_out=0 | Expected: sum=         98, cout=          0, block_carry_out=          0
+# Simulation time: 440.0 ns
+# Test 34: Inputs: a = 7'b1101011; b = 7'b1010101; cin = 1'b0; | Outputs: sum=1000000, cout=1, block_carry_out=1 | Expected: sum=         64, cout=          1, block_carry_out=          1
+# Simulation time: 450.0 ns
+# ** Note: $finish    : generated/carry_skip_block/tb_WIDTH7_carry_skip_block.v(832)
+#    Time: 450 ns  Iteration: 0  Instance: /tb_WIDTH7_carry_skip_block
+# End time: 15:13:38 on Jul 22,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

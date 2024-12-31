@@ -1,0 +1,73 @@
+{
+    "component_name": "square",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "Ai"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "Bi"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "G"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "P"
+        ]
+    ],
+    "others": {
+        "i": [
+            "wire",
+            "",
+            "B"
+        ]
+    },
+    "submodules": {},
+    "param_comb": [],
+    "rules": [
+        "SquareRule"
+    ],
+    "stimuli": [
+        "Ai = 1'b1; Bi = 1'b1;",
+        "Ai = 1'b1; Bi = 1'b0;",
+        "Ai = 1'b0; Bi = 1'b1;",
+        "Ai = 1'b0; Bi = 1'b0;"
+    ],
+    "expected": [
+        {
+            "G": 1,
+            "P": 0
+        },
+        {
+            "G": 0,
+            "P": 1
+        },
+        {
+            "G": 0,
+            "P": 1
+        },
+        {
+            "G": 0,
+            "P": 0
+        }
+    ],
+    "param_component_name": "_square"
+}

@@ -1,0 +1,78 @@
+{
+    "component_name": "half_adder",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "b"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "sum"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "others": {
+        "m": [
+            "wire",
+            "",
+            "su"
+        ],
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ]
+    },
+    "submodules": {},
+    "param_comb": [],
+    "rules": [
+        "AdderRule"
+    ],
+    "stimuli": [
+        "a = 1'b0; b = 1'b0;",
+        "a = 1'b1; b = 1'b0;",
+        "a = 1'b1; b = 1'b1;",
+        "a = 1'b0; b = 1'b1;"
+    ],
+    "expected": [
+        {
+            "sum": 0,
+            "cout": 0
+        },
+        {
+            "sum": 1,
+            "cout": 0
+        },
+        {
+            "sum": 0,
+            "cout": 1
+        },
+        {
+            "sum": 1,
+            "cout": 0
+        }
+    ],
+    "param_component_name": "_half_adder"
+}

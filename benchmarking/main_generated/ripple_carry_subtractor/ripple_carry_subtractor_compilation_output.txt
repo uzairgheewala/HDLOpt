@@ -1,0 +1,11 @@
+Start time: 15:32:07 on Jul 29,2024
+vlog generated\ripple_carry_subtractor\full_subtractor\full_subtractor.v generated\ripple_carry_subtractor\full_subtractor\half_subtractor\half_subtractor.v generated\ripple_carry_subtractor\ripple_carry_subtractor.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module full_subtractor
+-- Compiling module half_subtractor
+-- Compiling module ripple_carry_subtractor
+
+Top level modules:
+	ripple_carry_subtractor
+End time: 15:32:07 on Jul 29,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

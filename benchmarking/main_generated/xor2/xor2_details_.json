@@ -1,0 +1,67 @@
+{
+    "component_name": "xor2",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "i0"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "i1"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "o"
+        ]
+    ],
+    "others": {
+        "0": [
+            "wire",
+            "",
+            "i"
+        ],
+        "1": [
+            "wire",
+            "",
+            "i"
+        ]
+    },
+    "submodules": {},
+    "param_comb": [],
+    "rules": [
+        "Xor2Rule"
+    ],
+    "stimuli": [
+        "i0 = 1'b1; i1 = 1'b1;",
+        "i0 = 1'b1; i1 = 1'b0;",
+        "i0 = 1'b0; i1 = 1'b1;",
+        "i0 = 1'b0; i1 = 1'b0;"
+    ],
+    "expected": [
+        {
+            "o": 0
+        },
+        {
+            "o": 1
+        },
+        {
+            "o": 1
+        },
+        {
+            "o": 0
+        }
+    ],
+    "param_component_name": "_xor2"
+}

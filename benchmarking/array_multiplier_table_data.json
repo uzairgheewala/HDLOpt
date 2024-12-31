@@ -1,0 +1,28 @@
+{
+    "8": [
+        [
+            "Module",
+            "port_bits",
+            "wire_bits",
+            "cell_count",
+            "port_count",
+            "wire_count",
+            "hierarchy_depth",
+            "full_adder",
+            "$_AND_",
+            "$_XOR_"
+        ],
+        [
+            "array_multiplier",
+            38,
+            89,
+            36,
+            3,
+            26,
+            0,
+            1,
+            1,
+            14
+        ]
+    ]
+}

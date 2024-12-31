@@ -1,0 +1,11 @@
+Start time: 15:17:03 on Jul 29,2024
+vlog generated\mcc_adder\full_adder\full_adder.v generated\mcc_adder\full_adder\half_adder\half_adder.v generated\mcc_adder\mcc_adder.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module full_adder
+-- Compiling module half_adder
+-- Compiling module mcc_adder
+
+Top level modules:
+	mcc_adder
+End time: 15:17:03 on Jul 29,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

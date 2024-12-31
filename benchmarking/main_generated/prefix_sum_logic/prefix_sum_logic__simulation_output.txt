@@ -1,0 +1,45 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb__prefix_sum_logic 
+# Start time: 10:55:40 on Jul 22,2024
+# Loading work.tb__prefix_sum_logic
+# Loading work.prefix_sum_logic
+# run -all
+# Test 0: Inputs: p_i = 1'b1; g_i = 1'b1; p_j = 1'b0; g_j = 1'b0; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 110.0 ns
+# Test 1: Inputs: p_i = 1'b0; g_i = 1'b0; p_j = 1'b0; g_j = 1'b1; | Outputs: p_kj=0, g_kj=0 | Expected: p_kj=          0, g_kj=          0
+# Simulation time: 120.0 ns
+# Test 2: Inputs: p_i = 1'b0; g_i = 1'b0; p_j = 1'b1; g_j = 1'b1; | Outputs: p_kj=0, g_kj=0 | Expected: p_kj=          0, g_kj=          0
+# Simulation time: 130.0 ns
+# Test 3: Inputs: p_i = 1'b1; g_i = 1'b0; p_j = 1'b0; g_j = 1'b0; | Outputs: p_kj=0, g_kj=0 | Expected: p_kj=          0, g_kj=          0
+# Simulation time: 140.0 ns
+# Test 4: Inputs: p_i = 1'b1; g_i = 1'b0; p_j = 1'b1; g_j = 1'b1; | Outputs: p_kj=1, g_kj=1 | Expected: p_kj=          1, g_kj=          1
+# Simulation time: 150.0 ns
+# Test 5: Inputs: p_i = 1'b1; g_i = 1'b1; p_j = 1'b0; g_j = 1'b1; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: p_i = 1'b1; g_i = 1'b0; p_j = 1'b1; g_j = 1'b0; | Outputs: p_kj=1, g_kj=0 | Expected: p_kj=          1, g_kj=          0
+# Simulation time: 170.0 ns
+# Test 7: Inputs: p_i = 1'b0; g_i = 1'b0; p_j = 1'b1; g_j = 1'b0; | Outputs: p_kj=0, g_kj=0 | Expected: p_kj=          0, g_kj=          0
+# Simulation time: 180.0 ns
+# Test 8: Inputs: p_i = 1'b0; g_i = 1'b0; p_j = 1'b0; g_j = 1'b0; | Outputs: p_kj=0, g_kj=0 | Expected: p_kj=          0, g_kj=          0
+# Simulation time: 190.0 ns
+# Test 9: Inputs: p_i = 1'b0; g_i = 1'b1; p_j = 1'b1; g_j = 1'b0; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 200.0 ns
+# Test 10: Inputs: p_i = 1'b1; g_i = 1'b0; p_j = 1'b0; g_j = 1'b1; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 210.0 ns
+# Test 11: Inputs: p_i = 1'b1; g_i = 1'b1; p_j = 1'b1; g_j = 1'b0; | Outputs: p_kj=1, g_kj=1 | Expected: p_kj=          1, g_kj=          1
+# Simulation time: 220.0 ns
+# Test 12: Inputs: p_i = 1'b0; g_i = 1'b1; p_j = 1'b0; g_j = 1'b1; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 230.0 ns
+# Test 13: Inputs: p_i = 1'b0; g_i = 1'b1; p_j = 1'b1; g_j = 1'b1; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 240.0 ns
+# Test 14: Inputs: p_i = 1'b0; g_i = 1'b1; p_j = 1'b0; g_j = 1'b0; | Outputs: p_kj=0, g_kj=1 | Expected: p_kj=          0, g_kj=          1
+# Simulation time: 250.0 ns
+# Test 15: Inputs: p_i = 1'b1; g_i = 1'b1; p_j = 1'b1; g_j = 1'b1; | Outputs: p_kj=1, g_kj=1 | Expected: p_kj=          1, g_kj=          1
+# Simulation time: 260.0 ns
+# ** Note: $finish    : generated/prefix_sum_logic/tb__prefix_sum_logic.v(350)
+#    Time: 260 ns  Iteration: 0  Instance: /tb__prefix_sum_logic
+# End time: 10:55:41 on Jul 22,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

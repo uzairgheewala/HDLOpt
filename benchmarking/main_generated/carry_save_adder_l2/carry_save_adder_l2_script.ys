@@ -1,0 +1,9 @@
+
+    read_verilog generated\carry_save_adder_l2\carry_save_adder_l2.v
+read_verilog generated\carry_save_adder_l2\full_adder\full_adder.v
+read_verilog generated\carry_save_adder_l2\full_adder\half_adder\half_adder.v
+
+    synth -top carry_save_adder_l2
+    write_json generated\carry_save_adder_l2\carry_save_adder_l2_netlist.json
+    stat
+    

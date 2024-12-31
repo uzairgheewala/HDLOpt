@@ -1,0 +1,7 @@
+# vsim -c -do "run -all; exit" work.tb_full_adder 
+# Start time: 11:29:10 on Jul 02,2024
+# ** Error (suppressible): (vsim-19) Failed to access library 'work' at "work".
+# No such file or directory. (errno = ENOENT)
+# Error loading design
+# End time: 11:29:11 on Jul 02,2024, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0

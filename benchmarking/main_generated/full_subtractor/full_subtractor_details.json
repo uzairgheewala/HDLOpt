@@ -1,0 +1,121 @@
+{
+    "component_name": "full_subtractor",
+    "parameters": [],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "bin"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "diff"
+        ],
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "bout"
+        ]
+    ],
+    "others": {
+        "n": [
+            "wire",
+            "",
+            "bi"
+        ],
+        "f": [
+            "wire",
+            "",
+            "dif"
+        ],
+        "t": [
+            "wire",
+            "",
+            "bou"
+        ],
+        "1": [
+            "wire",
+            "",
+            "d"
+        ],
+        "2": [
+            "wire",
+            "",
+            "b"
+        ]
+    },
+    "submodules": {
+        "half_subtractor": {
+            "component_name": "half_subtractor",
+            "parameters": [],
+            "inputs": [
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "a"
+                ],
+                [
+                    "input",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "b"
+                ]
+            ],
+            "outputs": [
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "diff"
+                ],
+                [
+                    "output",
+                    "wire",
+                    "unsigned",
+                    "1",
+                    "bout"
+                ]
+            ],
+            "others": {
+                "f": [
+                    "wire",
+                    "",
+                    "dif"
+                ],
+                "t": [
+                    "wire",
+                    "",
+                    "bou"
+                ]
+            },
+            "submodules": {}
+        }
+    }
+}

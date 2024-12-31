@@ -1,0 +1,217 @@
+{
+    "component_name": "skip_logic",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "4"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "6:0",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "6:0",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cin"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cin_next"
+        ]
+    ],
+    "others": {
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ],
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "P": [
+            "wire",
+            "",
+            ""
+        ]
+    },
+    "submodules": {},
+    "param_comb": [
+        [
+            "N",
+            7
+        ]
+    ],
+    "rules": [
+        "SkipLogicRule"
+    ],
+    "stimuli": [
+        "a = 7'b1001001; b = 7'b1000010; cin = 1'b1; cout = 1'b1;",
+        "a = 7'b0000010; b = 7'b0111011; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1100111; b = 7'b1000110; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1000111; b = 7'b0001000; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b0000000; b = 7'b1100000; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1110001; b = 7'b0110101; cin = 1'b1; cout = 1'b1;",
+        "a = 7'b0001111; b = 7'b0111111; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1010010; b = 7'b0110001; cin = 1'b1; cout = 1'b1;",
+        "a = 7'b1101011; b = 7'b1011010; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b1100111; b = 7'b0111110; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b1111100; b = 7'b0010111; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b1110111; b = 7'b0100001; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1010010; b = 7'b0011101; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1001011; b = 7'b0000001; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1100100; b = 7'b1010101; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b0110101; b = 7'b0110111; cin = 1'b1; cout = 1'b1;",
+        "a = 7'b0010101; b = 7'b1110011; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b1011100; b = 7'b0001111; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1100001; b = 7'b1001011; cin = 1'b1; cout = 1'b1;",
+        "a = 7'b0000000; b = 7'b1110010; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b0010011; b = 7'b1011101; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1001100; b = 7'b0010101; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b0101100; b = 7'b0010010; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b0100110; b = 7'b1101110; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1100011; b = 7'b1101110; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b1000101; b = 7'b1011001; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b0000001; b = 7'b1111100; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b0110011; b = 7'b0101010; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b0001010; b = 7'b0111100; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1111101; b = 7'b0110110; cin = 1'b1; cout = 1'b0;",
+        "a = 7'b1110001; b = 7'b1001000; cin = 1'b0; cout = 1'b0;",
+        "a = 7'b1111011; b = 7'b1011011; cin = 1'b0; cout = 1'b1;",
+        "a = 7'b0110100; b = 7'b1101100; cin = 1'b1; cout = 1'b1;"
+    ],
+    "expected": [
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        }
+    ],
+    "param_component_name": "N7_skip_logic"
+}

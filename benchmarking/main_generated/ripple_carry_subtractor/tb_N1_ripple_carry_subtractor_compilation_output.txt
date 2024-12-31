@@ -1,0 +1,30 @@
+Start time: 15:31:47 on Jul 29,2024
+vlog generated\ripple_carry_subtractor\full_subtractor\full_subtractor.v generated\ripple_carry_subtractor\full_subtractor\half_subtractor\half_subtractor.v generated\ripple_carry_subtractor\full_subtractor\half_subtractor\tb__half_subtractor.v generated\ripple_carry_subtractor\full_subtractor\tb__full_subtractor.v generated\ripple_carry_subtractor\ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N1_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N2_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N3_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N4_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N5_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N6_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N7_ripple_carry_subtractor.v generated\ripple_carry_subtractor\tb_N8_ripple_carry_subtractor.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module full_subtractor
+-- Compiling module half_subtractor
+-- Compiling module tb__half_subtractor
+-- Compiling module tb__full_subtractor
+-- Compiling module ripple_carry_subtractor
+-- Compiling module tb_N1_ripple_carry_subtractor
+-- Compiling module tb_N2_ripple_carry_subtractor
+-- Compiling module tb_N3_ripple_carry_subtractor
+-- Compiling module tb_N4_ripple_carry_subtractor
+-- Compiling module tb_N5_ripple_carry_subtractor
+-- Compiling module tb_N6_ripple_carry_subtractor
+-- Compiling module tb_N7_ripple_carry_subtractor
+-- Compiling module tb_N8_ripple_carry_subtractor
+
+Top level modules:
+	tb__half_subtractor
+	tb__full_subtractor
+	tb_N1_ripple_carry_subtractor
+	tb_N2_ripple_carry_subtractor
+	tb_N3_ripple_carry_subtractor
+	tb_N4_ripple_carry_subtractor
+	tb_N5_ripple_carry_subtractor
+	tb_N6_ripple_carry_subtractor
+	tb_N7_ripple_carry_subtractor
+	tb_N8_ripple_carry_subtractor
+End time: 15:31:48 on Jul 29,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

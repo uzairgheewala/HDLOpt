@@ -1,0 +1,4181 @@
+{
+    "component_name": "skip_logic",
+    "parameters": [
+        {
+            "name": "N",
+            "value": "4"
+        }
+    ],
+    "inputs": [
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "3:0",
+            "a"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "3:0",
+            "b"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cin"
+        ],
+        [
+            "input",
+            "wire",
+            "unsigned",
+            "1",
+            "cout"
+        ]
+    ],
+    "outputs": [
+        [
+            "output",
+            "wire",
+            "unsigned",
+            "1",
+            "cin_next"
+        ]
+    ],
+    "others": {
+        "t": [
+            "wire",
+            "",
+            "cou"
+        ],
+        "N": [
+            "wire",
+            "",
+            ""
+        ],
+        "n": [
+            "wire",
+            "",
+            "ci"
+        ],
+        "P": [
+            "wire",
+            "",
+            ""
+        ]
+    },
+    "submodules": {},
+    "param_comb": [
+        [
+            "N",
+            4
+        ]
+    ],
+    "rules": [
+        "SkipLogicRule"
+    ],
+    "stimuli": [
+        "a = 4'b0111; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1111; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b1110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b1100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1010; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1001; b = 4'b1101; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1000; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0011; b = 4'b1101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b0101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1110; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1000; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b0110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0100; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0000; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1110; b = 4'b1101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0010; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1000; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1100; b = 4'b1011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1101; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0101; b = 4'b1111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1001; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1111; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b0011; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0001; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b0111; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1010; b = 4'b1111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b0100; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0111; b = 4'b0101; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0100; b = 4'b0101; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b0011; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0111; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1000; b = 4'b1111; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1010; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b0001; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0100; b = 4'b1000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0011; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b1110; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b0110; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1101; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b0110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0010; b = 4'b0000; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0110; b = 4'b0111; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0011; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0110; b = 4'b1110; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b1011; cin = 1'b0; cout = 1'b0;",
+        "a = 4'b1001; b = 4'b1010; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b0000; b = 4'b0010; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0001; b = 4'b0100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1101; b = 4'b0001; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1010; b = 4'b1100; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b1011; b = 4'b0111; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b0001; b = 4'b1100; cin = 1'b1; cout = 1'b1;",
+        "a = 4'b1100; b = 4'b1000; cin = 1'b1; cout = 1'b0;",
+        "a = 4'b0101; b = 4'b1110; cin = 1'b0; cout = 1'b1;",
+        "a = 4'b1011; b = 4'b0100; cin = 1'b0; cout = 1'b0;"
+    ],
+    "expected": [
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        },
+        {
+            "cin_next": 1
+        },
+        {
+            "cin_next": 0
+        }
+    ],
+    "param_component_name": "N4_skip_logic"
+}

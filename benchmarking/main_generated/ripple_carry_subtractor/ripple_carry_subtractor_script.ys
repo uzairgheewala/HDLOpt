@@ -1,0 +1,9 @@
+
+    read_verilog generated\ripple_carry_subtractor\full_subtractor\full_subtractor.v
+read_verilog generated\ripple_carry_subtractor\full_subtractor\half_subtractor\half_subtractor.v
+read_verilog generated\ripple_carry_subtractor\ripple_carry_subtractor.v
+
+    synth -top ripple_carry_subtractor
+    write_json generated\ripple_carry_subtractor\ripple_carry_subtractor_netlist.json
+    stat
+    

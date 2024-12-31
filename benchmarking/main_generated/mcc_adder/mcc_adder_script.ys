@@ -1,0 +1,9 @@
+
+    read_verilog generated\mcc_adder\full_adder\full_adder.v
+read_verilog generated\mcc_adder\full_adder\half_adder\half_adder.v
+read_verilog generated\mcc_adder\mcc_adder.v
+
+    synth -top mcc_adder
+    write_json generated\mcc_adder\mcc_adder_netlist.json
+    stat
+    

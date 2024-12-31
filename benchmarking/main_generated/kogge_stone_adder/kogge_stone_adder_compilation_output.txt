@@ -1,0 +1,13 @@
+Start time: 09:13:38 on Jul 25,2024
+vlog generated\kogge_stone_adder\big_circle\big_circle.v generated\kogge_stone_adder\kogge_stone_adder.v generated\kogge_stone_adder\small_circle\small_circle.v generated\kogge_stone_adder\square\square.v generated\kogge_stone_adder\triangle\triangle.v 
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module big_circle
+-- Compiling module kogge_stone_adder
+-- Compiling module small_circle
+-- Compiling module square
+-- Compiling module triangle
+
+Top level modules:
+	kogge_stone_adder
+End time: 09:13:39 on Jul 25,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

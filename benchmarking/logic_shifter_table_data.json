@@ -1,0 +1,36 @@
+{
+    "8": [
+        [
+            "Module",
+            "port_count",
+            "cell_count",
+            "wire_bits",
+            "port_bits",
+            "hierarchy_depth",
+            "wire_count",
+            "full_adder",
+            "$_ANDNOT_",
+            "$_MUX_",
+            "$_NOT_",
+            "$_NAND_",
+            "$_ORNOT_",
+            "$_NOR_"
+        ],
+        [
+            "logic_shifter",
+            4,
+            96,
+            179,
+            24,
+            0,
+            108,
+            1,
+            2,
+            4,
+            12,
+            6,
+            12,
+            6
+        ]
+    ]
+}

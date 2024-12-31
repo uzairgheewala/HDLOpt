@@ -1,0 +1,451 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N8_carry_save_adder_l2 
+# Start time: 15:14:00 on Jul 29,2024
+# Loading work.tb_N8_carry_save_adder_l2
+# Loading work.carry_save_adder_l2
+# Loading work.full_adder
+# Loading work.half_adder
+# run -all
+# Test 0: Inputs: a = 8'b10101111; b = 8'b01110010; c = 8'b01110110; | Outputs: sum=10101011, carry=01110110 | Expected: sum=        171, carry=        118
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 8'b10010000; b = 8'b11110100; c = 8'b11101101; | Outputs: sum=10001001, carry=11110100 | Expected: sum=        137, carry=        244
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 8'b11110101; b = 8'b11001110; c = 8'b10100001; | Outputs: sum=10011010, carry=11100101 | Expected: sum=        154, carry=        229
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 8'b00001101; b = 8'b10101001; c = 8'b11010011; | Outputs: sum=01110111, carry=10001001 | Expected: sum=        119, carry=        137
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 8'b00001101; b = 8'b00110110; c = 8'b00111000; | Outputs: sum=00000011, carry=00111100 | Expected: sum=          3, carry=         60
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 8'b11111110; b = 8'b10011011; c = 8'b01010011; | Outputs: sum=00110110, carry=11011011 | Expected: sum=         54, carry=        219
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 8'b00101111; b = 8'b11101011; c = 8'b10010101; | Outputs: sum=01010001, carry=10101111 | Expected: sum=         81, carry=        175
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 8'b01101111; b = 8'b10011100; c = 8'b11001101; | Outputs: sum=00111110, carry=11001101 | Expected: sum=         62, carry=        205
+# Simulation time: 180.0 ns
+# Test 8: Inputs: a = 8'b01101101; b = 8'b00111000; c = 8'b11000111; | Outputs: sum=10010010, carry=01101101 | Expected: sum=        146, carry=        109
+# Simulation time: 190.0 ns
+# Test 9: Inputs: a = 8'b00101110; b = 8'b01000010; c = 8'b00001111; | Outputs: sum=01100011, carry=00001110 | Expected: sum=         99, carry=         14
+# Simulation time: 200.0 ns
+# Test 10: Inputs: a = 8'b11111000; b = 8'b01001111; c = 8'b11110110; | Outputs: sum=01000001, carry=11111110 | Expected: sum=         65, carry=        254
+# Simulation time: 210.0 ns
+# Test 11: Inputs: a = 8'b10111101; b = 8'b00000100; c = 8'b10011111; | Outputs: sum=00100110, carry=10011101 | Expected: sum=         38, carry=        157
+# Simulation time: 220.0 ns
+# Test 12: Inputs: a = 8'b01010101; b = 8'b00101011; c = 8'b11111011; | Outputs: sum=10000101, carry=01111011 | Expected: sum=        133, carry=        123
+# Simulation time: 230.0 ns
+# Test 13: Inputs: a = 8'b01000010; b = 8'b00000001; c = 8'b01010000; | Outputs: sum=00010011, carry=01000000 | Expected: sum=         19, carry=         64
+# Simulation time: 240.0 ns
+# Test 14: Inputs: a = 8'b00111110; b = 8'b10010101; c = 8'b10101001; | Outputs: sum=00000010, carry=10111101 | Expected: sum=          2, carry=        189
+# Simulation time: 250.0 ns
+# Test 15: Inputs: a = 8'b10001001; b = 8'b01010001; c = 8'b00110110; | Outputs: sum=11101110, carry=00010001 | Expected: sum=        238, carry=         17
+# Simulation time: 260.0 ns
+# Test 16: Inputs: a = 8'b10101101; b = 8'b00110110; c = 8'b01001001; | Outputs: sum=11010010, carry=00101101 | Expected: sum=        210, carry=         45
+# Simulation time: 270.0 ns
+# Test 17: Inputs: a = 8'b01011100; b = 8'b01001111; c = 8'b10011011; | Outputs: sum=10001000, carry=01011111 | Expected: sum=        136, carry=         95
+# Simulation time: 280.0 ns
+# Test 18: Inputs: a = 8'b10000110; b = 8'b01010010; c = 8'b10001111; | Outputs: sum=01011011, carry=10000110 | Expected: sum=         91, carry=        134
+# Simulation time: 290.0 ns
+# Test 19: Inputs: a = 8'b10101001; b = 8'b00011001; c = 8'b01010001; | Outputs: sum=11100001, carry=00011001 | Expected: sum=        225, carry=         25
+# Simulation time: 300.0 ns
+# Test 20: Inputs: a = 8'b00110101; b = 8'b10010001; c = 8'b11000101; | Outputs: sum=01100001, carry=10010101 | Expected: sum=         97, carry=        149
+# Simulation time: 310.0 ns
+# Test 21: Inputs: a = 8'b10001011; b = 8'b11100001; c = 8'b01101111; | Outputs: sum=00000101, carry=11101011 | Expected: sum=          5, carry=        235
+# Simulation time: 320.0 ns
+# Test 22: Inputs: a = 8'b10011001; b = 8'b00110001; c = 8'b11111000; | Outputs: sum=01010000, carry=10111001 | Expected: sum=         80, carry=        185
+# Simulation time: 330.0 ns
+# Test 23: Inputs: a = 8'b10011100; b = 8'b01000011; c = 8'b10011000; | Outputs: sum=01000111, carry=10011000 | Expected: sum=         71, carry=        152
+# Simulation time: 340.0 ns
+# Test 24: Inputs: a = 8'b11010011; b = 8'b01101001; c = 8'b10100011; | Outputs: sum=00011001, carry=11100011 | Expected: sum=         25, carry=        227
+# Simulation time: 350.0 ns
+# Test 25: Inputs: a = 8'b11000011; b = 8'b00111010; c = 8'b10001101; | Outputs: sum=01110100, carry=10001011 | Expected: sum=        116, carry=        139
+# Simulation time: 360.0 ns
+# Test 26: Inputs: a = 8'b11011001; b = 8'b10110000; c = 8'b10001000; | Outputs: sum=11100001, carry=10011000 | Expected: sum=        225, carry=        152
+# Simulation time: 370.0 ns
+# Test 27: Inputs: a = 8'b01101000; b = 8'b11100001; c = 8'b01111101; | Outputs: sum=11110100, carry=01101001 | Expected: sum=        244, carry=        105
+# Simulation time: 380.0 ns
+# Test 28: Inputs: a = 8'b00000111; b = 8'b00001110; c = 8'b10001000; | Outputs: sum=10000001, carry=00001110 | Expected: sum=        129, carry=         14
+# Simulation time: 390.0 ns
+# Test 29: Inputs: a = 8'b11110011; b = 8'b00100010; c = 8'b11011010; | Outputs: sum=00001011, carry=11110010 | Expected: sum=         11, carry=        242
+# Simulation time: 400.0 ns
+# Test 30: Inputs: a = 8'b01111110; b = 8'b10101111; c = 8'b10011001; | Outputs: sum=01001000, carry=10111111 | Expected: sum=         72, carry=        191
+# Simulation time: 410.0 ns
+# Test 31: Inputs: a = 8'b10011010; b = 8'b01111010; c = 8'b10101101; | Outputs: sum=01001101, carry=10111010 | Expected: sum=         77, carry=        186
+# Simulation time: 420.0 ns
+# Test 32: Inputs: a = 8'b11100101; b = 8'b10100000; c = 8'b00100100; | Outputs: sum=01100001, carry=10100100 | Expected: sum=         97, carry=        164
+# Simulation time: 430.0 ns
+# Test 33: Inputs: a = 8'b10111100; b = 8'b10001010; c = 8'b01011110; | Outputs: sum=01101000, carry=10011110 | Expected: sum=        104, carry=        158
+# Simulation time: 440.0 ns
+# Test 34: Inputs: a = 8'b00000110; b = 8'b11001010; c = 8'b00101110; | Outputs: sum=11100010, carry=00001110 | Expected: sum=        226, carry=         14
+# Simulation time: 450.0 ns
+# Test 35: Inputs: a = 8'b10011001; b = 8'b10011010; c = 8'b10000000; | Outputs: sum=10000011, carry=10011000 | Expected: sum=        131, carry=        152
+# Simulation time: 460.0 ns
+# Test 36: Inputs: a = 8'b00000101; b = 8'b10111110; c = 8'b11000100; | Outputs: sum=01111111, carry=10000100 | Expected: sum=        127, carry=        132
+# Simulation time: 470.0 ns
+# Test 37: Inputs: a = 8'b01011110; b = 8'b10011101; c = 8'b01000111; | Outputs: sum=10000100, carry=01011111 | Expected: sum=        132, carry=         95
+# Simulation time: 480.0 ns
+# Test 38: Inputs: a = 8'b10101111; b = 8'b01110110; c = 8'b00110100; | Outputs: sum=11101101, carry=00110110 | Expected: sum=        237, carry=         54
+# Simulation time: 490.0 ns
+# Test 39: Inputs: a = 8'b00010011; b = 8'b10001001; c = 8'b11001111; | Outputs: sum=01010101, carry=10001011 | Expected: sum=         85, carry=        139
+# Simulation time: 500.0 ns
+# Test 40: Inputs: a = 8'b01000110; b = 8'b11000010; c = 8'b01101000; | Outputs: sum=11101100, carry=01000010 | Expected: sum=        236, carry=         66
+# Simulation time: 510.0 ns
+# Test 41: Inputs: a = 8'b00110111; b = 8'b01111011; c = 8'b01000011; | Outputs: sum=00001111, carry=01110011 | Expected: sum=         15, carry=        115
+# Simulation time: 520.0 ns
+# Test 42: Inputs: a = 8'b00011011; b = 8'b00000000; c = 8'b11111001; | Outputs: sum=11100010, carry=00011001 | Expected: sum=        226, carry=         25
+# Simulation time: 530.0 ns
+# Test 43: Inputs: a = 8'b11110111; b = 8'b01110010; c = 8'b11100000; | Outputs: sum=01100101, carry=11110010 | Expected: sum=        101, carry=        242
+# Simulation time: 540.0 ns
+# Test 44: Inputs: a = 8'b00010010; b = 8'b11101101; c = 8'b01111001; | Outputs: sum=10000110, carry=01111001 | Expected: sum=        134, carry=        121
+# Simulation time: 550.0 ns
+# Test 45: Inputs: a = 8'b00100010; b = 8'b01101010; c = 8'b11100000; | Outputs: sum=10101000, carry=01100010 | Expected: sum=        168, carry=         98
+# Simulation time: 560.0 ns
+# Test 46: Inputs: a = 8'b11010001; b = 8'b10000110; c = 8'b00010111; | Outputs: sum=01000000, carry=10010111 | Expected: sum=         64, carry=        151
+# Simulation time: 570.0 ns
+# Test 47: Inputs: a = 8'b11111110; b = 8'b01101011; c = 8'b01101011; | Outputs: sum=11111110, carry=01101011 | Expected: sum=        254, carry=        107
+# Simulation time: 580.0 ns
+# Test 48: Inputs: a = 8'b11101000; b = 8'b00010111; c = 8'b01111111; | Outputs: sum=10000000, carry=01111111 | Expected: sum=        128, carry=        127
+# Simulation time: 590.0 ns
+# Test 49: Inputs: a = 8'b00001100; b = 8'b01110111; c = 8'b00100010; | Outputs: sum=01011001, carry=00100110 | Expected: sum=         89, carry=         38
+# Simulation time: 600.0 ns
+# Test 50: Inputs: a = 8'b01000110; b = 8'b10111100; c = 8'b11101101; | Outputs: sum=00010111, carry=11101100 | Expected: sum=         23, carry=        236
+# Simulation time: 610.0 ns
+# Test 51: Inputs: a = 8'b01100000; b = 8'b01100110; c = 8'b11001001; | Outputs: sum=11001111, carry=01100000 | Expected: sum=        207, carry=         96
+# Simulation time: 620.0 ns
+# Test 52: Inputs: a = 8'b01100111; b = 8'b11100110; c = 8'b01010000; | Outputs: sum=11010001, carry=01100110 | Expected: sum=        209, carry=        102
+# Simulation time: 630.0 ns
+# Test 53: Inputs: a = 8'b01011111; b = 8'b00110100; c = 8'b01110001; | Outputs: sum=00011010, carry=01110101 | Expected: sum=         26, carry=        117
+# Simulation time: 640.0 ns
+# Test 54: Inputs: a = 8'b00001110; b = 8'b11010100; c = 8'b00011010; | Outputs: sum=11000000, carry=00011110 | Expected: sum=        192, carry=         30
+# Simulation time: 650.0 ns
+# Test 55: Inputs: a = 8'b11011000; b = 8'b01111011; c = 8'b11101000; | Outputs: sum=01001011, carry=11111000 | Expected: sum=         75, carry=        248
+# Simulation time: 660.0 ns
+# Test 56: Inputs: a = 8'b00001001; b = 8'b00000100; c = 8'b10110101; | Outputs: sum=10111000, carry=00000101 | Expected: sum=        184, carry=          5
+# Simulation time: 670.0 ns
+# Test 57: Inputs: a = 8'b10110111; b = 8'b11010101; c = 8'b00110111; | Outputs: sum=01010101, carry=10110111 | Expected: sum=         85, carry=        183
+# Simulation time: 680.0 ns
+# Test 58: Inputs: a = 8'b01000011; b = 8'b01111100; c = 8'b10101110; | Outputs: sum=10010001, carry=01101110 | Expected: sum=        145, carry=        110
+# Simulation time: 690.0 ns
+# Test 59: Inputs: a = 8'b10111010; b = 8'b10100001; c = 8'b11110000; | Outputs: sum=11101011, carry=10110000 | Expected: sum=        235, carry=        176
+# Simulation time: 700.0 ns
+# Test 60: Inputs: a = 8'b01011101; b = 8'b00001001; c = 8'b01100100; | Outputs: sum=00110000, carry=01001101 | Expected: sum=         48, carry=         77
+# Simulation time: 710.0 ns
+# Test 61: Inputs: a = 8'b10011010; b = 8'b11111010; c = 8'b01000111; | Outputs: sum=00100111, carry=11011010 | Expected: sum=         39, carry=        218
+# Simulation time: 720.0 ns
+# Test 62: Inputs: a = 8'b01001010; b = 8'b00000111; c = 8'b00001010; | Outputs: sum=01000111, carry=00001010 | Expected: sum=         71, carry=         10
+# Simulation time: 730.0 ns
+# Test 63: Inputs: a = 8'b10111001; b = 8'b00111110; c = 8'b11000111; | Outputs: sum=01000000, carry=10111111 | Expected: sum=         64, carry=        191
+# Simulation time: 740.0 ns
+# Test 64: Inputs: a = 8'b00000000; b = 8'b10111001; c = 8'b00101101; | Outputs: sum=10010100, carry=00101001 | Expected: sum=        148, carry=         41
+# Simulation time: 750.0 ns
+# Test 65: Inputs: a = 8'b01000011; b = 8'b10100010; c = 8'b11101011; | Outputs: sum=00001010, carry=11100011 | Expected: sum=         10, carry=        227
+# Simulation time: 760.0 ns
+# Test 66: Inputs: a = 8'b10010001; b = 8'b01000011; c = 8'b10000100; | Outputs: sum=01010110, carry=10000001 | Expected: sum=         86, carry=        129
+# Simulation time: 770.0 ns
+# Test 67: Inputs: a = 8'b01011001; b = 8'b00100000; c = 8'b00000000; | Outputs: sum=01111001, carry=00000000 | Expected: sum=        121, carry=          0
+# Simulation time: 780.0 ns
+# Test 68: Inputs: a = 8'b11000000; b = 8'b11100001; c = 8'b00001110; | Outputs: sum=00101111, carry=11000000 | Expected: sum=         47, carry=        192
+# Simulation time: 790.0 ns
+# Test 69: Inputs: a = 8'b01111000; b = 8'b00101000; c = 8'b10110011; | Outputs: sum=11100011, carry=00111000 | Expected: sum=        227, carry=         56
+# Simulation time: 800.0 ns
+# Test 70: Inputs: a = 8'b10100101; b = 8'b00111000; c = 8'b00010110; | Outputs: sum=10001011, carry=00110100 | Expected: sum=        139, carry=         52
+# Simulation time: 810.0 ns
+# Test 71: Inputs: a = 8'b00110010; b = 8'b01011111; c = 8'b10111011; | Outputs: sum=11010110, carry=00111011 | Expected: sum=        214, carry=         59
+# Simulation time: 820.0 ns
+# Test 72: Inputs: a = 8'b01000010; b = 8'b01110010; c = 8'b11001010; | Outputs: sum=11111010, carry=01000010 | Expected: sum=        250, carry=         66
+# Simulation time: 830.0 ns
+# Test 73: Inputs: a = 8'b11011101; b = 8'b10000001; c = 8'b01101001; | Outputs: sum=00110101, carry=11001001 | Expected: sum=         53, carry=        201
+# Simulation time: 840.0 ns
+# Test 74: Inputs: a = 8'b11101000; b = 8'b10110111; c = 8'b00010111; | Outputs: sum=01001000, carry=10110111 | Expected: sum=         72, carry=        183
+# Simulation time: 850.0 ns
+# Test 75: Inputs: a = 8'b10011000; b = 8'b11101001; c = 8'b00001101; | Outputs: sum=01111100, carry=10001001 | Expected: sum=        124, carry=        137
+# Simulation time: 860.0 ns
+# Test 76: Inputs: a = 8'b11011111; b = 8'b01001000; c = 8'b01101000; | Outputs: sum=11111111, carry=01001000 | Expected: sum=        255, carry=         72
+# Simulation time: 870.0 ns
+# Test 77: Inputs: a = 8'b10100100; b = 8'b00010001; c = 8'b10000100; | Outputs: sum=00110001, carry=10000100 | Expected: sum=         49, carry=        132
+# Simulation time: 880.0 ns
+# Test 78: Inputs: a = 8'b10000001; b = 8'b10010111; c = 8'b00101010; | Outputs: sum=00111100, carry=10000011 | Expected: sum=         60, carry=        131
+# Simulation time: 890.0 ns
+# Test 79: Inputs: a = 8'b10110011; b = 8'b11110011; c = 8'b00000111; | Outputs: sum=01000111, carry=10110011 | Expected: sum=         71, carry=        179
+# Simulation time: 900.0 ns
+# Test 80: Inputs: a = 8'b11100110; b = 8'b11011011; c = 8'b10010001; | Outputs: sum=10101100, carry=11010011 | Expected: sum=        172, carry=        211
+# Simulation time: 910.0 ns
+# Test 81: Inputs: a = 8'b01100001; b = 8'b00001001; c = 8'b11000000; | Outputs: sum=10101000, carry=01000001 | Expected: sum=        168, carry=         65
+# Simulation time: 920.0 ns
+# Test 82: Inputs: a = 8'b11010100; b = 8'b01101001; c = 8'b10010000; | Outputs: sum=00101101, carry=11010000 | Expected: sum=         45, carry=        208
+# Simulation time: 930.0 ns
+# Test 83: Inputs: a = 8'b01011111; b = 8'b01011100; c = 8'b11111000; | Outputs: sum=11111011, carry=01011100 | Expected: sum=        251, carry=         92
+# Simulation time: 940.0 ns
+# Test 84: Inputs: a = 8'b01100101; b = 8'b10011000; c = 8'b11001101; | Outputs: sum=00110000, carry=11001101 | Expected: sum=         48, carry=        205
+# Simulation time: 950.0 ns
+# Test 85: Inputs: a = 8'b10101000; b = 8'b00010011; c = 8'b11101101; | Outputs: sum=01010110, carry=10101001 | Expected: sum=         86, carry=        169
+# Simulation time: 960.0 ns
+# Test 86: Inputs: a = 8'b01010010; b = 8'b01101101; c = 8'b10101111; | Outputs: sum=10010000, carry=01101111 | Expected: sum=        144, carry=        111
+# Simulation time: 970.0 ns
+# Test 87: Inputs: a = 8'b01011101; b = 8'b01010110; c = 8'b00010110; | Outputs: sum=00011101, carry=01010110 | Expected: sum=         29, carry=         86
+# Simulation time: 980.0 ns
+# Test 88: Inputs: a = 8'b11101100; b = 8'b00001101; c = 8'b00110110; | Outputs: sum=11010111, carry=00101100 | Expected: sum=        215, carry=         44
+# Simulation time: 990.0 ns
+# Test 89: Inputs: a = 8'b00011001; b = 8'b00010100; c = 8'b11101010; | Outputs: sum=11100111, carry=00011000 | Expected: sum=        231, carry=         24
+# Simulation time: 1000.0 ns
+# Test 90: Inputs: a = 8'b01101000; b = 8'b01110010; c = 8'b00001110; | Outputs: sum=00010100, carry=01101010 | Expected: sum=         20, carry=        106
+# Simulation time: 1010.0 ns
+# Test 91: Inputs: a = 8'b01101011; b = 8'b11100010; c = 8'b11101111; | Outputs: sum=01100110, carry=11101011 | Expected: sum=        102, carry=        235
+# Simulation time: 1020.0 ns
+# Test 92: Inputs: a = 8'b11001101; b = 8'b10100010; c = 8'b01011011; | Outputs: sum=00110100, carry=11001011 | Expected: sum=         52, carry=        203
+# Simulation time: 1030.0 ns
+# Test 93: Inputs: a = 8'b00010100; b = 8'b10101011; c = 8'b01011101; | Outputs: sum=11100010, carry=00011101 | Expected: sum=        226, carry=         29
+# Simulation time: 1040.0 ns
+# Test 94: Inputs: a = 8'b10111011; b = 8'b01100001; c = 8'b01111000; | Outputs: sum=10100010, carry=01111001 | Expected: sum=        162, carry=        121
+# Simulation time: 1050.0 ns
+# Test 95: Inputs: a = 8'b11100101; b = 8'b10110010; c = 8'b11001010; | Outputs: sum=10011101, carry=11100010 | Expected: sum=        157, carry=        226
+# Simulation time: 1060.0 ns
+# Test 96: Inputs: a = 8'b10111110; b = 8'b11100100; c = 8'b10011001; | Outputs: sum=11000011, carry=10111100 | Expected: sum=        195, carry=        188
+# Simulation time: 1070.0 ns
+# Test 97: Inputs: a = 8'b01000000; b = 8'b01110010; c = 8'b10100010; | Outputs: sum=10010000, carry=01100010 | Expected: sum=        144, carry=         98
+# Simulation time: 1080.0 ns
+# Test 98: Inputs: a = 8'b11011011; b = 8'b01101000; c = 8'b11010101; | Outputs: sum=01100110, carry=11011001 | Expected: sum=        102, carry=        217
+# Simulation time: 1090.0 ns
+# Test 99: Inputs: a = 8'b00111011; b = 8'b01111000; c = 8'b00111010; | Outputs: sum=01111001, carry=00111010 | Expected: sum=        121, carry=         58
+# Simulation time: 1100.0 ns
+# Test 100: Inputs: a = 8'b11111011; b = 8'b01010011; c = 8'b11110101; | Outputs: sum=01011101, carry=11110011 | Expected: sum=         93, carry=        243
+# Simulation time: 1110.0 ns
+# Test 101: Inputs: a = 8'b11001010; b = 8'b01101011; c = 8'b01110101; | Outputs: sum=11010100, carry=01101011 | Expected: sum=        212, carry=        107
+# Simulation time: 1120.0 ns
+# Test 102: Inputs: a = 8'b00011000; b = 8'b10101110; c = 8'b11000100; | Outputs: sum=01110010, carry=10001100 | Expected: sum=        114, carry=        140
+# Simulation time: 1130.0 ns
+# Test 103: Inputs: a = 8'b01010001; b = 8'b01111111; c = 8'b11100000; | Outputs: sum=11001110, carry=01110001 | Expected: sum=        206, carry=        113
+# Simulation time: 1140.0 ns
+# Test 104: Inputs: a = 8'b00000110; b = 8'b11000100; c = 8'b10100000; | Outputs: sum=01100010, carry=10000100 | Expected: sum=         98, carry=        132
+# Simulation time: 1150.0 ns
+# Test 105: Inputs: a = 8'b11101010; b = 8'b00110010; c = 8'b00101011; | Outputs: sum=11110011, carry=00101010 | Expected: sum=        243, carry=         42
+# Simulation time: 1160.0 ns
+# Test 106: Inputs: a = 8'b00000010; b = 8'b11011100; c = 8'b10001010; | Outputs: sum=01010100, carry=10001010 | Expected: sum=         84, carry=        138
+# Simulation time: 1170.0 ns
+# Test 107: Inputs: a = 8'b00110011; b = 8'b01010011; c = 8'b11000010; | Outputs: sum=10100010, carry=01010011 | Expected: sum=        162, carry=         83
+# Simulation time: 1180.0 ns
+# Test 108: Inputs: a = 8'b11101011; b = 8'b11111101; c = 8'b00101001; | Outputs: sum=00111111, carry=11101001 | Expected: sum=         63, carry=        233
+# Simulation time: 1190.0 ns
+# Test 109: Inputs: a = 8'b00010001; b = 8'b11111101; c = 8'b11100001; | Outputs: sum=00001101, carry=11110001 | Expected: sum=         13, carry=        241
+# Simulation time: 1200.0 ns
+# Test 110: Inputs: a = 8'b11111101; b = 8'b00100111; c = 8'b01111000; | Outputs: sum=10100010, carry=01111101 | Expected: sum=        162, carry=        125
+# Simulation time: 1210.0 ns
+# Test 111: Inputs: a = 8'b01010110; b = 8'b10011100; c = 8'b00000101; | Outputs: sum=11001111, carry=00010100 | Expected: sum=        207, carry=         20
+# Simulation time: 1220.0 ns
+# Test 112: Inputs: a = 8'b00101001; b = 8'b10110001; c = 8'b01101001; | Outputs: sum=11110001, carry=00101001 | Expected: sum=        241, carry=         41
+# Simulation time: 1230.0 ns
+# Test 113: Inputs: a = 8'b10001001; b = 8'b00001000; c = 8'b01011111; | Outputs: sum=11011110, carry=00001001 | Expected: sum=        222, carry=          9
+# Simulation time: 1240.0 ns
+# Test 114: Inputs: a = 8'b10001111; b = 8'b10101110; c = 8'b00010101; | Outputs: sum=00110100, carry=10001111 | Expected: sum=         52, carry=        143
+# Simulation time: 1250.0 ns
+# Test 115: Inputs: a = 8'b01100110; b = 8'b10010000; c = 8'b00110111; | Outputs: sum=11000001, carry=00110110 | Expected: sum=        193, carry=         54
+# Simulation time: 1260.0 ns
+# Test 116: Inputs: a = 8'b10000110; b = 8'b01110010; c = 8'b10000011; | Outputs: sum=01110111, carry=10000010 | Expected: sum=        119, carry=        130
+# Simulation time: 1270.0 ns
+# Test 117: Inputs: a = 8'b10010100; b = 8'b01111010; c = 8'b01110111; | Outputs: sum=10011001, carry=01110110 | Expected: sum=        153, carry=        118
+# Simulation time: 1280.0 ns
+# Test 118: Inputs: a = 8'b00100001; b = 8'b10001110; c = 8'b00000101; | Outputs: sum=10101010, carry=00000101 | Expected: sum=        170, carry=          5
+# Simulation time: 1290.0 ns
+# Test 119: Inputs: a = 8'b10100100; b = 8'b11100111; c = 8'b10110111; | Outputs: sum=11110100, carry=10100111 | Expected: sum=        244, carry=        167
+# Simulation time: 1300.0 ns
+# Test 120: Inputs: a = 8'b11111101; b = 8'b10010100; c = 8'b11101011; | Outputs: sum=10000010, carry=11111101 | Expected: sum=        130, carry=        253
+# Simulation time: 1310.0 ns
+# Test 121: Inputs: a = 8'b01100011; b = 8'b00000000; c = 8'b11111110; | Outputs: sum=10011101, carry=01100010 | Expected: sum=        157, carry=         98
+# Simulation time: 1320.0 ns
+# Test 122: Inputs: a = 8'b00111101; b = 8'b00000010; c = 8'b00000010; | Outputs: sum=00111101, carry=00000010 | Expected: sum=         61, carry=          2
+# Simulation time: 1330.0 ns
+# Test 123: Inputs: a = 8'b10100010; b = 8'b10101100; c = 8'b10111010; | Outputs: sum=10110100, carry=10101010 | Expected: sum=        180, carry=        170
+# Simulation time: 1340.0 ns
+# Test 124: Inputs: a = 8'b11100010; b = 8'b01101101; c = 8'b01110010; | Outputs: sum=11111101, carry=01100010 | Expected: sum=        253, carry=         98
+# Simulation time: 1350.0 ns
+# Test 125: Inputs: a = 8'b10000101; b = 8'b10001001; c = 8'b10010010; | Outputs: sum=10011110, carry=10000001 | Expected: sum=        158, carry=        129
+# Simulation time: 1360.0 ns
+# Test 126: Inputs: a = 8'b00100111; b = 8'b00010111; c = 8'b11001101; | Outputs: sum=11111101, carry=00000111 | Expected: sum=        253, carry=          7
+# Simulation time: 1370.0 ns
+# Test 127: Inputs: a = 8'b10010110; b = 8'b00111110; c = 8'b11001100; | Outputs: sum=01100100, carry=10011110 | Expected: sum=        100, carry=        158
+# Simulation time: 1380.0 ns
+# Test 128: Inputs: a = 8'b10000101; b = 8'b10000110; c = 8'b00001100; | Outputs: sum=00001111, carry=10000100 | Expected: sum=         15, carry=        132
+# Simulation time: 1390.0 ns
+# Test 129: Inputs: a = 8'b00010110; b = 8'b10001011; c = 8'b00111101; | Outputs: sum=10100000, carry=00011111 | Expected: sum=        160, carry=         31
+# Simulation time: 1400.0 ns
+# Test 130: Inputs: a = 8'b01100000; b = 8'b01111011; c = 8'b10000110; | Outputs: sum=10011101, carry=01100010 | Expected: sum=        157, carry=         98
+# Simulation time: 1410.0 ns
+# Test 131: Inputs: a = 8'b00100010; b = 8'b00110100; c = 8'b00101110; | Outputs: sum=00111000, carry=00100110 | Expected: sum=         56, carry=         38
+# Simulation time: 1420.0 ns
+# Test 132: Inputs: a = 8'b11001000; b = 8'b00000000; c = 8'b11100110; | Outputs: sum=00101110, carry=11000000 | Expected: sum=         46, carry=        192
+# Simulation time: 1430.0 ns
+# Test 133: Inputs: a = 8'b10100100; b = 8'b10010000; c = 8'b10101010; | Outputs: sum=10011110, carry=10100000 | Expected: sum=        158, carry=        160
+# Simulation time: 1440.0 ns
+# Test 134: Inputs: a = 8'b11000011; b = 8'b01101010; c = 8'b01011110; | Outputs: sum=11110111, carry=01001010 | Expected: sum=        247, carry=         74
+# Simulation time: 1450.0 ns
+# Test 135: Inputs: a = 8'b01010101; b = 8'b11010111; c = 8'b11011100; | Outputs: sum=01011110, carry=11010101 | Expected: sum=         94, carry=        213
+# Simulation time: 1460.0 ns
+# Test 136: Inputs: a = 8'b00010001; b = 8'b01110110; c = 8'b11011011; | Outputs: sum=10111100, carry=01010011 | Expected: sum=        188, carry=         83
+# Simulation time: 1470.0 ns
+# Test 137: Inputs: a = 8'b01101001; b = 8'b00110011; c = 8'b00011110; | Outputs: sum=01000100, carry=00111011 | Expected: sum=         68, carry=         59
+# Simulation time: 1480.0 ns
+# Test 138: Inputs: a = 8'b00000010; b = 8'b00111101; c = 8'b01101111; | Outputs: sum=01010000, carry=00101111 | Expected: sum=         80, carry=         47
+# Simulation time: 1490.0 ns
+# Test 139: Inputs: a = 8'b01000101; b = 8'b10110110; c = 8'b11101000; | Outputs: sum=00011011, carry=11100100 | Expected: sum=         27, carry=        228
+# Simulation time: 1500.0 ns
+# Test 140: Inputs: a = 8'b10010010; b = 8'b11100001; c = 8'b11010011; | Outputs: sum=10100000, carry=11010011 | Expected: sum=        160, carry=        211
+# Simulation time: 1510.0 ns
+# Test 141: Inputs: a = 8'b00100101; b = 8'b11001101; c = 8'b11001010; | Outputs: sum=00100010, carry=11001101 | Expected: sum=         34, carry=        205
+# Simulation time: 1520.0 ns
+# Test 142: Inputs: a = 8'b01001001; b = 8'b01011010; c = 8'b11100010; | Outputs: sum=11110001, carry=01001010 | Expected: sum=        241, carry=         74
+# Simulation time: 1530.0 ns
+# Test 143: Inputs: a = 8'b11100010; b = 8'b10101101; c = 8'b01001001; | Outputs: sum=00000110, carry=11101001 | Expected: sum=          6, carry=        233
+# Simulation time: 1540.0 ns
+# Test 144: Inputs: a = 8'b10101010; b = 8'b01001011; c = 8'b11000100; | Outputs: sum=00100101, carry=11001010 | Expected: sum=         37, carry=        202
+# Simulation time: 1550.0 ns
+# Test 145: Inputs: a = 8'b10101110; b = 8'b11111100; c = 8'b11000100; | Outputs: sum=10010110, carry=11101100 | Expected: sum=        150, carry=        236
+# Simulation time: 1560.0 ns
+# Test 146: Inputs: a = 8'b11011110; b = 8'b10111101; c = 8'b01000011; | Outputs: sum=00100000, carry=11011111 | Expected: sum=         32, carry=        223
+# Simulation time: 1570.0 ns
+# Test 147: Inputs: a = 8'b11001101; b = 8'b00001001; c = 8'b11001000; | Outputs: sum=00001100, carry=11001001 | Expected: sum=         12, carry=        201
+# Simulation time: 1580.0 ns
+# Test 148: Inputs: a = 8'b11101101; b = 8'b11111110; c = 8'b10010101; | Outputs: sum=10000110, carry=11111101 | Expected: sum=        134, carry=        253
+# Simulation time: 1590.0 ns
+# Test 149: Inputs: a = 8'b00101001; b = 8'b01111011; c = 8'b01011100; | Outputs: sum=00001110, carry=01111001 | Expected: sum=         14, carry=        121
+# Simulation time: 1600.0 ns
+# Test 150: Inputs: a = 8'b10110000; b = 8'b00000111; c = 8'b01001001; | Outputs: sum=11111110, carry=00000001 | Expected: sum=        254, carry=          1
+# Simulation time: 1610.0 ns
+# Test 151: Inputs: a = 8'b00001101; b = 8'b11111011; c = 8'b10101101; | Outputs: sum=01011011, carry=10101101 | Expected: sum=         91, carry=        173
+# Simulation time: 1620.0 ns
+# Test 152: Inputs: a = 8'b10111010; b = 8'b10111011; c = 8'b11010100; | Outputs: sum=11010101, carry=10111010 | Expected: sum=        213, carry=        186
+# Simulation time: 1630.0 ns
+# Test 153: Inputs: a = 8'b00110101; b = 8'b01111111; c = 8'b01110000; | Outputs: sum=00111010, carry=01110101 | Expected: sum=         58, carry=        117
+# Simulation time: 1640.0 ns
+# Test 154: Inputs: a = 8'b00010110; b = 8'b00111011; c = 8'b00111111; | Outputs: sum=00010010, carry=00111111 | Expected: sum=         18, carry=         63
+# Simulation time: 1650.0 ns
+# Test 155: Inputs: a = 8'b00101001; b = 8'b00101011; c = 8'b10010110; | Outputs: sum=10010100, carry=00101011 | Expected: sum=        148, carry=         43
+# Simulation time: 1660.0 ns
+# Test 156: Inputs: a = 8'b00010101; b = 8'b11001001; c = 8'b01101011; | Outputs: sum=10110111, carry=01001001 | Expected: sum=        183, carry=         73
+# Simulation time: 1670.0 ns
+# Test 157: Inputs: a = 8'b10111010; b = 8'b11000011; c = 8'b10000000; | Outputs: sum=11111001, carry=10000010 | Expected: sum=        249, carry=        130
+# Simulation time: 1680.0 ns
+# Test 158: Inputs: a = 8'b01110000; b = 8'b10110000; c = 8'b01011100; | Outputs: sum=10011100, carry=01110000 | Expected: sum=        156, carry=        112
+# Simulation time: 1690.0 ns
+# Test 159: Inputs: a = 8'b11011000; b = 8'b11010000; c = 8'b10001001; | Outputs: sum=10000001, carry=11011000 | Expected: sum=        129, carry=        216
+# Simulation time: 1700.0 ns
+# Test 160: Inputs: a = 8'b01000110; b = 8'b11100111; c = 8'b01010111; | Outputs: sum=11110110, carry=01000111 | Expected: sum=        246, carry=         71
+# Simulation time: 1710.0 ns
+# Test 161: Inputs: a = 8'b10111100; b = 8'b01001010; c = 8'b10000100; | Outputs: sum=01110010, carry=10001100 | Expected: sum=        114, carry=        140
+# Simulation time: 1720.0 ns
+# Test 162: Inputs: a = 8'b01101010; b = 8'b01000111; c = 8'b00000011; | Outputs: sum=00101110, carry=01000011 | Expected: sum=         46, carry=         67
+# Simulation time: 1730.0 ns
+# Test 163: Inputs: a = 8'b01110111; b = 8'b10011101; c = 8'b11010010; | Outputs: sum=00111000, carry=11010111 | Expected: sum=         56, carry=        215
+# Simulation time: 1740.0 ns
+# Test 164: Inputs: a = 8'b01000000; b = 8'b01000011; c = 8'b00010110; | Outputs: sum=00010101, carry=01000010 | Expected: sum=         21, carry=         66
+# Simulation time: 1750.0 ns
+# Test 165: Inputs: a = 8'b01011100; b = 8'b10111110; c = 8'b01100000; | Outputs: sum=10000010, carry=01111100 | Expected: sum=        130, carry=        124
+# Simulation time: 1760.0 ns
+# Test 166: Inputs: a = 8'b01001010; b = 8'b01100111; c = 8'b01100001; | Outputs: sum=01001100, carry=01100011 | Expected: sum=         76, carry=         99
+# Simulation time: 1770.0 ns
+# Test 167: Inputs: a = 8'b10000100; b = 8'b10101101; c = 8'b01011010; | Outputs: sum=01110011, carry=10001100 | Expected: sum=        115, carry=        140
+# Simulation time: 1780.0 ns
+# Test 168: Inputs: a = 8'b10111100; b = 8'b11011010; c = 8'b10011011; | Outputs: sum=11111101, carry=10011010 | Expected: sum=        253, carry=        154
+# Simulation time: 1790.0 ns
+# Test 169: Inputs: a = 8'b10100000; b = 8'b01010111; c = 8'b00001111; | Outputs: sum=11111000, carry=00000111 | Expected: sum=        248, carry=          7
+# Simulation time: 1800.0 ns
+# Test 170: Inputs: a = 8'b00000001; b = 8'b01100000; c = 8'b00101010; | Outputs: sum=01001011, carry=00100000 | Expected: sum=         75, carry=         32
+# Simulation time: 1810.0 ns
+# Test 171: Inputs: a = 8'b11010110; b = 8'b01000101; c = 8'b01111000; | Outputs: sum=11101011, carry=01010100 | Expected: sum=        235, carry=         84
+# Simulation time: 1820.0 ns
+# Test 172: Inputs: a = 8'b11010010; b = 8'b11101100; c = 8'b10100001; | Outputs: sum=10011111, carry=11100000 | Expected: sum=        159, carry=        224
+# Simulation time: 1830.0 ns
+# Test 173: Inputs: a = 8'b01111001; b = 8'b01110010; c = 8'b10101001; | Outputs: sum=10100010, carry=01111001 | Expected: sum=        162, carry=        121
+# Simulation time: 1840.0 ns
+# Test 174: Inputs: a = 8'b01010110; b = 8'b10011101; c = 8'b01110010; | Outputs: sum=10111001, carry=01010110 | Expected: sum=        185, carry=         86
+# Simulation time: 1850.0 ns
+# Test 175: Inputs: a = 8'b01101000; b = 8'b10101101; c = 8'b10110111; | Outputs: sum=01110010, carry=10101101 | Expected: sum=        114, carry=        173
+# Simulation time: 1860.0 ns
+# Test 176: Inputs: a = 8'b10000101; b = 8'b00001010; c = 8'b10100101; | Outputs: sum=00101010, carry=10000101 | Expected: sum=         42, carry=        133
+# Simulation time: 1870.0 ns
+# Test 177: Inputs: a = 8'b10110011; b = 8'b01110111; c = 8'b10100111; | Outputs: sum=01100011, carry=10110111 | Expected: sum=         99, carry=        183
+# Simulation time: 1880.0 ns
+# Test 178: Inputs: a = 8'b10110011; b = 8'b01010101; c = 8'b11111100; | Outputs: sum=00011010, carry=11110101 | Expected: sum=         26, carry=        245
+# Simulation time: 1890.0 ns
+# Test 179: Inputs: a = 8'b01010111; b = 8'b11001011; c = 8'b10011110; | Outputs: sum=00000010, carry=11011111 | Expected: sum=          2, carry=        223
+# Simulation time: 1900.0 ns
+# Test 180: Inputs: a = 8'b11111000; b = 8'b01100110; c = 8'b01010110; | Outputs: sum=11001000, carry=01110110 | Expected: sum=        200, carry=        118
+# Simulation time: 1910.0 ns
+# Test 181: Inputs: a = 8'b01011010; b = 8'b01100110; c = 8'b11110110; | Outputs: sum=11001010, carry=01110110 | Expected: sum=        202, carry=        118
+# Simulation time: 1920.0 ns
+# Test 182: Inputs: a = 8'b01100110; b = 8'b00000000; c = 8'b00101011; | Outputs: sum=01001101, carry=00100010 | Expected: sum=         77, carry=         34
+# Simulation time: 1930.0 ns
+# Test 183: Inputs: a = 8'b01101010; b = 8'b01001010; c = 8'b11010010; | Outputs: sum=11110010, carry=01001010 | Expected: sum=        242, carry=         74
+# Simulation time: 1940.0 ns
+# Test 184: Inputs: a = 8'b00111100; b = 8'b11010001; c = 8'b10111001; | Outputs: sum=01010100, carry=10111001 | Expected: sum=         84, carry=        185
+# Simulation time: 1950.0 ns
+# Test 185: Inputs: a = 8'b00111101; b = 8'b10010011; c = 8'b11111011; | Outputs: sum=01010101, carry=10111011 | Expected: sum=         85, carry=        187
+# Simulation time: 1960.0 ns
+# Test 186: Inputs: a = 8'b11001110; b = 8'b10010101; c = 8'b01010101; | Outputs: sum=00001110, carry=11010101 | Expected: sum=         14, carry=        213
+# Simulation time: 1970.0 ns
+# Test 187: Inputs: a = 8'b01000110; b = 8'b11110100; c = 8'b01101000; | Outputs: sum=11011010, carry=01100100 | Expected: sum=        218, carry=        100
+# Simulation time: 1980.0 ns
+# Test 188: Inputs: a = 8'b11000111; b = 8'b11111011; c = 8'b00001100; | Outputs: sum=00110000, carry=11001111 | Expected: sum=         48, carry=        207
+# Simulation time: 1990.0 ns
+# Test 189: Inputs: a = 8'b10111001; b = 8'b11101000; c = 8'b00000101; | Outputs: sum=01010100, carry=10101001 | Expected: sum=         84, carry=        169
+# Simulation time: 2000.0 ns
+# Test 190: Inputs: a = 8'b11101001; b = 8'b10010100; c = 8'b01011001; | Outputs: sum=00100100, carry=11011001 | Expected: sum=         36, carry=        217
+# Simulation time: 2010.0 ns
+# Test 191: Inputs: a = 8'b01110111; b = 8'b11001101; c = 8'b00000110; | Outputs: sum=10111100, carry=01000111 | Expected: sum=        188, carry=         71
+# Simulation time: 2020.0 ns
+# Test 192: Inputs: a = 8'b01101100; b = 8'b11101011; c = 8'b00110011; | Outputs: sum=10110100, carry=01101011 | Expected: sum=        180, carry=        107
+# Simulation time: 2030.0 ns
+# Test 193: Inputs: a = 8'b11000111; b = 8'b00101111; c = 8'b11000001; | Outputs: sum=00101001, carry=11000111 | Expected: sum=         41, carry=        199
+# Simulation time: 2040.0 ns
+# Test 194: Inputs: a = 8'b11010011; b = 8'b01101010; c = 8'b01110101; | Outputs: sum=11001100, carry=01110011 | Expected: sum=        204, carry=        115
+# Simulation time: 2050.0 ns
+# Test 195: Inputs: a = 8'b11011101; b = 8'b10001010; c = 8'b00000011; | Outputs: sum=01010100, carry=10001011 | Expected: sum=         84, carry=        139
+# Simulation time: 2060.0 ns
+# Test 196: Inputs: a = 8'b00001001; b = 8'b01010110; c = 8'b11100000; | Outputs: sum=10111111, carry=01000000 | Expected: sum=        191, carry=         64
+# Simulation time: 2070.0 ns
+# Test 197: Inputs: a = 8'b00111011; b = 8'b11011111; c = 8'b00011011; | Outputs: sum=11111111, carry=00011011 | Expected: sum=        255, carry=         27
+# Simulation time: 2080.0 ns
+# Test 198: Inputs: a = 8'b01111011; b = 8'b10011111; c = 8'b01100011; | Outputs: sum=10000111, carry=01111011 | Expected: sum=        135, carry=        123
+# Simulation time: 2090.0 ns
+# Test 199: Inputs: a = 8'b00001111; b = 8'b01100110; c = 8'b00000011; | Outputs: sum=01101010, carry=00000111 | Expected: sum=        106, carry=          7
+# Simulation time: 2100.0 ns
+# Test 200: Inputs: a = 8'b11111011; b = 8'b00101110; c = 8'b01010001; | Outputs: sum=10000100, carry=01111011 | Expected: sum=        132, carry=        123
+# Simulation time: 2110.0 ns
+# Test 201: Inputs: a = 8'b01111010; b = 8'b11100100; c = 8'b11010100; | Outputs: sum=01001010, carry=11110100 | Expected: sum=         74, carry=        244
+# Simulation time: 2120.0 ns
+# Test 202: Inputs: a = 8'b10110111; b = 8'b01001001; c = 8'b11110110; | Outputs: sum=00001000, carry=11110111 | Expected: sum=          8, carry=        247
+# Simulation time: 2130.0 ns
+# Test 203: Inputs: a = 8'b10101111; b = 8'b00111110; c = 8'b01010111; | Outputs: sum=11000110, carry=00111111 | Expected: sum=        198, carry=         63
+# Simulation time: 2140.0 ns
+# Test 204: Inputs: a = 8'b10101000; b = 8'b00101100; c = 8'b00011111; | Outputs: sum=10011011, carry=00101100 | Expected: sum=        155, carry=         44
+# Simulation time: 2150.0 ns
+# Test 205: Inputs: a = 8'b00011010; b = 8'b00101011; c = 8'b11110001; | Outputs: sum=11000000, carry=00111011 | Expected: sum=        192, carry=         59
+# Simulation time: 2160.0 ns
+# Test 206: Inputs: a = 8'b01011011; b = 8'b00111111; c = 8'b00001011; | Outputs: sum=01101111, carry=00011011 | Expected: sum=        111, carry=         27
+# Simulation time: 2170.0 ns
+# Test 207: Inputs: a = 8'b10100001; b = 8'b01101011; c = 8'b11010111; | Outputs: sum=00011101, carry=11100011 | Expected: sum=         29, carry=        227
+# Simulation time: 2180.0 ns
+# Test 208: Inputs: a = 8'b11100111; b = 8'b10111000; c = 8'b10011101; | Outputs: sum=11000010, carry=10111101 | Expected: sum=        194, carry=        189
+# Simulation time: 2190.0 ns
+# Test 209: Inputs: a = 8'b11110101; b = 8'b01111100; c = 8'b11011101; | Outputs: sum=01010100, carry=11111101 | Expected: sum=         84, carry=        253
+# Simulation time: 2200.0 ns
+# Test 210: Inputs: a = 8'b11101011; b = 8'b01011110; c = 8'b00111010; | Outputs: sum=10001111, carry=01111010 | Expected: sum=        143, carry=        122
+# Simulation time: 2210.0 ns
+# Test 211: Inputs: a = 8'b11100001; b = 8'b11000010; c = 8'b00110011; | Outputs: sum=00010000, carry=11100011 | Expected: sum=         16, carry=        227
+# Simulation time: 2220.0 ns
+# Test 212: Inputs: a = 8'b00001111; b = 8'b01001110; c = 8'b00100100; | Outputs: sum=01100101, carry=00001110 | Expected: sum=        101, carry=         14
+# Simulation time: 2230.0 ns
+# Test 213: Inputs: a = 8'b10001111; b = 8'b11101100; c = 8'b00000101; | Outputs: sum=01100110, carry=10001101 | Expected: sum=        102, carry=        141
+# Simulation time: 2240.0 ns
+# Test 214: Inputs: a = 8'b01101001; b = 8'b10001101; c = 8'b11111010; | Outputs: sum=00011110, carry=11101001 | Expected: sum=         30, carry=        233
+# Simulation time: 2250.0 ns
+# Test 215: Inputs: a = 8'b01100100; b = 8'b01010010; c = 8'b00000000; | Outputs: sum=00110110, carry=01000000 | Expected: sum=         54, carry=         64
+# Simulation time: 2260.0 ns
+# Test 216: Inputs: a = 8'b10100101; b = 8'b11100001; c = 8'b10101010; | Outputs: sum=11101110, carry=10100001 | Expected: sum=        238, carry=        161
+# Simulation time: 2270.0 ns
+# Test 217: Inputs: a = 8'b10111001; b = 8'b11111111; c = 8'b01010100; | Outputs: sum=00010010, carry=11111101 | Expected: sum=         18, carry=        253
+# Simulation time: 2280.0 ns
+# ** Note: $finish    : generated/carry_save_adder_l2/tb_N8_carry_save_adder_l2.v(3982)
+#    Time: 2280 ns  Iteration: 0  Instance: /tb_N8_carry_save_adder_l2
+# End time: 15:14:00 on Jul 29,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

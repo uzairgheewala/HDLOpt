@@ -1,0 +1,33 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N1_BLOCK_SIZE1_carry_skip_adder 
+# Start time: 15:15:00 on Jul 29,2024
+# Loading work.tb_N1_BLOCK_SIZE1_carry_skip_adder
+# Loading work.carry_skip_adder
+# Loading work.ripple_carry_adder
+# Loading work.full_adder
+# Loading work.half_adder
+# Loading work.skip_logic
+# run -all
+# Test 0: Inputs: a = 1'b1; b = 1'b1; cin = 1'b1; | Outputs: sum=1, cout=1 | Expected: sum=          1, cout=          1
+# Simulation time: 110.0 ns
+# Test 1: Inputs: a = 1'b0; b = 1'b0; cin = 1'b0; | Outputs: sum=0, cout=0 | Expected: sum=          0, cout=          0
+# Simulation time: 120.0 ns
+# Test 2: Inputs: a = 1'b1; b = 1'b0; cin = 1'b0; | Outputs: sum=1, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 130.0 ns
+# Test 3: Inputs: a = 1'b1; b = 1'b0; cin = 1'b1; | Outputs: sum=0, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 140.0 ns
+# Test 4: Inputs: a = 1'b0; b = 1'b1; cin = 1'b0; | Outputs: sum=1, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 150.0 ns
+# Test 5: Inputs: a = 1'b0; b = 1'b1; cin = 1'b1; | Outputs: sum=0, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: a = 1'b1; b = 1'b1; cin = 1'b0; | Outputs: sum=0, cout=1 | Expected: sum=          0, cout=          1
+# Simulation time: 170.0 ns
+# Test 7: Inputs: a = 1'b0; b = 1'b0; cin = 1'b1; | Outputs: sum=1, cout=0 | Expected: sum=          1, cout=          0
+# Simulation time: 180.0 ns
+# ** Note: $finish    : generated/carry_skip_adder/tb_N1_BLOCK_SIZE1_carry_skip_adder.v(204)
+#    Time: 180 ns  Iteration: 0  Instance: /tb_N1_BLOCK_SIZE1_carry_skip_adder
+# End time: 15:15:01 on Jul 29,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

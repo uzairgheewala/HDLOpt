@@ -1,0 +1,269 @@
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# vsim -c -do "run -all; exit" work.tb_N4_logic_shifter 
+# Start time: 10:54:17 on Aug 27,2024
+# Loading work.tb_N4_logic_shifter
+# Loading work.logic_shifter
+# run -all
+# Test 0: Inputs: data_in = 4'b1111; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0111 | Expected: data_out=          7
+# Simulation time: 110.0 ns
+# Test 1: Inputs: data_in = 4'b0001; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 120.0 ns
+# Test 2: Inputs: data_in = 4'b1001; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 130.0 ns
+# Test 3: Inputs: data_in = 4'b1010; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 140.0 ns
+# Test 4: Inputs: data_in = 4'b0110; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 150.0 ns
+# Test 5: Inputs: data_in = 4'b1110; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 160.0 ns
+# Test 6: Inputs: data_in = 4'b0100; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 170.0 ns
+# Test 7: Inputs: data_in = 4'b0110; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 180.0 ns
+# Test 8: Inputs: data_in = 4'b0110; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 190.0 ns
+# Test 9: Inputs: data_in = 4'b0111; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 200.0 ns
+# Test 10: Inputs: data_in = 4'b1011; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1011 | Expected: data_out=         11
+# Simulation time: 210.0 ns
+# Test 11: Inputs: data_in = 4'b0111; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 220.0 ns
+# Test 12: Inputs: data_in = 4'b0101; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0101 | Expected: data_out=          5
+# Simulation time: 230.0 ns
+# Test 13: Inputs: data_in = 4'b1110; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1110 | Expected: data_out=         14
+# Simulation time: 240.0 ns
+# Test 14: Inputs: data_in = 4'b0001; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 250.0 ns
+# Test 15: Inputs: data_in = 4'b0011; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 260.0 ns
+# Test 16: Inputs: data_in = 4'b1011; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 270.0 ns
+# Test 17: Inputs: data_in = 4'b1111; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 280.0 ns
+# Test 18: Inputs: data_in = 4'b0010; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 290.0 ns
+# Test 19: Inputs: data_in = 4'b0100; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 300.0 ns
+# Test 20: Inputs: data_in = 4'b1001; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1001 | Expected: data_out=          9
+# Simulation time: 310.0 ns
+# Test 21: Inputs: data_in = 4'b1000; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 320.0 ns
+# Test 22: Inputs: data_in = 4'b1011; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 330.0 ns
+# Test 23: Inputs: data_in = 4'b0101; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 340.0 ns
+# Test 24: Inputs: data_in = 4'b1110; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 350.0 ns
+# Test 25: Inputs: data_in = 4'b0011; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 360.0 ns
+# Test 26: Inputs: data_in = 4'b1101; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1101 | Expected: data_out=         13
+# Simulation time: 370.0 ns
+# Test 27: Inputs: data_in = 4'b0010; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 380.0 ns
+# Test 28: Inputs: data_in = 4'b0001; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 390.0 ns
+# Test 29: Inputs: data_in = 4'b1000; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 400.0 ns
+# Test 30: Inputs: data_in = 4'b1100; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 410.0 ns
+# Test 31: Inputs: data_in = 4'b1100; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 420.0 ns
+# Test 32: Inputs: data_in = 4'b1100; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 430.0 ns
+# Test 33: Inputs: data_in = 4'b0110; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 440.0 ns
+# Test 34: Inputs: data_in = 4'b0111; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0111 | Expected: data_out=          7
+# Simulation time: 450.0 ns
+# Test 35: Inputs: data_in = 4'b0011; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 460.0 ns
+# Test 36: Inputs: data_in = 4'b0010; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 470.0 ns
+# Test 37: Inputs: data_in = 4'b0100; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 480.0 ns
+# Test 38: Inputs: data_in = 4'b0100; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 490.0 ns
+# Test 39: Inputs: data_in = 4'b0001; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 500.0 ns
+# Test 40: Inputs: data_in = 4'b1000; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 510.0 ns
+# Test 41: Inputs: data_in = 4'b0100; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 520.0 ns
+# Test 42: Inputs: data_in = 4'b1001; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 530.0 ns
+# Test 43: Inputs: data_in = 4'b1000; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 540.0 ns
+# Test 44: Inputs: data_in = 4'b1101; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 550.0 ns
+# Test 45: Inputs: data_in = 4'b1001; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 560.0 ns
+# Test 46: Inputs: data_in = 4'b1110; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 570.0 ns
+# Test 47: Inputs: data_in = 4'b0001; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 580.0 ns
+# Test 48: Inputs: data_in = 4'b0111; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 590.0 ns
+# Test 49: Inputs: data_in = 4'b1000; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 600.0 ns
+# Test 50: Inputs: data_in = 4'b0000; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 610.0 ns
+# Test 51: Inputs: data_in = 4'b0110; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 620.0 ns
+# Test 52: Inputs: data_in = 4'b0000; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 630.0 ns
+# Test 53: Inputs: data_in = 4'b1011; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1011 | Expected: data_out=         11
+# Simulation time: 640.0 ns
+# Test 54: Inputs: data_in = 4'b1101; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 650.0 ns
+# Test 55: Inputs: data_in = 4'b1001; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1001 | Expected: data_out=          9
+# Simulation time: 660.0 ns
+# Test 56: Inputs: data_in = 4'b0011; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 670.0 ns
+# Test 57: Inputs: data_in = 4'b0101; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 680.0 ns
+# Test 58: Inputs: data_in = 4'b1001; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 690.0 ns
+# Test 59: Inputs: data_in = 4'b1101; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 700.0 ns
+# Test 60: Inputs: data_in = 4'b0010; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 710.0 ns
+# Test 61: Inputs: data_in = 4'b0010; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 720.0 ns
+# Test 62: Inputs: data_in = 4'b0110; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 730.0 ns
+# Test 63: Inputs: data_in = 4'b1010; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0101 | Expected: data_out=          5
+# Simulation time: 740.0 ns
+# Test 64: Inputs: data_in = 4'b0101; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1010 | Expected: data_out=         10
+# Simulation time: 750.0 ns
+# Test 65: Inputs: data_in = 4'b0010; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 760.0 ns
+# Test 66: Inputs: data_in = 4'b1010; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 770.0 ns
+# Test 67: Inputs: data_in = 4'b0011; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 780.0 ns
+# Test 68: Inputs: data_in = 4'b0110; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 790.0 ns
+# Test 69: Inputs: data_in = 4'b0000; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 800.0 ns
+# Test 70: Inputs: data_in = 4'b0100; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 810.0 ns
+# Test 71: Inputs: data_in = 4'b0001; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 820.0 ns
+# Test 72: Inputs: data_in = 4'b1101; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1101 | Expected: data_out=         13
+# Simulation time: 830.0 ns
+# Test 73: Inputs: data_in = 4'b1111; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1111 | Expected: data_out=         15
+# Simulation time: 840.0 ns
+# Test 74: Inputs: data_in = 4'b0000; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 850.0 ns
+# Test 75: Inputs: data_in = 4'b1010; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 860.0 ns
+# Test 76: Inputs: data_in = 4'b1101; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 870.0 ns
+# Test 77: Inputs: data_in = 4'b1000; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 880.0 ns
+# Test 78: Inputs: data_in = 4'b0101; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 890.0 ns
+# Test 79: Inputs: data_in = 4'b1100; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 900.0 ns
+# Test 80: Inputs: data_in = 4'b0110; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 910.0 ns
+# Test 81: Inputs: data_in = 4'b1111; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 920.0 ns
+# Test 82: Inputs: data_in = 4'b1010; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 930.0 ns
+# Test 83: Inputs: data_in = 4'b1001; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 940.0 ns
+# Test 84: Inputs: data_in = 4'b1110; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 950.0 ns
+# Test 85: Inputs: data_in = 4'b1011; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 960.0 ns
+# Test 86: Inputs: data_in = 4'b0011; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 970.0 ns
+# Test 87: Inputs: data_in = 4'b0101; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 980.0 ns
+# Test 88: Inputs: data_in = 4'b0000; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 990.0 ns
+# Test 89: Inputs: data_in = 4'b1100; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 1000.0 ns
+# Test 90: Inputs: data_in = 4'b1000; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1010.0 ns
+# Test 91: Inputs: data_in = 4'b0111; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0111 | Expected: data_out=          7
+# Simulation time: 1020.0 ns
+# Test 92: Inputs: data_in = 4'b1011; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 1030.0 ns
+# Test 93: Inputs: data_in = 4'b0100; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 1040.0 ns
+# Test 94: Inputs: data_in = 4'b0111; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 1050.0 ns
+# Test 95: Inputs: data_in = 4'b1101; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 1060.0 ns
+# Test 96: Inputs: data_in = 4'b1111; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1111 | Expected: data_out=         15
+# Simulation time: 1070.0 ns
+# Test 97: Inputs: data_in = 4'b1100; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0110 | Expected: data_out=          6
+# Simulation time: 1080.0 ns
+# Test 98: Inputs: data_in = 4'b1110; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1110 | Expected: data_out=         14
+# Simulation time: 1090.0 ns
+# Test 99: Inputs: data_in = 4'b0011; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 1100.0 ns
+# Test 100: Inputs: data_in = 4'b0000; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1110.0 ns
+# Test 101: Inputs: data_in = 4'b1010; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=1010 | Expected: data_out=         10
+# Simulation time: 1120.0 ns
+# Test 102: Inputs: data_in = 4'b1010; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1130.0 ns
+# Test 103: Inputs: data_in = 4'b1101; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1010 | Expected: data_out=         10
+# Simulation time: 1140.0 ns
+# Test 104: Inputs: data_in = 4'b0111; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0001 | Expected: data_out=          1
+# Simulation time: 1150.0 ns
+# Test 105: Inputs: data_in = 4'b1111; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1110 | Expected: data_out=         14
+# Simulation time: 1160.0 ns
+# Test 106: Inputs: data_in = 4'b1111; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 1170.0 ns
+# Test 107: Inputs: data_in = 4'b1100; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0011 | Expected: data_out=          3
+# Simulation time: 1180.0 ns
+# Test 108: Inputs: data_in = 4'b0101; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 1190.0 ns
+# Test 109: Inputs: data_in = 4'b1010; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1010 | Expected: data_out=         10
+# Simulation time: 1200.0 ns
+# Test 110: Inputs: data_in = 4'b0010; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0100 | Expected: data_out=          4
+# Simulation time: 1210.0 ns
+# Test 111: Inputs: data_in = 4'b1100; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1220.0 ns
+# Test 112: Inputs: data_in = 4'b0001; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1230.0 ns
+# Test 113: Inputs: data_in = 4'b0100; shift_amount = 2'b11; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1240.0 ns
+# Test 114: Inputs: data_in = 4'b0111; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1110 | Expected: data_out=         14
+# Simulation time: 1250.0 ns
+# Test 115: Inputs: data_in = 4'b0000; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1260.0 ns
+# Test 116: Inputs: data_in = 4'b0010; shift_amount = 2'b10; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 1270.0 ns
+# Test 117: Inputs: data_in = 4'b0011; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1280.0 ns
+# Test 118: Inputs: data_in = 4'b0001; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1290.0 ns
+# Test 119: Inputs: data_in = 4'b1001; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 1300.0 ns
+# Test 120: Inputs: data_in = 4'b0101; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0101 | Expected: data_out=          5
+# Simulation time: 1310.0 ns
+# Test 121: Inputs: data_in = 4'b1000; shift_amount = 2'b00; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 1320.0 ns
+# Test 122: Inputs: data_in = 4'b1011; shift_amount = 2'b10; direction = 1'b1; | Outputs: data_out=0010 | Expected: data_out=          2
+# Simulation time: 1330.0 ns
+# Test 123: Inputs: data_in = 4'b1110; shift_amount = 2'b01; direction = 1'b0; | Outputs: data_out=1100 | Expected: data_out=         12
+# Simulation time: 1340.0 ns
+# Test 124: Inputs: data_in = 4'b1011; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0101 | Expected: data_out=          5
+# Simulation time: 1350.0 ns
+# Test 125: Inputs: data_in = 4'b1111; shift_amount = 2'b11; direction = 1'b0; | Outputs: data_out=1000 | Expected: data_out=          8
+# Simulation time: 1360.0 ns
+# Test 126: Inputs: data_in = 4'b1110; shift_amount = 2'b01; direction = 1'b1; | Outputs: data_out=0111 | Expected: data_out=          7
+# Simulation time: 1370.0 ns
+# Test 127: Inputs: data_in = 4'b0000; shift_amount = 2'b00; direction = 1'b1; | Outputs: data_out=0000 | Expected: data_out=          0
+# Simulation time: 1380.0 ns
+# ** Note: $finish    : generated/logic_shifter/tb_N4_logic_shifter.v(1846)
+#    Time: 1380 ns  Iteration: 0  Instance: /tb_N4_logic_shifter
+# End time: 10:54:17 on Aug 27,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
