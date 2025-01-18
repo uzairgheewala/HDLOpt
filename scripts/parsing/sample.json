@@ -1,0 +1,132 @@
+{
+    "component_name": "complex_alu",
+    "parameters": [
+      {
+        "name": "WIDTH",
+        "value": "8",
+        "description": "Data width parameter"
+      },
+      {
+        "name": "MODE",
+        "value": "2'b00",
+        "description": "Operation mode select"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "clk",
+        "type": "wire",
+        "sign": "unsigned",
+        "bit_width": "1",
+        "comment": "System clock",
+        "default_value": "1'b0"
+      },
+      {
+        "name": "rst_n",
+        "type": "wire",
+        "sign": "unsigned",
+        "bit_width": "1",
+        "comment": "Active low reset",
+        "default_value": "1'b1"
+      },
+      {
+        "name": "a",
+        "type": "wire",
+        "sign": "signed",
+        "bit_width": "WIDTH-1:0",
+        "comment": "First operand",
+        "default_value": "WIDTH'b0"
+      },
+      {
+        "name": "b",
+        "type": "wire",
+        "sign": "signed",
+        "bit_width": "WIDTH-1:0",
+        "comment": "Second operand",
+        "default_value": "WIDTH'b0"
+      },
+      {
+        "name": "op",
+        "type": "wire",
+        "sign": "unsigned",
+        "bit_width": "1:0",
+        "comment": "Operation select",
+        "default_value": "2'b00"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "valid",
+        "type": "reg",
+        "sign": "unsigned",
+        "bit_width": "1",
+        "comment": "Output valid flag",
+        "default_value": "1'b0"
+      },
+      {
+        "name": "zero",
+        "type": "wire",
+        "sign": "unsigned",
+        "bit_width": "1",
+        "comment": "Zero flag",
+        "default_value": "1'b0"
+      },
+      {
+        "name": "overflow",
+        "type": "wire",
+        "sign": "unsigned",
+        "bit_width": "1",
+        "comment": "Overflow flag",
+        "default_value": "1'b0"
+      },
+      {
+        "name": "result",
+        "type": "reg",
+        "sign": "signed",
+        "bit_width": "WIDTH-1:0",
+        "comment": "Operation result",
+        "default_value": "WIDTH'b0"
+      }
+    ],
+    "internals": [
+      {
+        "name": "temp_sum",
+        "type": "wire",
+        "sign": "signed",
+        "bit_width": "WIDTH:0",
+        "comment": "Temporary sum with overflow bit",
+        "default_value": "(WIDTH+1)'b0"
+      },
+      {
+        "name": "state",
+        "type": "reg",
+        "sign": "unsigned",
+        "bit_width": "3:0",
+        "comment": "Current state register",
+        "default_value": "4'b0"
+      },
+      {
+        "name": "next_state",
+        "type": "reg",
+        "sign": "unsigned",
+        "bit_width": "3:0",
+        "comment": "Next state register",
+        "default_value": "4'b0"
+      }
+    ],
+    "mode": "sequential",
+    "submodules": [
+      "full_adder",
+      "carry_lookahead"
+    ],
+    "metadata": {
+      "file_path": "src/complex_alu.v",
+      "last_modified": "2025-01-17T10:30:00Z",
+      "parser_version": "1.0.0",
+      "parse_time": "2025-01-17T10:30:05Z"
+    },
+    "dependencies": {
+      "direct": ["full_adder.v", "carry_lookahead.v"],
+      "parameters": ["WIDTH"]
+    }
+  }

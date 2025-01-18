@@ -1,7 +1,15 @@
 __pycache__/
 .pytest_cache/
-/.ipynb_checkpoints
+.ipynb_checkpoints/
+
+design_gen/
+ds_exp/
+
+directory_structure.py
+directory_structure.txt
+desired_structure.txt
 
 *.code-workspace
 *.v
+*.ipynb
 *.log
