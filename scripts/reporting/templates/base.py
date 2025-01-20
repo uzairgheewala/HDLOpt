@@ -26,7 +26,7 @@ class PageTemplate:
     def add_element(self, element):
         """Add an element to the template with page break handling."""
         frame = Frame(self.doc.leftMargin, self.doc.bottomMargin, 
-                     self.doc.width, self.current_page_height)
+                     self.page_size[0] - 2*self.doc.leftMargin, self.current_page_height)
         element_height = element.wrap(frame._width, frame._height)[1]
 
         if (self.current_page_height - element_height < 0 and 

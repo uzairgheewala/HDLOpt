@@ -5,6 +5,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 import pymupdf
 import os
+import math
 
 def estimate_table_width(table_data, font_size=12, padding=6):
     max_col_widths = [0] * len(table_data[0])
@@ -295,6 +296,50 @@ class PDFReportGenerator:
             new_pdf.insert_pdf(pdf_document, from_page=page_num, to_page=page_num)
         new_pdf.save(pdf_filename)
 
+    def calculate_content_dimensions(self, elements) -> tuple[float, float]:
+        """Calculate maximum width and height needed for all content."""
+        max_width = 0
+        total_height = 0
+        
+        # Create a temporary canvas to measure elements
+        from reportlab.pdfgen import canvas
+        import tempfile
+        temp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+        c = canvas.Canvas(temp_pdf.name)
+        
+        for element in elements:
+            if isinstance(element, Table):
+                # For tables, calculate total width and height
+                table_width = sum(element._colWidths)
+                table_height = sum(element._rowHeights)
+                max_width = max(max_width, table_width + 2*inch)  # Add margin
+                total_height += table_height + inch  # Add spacing
+            elif isinstance(element, Paragraph):
+                # For paragraphs, wrap and measure
+                w, h = element.wrap(self.doc.width, self.doc.height)
+                max_width = max(max_width, w + 2*inch)
+                total_height += h + 0.2*inch
+            elif isinstance(element, Spacer):
+                total_height += element.height
+            elif isinstance(element, PageBreak):
+                continue
+                
+        c.save()
+        temp_pdf.close()
+        os.unlink(temp_pdf.name)
+        
+        # Add margins
+        max_width += 2*inch
+        total_height += 2*inch
+        
+        # Calculate number of pages needed
+        min_height_per_page = 11*inch  # Standard letter height
+        num_pages = max(1, math.ceil(total_height / min_height_per_page))
+        
+        # Return dimensions that will accommodate all content
+        return (max_width, max(min_height_per_page, total_height/num_pages))
+
+    """
     def save(self):
         print(f"Saving PDF to {self.filename}")
         try:
@@ -322,6 +367,50 @@ class PDFReportGenerator:
             
             self.doc.build(self.elements, onFirstPage=self.add_page_number, onLaterPages=self.add_page_number)
             #os.remove(temp_filename)
+        except Exception as e:
+            print(f"Error saving PDF: {e}")
+            raise(e)
+    """
+    def save(self):
+        """Save the PDF with dynamic sizing."""
+        try:
+            print(f"Saving PDF to {self.filename}")
+            
+            # First pass: calculate required dimensions
+            width, height = self.calculate_content_dimensions(self.elements)
+            
+            # Ensure minimum dimensions
+            width = max(width, 8.5*inch)   # Minimum letter width
+            height = max(height, 11*inch)  # Minimum letter height
+            
+            print(f"Calculated dimensions: {width/inch:.1f}\" x {height/inch:.1f}\"")
+            
+            # Update doc page size
+            self.doc.pagesize = (width, height)
+            self.page_size = (width, height)
+            
+            # Reset current page height
+            self.current_page_height = self.doc.height - self.doc.topMargin - self.doc.bottomMargin
+            
+            # Add summary if needed
+            self.add_summary()
+            
+            # Create temporary preview file
+            temp_preview = self.preview("temp_summary")
+            
+            # Update TOC with correct page numbers
+            self.update_toc_page_numbers(temp_preview)
+            
+            # Add TOC
+            self.build_toc()
+            
+            # Build final document
+            self.doc.build(self.elements, onFirstPage=self.add_page_number, onLaterPages=self.add_page_number)
+            
+            # Clean up preview if it exists
+            if os.path.exists(temp_preview):
+                os.remove(temp_preview)
+                
         except Exception as e:
             print(f"Error saving PDF: {e}")
             raise(e)
