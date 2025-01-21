@@ -1,0 +1,78 @@
+`timescale 1ns / 1ps
+
+module tb_{{ param_component_name }};
+
+    // Parameters
+    {% for param_name, param_value in param_comb %}
+    parameter {{param_name}} = {{param_value}};
+    {% endfor %}
+     
+    // Inputs
+    {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+    reg {{ 'signed' if sign_type == 'signed' }} {% if bit_width != '1' %}[{{ bit_width }}]{% endif %} {{ signal_name }};
+    {% endfor %}
+    
+    // Outputs
+    {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}
+    {{ data_type }} {{ 'signed' if sign_type == 'signed' }} {% if bit_width != '1' %}[{{ bit_width }}]{% endif %} {{ signal_name }};
+    {% endfor %}
+    
+    // Instantiate the Unit Under Test (UUT)
+    {{ component_name }} {% if param_comb|length > 0 %} #( {% for param_name, _ in param_comb %}{{ param_name }}{% if not loop.last %},{% endif %}{% endfor %} ){% endif %} uut (
+        {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+        .{{ signal_name }}({{ signal_name }}),
+        {% endfor %}
+        {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}
+        .{{ signal_name }}({{ signal_name }}){% if not loop.last %},{% endif %}
+        {% endfor %}
+    );
+
+    // Clock generation 
+    {% if clock_blocks %}
+    {{ clock_blocks }}
+    {% endif %}
+
+    {% if reset_blocks %}
+    {{ reset_blocks }}
+    {% endif %}
+    
+    initial begin
+        // Initialize Inputs
+        {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+        {{ signal_name }} = 0;
+        {% endfor %}
+    
+        // Wait for global reset
+        #100;
+    
+        // Stimuli
+        {% for i in range(stimuli|length) %}
+        #10 {{ stimuli[i] }} // Expected: {{ expected[i] }}
+        {% if start_present[0] %}
+        start = 1'b1;
+        #10 start = 1'b0;
+        {% endif %}
+        {% if valid_present[0] %}
+        wait(valid);
+        {% else %}
+        #{{ operation_delay }};
+        {% endif %}
+        {% if rule_delay %}
+        {{ rule_delay }}
+        {% endif %}
+        $display("Test %0d: Inputs: {{ stimuli[i] }} | Outputs: {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}{{ signal_name }}=%b{% if not loop.last %}, {% endif %}{% endfor %} | Expected: {% for signal_name in expected[i].keys() %}{{ signal_name }}=%d{% if not loop.last %}, {% endif %}{% endfor %}",
+                 {{ i }},
+                 {% for signal_name in outputs %}
+                 {{ signal_name[4] }}{% if not loop.last %}, {% endif %}
+                 {% endfor %}, 
+                 {% for signal_name in expected[i].keys() %}
+                 {{ expected[i][signal_name] }}{% if not loop.last %}, {% endif %}
+                 {% endfor %}
+        );
+        $timeformat(-9, 1, " ns", 6);
+        $display("Simulation time: %t", $time);
+        {% endfor %}
+        $finish;
+    end
+  
+endmodule

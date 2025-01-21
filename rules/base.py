@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Any, Optional, Type, Union
 import inspect
 from ..patterns.base import Pattern
+from ..patterns.string_match import StringMatchPattern
 
 @dataclass
 class TestCase:
@@ -82,3 +83,16 @@ class Rule(ABC):
 
     def __str__(self) -> str:
         return inspect.getsource(self.generate_expected)
+    
+class MockRule(Rule):
+    """Mock rule for testing"""
+    def __init__(self, matches_pattern: str = "test"):
+        super().__init__(
+            input_vars=["a", "b"],
+            output_vars=["y"],
+            name="MockRule",
+            pattern=StringMatchPattern(matches_pattern)
+        )
+        
+    def generate_expected(self, inputs):
+        return {"y": inputs["a"] + inputs["b"]}
