@@ -6,6 +6,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 import pymupdf
 import os
 import math
+from ..logger import logger
 
 def estimate_table_width(table_data, font_size=12, padding=6):
     max_col_widths = [0] * len(table_data[0])
@@ -26,7 +27,19 @@ class PDFReportGenerator:
         self.page_size = landscape(letter)  # Default page size
         if self.table_data:
             self.adjust_page_size_for_table(self.table_data)
-        self.doc = SimpleDocTemplate(filename, pagesize=self.page_size)
+
+        self.doc = SimpleDocTemplate(
+            filename,
+            pagesize=self.page_size,
+            rightMargin=72,
+            leftMargin=72,
+            topMargin=72,
+            bottomMargin=72,
+            compress=False,  # Turn off compression
+            initialFontName='Helvetica',
+            initialFontSize=10,
+            verbosity=1  # Increase logging
+        )        
         self.styles = getSampleStyleSheet()
         self.elements = []
         self.toc = []
@@ -36,7 +49,10 @@ class PDFReportGenerator:
         self.summary_data = {}
         self.summary_template = None
         self.current_page_height = self.doc.height - self.doc.topMargin - self.doc.bottomMargin
-        print("Page size:", self.page_size)
+
+        print(f"Initialized PDFReportGenerator for {filename}")
+        print(f"Page size: {self.page_size}")
+        print(f"Margins: {self.doc.rightMargin}, {self.doc.leftMargin}, {self.doc.topMargin}, {self.doc.bottomMargin}")
 
     def adjust_page_size_for_table(self, table_data):
         estimated_width = estimate_table_width(table_data)
@@ -246,6 +262,30 @@ class PDFReportGenerator:
         self.elements = new_elements
         
     def update_toc_page_numbers(self, fn):
+        """Update TOC page numbers without relying on external PDF reading"""
+        # Instead of reading the PDF, we'll track page numbers while building
+        current_page = 1
+        page_map = {}
+        
+        for i, element in enumerate(self.elements):
+            if isinstance(element, PageBreak):
+                current_page += 1
+            elif isinstance(element, Paragraph):
+                page_map[element.text] = current_page
+                
+        # Update TOC entries with page numbers
+        updated_toc = []
+        for entry in self.toc:
+            text, level, _, entry_id, elem_index = entry
+            if text in page_map:
+                updated_toc.append((text, level, page_map[text], entry_id, elem_index))
+            else:
+                updated_toc.append((text, level, current_page, entry_id, elem_index))
+                
+        self.toc = updated_toc
+    
+    """
+    def update_toc_page_numbers(self, fn):
         try:
             doc = pymupdf.open(f"preview_{fn}.pdf")
         except:
@@ -269,6 +309,7 @@ class PDFReportGenerator:
                     last_updated_index[entry] = i  # Update the last updated index for the entry
         
         doc.close()
+    """
 
     def add_page_number(self, canvas, doc):
         canvas.saveState()
@@ -370,9 +411,9 @@ class PDFReportGenerator:
         except Exception as e:
             print(f"Error saving PDF: {e}")
             raise(e)
-    """
+    
     def save(self):
-        """Save the PDF with dynamic sizing."""
+        Save the PDF with dynamic sizing.
         try:
             print(f"Saving PDF to {self.filename}")
             
@@ -414,6 +455,49 @@ class PDFReportGenerator:
         except Exception as e:
             print(f"Error saving PDF: {e}")
             raise(e)
+    """
+
+    def save(self):
+        """Save the PDF report with proper error handling"""
+        print(f"Saving PDF to {self.filename}")
+        try:
+            self.add_summary()
+            self.add_element(PageBreak())  # Ensure content ends properly
+            print(f"Building document with {len(self.elements)} elements")
+            
+            # Log element types
+            for i, element in enumerate(self.elements):
+                print(f"Element {i}: {type(element).__name__}")
+            
+            self.doc.build(
+                self.elements,
+                onFirstPage=self.add_page_number,
+                onLaterPages=self.add_page_number
+            )
+            
+            # Verify the file was created and is valid
+            if os.path.exists(self.filename):
+                size = os.path.getsize(self.filename)
+                print(f"Created PDF: {size} bytes")
+                
+                with open(self.filename, 'rb') as f:
+                    header = f.read(10)
+                    print(f"PDF header: {header}")
+                    
+                if size < 1000:
+                    print("Warning: PDF file is suspiciously small")
+                if not header.startswith(b'%PDF'):
+                    print("Warning: File does not appear to be a valid PDF")
+            else:
+                print(f"Error: PDF file was not created at {self.filename}")
+                            
+            # Build TOC without relying on preview files
+            #self.build_toc()
+            #self.doc.build(self.elements, onFirstPage=self.add_page_number, onLaterPages=self.add_page_number)
+            
+        except Exception as e:
+            logger.error(f"Error saving PDF: {str(e)}")
+            raise
 
     def preview(self, step_name):
         temp_filename = self.insert_filename_at_last_separator(step_name)
