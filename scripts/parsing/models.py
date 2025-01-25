@@ -71,6 +71,8 @@ class VerilogModule:
         self.internals: List[Signal] = []
         self.mode: str = "combinational"
         self.submodules: List[str] = []
+        self.blocks: List[Dict[str, str]] = []
+        self.dependencies: Dict
         self._metadata: Dict = {
             "parse_time": datetime.utcnow().isoformat(),
             "parser_version": "1.0.0"

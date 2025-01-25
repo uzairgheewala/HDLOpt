@@ -11,6 +11,8 @@ from .exceptions import (
 )
 from ..logger import logger
 
+PROCEDURAL_KEYWORDS = {'always', 'initial', 'if', 'else', 'case', 'endcase', 'for', 'while'}
+
 class NativeVerilogParser(VerilogParserBase):
     """Native implementation of Verilog parser using regex patterns."""
     def __init__(self, clk_name='clk', rst_name='rst'):
@@ -777,9 +779,11 @@ class NativeVerilogParser(VerilogParserBase):
                     module.internals.append(signal)
                 
             # Also check for submodule instantiations here
-            elif len(line.split()) >= 2 and '(' in line and not any(keyword in line.split()[0] 
-                for keyword in ['input', 'output', 'wire', 'reg', 'assign', 'parameter']):
+            elif len(line.split()) >= 2 and '(' in line and not any(keyword in line.split()[0].lower()
+                for keyword in ['input', 'output', 'wire', 'reg', 'assign', 'parameter'] + list(PROCEDURAL_KEYWORDS)):
                 module.submodules.append(line.split()[0])
+
+            self._parse_procedural_blocks(module_text, module)
 
     def _parse_parameters(self, param_text: str) -> List[Dict[str, str]]:
         """Parse parameter definitions from text."""
@@ -829,45 +833,97 @@ class NativeVerilogParser(VerilogParserBase):
                 raise ModuleDefinitionError(f"Parameter must have a default value: {param_def}")
 
         return parameters
+    
+    def _parse_procedural_blocks(self, module_text: str, module: VerilogModule) -> None:
+        """Parse procedural blocks (always, initial) from module body"""
+        body_start = module_text.find(');') + 2
+        body_end = module_text.find('endmodule')
+        body = module_text[body_start:body_end]
+        
+        # Split into procedural blocks
+        current_block = []
+        in_block = False
+        block_type = None
+        
+        for line in body.split('\n'):
+            line = line.strip()
+            if not line:
+                continue
+            
+            if line.startswith(('always', 'initial')):
+                if in_block:
+                    self._finalize_block(current_block, block_type, module)
+                in_block = True
+                block_type = line.split()[0]
+                current_block = [line]
+            elif in_block:
+                if line.startswith('end'):
+                    current_block.append(line)
+                    self._finalize_block(current_block, block_type, module)
+                    in_block = False
+                else:
+                    current_block.append(line)
+        
+        if in_block:
+            self._finalize_block(current_block, block_type, module)
+
+    def _finalize_block(self, block_lines: List[str], block_type: str, module: VerilogModule) -> None:
+        """Process a complete procedural block"""
+        block_content = '\n'.join(block_lines)
+        module.blocks.append({
+            'type': block_type,
+            'content': block_content,
+            'sensitivity': self._parse_sensitivity(block_lines[0])
+        })
+
+    def _parse_sensitivity(self, declaration: str) -> List[str]:
+        """Parse sensitivity list from always block"""
+        if '@' not in declaration:
+            return []
+        
+        sensitivity = declaration.split('@', 1)[1].strip()
+        sensitivity = sensitivity.split(')', 1)[0] + ')'
+        return [s.strip() for s in sensitivity.strip('()*').split(',')]
 
     @staticmethod
     def _generate_default_value(signal_type: str, bit_width: str, parameters: List[Dict[str, str]], is_input: bool = False) -> str:
         """Generate appropriate default value for a signal."""
         try:
-            # If bit width contains parameters, use their values
-            if any(p["name"] in bit_width for p in parameters):
-                for param in parameters:
-                    if param["name"] in bit_width:
-                        return "8'b0" if is_input else "8'bz"
-
-            # Calculate width for known dimensions
-            if '][' in bit_width:
+            # Calculate actual bit width
+            total_width = 1
+            if '][' in bit_width:  # Multi-dimensional
                 dims = bit_width.split('][')
-                total_width = 1
                 for dim in dims:
                     if ':' in dim:
-                        msb, lsb = dim.split(':')
-                        width = int(msb) - int(lsb) + 1
-                        total_width *= width
-                    else:
-                        total_width *= 8  # Default for parametric width
-            elif ':' in bit_width:
-                msb, lsb = bit_width.split(':')
+                        msb, lsb = map(str.strip, dim.split(':'))
+                        if msb.isdigit() and lsb.isdigit():
+                            width = int(msb) - int(lsb) + 1
+                            total_width *= width
+            elif ':' in bit_width:  # Single range
+                msb, lsb = map(str.strip, bit_width.split(':'))
                 if msb.isdigit() and lsb.isdigit():
                     total_width = int(msb) - int(lsb) + 1
+            else:  # Single bit or parameter
+                if bit_width.isdigit():
+                    total_width = int(bit_width)
                 else:
-                    total_width = 8  # Default for parametric width
-            else:
-                total_width = 8  # Default width
+                    # Handle parametric width by looking up parameter value
+                    param = next((p for p in parameters if p["name"] in bit_width), None)
+                    if param:
+                        total_width = int(param["value"])
+                    else:
+                        total_width = 1  # Default to single bit
 
-            # For inputs or regs, use '0', for wires use 'z'
+            # Generate appropriate value
             if is_input or signal_type == 'reg':
                 return f"{total_width}'b{'0' * total_width}"
             else:
                 return f"{total_width}'b{'z' * total_width}"
-        except Exception:
-            # Fallback values
-            return "8'b0" if is_input or signal_type == 'reg' else "8'bz"
+                
+        except Exception as e:
+            logger.error(f"Error generating default value: {str(e)}")
+            # Provide minimal correct default
+            return "'b0" if is_input or signal_type == 'reg' else "'bz"
     
     def _parse_bit_width(self, parts: List[str], start_idx: int) -> tuple[str, int]:
         """Parse bit width specification, handling multi-dimensional arrays."""

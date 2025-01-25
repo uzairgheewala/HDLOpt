@@ -21,9 +21,9 @@ if project_dir not in sys.path:
     sys.path.insert(0, project_dir)
 
 from .utils import to_binary_string
-from hdlopt.patterns.substring import SubstringPattern
-from hdlopt.patterns.string_match import StringMatchPattern
-from hdlopt.rules.base import Rule, MockRule
+from ...patterns.substring import SubstringPattern
+from ...patterns.string_match import StringMatchPattern
+from ...rules.base import Rule, MockRule
 from ..logger import logger
 
 @dataclass 
@@ -106,7 +106,7 @@ class TestbenchGenerator:
         """
         input_ranges = {}
         for inp in component_details['inputs']:
-            signal_type, conn_type, sign_type, bit_width, signal_name = inp
+            signal_name, conn_type, sign_type, bit_width = inp
             input_range = list(self._determine_input_ranges(bit_width, sign_type))
             input_ranges[signal_name] = [input_range[0], input_range[-1]]
                     
@@ -160,28 +160,28 @@ class TestbenchGenerator:
         # Setup start signal handling
         start_list = []
         if self.signals.start_names and self.component_name in self.signals.start_names:
-            start_list = [inp[4] for inp in component_details['inputs'] 
-                        if inp[4] in self.signals.start_names[self.component_name]]
+            start_list = [inp[0] for inp in component_details['inputs'] 
+                        if inp[0] in self.signals.start_names[self.component_name]]
         if not start_list:
-            start_list = [inp[4] for inp in component_details['inputs'] if inp[4] == 'start']
+            start_list = [inp[0] for inp in component_details['inputs'] if inp[0] == 'start']
         component_details['start_present'] = (bool(start_list), len(start_list), start_list)
 
         # Setup valid signal handling
         valid_list = []
         if self.signals.valid_names and self.component_name in self.signals.valid_names:
-            valid_list = [out[4] for out in component_details['outputs']
-                        if out[4] in self.signals.valid_names[self.component_name]]
+            valid_list = [out[0] for out in component_details['outputs']
+                        if out[0] in self.signals.valid_names[self.component_name]]
         if not valid_list:
-            valid_list = [out[4] for out in component_details['outputs'] if out[4] == 'valid']
+            valid_list = [out[0] for out in component_details['outputs'] if out[0] == 'valid']
         component_details['valid_present'] = (bool(valid_list), len(valid_list), valid_list)
 
         # Setup clock handling
         clk_list = []
         if self.signals.clk_names and self.component_name in self.signals.clk_names:
-            clk_list = [inp[4] for inp in component_details['inputs']
-                    if inp[4] in self.signals.clk_names[self.component_name]]
+            clk_list = [inp[0] for inp in component_details['inputs']
+                    if inp[0] in self.signals.clk_names[self.component_name]]
         if not clk_list:
-            clk_list = [inp[4] for inp in component_details['inputs'] if inp[4] == 'clk']
+            clk_list = [inp[0] for inp in component_details['inputs'] if inp[0] == 'clk']
         
         if clk_list:
             clk_blocks = []
@@ -205,10 +205,10 @@ class TestbenchGenerator:
         # Setup reset handling
         rst_list = []
         if self.signals.rst_names and self.component_name in self.signals.rst_names:
-            rst_list = [inp[4] for inp in component_details['inputs']
-                    if inp[4] in self.signals.rst_names[self.component_name]]
+            rst_list = [inp[0] for inp in component_details['inputs']
+                    if inp[0] in self.signals.rst_names[self.component_name]]
         if not rst_list:
-            rst_list = [inp[4] for inp in component_details['inputs'] if inp[4] == 'rst']
+            rst_list = [inp[0] for inp in component_details['inputs'] if inp[0] == 'rst']
 
         if rst_list:
             rst_blocks = []
@@ -262,6 +262,37 @@ class TestbenchGenerator:
         expected_values = []
         rules_used = []
 
+        # Extract bit widths from ports
+        input_widths = []
+        output_widths = []
+        
+        for signal_name, data_type, sign_type, bit_width in component_details['inputs']:
+            # Skip control signals like clk, rst, enable etc
+            if signal_name not in self._get_special_signals():
+                if ':' in bit_width:
+                    msb, lsb = map(int, bit_width.split(':'))
+                    width = msb - lsb + 1
+                else:
+                    width = int(bit_width)
+                input_widths.append(width)
+                
+        for signal_name, data_type, sign_type, bit_width in component_details['outputs']:
+            if ':' in bit_width:
+                msb, lsb = map(int, bit_width.split(':')) 
+                width = msb - lsb + 1
+            else:
+                width = int(bit_width)
+            output_widths.append(width)
+
+        #logger.debug(f"input_widths: {input_widths}")
+        #logger.debug(f"output_widths: {output_widths}")
+
+        # Set bit width for matching rules
+        for rule in self.rules:
+            if rule.matches(component_details['component_name']):
+                rule.set_bit_width(min(input_widths))
+                #logger.debug(f"rule.bit_width:{rule.bit_width}\nrule.default_bit_width:{rule._default_bit_width}")
+
         for i, test_case in enumerate(test_cases):
             #logger.debug(f"Processing test case {i}: {test_case}")
             
@@ -288,7 +319,7 @@ class TestbenchGenerator:
                             #logger.debug(f"Mapped inputs: {inputs}")
                             expected_value = rule.generate_expected(inputs)
                         else:
-                            #logger.debug(f"Processing regular rule: {test_case}")
+                            #logger.debug(f"Processing regular rule for case: {test_case}")
                             expected_value = rule.generate_expected(test_case)
                             
                         #logger.debug(f"Generated expected value: {expected_value}")
@@ -317,13 +348,16 @@ class TestbenchGenerator:
             self._generate_single_testbench(param_comb, param_names, component_details)
             
         if recursive and 'submodules' in component_details:
-            self._generate_recursive_testbenches(component_details['submodules'])
+            self._generate_recursive_testbenches(list(set(component_details['submodules'])))
 
     def _generate_single_testbench(self, param_comb: tuple, param_names: List[str], 
                              component_details: Dict) -> None:
         """Generate testbench for a single parameter combination"""
         logger.debug(f"Starting testbench generation for parameters: {dict(zip(param_names, param_comb))}")
         
+        import copy
+        component_details = copy.deepcopy(component_details)
+
         # Build parameter combination string
         param_comb_str = "_".join([f"{param_names[i]}{param_comb[i]}" 
                                 for i in range(len(param_comb))])
@@ -364,21 +398,22 @@ class TestbenchGenerator:
 
         logger.debug("Updating component details")
         self._update_component_details(component_details, param_comb_str, test_cases, expected_values)
-        
+        #logger.debug(f"Final component details: {component_details}")
+
         # Generate and save testbench
         logger.debug("Rendering template")
         tb_code = self.template.render(component_details)
         logger.debug("Saving testbench")
         self._save_testbench(tb_code, param_comb_str)
 
-    def _generate_recursive_testbenches(self, submodules: Dict[str, Dict]) -> None:
+    def _generate_recursive_testbenches(self, submodules: List) -> None:
         """
         Recursively generate testbenches for each submodule.
         submodules is expected to be a dict of {submodule_name: submodule_details}.
         """
         parent_dir = self._find_component_dir()
 
-        for submodule_name, _ in submodules.items():
+        for submodule_name in submodules:
             # Create a new generator for the submodule
             submodule_gen = TestbenchGenerator(
                 component_name=submodule_name,
@@ -449,7 +484,13 @@ class TestbenchGenerator:
         
         for z in range(len(lines)):
             inp = lines[z]
-            signal_type, conn_type, sign_type, bit_width, signal_name = inp
+            #logger.debug(f"inp={inp},\n len(inp)={len(inp)}")
+            if type(inp) == list:
+                # For test
+                signal_name, conn_type, sign_type, bit_width = inp
+            else:
+                signal_name, conn_type, sign_type, bit_width, comment, default_val = [inp[key] for key in inp.keys()]
+            #logger.debug(f"{signal_name, conn_type, sign_type, bit_width}")
             
             # Function to replace parameters in the bit width string
             def replace_param(match):
@@ -476,6 +517,7 @@ class TestbenchGenerator:
 
             # Evaluate expressions
             def evaluate_exp(expr):
+                bit_width = ""
                 if '$clog2' in expr:
                     expr = process_clog2(expr)
                 if '(' in expr and ')' in expr:
@@ -500,9 +542,9 @@ class TestbenchGenerator:
 
             # Update bit width in appropriate list
             if z < len(component_details['inputs']):
-                component_details['inputs'][z] = (signal_type, conn_type, sign_type, bit_width, signal_name)
+                component_details['inputs'][z] = (signal_name, conn_type, sign_type, bit_width)
             else:
-                component_details['outputs'][z - len(component_details['inputs'])] = (signal_type, conn_type, sign_type, bit_width, signal_name)
+                component_details['outputs'][z - len(component_details['inputs'])] = (signal_name, conn_type, sign_type, bit_width)
 
         return component_details
     
@@ -516,8 +558,16 @@ class TestbenchGenerator:
             test_cases: List of test case dictionaries 
             expected_values: List of expected output dictionaries
         """
-        component_details['stimuli'] = []
-        component_details['expected'] = []
+        # Create stimuli and expected lists if they don't exist
+        if 'stimuli' not in component_details:
+            component_details['stimuli'] = []
+        if 'expected' not in component_details:
+            component_details['expected'] = []
+
+        # Clear existing stimuli/expected
+        component_details['stimuli'].clear()
+        component_details['expected'].clear()
+
         invalid_inputs = self._get_special_signals()
         
         # Generate stimuli strings
@@ -529,19 +579,23 @@ class TestbenchGenerator:
                     stimulus.append(f"{input} = {value_str};")
             component_details['stimuli'].append(" ".join(stimulus))
         
-        component_details['expected'] = expected_values
-        component_details['operation_delay'] = self._get_operation_delay()
-        component_details['rule_delay'] = self._get_rule_delay()
-        component_details['component_name'] = self.component_name
-        component_details['param_component_name'] = f'{param_comb_str}_{self.component_name}'
+        component_details.update({
+            'expected': expected_values,
+            'operation_delay': self._get_operation_delay(),
+            'rule_delay': self._get_rule_delay(),
+            'component_name': self.component_name,
+            'param_component_name': f'{param_comb_str}_{self.component_name}'
+        })
+
+        #logger.debug("Updated component details: %s", component_details)
 
     def _get_signal_value_str(self, signal_name: str, value: int, 
                          component_details: Dict) -> str:
         """Get Verilog-formatted value string for a signal."""
         signal_info = next((inp for inp in component_details['inputs'] 
-                        if inp[4] == signal_name), None)
+                        if inp[0] == signal_name), None)
         if signal_info:
-            _, _, sign_type, bit_width, _ = signal_info
+            signal_name, conn_type, sign_type, bit_width = signal_info
             
             if bit_width == '1':
                 bit_width_value = 1

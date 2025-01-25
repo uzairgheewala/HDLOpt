@@ -8,21 +8,21 @@ module tb_{{ param_component_name }};
     {% endfor %}
      
     // Inputs
-    {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+    {% for signal_name, data_type, sign_type, bit_width in inputs %}
     reg {{ 'signed' if sign_type == 'signed' }} {% if bit_width != '1' %}[{{ bit_width }}]{% endif %} {{ signal_name }};
     {% endfor %}
     
     // Outputs
-    {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}
+    {% for signal_name, data_type, sign_type, bit_width in outputs %}
     {{ data_type }} {{ 'signed' if sign_type == 'signed' }} {% if bit_width != '1' %}[{{ bit_width }}]{% endif %} {{ signal_name }};
     {% endfor %}
     
     // Instantiate the Unit Under Test (UUT)
     {{ component_name }} {% if param_comb|length > 0 %} #( {% for param_name, _ in param_comb %}{{ param_name }}{% if not loop.last %},{% endif %}{% endfor %} ){% endif %} uut (
-        {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+        {% for signal_name, data_type, sign_type, bit_width in inputs %}
         .{{ signal_name }}({{ signal_name }}),
         {% endfor %}
-        {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}
+        {% for signal_name, data_type, sign_type, bit_width in outputs %}
         .{{ signal_name }}({{ signal_name }}){% if not loop.last %},{% endif %}
         {% endfor %}
     );
@@ -38,7 +38,7 @@ module tb_{{ param_component_name }};
     
     initial begin
         // Initialize Inputs
-        {% for signal_type, data_type, sign_type, bit_width, signal_name in inputs %}
+        {% for signal_name, data_type, sign_type, bit_width in inputs %}
         {{ signal_name }} = 0;
         {% endfor %}
     
@@ -60,10 +60,10 @@ module tb_{{ param_component_name }};
         {% if rule_delay %}
         {{ rule_delay }}
         {% endif %}
-        $display("Test %0d: Inputs: {{ stimuli[i] }} | Outputs: {% for signal_type, data_type, sign_type, bit_width, signal_name in outputs %}{{ signal_name }}=%b{% if not loop.last %}, {% endif %}{% endfor %} | Expected: {% for signal_name in expected[i].keys() %}{{ signal_name }}=%d{% if not loop.last %}, {% endif %}{% endfor %}",
+        $display("Test %0d: Inputs: {{ stimuli[i] }} | Outputs: {% for signal_name, data_type, sign_type, bit_width in outputs %}{{ signal_name }}=%b{% if not loop.last %}, {% endif %}{% endfor %} | Expected: {% for signal_name in expected[i].keys() %}{{ signal_name }}=%d{% if not loop.last %}, {% endif %}{% endfor %}",
                  {{ i }},
-                 {% for signal_name in outputs %}
-                 {{ signal_name[4] }}{% if not loop.last %}, {% endif %}
+                 {% for signal_name, _, _, _ in outputs %}
+                 {{ signal_name }}{% if not loop.last %}, {% endif %}
                  {% endfor %}, 
                  {% for signal_name in expected[i].keys() %}
                  {{ expected[i][signal_name] }}{% if not loop.last %}, {% endif %}

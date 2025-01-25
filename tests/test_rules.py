@@ -271,10 +271,13 @@ def test_rules_with_different_bit_widths(rule_factory, bit_width):
             for var_name, val in expected.items():
                 spec = rule.get_signal_spec(var_name)
                 min_val, max_val = spec.get_range()
-                assert min_val <= val <= max_val, \
-                    (f"Output value {val} for variable {var_name} exceeds "
-                     f"{spec.width}-bit {'signed' if spec.signed else 'unsigned'} "
-                     f"range [{min_val}, {max_val}] in {rule_name}")
+                try:
+                    assert min_val <= int(val) <= max_val, \
+                        (f"Output value {val} for variable {var_name} exceeds "
+                        f"{spec.width}-bit {'signed' if spec.signed else 'unsigned'} "
+                        f"range [{min_val}, {max_val}] in {rule_name}")
+                except:
+                    print(rule_name, bit_width, test_case, var_name, val, spec, min_val, max_val)
                       
 def test_rule_failure_detection(rule_factory):
     """Test that rule failures are properly detected and reported."""

@@ -3,6 +3,10 @@ from unittest.mock import MagicMock
 from reportlab.platypus import Table, Paragraph
 from reportlab.lib import colors
 from reportlab.lib.units import inch
+import fitz
+import shutil
+from datetime import datetime
+from pathlib import Path
 
 from ..scripts.reporting.templates.resource import YosysResourceTemplate
 from ..scripts.analysis.netlist import ModuleMetrics
@@ -325,6 +329,8 @@ class TestWaveformTemplate:
     def test_plot_generation(self, template):
         """Test waveform plot addition"""
         import io
+        import matplotlib
+        matplotlib.use('Agg')
         import matplotlib.pyplot as plt
         from reportlab.platypus import Image
         
@@ -368,3 +374,233 @@ class TestWaveformTemplate:
         # Verify caption
         caption = next(e for e in template.elements 
                       if isinstance(e, Paragraph) and "Test Table" in str(e))
+        
+from ..scripts.reporting.templates.timing import TimingTemplate
+from ..scripts.reporting.templates.power import PowerTemplate
+from ..scripts.analysis.timing import TimingSummary, ClockSummary
+from ..scripts.analysis.power import PowerSummary, ComponentPower, PowerSupply
+
+class TestTimingTemplate:
+    """Test suite for timing analysis template."""
+
+    @pytest.fixture
+    def pdf_report(self, tmp_path):
+        """Create PDF report fixture."""
+        return PDFReportGenerator(str(tmp_path / "timing_test.pdf"))
+
+    @pytest.fixture
+    def timing_data(self):
+        """Create sample timing analysis data."""
+        return {
+            'timing_summary': TimingSummary(
+                wns=1.5,   # Worst Negative Slack
+                tns=-2.3,  # Total Negative Slack
+                whs=0.8,   # Worst Hold Slack
+                ths=-0.5,  # Total Hold Slack
+                wpws=2.0,  # Worst Pulse Width Slack
+                tpws=-0.2, # Total Pulse Width Slack
+                failing_endpoints=3,
+                total_endpoints=100
+            ),
+            'clock_summary': [
+                ClockSummary(
+                    name="clk_100MHz",
+                    period=10.0,
+                    wns=1.5,
+                    tns=-2.3,
+                    failing_endpoints=2,
+                    total_endpoints=50
+                ),
+                ClockSummary(
+                    name="clk_50MHz",
+                    period=20.0,
+                    wns=2.0,
+                    tns=-1.1,
+                    failing_endpoints=1,
+                    total_endpoints=50
+                )
+            ],
+            'inter_clock': [
+                {
+                    'from_clock': 'clk_100MHz',
+                    'to_clock': 'clk_50MHz',
+                    'wns': 1.2,
+                    'tns': -0.8,
+                    'failing_endpoints': 1,
+                    'total_endpoints': 10
+                }
+            ],
+            'path_groups': [
+                {
+                    'group': 'reg2reg',
+                    'from_clock': 'clk_100MHz',
+                    'to_clock': 'clk_100MHz',
+                    'wns': 1.5,
+                    'tns': -1.2,
+                    'failing_endpoints': 2,
+                    'total_endpoints': 80
+                }
+            ]
+        }
+
+    def test_timing_template_generation(self, pdf_report, timing_data):
+        """Test generating timing analysis report."""
+        # Create real output directory
+        output_dir = Path("./timing_reports")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate the report
+        template = TimingTemplate(pdf_report)
+        template.generate_page("test_component", timing_data)
+        pdf_report.add_template(template.elements)
+        pdf_report.save()
+
+        # Copy to real directory
+        real_pdf = output_dir / f"timing_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        shutil.copy2(pdf_report.filename, real_pdf)
+        
+        # Verify PDF contents
+        doc = fitz.open(str(real_pdf))
+        text = "".join(page.get_text() for page in doc)
+        doc.close()
+
+        # Check key sections and values
+        assert "Timing Analysis Results" in text
+        assert "Timing Summary" in text
+        assert "Clock Domains" in text
+        assert "Inter-Clock Timing" in text
+        assert "Path Groups" in text
+        
+        # Check specific timing values
+        assert "1.5" in text  # WNS value
+        assert "-2.3" in text  # TNS value
+        assert "clk_100MHz" in text
+        assert "clk_50MHz" in text
+        
+        print(f"Generated timing analysis PDF at: {real_pdf}")
+
+class TestPowerTemplate:
+    """Test suite for power analysis template."""
+
+    @pytest.fixture
+    def pdf_report(self, tmp_path):
+        """Create PDF report fixture."""
+        return PDFReportGenerator(str(tmp_path / "power_test.pdf"))
+
+    @pytest.fixture
+    def power_data(self):
+        """Create sample power analysis data."""
+        return {
+            'summary': PowerSummary(
+                total_on_chip=1.5,
+                dynamic=0.8,
+                static=0.3,
+                device_static=0.4,
+                effective_thetaja=4.5,
+                max_ambient=85.0,
+                junction_temp=45.0
+            ),
+            'on_chip_components': [
+                ComponentPower(
+                    name="LUT",
+                    power=0.4,
+                    used=1000,
+                    available=20000,
+                    utilization=5.0
+                ),
+                ComponentPower(
+                    name="FF",
+                    power=0.3,
+                    used=800,
+                    available=40000,
+                    utilization=2.0
+                ),
+                ComponentPower(
+                    name="BRAM",
+                    power=0.1,
+                    used=2,
+                    available=50,
+                    utilization=4.0
+                )
+            ],
+            'power_supply': [
+                PowerSupply(
+                    source="VCCINT",
+                    voltage=1.0,
+                    total_current=1.5,
+                    dynamic_current=1.0,
+                    static_current=0.5,
+                    powerup_current=0.1,
+                    budget=2.0,
+                    margin=0.5
+                ),
+                PowerSupply(
+                    source="VCCAUX",
+                    voltage=1.8,
+                    total_current=0.8,
+                    dynamic_current=0.5,
+                    static_current=0.3,
+                    powerup_current=0.05,
+                    budget=1.5,
+                    margin=0.7
+                )
+            ],
+            'confidence': {
+                'Settings': {'level': 'Medium'},
+                'Clock Activity': {'level': 'High'},
+                'Signal Activity': {'level': 'Low'}
+            },
+            'environment': {
+                'Temperature': 25.0,
+                'Airflow': '250 LFM',
+                'Heat Sink': 'Medium Profile'
+            },
+            'hierarchy': {
+                'top': 1.5,
+                'sub_module1': 0.5,
+                'sub_module2': 0.3
+            }
+        }
+
+    def test_power_template_generation(self, pdf_report, power_data):
+        """Test generating power analysis report."""
+        # Create real output directory
+        output_dir = Path("./power_reports")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate the report
+        template = PowerTemplate(pdf_report)
+        template.generate_page("test_component", power_data)
+        pdf_report.add_template(template.elements)
+        pdf_report.save()
+
+        # Copy to real directory
+        real_pdf = output_dir / f"power_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        shutil.copy2(pdf_report.filename, real_pdf)
+        
+        # Verify PDF contents
+        doc = fitz.open(str(real_pdf))
+        text = "".join(page.get_text() for page in doc)
+        doc.close()
+
+        # Check key sections
+        assert "Power Analysis Results" in text
+        assert "Power Summary" in text
+        assert "Component Power Breakdown" in text
+        assert "Power Supply Analysis" in text
+        assert "Analysis Confidence" in text
+        assert "Environment Settings" in text
+        assert "Power by Hierarchy" in text
+        
+        # Check specific values
+        assert "1.5" in text  # Total on-chip power
+        assert "0.8" in text  # Dynamic power
+        assert "VCCINT" in text
+        assert "LUT" in text
+        assert "FF" in text
+        assert "BRAM" in text
+        
+        print(f"Generated power analysis PDF at: {real_pdf}")
+
+if __name__ == "__main__":
+    pytest.main([__file__])

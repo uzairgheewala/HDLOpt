@@ -1,24 +1,74 @@
 import os
 import shutil
 import numpy as np
-import json
 from .logger import logger
 
 def identify_submodules(verilog_file):
-    submodule_names = []
-    with open(verilog_file, 'r') as f:
-        lines = f.readlines()
+    """
+    Identify submodule instantiations in a Verilog file.
+    
+    Args:
+        verilog_file: Path to Verilog file
+        
+    Returns:
+        List[str]: List of unique submodule names
+    """
+    logger.debug(f"Analyzing {verilog_file} for submodules")
+    submodule_names = set()
+    
+    try:
+        with open(verilog_file, 'r') as f:
+            content = f.read()
+        logger.debug(f"File content:\n{content}")
+            
+        # Skip Verilog keywords
+        verilog_keywords = {
+            # Module level
+            'module', 'endmodule', 'input', 'output', 'inout', 'wire', 'reg',
+            # Assignments and parameters
+            'assign', 'parameter', 'localparam', 'defparam',
+            # Procedural blocks
+            'initial', 'always', 'always_comb', 'always_ff', 'always_latch',
+            # Control structures
+            'begin', 'end', 'if', 'else', 'case', 'endcase', 'default',
+            'for', 'while', 'repeat', 'forever',
+            # Generate constructs
+            'generate', 'endgenerate', 'genvar',
+            # Primitives
+            'and', 'or', 'xor', 'not', 'nand', 'nor', 'buf', 'bufif0', 'bufif1',
+            # Task/Function
+            'task', 'endtask', 'function', 'endfunction',
+            # Miscellaneous
+            'fork', 'join', 'wait', 'disable', 'casex', 'casez'
+        }
 
-    for i, line in enumerate(lines):
-        if "// Module" in line:
-            for j in range(i, 0, -1):
-                if (('(' in lines[j]) and ((not ')' in lines[j]) or ((lines[j].count('(') > 1) and ('#' in lines[j])))) or ('(' in lines[j] and ')' in lines[j] and ';' in lines[j]):
-                    submodule_name = lines[j].strip().split()[0]
-                    submodule_names.append(str(submodule_name))
-                    logger.debug(f"Identified submodule: {submodule_name}")
-                    break
+        # Join lines and split on semicolons to get statements
+        statements = content.split(';')
+        
+        for stmt in statements:
+            # Skip empty statements and comments
+            stmt = stmt.strip()
+            if not stmt or stmt.startswith('//') or stmt.startswith('/*'):
+                continue
+                
+            # Look for lines with opening parenthesis that aren't module declarations
+            if '(' in stmt and not stmt.lstrip().startswith('module'):
+                # Get the first word of the statement (module type)
+                words = stmt.split()
+                module_type = words[0].strip()
+                
+                # If it's not a keyword, it's probably a module instantiation
+                if module_type.lower() not in verilog_keywords:
+                    logger.debug(f"Found instance of {module_type}")
+                    submodule_names.add(module_type)
 
-    return submodule_names
+    except Exception as e:
+        logger.error(f"Error parsing {verilog_file}: {str(e)}")
+        return []
+
+    unique_submodules = sorted(list(submodule_names))
+    logger.debug(f"Identified submodules: {unique_submodules}")
+    return unique_submodules
 
 def filter_filenames(source_dir, patterns=None, filenames=None, subs=False):
     if filenames is None:
@@ -88,25 +138,50 @@ def filter_filenames(source_dir, patterns=None, filenames=None, subs=False):
 
     return list(set(final_files))
 """
-def create_directory_structure(component_names, src_folder, dest_folder, hierarchy):
-    for verilog_file in component_names:
-        print("Creating directory structure for:", verilog_file)
-        module_name = os.path.splitext(os.path.basename(verilog_file))[0]
-        component_dir = os.path.join(dest_folder, module_name)
-        os.makedirs(component_dir, exist_ok=True)
+def create_directory_structure(component_name, src_folder, dest_folder, hierarchy):
+    """
+    Creates directory structure for a single component and its submodules.
+    
+    Args:
+        component_name: Name of the component file (e.g. 'full_adder.v')
+        src_folder: Source directory containing Verilog files
+        dest_folder: Destination directory for the hierarchy
+        hierarchy: Dictionary to track module relationships
+    """
+    # Construct full path to component file
+    verilog_file = os.path.join(src_folder, component_name)
+    
+    # Get module name without extension
+    module_name = os.path.splitext(os.path.basename(component_name))[0]
+    logger.info(f"Creating directory structure for: {module_name}")
+    logger.debug(f"src_folder:{src_folder}\ncomponent_name:{component_name}\ndest_folder:{dest_folder}")
+    
+    # Create component directory
+    component_dir = os.path.join(dest_folder, module_name)
+    os.makedirs(component_dir, exist_ok=True)
+    logger.debug(f"component_dir:{component_dir}")
+    
+    # Copy the Verilog file
+    if os.path.exists(verilog_file):
         shutil.copy(verilog_file, component_dir)
     
+        # Identify and process submodules
         submodules = list(np.unique(identify_submodules(verilog_file)))
+        logger.debug(f"Identified submodules: {submodules}")
         hierarchy[module_name] = submodules
     
+        # Recursively process submodules
         for submodule in submodules:
-            submodule_file = os.path.join(src_folder, f"{submodule}.v")
-            if os.path.exists(submodule_file):
-                create_directory_structure([submodule_file], src_folder, component_dir, hierarchy)
+            submodule_file = f"{submodule}.v"
+            submodule_path = os.path.join(src_folder, submodule_file)
+            if os.path.exists(submodule_path):
+                create_directory_structure(submodule_file, src_folder, component_dir, hierarchy)
+    else:
+        logger.error(f"Verilog file not found: {verilog_file}")
+        hierarchy[module_name] = []
 
     return hierarchy
 
-"""
 def print_directory_structure(path, indent=0):
     hierarchy = {}
     
@@ -129,14 +204,4 @@ def print_directory_structure(path, indent=0):
                 current_level[f] = None
 
     build_hierarchy(path, hierarchy)
-    return hierarchy
-"""
-def print_directory_structure(path):
-    hierarchy = {}
-    for item in os.listdir(path):
-        item_path = os.path.join(path, item)
-        if os.path.isdir(item_path):
-            hierarchy[item] = print_directory_structure(item_path)
-        else:
-            hierarchy[item] = None
     return hierarchy

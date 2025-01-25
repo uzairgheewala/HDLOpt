@@ -23,12 +23,12 @@ def sample_component():
             {"name": "DEPTH", "value": "4"}
         ],
         "inputs": [
-            ["input", "wire", "unsigned", "WIDTH-1:0", "data_in"],
-            ["input", "wire", "unsigned", "1", "clk"],
-            ["input", "wire", "unsigned", "1", "rst"]
+            ["data_in", "wire", "unsigned", "WIDTH-1:0"],
+            ["clk", "wire", "unsigned", "1"],
+            ["rst", "wire", "unsigned", "1"]
         ],
         "outputs": [
-            ["output", "reg", "unsigned", "WIDTH-1:0", "data_out"]
+            ["data_out", "reg", "unsigned", "WIDTH-1:0"]
         ]
     }
 
@@ -110,6 +110,11 @@ class TestTestbenchGenerator:
             {"a": 1, "b": 2},
             {"a": 3, "b": 4}
         ]
+
+        replaced_inp = ["data_in", "wire", "unsigned", "7:0"]
+        replaced_out = ["data_out", "reg", "unsigned", "7:0"]
+        sample_component['inputs'][0] = replaced_inp
+        sample_component['outputs'][0] = replaced_out
         
         expected_values = testbench_generator._assign_rules(test_cases, sample_component)
         
@@ -160,8 +165,8 @@ class TestTestbenchGenerator:
         submodule_details = {
             "component_name": "submodule",
             "parameters": [{"name": "WIDTH", "value": "4"}],
-            "inputs": [["input", "wire", "unsigned", "WIDTH-1:0", "in"]],
-            "outputs": [["output", "reg", "unsigned", "WIDTH-1:0", "out"]]
+            "inputs": [["in", "wire", "unsigned", "WIDTH-1:0" ]],
+            "outputs": [["out", "reg", "unsigned", "WIDTH-1:0"]]
         }
         
         with open(submodule_dir / "submodule_details.json", "w") as f:

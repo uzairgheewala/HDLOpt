@@ -50,7 +50,7 @@ class TimingAnalyzer:
         
         try:
             # Setup environment
-            self.env.setup_vivado()
+            #self.env.setup_vivado()
             
             # Generate and run Vivado script
             self._run_vivado()
@@ -59,9 +59,9 @@ class TimingAnalyzer:
             timing_data = self._parse_timing_report()
             
             # Generate report
-            self._generate_report(timing_data)
+            report_path = self._generate_report(timing_data)
             
-            return timing_data
+            return timing_data, report_path
             
         except Exception as e:
             logger.error(f"Timing analysis failed: {str(e)}")
@@ -279,6 +279,8 @@ class TimingAnalyzer:
         
         # Save report
         report.save()
+
+        return report_path
 
     def _get_component_dir(self) -> Path:
         """Get component directory path"""

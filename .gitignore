@@ -1,6 +1,12 @@
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
+.Xil/
+power_reports/
+test_reports/
+timing_reports/
+waveform_reports/
+tmp/
 
 design_gen/
 ds_exp/

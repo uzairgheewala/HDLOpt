@@ -73,7 +73,7 @@ def test_create_directory_structure(setup_verilog_files):
     hierarchy = {}
     alu_v_path = os.path.join(src_dir, "alu.v")
     create_directory_structure(
-        component_names=[alu_v_path],
+        component_name=alu_v_path,
         src_folder=src_dir,
         dest_folder=dest_dir,
         hierarchy=hierarchy
@@ -90,7 +90,7 @@ def test_print_directory_structure(setup_verilog_files):
     hierarchy = {}
     alu_v_path = os.path.join(src_dir, "alu.v")
     create_directory_structure(
-        component_names=[alu_v_path],
+        component_name=alu_v_path,
         src_folder=src_dir,
         dest_folder=dest_dir,
         hierarchy=hierarchy

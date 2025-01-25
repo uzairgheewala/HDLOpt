@@ -13,7 +13,7 @@ import time
 from .utils import find_component_directory
 from ..logger import logger
 
-@dataclass
+@dataclass 
 class TestResult:
     """Results from a single test case"""
     test_case: Dict
@@ -22,16 +22,62 @@ class TestResult:
     passed: bool
     error_message: Optional[str] = None
 
+    def to_dict(self) -> Dict:
+        """Convert TestResult to dictionary for JSON serialization."""
+        return {
+            "test_case": self.test_case,
+            "expected": self.expected,
+            "actual": self.actual,
+            "passed": self.passed,
+            "error_message": self.error_message
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'TestResult':
+        """Create TestResult from dictionary."""
+        return cls(
+            test_case=data["test_case"],
+            expected=data["expected"],
+            actual=data["actual"],
+            passed=data["passed"],
+            error_message=data["error_message"]
+        )
+
 @dataclass
 class TestbenchResult:
     """Results from running a complete testbench"""
     component_name: str
     parameter_config: Dict[str, int]
     num_tests: int
-    passed_tests: int
+    passed_tests: int 
     failed_tests: int
     execution_time: float
     test_results: List[TestResult]
+
+    def to_dict(self) -> Dict:
+        """Convert TestbenchResult to dictionary for JSON serialization."""
+        return {
+            "component_name": self.component_name,
+            "parameter_config": self.parameter_config,
+            "num_tests": self.num_tests,
+            "passed_tests": self.passed_tests,
+            "failed_tests": self.failed_tests,
+            "execution_time": self.execution_time,
+            "test_results": [r.to_dict() for r in self.test_results]
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'TestbenchResult':
+        """Create TestbenchResult from dictionary."""
+        return cls(
+            component_name=data["component_name"],
+            parameter_config=data["parameter_config"],
+            num_tests=data["num_tests"],
+            passed_tests=data["passed_tests"],
+            failed_tests=data["failed_tests"],
+            execution_time=data["execution_time"],
+            test_results=[TestResult.from_dict(r) for r in data["test_results"]]
+        )
 
 def timing_wrapper(func):
     """Decorator to track execution time of testbench runs"""
@@ -97,11 +143,8 @@ class TestbenchRunner:
                 logger.debug("Creating ModelSim work library.")
                 subprocess.run(["vlib", "work"], cwd=self.work_dir, check=True)
         elif self.simulator == "iverilog":
-            # check version
             result = subprocess.run(["iverilog", "-V"], capture_output=True, text=True)
-            if "version 9." in result.stdout:
-                warnings.warn("Icarus Verilog version < 10 might be unsupported", UserWarning)
-
+            
     def _compile_source(self, source_files: List[str], force_recompile: bool = False) -> None:
         """Compile Verilog source files"""
         logger.debug(f"Starting compilation of {len(source_files)} files: {source_files}")
@@ -201,7 +244,7 @@ class TestbenchRunner:
 
     def _parse_simulation_output(self, output: str) -> List[TestResult]:
         """Parse simulation output and extract test results"""
-        logger.debug(f"Parsing simulation output:\n{output}")
+        logger.debug(f"Parsing simulation output:")
         results = []
         for line in output.splitlines():
             line = line.lstrip("# ").strip()
@@ -226,14 +269,20 @@ class TestbenchRunner:
             # Extract outputs
             output_part = parts[1].split(":", 1)[1].strip()
             outputs = {}
-            for kv in output_part.split():
+            # Split by comma instead of space
+            for kv in output_part.split(","):
+                if not kv.strip():
+                    continue
                 key, value = kv.strip().split("=")
                 outputs[key.strip()] = self._parse_value(value.strip())
                 
             # Extract expected values
             expected_part = parts[2].split(":", 1)[1].strip()
             expected = {}
-            for kv in expected_part.split():
+            # Split by comma instead of space
+            for kv in expected_part.split(","):
+                if not kv.strip():
+                    continue
                 key, value = kv.strip().split("=")
                 expected[key.strip()] = self._parse_value(value.strip())
 
@@ -242,6 +291,8 @@ class TestbenchRunner:
                 outputs.get(key) == expected.get(key)
                 for key in outputs.keys()
             )
+
+            logger.debug(f"Parsed values - Inputs: {inputs}, Outputs: {outputs}, Expected: {expected}")
 
             results.append(TestResult(
                 test_case=inputs,
@@ -370,6 +421,8 @@ class TestbenchRunner:
         """Run all testbenches for a component and its submodules recursively"""
         logger.debug(f"Running recursively for component={component_name}, base_dir={base_dir}")
         results = []
+
+        #print(os.listdir(base_dir))
         
         component_dir = find_component_directory(component_name, base_dir=base_dir)
         if not component_dir:
@@ -394,7 +447,7 @@ class TestbenchRunner:
             results.append(result)
 
         if "submodules" in component_details:
-            for submodule_name in component_details["submodules"]:
+            for submodule_name in list(set(component_details["submodules"])):
                 logger.debug(f"Recursing into submodule={submodule_name}")
                 sub_results = self.run_recursive(
                     submodule_name,

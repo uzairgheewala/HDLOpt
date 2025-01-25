@@ -60,7 +60,7 @@ class PowerAnalyzer:
         
         try:
             # Setup environment
-            self.env.setup_vivado()
+            #self.env.setup_vivado()
             
             # Generate and run Vivado script
             self._run_vivado()
@@ -69,9 +69,9 @@ class PowerAnalyzer:
             power_data = self._parse_power_report()
             
             # Generate report
-            self._generate_report(power_data)
+            report_path = self._generate_report(power_data)
             
-            return power_data
+            return power_data, report_path
             
         except Exception as e:
             logger.error(f"Power analysis failed: {str(e)}")
@@ -333,6 +333,8 @@ class PowerAnalyzer:
         
         # Save report
         report.save()
+
+        return report_path
 
     def _get_component_dir(self) -> Path:
         """Get component directory path"""

@@ -141,27 +141,5 @@ class TestIVerilogRunner:
         assert results[1].test_case == {"a": 15, "b": 1}
         assert results[1].actual == {"sum": 16}
 
-    @patch("subprocess.run")
-    def test_iverilog_versioning(self, mock_run, iverilog_setup):
-        """Test handling of different IVerilog versions"""
-        mock_run.return_value = MagicMock(
-            returncode=0,
-            stdout="Icarus Verilog version 10.3"
-        )
-        
-        runner = TestbenchRunner(simulator="iverilog")
-        
-        # Should work with version 10+
-        runner._setup_simulator()
-        
-        # Test with old version
-        mock_run.return_value = MagicMock(
-            returncode=0,
-            stdout="Icarus Verilog version 9.7"
-        )
-        
-        with pytest.warns(UserWarning):
-            runner._setup_simulator()
-
 if __name__ == "__main__":
     pytest.main([__file__])

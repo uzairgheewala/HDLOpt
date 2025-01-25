@@ -47,12 +47,21 @@ class Rule(ABC):
         self.name = name
         self.pattern = pattern
         self._default_bit_width = default_bit_width
-        self.bit_width=default_bit_width
+        self.bit_width = default_bit_width
         self._bit_width_specs: Dict[str, BitWidthSpec] = {}
+
+    def __eq__(self, other):
+        if not isinstance(other, Rule):
+            return False
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
 
     def set_bit_width(self, bit_width: int) -> None:
         """Set default bit width for all signals without specific specs."""
-        self._default_bit_width = bit_width
+        #self._default_bit_width = bit_width
+        self.bit_width = bit_width
         # Clear any existing specs using the default
         self._bit_width_specs = {
             name: spec for name, spec in self._bit_width_specs.items()
