@@ -611,7 +611,116 @@ print(f"Changes: {comparison['component_changes']}")
 print(f"Metric Differences: {comparison['metric_changes']}")
 ```
 
-# Module Documentation
+## Test Optimization
+
+### Basic Usage
+
+```python
+from hdlopt.scripts.testbench.manager import IntegratedTestManager
+from hdlopt.scripts.testbench.optimizer import TestOptimizer, ModuleComplexity
+
+# Create manager with optimization
+manager = IntegratedTestManager(
+    component_name="adder",
+    rules=rules,
+    max_parallel=4,
+    target_cases_per_file=1000,
+    simulator="modelsim"
+)
+
+# Load module details
+with open("adder_details.json") as f:
+    module_details = json.load(f)
+
+# Plan tests with optimization
+test_plan = manager.plan_tests(
+    module_details=module_details,
+    desired_cases=1000,
+    available_time=300  # 5 minute timeout
+)
+
+# Execute optimized test plan
+results = manager.execute_test_plan(
+    plan=test_plan,
+    module_details=module_details,
+    recursive=True
+)
+```
+
+### Edge Case Detection
+
+```python
+from hdlopt.scripts.testbench.optimizer import TestOptimizer
+
+optimizer = TestOptimizer(base_path="generated")
+
+# Get input ranges for module
+input_ranges = {
+    "a": [0, 255],
+    "b": [0, 255],
+    "cin": [0, 1]
+}
+
+# Identify edge cases
+edge_cases = optimizer.identify_edge_cases(
+    input_ranges,
+    special_signals={"clk", "rst"}
+)
+
+# Generate distribution-based test cases
+regular_cases = optimizer.generate_test_distribution(
+    input_ranges,
+    num_cases=1000,
+    granularity=0.1
+)
+```
+
+### Coverage Analysis
+
+```python
+# Generate coverage matrix
+coverage_matrix = optimizer.generate_coverage_matrix(
+    test_cases=test_cases,
+    input_ranges=input_ranges
+)
+
+# Generate coverage report
+coverage_report = optimizer.generate_coverage_report(
+    test_cases=test_cases,
+    input_ranges=input_ranges
+)
+
+# Visualize coverage
+optimizer.visualize_coverage(
+    test_cases=test_cases,
+    input_ranges=input_ranges,
+    output_path="coverage_plot.png"
+)
+```
+
+### Adaptive Test Planning
+
+```python
+# Calculate module complexity
+complexity = optimizer.calculate_module_complexity(module_details)
+complexity_score = complexity.calculate_score()
+
+# Estimate execution time
+est_time = optimizer.estimate_execution_time(
+    complexity=complexity,
+    num_cases=len(test_cases)
+)
+
+# Optimize test selection if needed
+if est_time > available_time:
+    optimized_cases = optimizer.optimize_test_selection(
+        test_cases=test_cases,
+        input_ranges=input_ranges,
+        target_cases=int(len(test_cases) * 0.7)
+    )
+```
+
+## Module Documentation
 
 ### Runner Module
 
@@ -660,8 +769,6 @@ class ExperimentManager:
         """Compare two experiment runs."""
 ```
 
-
-## Module Documentation
 
 ### Parsing Module
 
@@ -755,6 +862,111 @@ class TestbenchRunner:
         force_recompile: bool = False
     ) -> List[TestbenchResult]:
         """Run all testbenches recursively."""
+```
+
+### Test Management Module
+
+#### IntegratedTestManager Class
+
+```python
+class IntegratedTestManager:
+    def __init__(
+        self,
+        component_name: str,
+        rules: List[Rule],
+        max_parallel: Optional[int] = None,
+        target_cases_per_file: int = 1000,
+        simulator: str = "modelsim"
+    ):
+        """Initialize integrated test manager."""
+        
+    def plan_tests(
+        self,
+        module_details: Dict,
+        desired_cases: int,
+        available_time: Optional[float] = None
+    ) -> TestExecutionPlan:
+        """Plan optimized test execution."""
+        
+    def execute_test_plan(
+        self,
+        plan: TestExecutionPlan,
+        module_details: Dict,
+        recursive: bool = False
+    ) -> List[TestbenchResult]:
+        """Execute planned tests."""
+```
+
+#### TestExecutionPlan Class
+
+```python
+@dataclass
+class TestExecutionPlan:
+    total_test_cases: int
+    test_batches: int
+    cases_per_batch: int
+    estimated_time: float
+    edge_cases: List[Dict[str, int]]
+    regular_cases: List[Dict[str, int]]
+    parallel_processes: int
+```
+
+### Test Optimization Module
+
+#### TestOptimizer Class
+
+```python
+class TestOptimizer:
+    def __init__(
+        self,
+        base_path: Path,
+        max_parallel: Optional[int] = None,
+        target_cases_per_file: int = 1000,
+        rules: Optional[List[Rule]] = None
+    ):
+        """Initialize test optimizer."""
+        
+    def identify_edge_cases(
+        self,
+        input_ranges: Dict[str, List[int]],
+        special_signals: Set[str]
+    ) -> List[Dict[str, int]]:
+        """Identify critical test cases."""
+        
+    def generate_test_distribution(
+        self,
+        input_ranges: Dict[str, List[int]],
+        num_cases: int,
+        granularity: float = 0.1
+    ) -> List[Dict[str, int]]:
+        """Generate distribution-based test cases."""
+        
+    def optimize_test_selection(
+        self,
+        test_cases: List[Dict[str, int]],
+        input_ranges: Dict[str, List[int]],
+        target_cases: int
+    ) -> List[Dict[str, int]]:
+        """Select optimal subset of test cases."""
+```
+
+#### ModuleComplexity Class
+
+```python
+@dataclass
+class ModuleComplexity:
+    param_count: int = 0
+    input_width_total: int = 0  
+    output_width_total: int = 0
+    state_bits: int = 0
+    submodule_count: int = 0
+    sequential: bool = False
+    
+    def calculate_score(self) -> float:
+        """Calculate complexity score."""
+        
+    def normalized_score(self) -> float:
+        """Get normalized complexity score."""
 ```
 
 ### Analysis Modules

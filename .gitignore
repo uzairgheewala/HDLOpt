@@ -8,6 +8,9 @@ timing_reports/
 waveform_reports/
 tmp/
 
+generated/*
+!generated/.gitkeep
+
 design_gen/
 ds_exp/
 
