@@ -1,17 +1,18 @@
-import pytest
+import json
 import os
 import shutil
-import json
+import subprocess
 import time
 from pathlib import Path
-import subprocess
-from unittest.mock import patch, MagicMock
 from textwrap import dedent
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 from ..scripts.testbench.runner import (
+    TestbenchResult,
     TestbenchRunner,
     TestResult,
-    TestbenchResult,
     timing_wrapper,
 )
 
@@ -26,15 +27,15 @@ def sample_testbench():
             // Parameters
             parameter N = 8;
             parameter WIDTH = 4;
-            
+
             // Inputs
             reg [WIDTH-1:0] data_in;
             reg clk;
             reg rst;
-            
+
             // Outputs
             wire [WIDTH-1:0] data_out;
-            
+
             // Instantiate DUT
             test_component #(
                 .N(N),
@@ -45,23 +46,23 @@ def sample_testbench():
                 .rst(rst),
                 .data_out(data_out)
             );
-                  
+
             initial begin
                 clk = 0;
                 forever #5 clk = ~clk;
             end
-            
+
             initial begin
                 // Test case 1
                 data_in = 4'b0101;
                 #10;
                 $display("Test 1: Inputs: data_in=4'b0101 | Outputs: data_out=4'b%04b | Expected: data_out=4'b1010", data_out);
-                
-                // Test case 2  
+
+                // Test case 2
                 data_in = 4'b1100;
                 #10;
                 $display("Test 2: Inputs: data_in=4'b1100 | Outputs: data_out=4'b%04b | Expected: data_out=4'b0011", data_out);
-                
+
                 $finish;
             end
         endmodule
@@ -268,9 +269,9 @@ class TestTestbenchRunner:
                 parameter N = 4;
                 reg [N-1:0] in;
                 wire [N-1:0] out;
-                
+
                 submodule #(N) dut (in, out);
-                
+
                 initial begin
                     in = 4'b0101;
                     #10;
@@ -308,7 +309,7 @@ class TestTestbenchRunner:
             json.dump(sub_details, f)
 
         # Update main component details to include submodule
-        with open(temp_testbench_dir / "test_component_details.json", "r") as f:
+        with open(temp_testbench_dir / "test_component_details.json") as f:
             main_details = json.load(f)
 
         main_details["submodules"] = {"submodule": sub_details}
@@ -417,7 +418,8 @@ class TestTestbenchRunner:
         (temp_testbench_dir / "not_verilog.txt").touch()
 
         source_files = runner._collect_source_files(temp_testbench_dir)
-        assert len(source_files) == 2  # Should find test_component.v and helper.v
+        # Should find test_component.v and helper.v
+        assert len(source_files) == 2
         assert not any("tb_" in f for f in source_files)
 
 

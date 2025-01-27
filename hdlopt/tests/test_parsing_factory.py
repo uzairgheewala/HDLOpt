@@ -1,11 +1,11 @@
 """Tests for Verilog parser factory."""
 
 import pytest
-from ..scripts.parsing.factory import PYVERILOG_AVAILABLE
-from ..scripts.parsing.factory import VerilogParser
+
 from ..scripts.parsing.base import ParserMode
-from ..scripts.parsing.native import NativeVerilogParser
 from ..scripts.parsing.exceptions import ParserConfigurationError
+from ..scripts.parsing.factory import PYVERILOG_AVAILABLE, VerilogParser
+from ..scripts.parsing.native import NativeVerilogParser
 
 
 def test_create_native_parser():

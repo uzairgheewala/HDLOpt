@@ -1,17 +1,14 @@
-import pytest
-from pathlib import Path
 import json
-import tempfile
-import shutil
-from unittest.mock import patch, MagicMock
 
-from ..scripts.testbench.core import (
-    TestbenchGenerator,
-    ConstraintConfig,
-    TimingConfig,
-    SignalConfig,
-)
+import pytest
+
 from ..rules.base import MockRule
+from ..scripts.testbench.core import (
+    ConstraintConfig,
+    SignalConfig,
+    TestbenchGenerator,
+    TimingConfig,
+)
 
 
 @pytest.fixture
@@ -101,7 +98,7 @@ class TestTestbenchGenerator:
             assert -2 <= case["b"] <= 2
 
         # Test uniqueness
-        assert len(set(frozenset(case.items()) for case in test_cases)) == 10
+        assert len({frozenset(case.items()) for case in test_cases}) == 10
 
     def test_rule_assignment(self, testbench_generator, sample_component):
         """Test rule assignment to test cases"""
@@ -172,7 +169,7 @@ class TestTestbenchGenerator:
             json.dump(submodule_details, f)
 
         # Update main component with submodule
-        with open(temp_component_dir / "test_component_details.json", "r") as f:
+        with open(temp_component_dir / "test_component_details.json") as f:
             main_details = json.load(f)
 
         main_details["submodules"] = {"submodule": submodule_details}
@@ -219,23 +216,6 @@ class TestTestbenchGenerator:
             start_names={"test_component": ["start"]},
             valid_names={"test_component": ["valid", "data_valid"]},
         )
-
-        # Mock component details with multiple clock domains
-        component_details = {
-            "component_name": "test_component",
-            "inputs": [
-                ["input", "wire", "unsigned", "1", "clk"],
-                ["input", "wire", "unsigned", "1", "clk2"],
-                ["input", "wire", "unsigned", "1", "rst_n"],
-                ["input", "wire", "unsigned", "1", "start"],
-                ["input", "wire", "unsigned", "8", "data"],
-            ],
-            "outputs": [
-                ["output", "wire", "unsigned", "1", "valid"],
-                ["output", "wire", "unsigned", "1", "data_valid"],
-                ["output", "wire", "unsigned", "8", "result"],
-            ],
-        }
 
         # Generate test cases
         test_cases = testbench_generator._generate_test_cases(
@@ -300,7 +280,8 @@ class TestTestbenchGenerator:
             generator._process_parameters(
                 {
                     "parameters": [
-                        {"name": "WIDTH", "value": "-1"}  # Invalid negative value
+                        # Invalid negative value
+                        {"name": "WIDTH", "value": "-1"}
                     ]
                 }
             )

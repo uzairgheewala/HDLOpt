@@ -1,28 +1,26 @@
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Set
-import multiprocessing
-import math
-from math import log1p  # Natural logarithm of (1 + x)
-import random
-import time
-import os
-import shutil
-from enum import Enum
-import numpy as np
-from pathlib import Path
 import json
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from dataclasses import dataclass, is_dataclass, asdict
+import math
+import multiprocessing
+import os
+import random
+import shutil
+import time
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from dataclasses import asdict, dataclass
+from enum import Enum
+from math import log1p  # Natural logarithm of (1 + x)
+from pathlib import Path
+from typing import Dict, List, Optional, Set
 
 import matplotlib
-
-matplotlib.use("Agg")  # Set non-interactive backend
+import numpy as np
 from matplotlib import pyplot as plt
 
 from ..logger import logger
 from .core import TestbenchGenerator
 from .runner import TestbenchRunner as Runner
-from ..experiment_manager import EnhancedJSONEncoder
+
+matplotlib.use("Agg")  # Set non-interactive backend
 
 
 class TestCasePriority(Enum):
@@ -90,7 +88,8 @@ class ModuleComplexity:
         """Calculate unbounded complexity score (no 0-1 cap)."""
         scores = {
             "params": 0.02 * self.param_count,  # ~0.1 for 5 params
-            "inputs": 0.25 * log1p(self.input_width_total),  # ~1.7 for 1000-bit input
+            # ~1.7 for 1000-bit input
+            "inputs": 0.25 * log1p(self.input_width_total),
             "outputs": 0.25
             * log1p(self.output_width_total),  # ~1.7 for 1000-bit output
             "state": 0.4 * log1p(self.state_bits),  # ~3.3 for 1000 flip-flops
@@ -375,7 +374,7 @@ class TestOptimizer:
             # Convert case to hashable tuple
             case_tuple = tuple(sorted(case.items()))
 
-            if not case_tuple in generated:
+            if case_tuple not in generated:
                 test_cases.append(case)
                 generated.add(case_tuple)
 
@@ -575,7 +574,7 @@ class TestOptimizer:
             shutil.rmtree(process_dir, ignore_errors=True)
 
     """
-    def parallel_generate_testbenches(self, 
+    def parallel_generate_testbenches(self,
                                     test_case_files: List[List[Dict[str, int]]],
                                     module_details: Dict,
                                     base_path: Path):
@@ -586,7 +585,7 @@ class TestOptimizer:
 
         with ProcessPoolExecutor(max_workers=min(self.max_parallel, len(test_case_files))) as executor:
             futures = []
-            
+
             for i, test_cases in enumerate(test_case_files):
                 # Create unique output path for each executor
                 tb_filename = f"tb_{i}_{module_details['component_name']}.v"
@@ -598,20 +597,20 @@ class TestOptimizer:
                     tb_filename
                 )
                 futures.append(future)
-                
+
             # Wait for all generations to complete
             for future in futures:
                 future.result()  # Propagate exceptions
-                
-    
 
-    def parallel_execute_testbenches(self, 
+
+
+    def parallel_execute_testbenches(self,
                                    testbench_files: List[Path],
                                    simulator: str = "modelsim") -> Dict:
         #Execute multiple testbenches in parallel.
         with ThreadPoolExecutor(max_workers=self.max_parallel) as executor:
             futures = []
-            
+
             for tb_file in testbench_files:
                 future = executor.submit(
                     self._execute_single_testbench,
@@ -619,26 +618,26 @@ class TestOptimizer:
                     simulator
                 )
                 futures.append(future)
-                
+
             # Collect results
             results = {}
             for future, tb_file in zip(futures, testbench_files):
                 results[tb_file] = future.result()
-                
+
             return results
 
-    def _execute_single_testbench(self, 
+    def _execute_single_testbench(self,
                                 testbench_file: Path,
                                 simulator: str) -> Dict:
         #Execute a single testbench and collect metrics.
         start_time = time.time()
-            
+
         # Execute testbench
         runner = Runner(simulator=simulator, work_dir=testbench_file.parent)
         result = runner.run_testbench(testbench_file, source_files=runner._collect_source_files(testbench_file.parent))
-        
+
         execution_time = time.time() - start_time
-        
+
         # Collect memory usage if available
         try:
             import psutil
@@ -646,7 +645,7 @@ class TestOptimizer:
             memory_usage = process.memory_info().rss / 1024 / 1024  # MB
         except:
             memory_usage = 0
-            
+
         try:
             metrics = TestCaseMetrics(
                 execution_time=execution_time,
@@ -658,7 +657,7 @@ class TestOptimizer:
                 execution_time=execution_time,
                 memory_usage=memory_usage
             )
-        
+
         return {
             "result": result,
             "metrics": metrics
@@ -721,7 +720,8 @@ class TestOptimizer:
 
                 process = psutil.Process()
                 memory_usage = process.memory_info().rss / 1024 / 1024  # MB
-            except:
+            except Exception as e:
+                print(str(e))
                 memory_usage = 0
 
             try:
@@ -730,7 +730,8 @@ class TestOptimizer:
                     memory_usage=memory_usage,
                     complexity_score=self.complexity_score,
                 )
-            except:
+            except Exception as e:
+                print(str(e))
                 metrics = TestCaseMetrics(
                     execution_time=execution_time, memory_usage=memory_usage
                 )
@@ -746,7 +747,6 @@ class TestOptimizer:
         output_path: Path,
     ):
         """Generate coverage visualization."""
-        import matplotlib.pyplot as plt
         import seaborn as sns
 
         # Create figure
@@ -822,7 +822,6 @@ class TestOptimizer:
         self, metrics_history: List[TestCaseMetrics], output_dir: Path
     ):
         """Generate graphs showing metric trends."""
-        import matplotlib.pyplot as plt
         import seaborn as sns
 
         # Create output directory
@@ -911,7 +910,6 @@ class TestOptimizer:
         # Get number of intervals for each input
         intervals = {}
         for signal, (min_val, max_val) in input_ranges.items():
-            range_size = max_val - min_val
             num_intervals = max(1, int(1 / granularity))
             intervals[signal] = np.linspace(min_val, max_val, num_intervals)
 

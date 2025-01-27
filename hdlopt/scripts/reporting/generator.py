@@ -1,20 +1,22 @@
-from reportlab.lib.pagesizes import letter, landscape
+import math
+import os
+
+import pymupdf
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import landscape, letter
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
-    SimpleDocTemplate,
     Frame,
+    Image,
+    Indenter,
+    PageBreak,
     Paragraph,
+    SimpleDocTemplate,
     Spacer,
     Table,
-    Image,
-    PageBreak,
-    Indenter,
 )
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
-import pymupdf
-import os
-import math
+
 from ..logger import logger
 
 
@@ -67,7 +69,11 @@ class PDFReportGenerator:
         print(f"Initialized PDFReportGenerator for {filename}")
         print(f"Page size: {self.page_size}")
         print(
-            f"Margins: {self.doc.rightMargin}, {self.doc.leftMargin}, {self.doc.topMargin}, {self.doc.bottomMargin}"
+            f"Margins: {
+                self.doc.rightMargin}, {
+                self.doc.leftMargin}, {
+                self.doc.topMargin}, {
+                    self.doc.bottomMargin}"
         )
 
     def adjust_page_size_for_table(self, table_data):
@@ -107,7 +113,8 @@ class PDFReportGenerator:
                     self.entry_counter[text] = self.entry_counter.get(text, 0) + 1
                     # break
 
-            except:
+            except Exception as e:
+                print(str(e))
                 print(element, "doesn't have style")
 
         self.elements.extend(template_elements)
@@ -136,7 +143,8 @@ class PDFReportGenerator:
                         self.entry_counter[text] = self.entry_counter.get(text, 0) + 1
                         # break
 
-                except:
+                except Exception as e:
+                    print(str(e))
                     print(element, "doesn't have style")
 
             # Find the first PageBreak and insert summary elements after it
@@ -166,7 +174,7 @@ class PDFReportGenerator:
 
         # print(f"Current page height: {self.current_page_height}, Element height: {element_height}")
 
-        if self.current_page_height - element_height < 0 and not "PageBreak" in str(
+        if self.current_page_height - element_height < 0 and "PageBreak" not in str(
             element
         ):
             self.elements.append(PageBreak())
@@ -276,7 +284,7 @@ class PDFReportGenerator:
         prev_level = 0
 
         for entry, level, page, _, _ in self.toc:
-            style = self.styles[f"Heading{level+1}"]
+            style = self.styles[f"Heading{level + 1}"]
             indent_level = level * 10
             if level > prev_level:
                 toc_elements.append(Indenter(left=indent_level))
@@ -335,22 +343,22 @@ class PDFReportGenerator:
             doc = pymupdf.open(fn)
         page_count = len(doc)
         #print("Page count:", page_count)
-        
+
         last_updated_index = {}
-        
+
         for i in range(page_count):
             page = doc.load_page(i)
             text = page.get_text("text")
-            
+
             for j in range(len(self.toc)):
                 entry, level, page_num, entry_id, elem_index = self.toc[j]
                 #print(entry, f"TOC index: {j}, Pg: {i}", entry in text, page_num, (not (entry in last_updated_index)), last_updated_index)
-                
+
                 # Update only if page_num is None and if the entry has not been updated or the last updated index is less than the current index
                 if page_num is None and entry in text and ((not (entry in last_updated_index)) or (last_updated_index[entry] < i)):
                     self.toc[j] = (entry, level, i + 2, entry_id, elem_index)
                     last_updated_index[entry] = i  # Update the last updated index for the entry
-        
+
         doc.close()
     """
 
@@ -388,8 +396,9 @@ class PDFReportGenerator:
         total_height = 0
 
         # Create a temporary canvas to measure elements
-        from reportlab.pdfgen import canvas
         import tempfile
+
+        from reportlab.pdfgen import canvas
 
         temp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
         c = canvas.Canvas(temp_pdf.name)
@@ -447,57 +456,57 @@ class PDFReportGenerator:
                     i += 2  # Skip the next element to avoid multiple consecutive removals
                 else:
                     i += 1
-        
+
             # Remove elements at the identified indexes
             for index in sorted(indexes, reverse=True):
                 del self.elements[index]
-            
+
             self.doc.build(self.elements, onFirstPage=self.add_page_number, onLaterPages=self.add_page_number)
             #os.remove(temp_filename)
         except Exception as e:
             print(f"Error saving PDF: {e}")
             raise(e)
-    
+
     def save(self):
         Save the PDF with dynamic sizing.
         try:
             print(f"Saving PDF to {self.filename}")
-            
+
             # First pass: calculate required dimensions
             width, height = self.calculate_content_dimensions(self.elements)
-            
+
             # Ensure minimum dimensions
             width = max(width, 8.5*inch)   # Minimum letter width
             height = max(height, 11*inch)  # Minimum letter height
-            
+
             print(f"Calculated dimensions: {width/inch:.1f}\" x {height/inch:.1f}\"")
-            
+
             # Update doc page size
             self.doc.pagesize = (width, height)
             self.page_size = (width, height)
-            
+
             # Reset current page height
             self.current_page_height = self.doc.height - self.doc.topMargin - self.doc.bottomMargin
-            
+
             # Add summary if needed
             self.add_summary()
-            
+
             # Create temporary preview file
             temp_preview = self.preview("temp_summary")
-            
+
             # Update TOC with correct page numbers
             self.update_toc_page_numbers(temp_preview)
-            
+
             # Add TOC
             self.build_toc()
-            
+
             # Build final document
             self.doc.build(self.elements, onFirstPage=self.add_page_number, onLaterPages=self.add_page_number)
-            
+
             # Clean up preview if it exists
             if os.path.exists(temp_preview):
                 os.remove(temp_preview)
-                
+
         except Exception as e:
             print(f"Error saving PDF: {e}")
             raise(e)
@@ -550,7 +559,8 @@ class PDFReportGenerator:
         print(f"Creating preview: {temp_filename}")
         try:
             preview_doc = SimpleDocTemplate(temp_filename, pagesize=self.page_size)
-            preview_elements = list(self.elements)  # Copy current elements for preview
+            # Copy current elements for preview
+            preview_elements = list(self.elements)
             preview_elements.insert(
                 0, Paragraph(f"Preview - {step_name}", self.styles["Title"])
             )

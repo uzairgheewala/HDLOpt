@@ -4,18 +4,18 @@ This module contains the abstract base classes that define the interface
 for Verilog parsers.
 """
 
-from abc import ABC, abstractmethod
-from typing import List, Dict, Optional, Union
-from enum import Enum
 import os
+from abc import ABC, abstractmethod
 from datetime import datetime
+from enum import Enum
+from typing import Dict, List
 
-from .models import Signal, VerilogModule
 from .exceptions import (
-    VerilogParsingError,
     FileProcessingError,
     ParserConfigurationError,
+    VerilogParsingError,
 )
+from .models import Signal, VerilogModule
 
 
 class ParserMode(Enum):
@@ -65,7 +65,6 @@ class VerilogParserBase(ABC):
             FileProcessingError: If file cannot be read or processed
             VerilogParsingError: If parsing fails
         """
-        pass
 
     @abstractmethod
     def parse_signal(self, declaration: str, comment: str = "") -> Signal:
@@ -81,7 +80,6 @@ class VerilogParserBase(ABC):
         Raises:
             VerilogParsingError: If parsing fails
         """
-        pass
 
     def process_file(self, filepath: str) -> List[VerilogModule]:
         """Process a Verilog file with proper error handling and metadata.
@@ -123,7 +121,10 @@ class VerilogParserBase(ABC):
             raise
         except Exception as e:
             # Wrap other exceptions
-            raise FileProcessingError(f"Error processing file {filepath}: {str(e)}")
+            raise FileProcessingError(
+                f"Error processing file {filepath}: {
+                    str(e)}"
+            )
 
     def parse_files(self, filepaths: List[str]) -> Dict[str, List[VerilogModule]]:
         """Parse multiple Verilog files.

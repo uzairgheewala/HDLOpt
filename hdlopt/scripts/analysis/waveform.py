@@ -1,10 +1,10 @@
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional
 import io
-import subprocess
+from dataclasses import dataclass, field
 from pathlib import Path
-import numpy as np
+from typing import Dict, List, Optional
+
 import matplotlib.pyplot as plt
+import numpy as np
 from vcd.reader import TokenKind, tokenize
 
 from ..logger import logger
@@ -64,7 +64,10 @@ class WaveformAnalyzer:
         if self.config.format.lower() == "vcd":
             results = self._analyze_vcd(waveform_file)
         else:
-            raise ValueError(f"Unsupported waveform format: {self.config.format}")
+            raise ValueError(
+                f"Unsupported waveform format: {
+                    self.config.format}"
+            )
 
         logger.info("Waveform analysis completed.")
         return results
@@ -130,7 +133,7 @@ class WaveformAnalyzer:
                     )
 
                 # Calculate timing metrics
-                time_range_raw = (all_times[0], all_times[-1])
+                # time_range_raw = (all_times[0], all_times[-1])
                 metrics = self._calculate_metrics(signal_data, all_times)
 
                 # Optionally filter time range
@@ -176,7 +179,8 @@ class WaveformAnalyzer:
 
         glitch_threshold = 0.01 * total_time  # 1% of total time as glitch threshold
 
-        # For each signal, count transitions, note pulse widths, detect small pulses
+        # For each signal, count transitions, note pulse widths, detect small
+        # pulses
         for id_code, sig in signal_data.items():
             transitions = 0
             last_value = sig.values[0]
@@ -303,7 +307,8 @@ class WaveformAnalyzer:
 
         # Plot single-bit signals
         if singles:
-            total_height = max(2 * len(singles), 6)  # Minimum height of 6 inches
+            # Minimum height of 6 inches
+            total_height = max(2 * len(singles), 6)
             fig, axes = plt.subplots(
                 len(singles),
                 1,
@@ -360,7 +365,7 @@ class WaveformAnalyzer:
         for bus_name, sig_list in buses.items():
             fig, ax = plt.subplots(figsize=(12, 4))
 
-            all_bus_times = sorted(set(t for sig in sig_list for t in sig.times))
+            all_bus_times = sorted({t for sig in sig_list for t in sig.times})
             if not all_bus_times:
                 continue
 
@@ -421,7 +426,13 @@ class WaveformAnalyzer:
             events.append(
                 {
                     "time": v.get("time", 0),
-                    "description": f"{v.get('type','Unknown')} violation on {v.get('signal','?')}",
+                    "description": f"{
+                        v.get(
+                            'type',
+                            'Unknown')} violation on {
+                        v.get(
+                            'signal',
+                            '?')}",
                     "type": "violation",
                 }
             )
@@ -472,9 +483,9 @@ class WaveformAnalyzer:
 
     """
     def _generate_plots(self, analysis_results: Dict) -> Dict[str, io.BytesIO]:
-        
+
         Return a dictionary of plot buffers, e.g. {"singles": <BytesIO>, "events": <BytesIO>, ...}
-        
+
         plots = {}
         signal_data: Dict[str, SignalData] = analysis_results['signals']
         metrics = analysis_results['metrics']
@@ -512,7 +523,7 @@ class WaveformAnalyzer:
                     else:
                         # Already numeric value
                         numeric_vals.append(int(bool(v)))  # Convert to 0/1
-                        
+
                 ax.step(sig.times, numeric_vals, where='post', label=name)
                 ax.set_ylabel(name)
                 ax.grid(True)
@@ -530,7 +541,7 @@ class WaveformAnalyzer:
         # Plot bus signals (basic approach)
         for bus_name, sig_list in buses.items():
             fig, ax = plt.subplots(figsize=(10, 4))
-            
+
             # Flatten out all times from each bus bit
             all_bus_times = sorted(set(t for sig in sig_list for t in sig.times))
             if not all_bus_times:
@@ -576,18 +587,18 @@ class WaveformAnalyzer:
         # Plot glitch/violation events as a timeline
         glitches = metrics.get('glitches', [])
         violations = metrics.get('violations', [])
-        
+
         if glitches or violations:
             fig, ax = plt.subplots(figsize=(12, 3))
             events = []
-            
+
             for g in glitches:
                 events.append({
                     'time': g['time'],
                     'description': f"Glitch on {g['signal']}",
                     'type': 'glitch'
                 })
-                
+
             for v in violations:
                 events.append({
                     'time': v.get('time', 0),
@@ -600,7 +611,7 @@ class WaveformAnalyzer:
                 times = [e['time'] for e in events]
                 labels = [e['description'] for e in events]
                 colors = ["red" if e['type']=="violation" else "orange" for e in events]
-                
+
                 ax.scatter(times, [1]*len(times), c=colors)
                 ax.set_yticks([])
 

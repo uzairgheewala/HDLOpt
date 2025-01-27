@@ -1,7 +1,5 @@
-from typing import Dict
 from dataclasses import dataclass
-
-from ..logger import logger
+from typing import Dict
 
 
 def parse_netlist(netlist_path: str) -> Dict:
@@ -195,7 +193,8 @@ class NetlistAnalyzer:
             new_count = old_count + increments
             metrics.cells[cell_type] = new_count
 
-            # Also update the total cell_count to reflect extra submodule instances
+            # Also update the total cell_count to reflect extra submodule
+            # instances
             metrics.cell_count += increments
 
             # If this cell_type is itself a submodule, then each instance
@@ -216,7 +215,8 @@ class NetlistAnalyzer:
                         + increments * count_per_submodule
                     )
 
-                # Also track sub_modules, if you want that to reflect all instances
+                # Also track sub_modules, if you want that to reflect all
+                # instances
                 if cell_type not in metrics.sub_modules:
                     # The original _analyze_cells call already added
                     # sub_modules[cell_type] = old_count if it was recognized

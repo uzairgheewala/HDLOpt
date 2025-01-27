@@ -1,14 +1,12 @@
 """Tests for native Verilog parser implementation."""
 
-import pytest
 from textwrap import dedent
+
+import pytest
+
+from ..scripts.parsing.exceptions import VerilogParsingError
+from ..scripts.parsing.models import Signal
 from ..scripts.parsing.native import NativeVerilogParser
-from ..scripts.parsing.models import Signal, VerilogModule
-from ..scripts.parsing.exceptions import (
-    VerilogParsingError,
-    ModuleDefinitionError,
-    FileProcessingError,
-)
 
 
 @pytest.fixture
@@ -34,14 +32,14 @@ def sample_module_text():
             // Internal signals
             wire [WIDTH:0] temp;
             reg [3:0] state;
-            
+
             // Submodule instance
             adder add1 (
                 .a(a),
                 .b(temp),
                 .sum(result)
             );
-            
+
         endmodule
     """
     )
@@ -52,7 +50,7 @@ def test_split_into_modules(parser):
     content = """
     module mod1;
     endmodule
-    
+
     module mod2;
     endmodule
     """

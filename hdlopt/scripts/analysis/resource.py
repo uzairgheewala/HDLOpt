@@ -1,16 +1,15 @@
-import os
 import json
 import math
 import subprocess
-from pathlib import Path
-from typing import Dict, List, Optional, Union
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional
 
-from ..logger import logger
 from ..config import EnvironmentSetup
-from .netlist import parse_netlist, NetlistAnalyzer
+from ..logger import logger
 from ..reporting.generator import PDFReportGenerator
 from ..reporting.templates.resource import YosysResourceTemplate
+from .netlist import NetlistAnalyzer, parse_netlist
 
 
 @dataclass

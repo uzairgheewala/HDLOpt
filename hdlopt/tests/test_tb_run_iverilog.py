@@ -1,11 +1,9 @@
-import pytest
-import os
 import shutil
-from pathlib import Path
 from textwrap import dedent
-from unittest.mock import patch, MagicMock
 
-from ..scripts.testbench.runner import TestbenchRunner, TestbenchResult
+import pytest
+
+from ..scripts.testbench.runner import TestbenchResult, TestbenchRunner
 
 
 @pytest.mark.skipif(not shutil.which("iverilog"), reason="Icarus Verilog not available")
@@ -24,18 +22,18 @@ class TestIVerilogRunner:
             module tb_adder;
                 reg [3:0] a, b;
                 wire [4:0] sum;
-                
+
                 adder dut(a, b, sum);
-                
+
                 initial begin
                     a = 4'b0011; b = 4'b0101;
                     #10;
                     $display("Test 1: Inputs: a=4'b0011; b=4'b0101 | Outputs: sum=%b | Expected: sum=5'b01000", sum);
-                    
+
                     a = 4'b1111; b = 4'b0001;
                     #10;
                     $display("Test 2: Inputs: a=4'b1111; b=4'b0001 | Outputs: sum=%b | Expected: sum=5'b10000", sum);
-                    
+
                     $finish;
                 end
             endmodule

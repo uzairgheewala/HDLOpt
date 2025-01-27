@@ -1,12 +1,9 @@
-import io
-import matplotlib.pyplot as plt
-from reportlab.platypus import Table, TableStyle, Spacer, Image, Paragraph
 from reportlab.lib import colors
-from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
 
 from ...reporting.templates.base import PageTemplate
-from ...logger import logger
 
 
 class WaveformTemplate(PageTemplate):

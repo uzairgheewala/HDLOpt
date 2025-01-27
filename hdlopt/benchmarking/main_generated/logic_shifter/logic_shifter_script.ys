@@ -1,7 +1,0 @@
-
-    read_verilog generated\logic_shifter\logic_shifter.v
-
-    synth -top logic_shifter
-    write_json generated\logic_shifter\logic_shifter_netlist.json
-    stat
-    

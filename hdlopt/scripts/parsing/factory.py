@@ -4,10 +4,9 @@ This module provides a factory class that creates the appropriate parser
 based on the requested mode and available dependencies.
 """
 
-from typing import Optional
-from .base import VerilogParserBase, ParserMode
-from .native import NativeVerilogParser
+from .base import ParserMode, VerilogParserBase
 from .exceptions import ParserConfigurationError
+from .native import NativeVerilogParser
 
 # Try to import PyVerilog
 try:

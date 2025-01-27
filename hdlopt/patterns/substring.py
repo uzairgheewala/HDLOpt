@@ -1,5 +1,6 @@
-from .base import Pattern
 import os
+
+from .base import Pattern
 
 
 class SubstringPattern(Pattern):

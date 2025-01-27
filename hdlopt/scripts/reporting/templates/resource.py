@@ -1,7 +1,8 @@
 from typing import Dict, List
+
 from reportlab.lib import colors
-from reportlab.platypus import Table, TableStyle, Spacer
 from reportlab.lib.units import inch
+from reportlab.platypus import Spacer, Table, TableStyle
 
 from ...reporting.templates.base import PageTemplate
 

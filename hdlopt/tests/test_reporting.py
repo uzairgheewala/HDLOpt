@@ -1,15 +1,16 @@
 """Test suite for PDF report generation system."""
 
 import os
-import pytest
 from unittest.mock import patch
-from reportlab.lib.pagesizes import letter, landscape
-from reportlab.platypus import Paragraph, Table, PageBreak, Frame
+
+import pytest
+from reportlab.lib.pagesizes import landscape, letter
+from reportlab.platypus import PageBreak, Table
 
 from ..scripts.reporting.generator import PDFReportGenerator
 from ..scripts.reporting.templates.base import PageTemplate
-from ..scripts.reporting.templates.rule import RuleTemplate
 from ..scripts.reporting.templates.logs import LogsTemplate
+from ..scripts.reporting.templates.rule import RuleTemplate
 from ..scripts.reporting.templates.summary import TestbenchSummaryTemplate
 
 
@@ -86,20 +87,20 @@ class TestPageTemplate:
     def test_page_break_handling(self, pdf_generator):
         Test automatic page break insertion.
         template = PageTemplate(pdf_generator)
-        
+
         # Create a large element that should definitely trigger page break
         # Using a much larger text block to ensure it exceeds page height
         large_text = "X\n" * 1000  # Increased size dramatically
         large_paragraph = Paragraph(large_text, template.styles['Normal'])
-        
+
         # Calculate available height vs required height
         frame = Frame(template.doc.leftMargin, template.doc.bottomMargin,
                      template.doc.width, template.current_page_height)
         element_height = large_paragraph.wrap(frame._width, frame._height)[1]
-        
+
         template.add_element(large_paragraph)
 
-        
+
         assert any(isinstance(elem, PageBreak) for elem in template.elements)
         assert template.current_page_height > 0
     """
@@ -123,8 +124,6 @@ class TestRuleTemplate:
         """Test complete rule page generation."""
         template = RuleTemplate(pdf_generator)
         template.generate_page(sample_rule)
-
-        elements_text = [str(elem) for elem in template.elements]
 
         # Check all required elements are present
         assert any(sample_rule.name in str(elem) for elem in template.elements)
@@ -319,7 +318,8 @@ class TestPDFReportGenerator:
             data.append(row)
 
         generator = PDFReportGenerator("test_table.pdf", table_data=data)
-        assert generator.page_size[0] > letter[0]  # Width increased for large table
+        # Width increased for large table
+        assert generator.page_size[0] > letter[0]
 
         if os.path.exists("test_table.pdf"):
             os.remove("test_table.pdf")

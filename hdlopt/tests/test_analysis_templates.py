@@ -1,16 +1,20 @@
-import pytest
-from unittest.mock import MagicMock
-from reportlab.platypus import Table, Paragraph
-from reportlab.lib import colors
-from reportlab.lib.units import inch
-import fitz
 import shutil
 from datetime import datetime
 from pathlib import Path
 
-from ..scripts.reporting.templates.resource import YosysResourceTemplate
+import fitz
+import pytest
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+from reportlab.platypus import Paragraph, Table
+
 from ..scripts.analysis.netlist import ModuleMetrics
+from ..scripts.analysis.power import ComponentPower, PowerSummary, PowerSupply
+from ..scripts.analysis.timing import ClockSummary, TimingSummary
 from ..scripts.reporting.generator import PDFReportGenerator
+from ..scripts.reporting.templates.power import PowerTemplate
+from ..scripts.reporting.templates.resource import YosysResourceTemplate
+from ..scripts.reporting.templates.timing import TimingTemplate
 
 
 class TestYosysResourceTemplate:
@@ -187,8 +191,10 @@ class TestYosysResourceTemplate:
         assert len(cell_tables) >= 2
 
         # Verify cell counts scale with parameter
-        width4_row = cell_tables[0]._cellvalues[1]  # e.g. ["test_module", 2, 1]
-        width8_row = cell_tables[1]._cellvalues[1]  # e.g. ["test_module", 4, 2]
+        # e.g. ["test_module", 2, 1]
+        width4_row = cell_tables[0]._cellvalues[1]
+        # e.g. ["test_module", 4, 2]
+        width8_row = cell_tables[1]._cellvalues[1]
 
         assert width4_row[1] == 2
         assert width8_row[1] == 4
@@ -252,6 +258,7 @@ class TestWaveformTemplate:
         """Test complete page generation"""
         # Create dummy plot data
         import io
+
         import matplotlib.pyplot as plt
 
         # Create digital plot
@@ -262,7 +269,8 @@ class TestWaveformTemplate:
         plt.close()
         buf.seek(0)
 
-        plots = {"singles": buf, "data[3:0]": buf}  # Reuse same buffer for bus plot
+        # Reuse same buffer for bus plot
+        plots = {"singles": buf, "data[3:0]": buf}
 
         # Generate page
         template.generate_page("test_component", sample_analysis, plots)
@@ -319,6 +327,7 @@ class TestWaveformTemplate:
     def test_plot_generation(self, template):
         """Test waveform plot addition"""
         import io
+
         import matplotlib
 
         matplotlib.use("Agg")
@@ -352,7 +361,6 @@ class TestWaveformTemplate:
         data = [["Header"], ["Data"]]
         template._add_styled_table(data, "Test Table")
 
-        table = next(e for e in template.elements if isinstance(e, Table))
         style = template._last_table_style
 
         # Verify essential style commands
@@ -361,20 +369,6 @@ class TestWaveformTemplate:
         assert ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke) in style_cmds
         assert ("GRID", (0, 0), (-1, -1), 1, colors.black) in style_cmds
         assert ("ALIGN", (0, 0), (-1, -1), "CENTER") in style_cmds
-
-        # Verify caption
-        caption = next(
-            e
-            for e in template.elements
-            if isinstance(e, Paragraph) and "Test Table" in str(e)
-        )
-
-
-from ..scripts.reporting.templates.timing import TimingTemplate
-from ..scripts.reporting.templates.power import PowerTemplate
-from ..scripts.analysis.timing import TimingSummary, ClockSummary
-from ..scripts.analysis.power import PowerSummary, ComponentPower, PowerSupply
-
 
 class TestTimingTemplate:
     """Test suite for timing analysis template."""

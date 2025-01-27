@@ -1,6 +1,6 @@
+from reportlab.platypus import Paragraph, Preformatted
+
 from .base import PageTemplate
-from reportlab.platypus import Preformatted
-from reportlab.platypus import Paragraph
 
 
 class RuleTemplate(PageTemplate):
@@ -8,7 +8,13 @@ class RuleTemplate(PageTemplate):
 
     def generate_page(self, rule):
         """Generate a page displaying rule details."""
-        self.add_element(Paragraph(f"Rule: {rule.name}", self.styles["Heading2"]))
+        self.add_element(
+            Paragraph(
+                f"Rule: {
+                    rule.name}",
+                self.styles["Heading2"],
+            )
+        )
         self.add_element(
             Paragraph(
                 "Input Variables: " + ", ".join(rule.input_vars),

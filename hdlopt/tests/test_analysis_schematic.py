@@ -1,28 +1,27 @@
-import pytest
 import re
-import time
 import shutil
 import subprocess
-from pathlib import Path
-from unittest.mock import patch, MagicMock
-from datetime import datetime
 import tempfile
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+
 import fitz  # PyMuPDF for PDF verification
+import pytest
 
 from ..scripts.analysis.schematic import (
     SchematicConfig,
-    SchematicGenerator,
     SchematicFormat,
-    SchematicTool,
+    SchematicGenerator,
     SchematicLevel,
     SchematicOrientation,
-)
-from ..scripts.reporting.templates.schematic import (
-    SchematicTemplate,
-    SchematicMetrics,
-    SchematicAnnotation,
+    SchematicTool,
 )
 from ..scripts.reporting.generator import PDFReportGenerator
+from ..scripts.reporting.templates.schematic import (
+    SchematicAnnotation,
+    SchematicMetrics,
+    SchematicTemplate,
+)
 
 
 @pytest.fixture
@@ -47,13 +46,13 @@ def temp_component_dir(tmp_path):
         "full_adder.v": """
         module full_adder(
             input a,
-            input b, 
+            input b,
             input cin,
             output sum,
             output cout
         );
             wire sum1, cout1, cout2;
-            
+
             // First half adder
             half_adder ha1(
                 .a(a),
@@ -61,7 +60,7 @@ def temp_component_dir(tmp_path):
                 .sum(sum1),
                 .cout(cout1)
             );
-            
+
             // Second half adder
             half_adder ha2(
                 .a(sum1),
@@ -69,7 +68,7 @@ def temp_component_dir(tmp_path):
                 .sum(sum),
                 .cout(cout2)
             );
-            
+
             // Final carry
             assign cout = cout1 | cout2;
         endmodule
@@ -125,7 +124,7 @@ def sample_annotations():
 @pytest.fixture
 def sample_schematic(tmp_path):
     """Create a sample schematic image for testing."""
-    from PIL import Image, ImageDraw, ImageFont
+    from PIL import Image, ImageDraw
 
     img = Image.new("RGB", (400, 300), color="white")
     draw = ImageDraw.Draw(img)
@@ -202,7 +201,7 @@ class TestSchematicConfig:
         config = SchematicConfig()
         assert config.format == SchematicFormat.PDF
         assert config.tool == SchematicTool.VIVADO
-        assert config.cleanup_temp == True
+        assert config.cleanup_temp
 
     def test_string_enum_conversion(self):
         """Test string to enum conversion."""

@@ -1,13 +1,14 @@
 """Tests for Verilog parser exception classes."""
 
 import pytest
+
 from ..scripts.parsing.exceptions import (
-    VerilogParsingError,
-    ModuleDefinitionError,
-    SignalDeclarationError,
     FileProcessingError,
+    ModuleDefinitionError,
     ParserConfigurationError,
     SerializationError,
+    SignalDeclarationError,
+    VerilogParsingError,
 )
 
 

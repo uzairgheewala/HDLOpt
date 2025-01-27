@@ -1,12 +1,13 @@
-from reportlab.lib import colors
-from reportlab.platypus import Table, TableStyle, Spacer, Image, Paragraph
-from reportlab.lib.units import inch
-import matplotlib.pyplot as plt
 import io
-import numpy as np
 
-from ...reporting.templates.base import PageTemplate
+import matplotlib.pyplot as plt
+import numpy as np
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
+
 from ...logger import logger
+from ...reporting.templates.base import PageTemplate
 
 
 class TimingTemplate(PageTemplate):
@@ -159,7 +160,10 @@ class TimingTemplate(PageTemplate):
                 self.add_element(Spacer(1, 0.2 * inch))
 
             except Exception as e:
-                logger.error(f"Failed to generate slack distribution plot: {str(e)}")
+                logger.error(
+                    f"Failed to generate slack distribution plot: {
+                        str(e)}"
+                )
                 self.add_element(
                     Paragraph(
                         f"Error generating visualization: {str(e)}",
@@ -203,7 +207,10 @@ class TimingTemplate(PageTemplate):
                 self.add_element(Spacer(1, 0.2 * inch))
 
             except Exception as e:
-                logger.error(f"Failed to generate clock comparison plot: {str(e)}")
+                logger.error(
+                    f"Failed to generate clock comparison plot: {
+                        str(e)}"
+                )
                 self.add_element(
                     Paragraph(
                         f"Error generating visualization: {str(e)}",
@@ -254,10 +261,14 @@ class TimingTemplate(PageTemplate):
             buf.close()
 
         except Exception as e:
-            logger.error(f"Failed to generate slack distribution plot: {str(e)}")
+            logger.error(
+                f"Failed to generate slack distribution plot: {
+                    str(e)}"
+            )
             self.add_element(
                 Paragraph(
-                    f"Error generating slack distribution visualization: {str(e)}",
+                    f"Error generating slack distribution visualization: {
+                        str(e)}",
                     self.styles["BodyText"],
                 )
             )
@@ -325,7 +336,8 @@ class TimingTemplate(PageTemplate):
             # Add error message to report instead of plot
             self.add_element(
                 Paragraph(
-                    f"Error generating clock comparison visualization: {str(e)}",
+                    f"Error generating clock comparison visualization: {
+                        str(e)}",
                     self.styles["BodyText"],
                 )
             )
@@ -373,11 +385,15 @@ class TimingTemplate(PageTemplate):
             buf.close()
 
         except Exception as e:
-            logger.error(f"Failed to generate slack distribution plot: {str(e)}")
+            logger.error(
+                f"Failed to generate slack distribution plot: {
+                    str(e)}"
+            )
             # Add error message to report instead of plot
             self.add_element(
                 Paragraph(
-                    f"Error generating slack distribution visualization: {str(e)}",
+                    f"Error generating slack distribution visualization: {
+                        str(e)}",
                     self.styles["BodyText"],
                 )
             )

@@ -1,16 +1,14 @@
-import os
-import shutil
-import pytest
-import logging
-
-from hdlopt.scripts.directory_structure import (
-    identify_submodules,
-    filter_filenames,
-    create_directory_structure,
-    print_directory_structure,
-)
 from ..patterns.substring import SubstringPattern
+from ..scripts.directory_structure import (
+    create_directory_structure,
+    filter_filenames,
+    identify_submodules,
+    print_directory_structure
+)
 
+import logging
+import os
+import pytest
 
 @pytest.fixture
 def setup_verilog_files(tmpdir, capsys):
@@ -44,11 +42,10 @@ endmodule
         f.write(adder_content)
 
     # Optional: Verify file creation
-    captured = capsys.readouterr()
     print(f"Created files in {src_dir}:")
     for file in [alu_file, sub1_file, adder_file]:
         print(f" - {file}")
-        with open(file, "r") as f_read:
+        with open(file) as f_read:
             content = f_read.read()
             print(f"   Content:\n{content}")
 

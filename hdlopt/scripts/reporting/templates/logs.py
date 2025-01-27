@@ -1,5 +1,6 @@
-from .base import PageTemplate
 from reportlab.platypus import Paragraph
+
+from .base import PageTemplate
 
 
 class LogsTemplate(PageTemplate):

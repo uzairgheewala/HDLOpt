@@ -1,12 +1,10 @@
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-import os
-import json
-from pathlib import Path
 import subprocess
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional
 
-from ..logger import logger
 from ..config import EnvironmentSetup
+from ..logger import logger
 from ..reporting.generator import PDFReportGenerator
 from ..reporting.templates.power import PowerTemplate
 
@@ -88,10 +86,10 @@ class PowerAnalyzer:
 
     def _run_vivado(self) -> None:
         """Run Vivado synthesis and power analysis"""
-        tcl_script = self._generate_tcl_script()
         script_path = self._get_script_path()
 
-        # Write TCL script directly with commands to ensure they appear in output
+        # Write TCL script directly with commands to ensure they appear in
+        # output
         script_content = f"""
     create_project {self.component_name}_power -part xc7a35tcsg324-1
     add_files {{ {' '.join(str(f) for f in self._collect_source_files())} }}
@@ -139,14 +137,16 @@ class PowerAnalyzer:
             str(f) for f in self._collect_source_files()
         ]  # Convert paths to strings
         script = [
-            f"create_project {self.component_name}_power -part xc7a35tcsg324-1",
+            f"create_project {
+                self.component_name}_power -part xc7a35tcsg324-1",
             *[f"add_files {f}" for f in source_files],
             f"set_property top {self.component_name} [current_fileset]",
             "synth_design -top $component_name",
             "launch_runs synth_1",
             "wait_on_run synth_1",
             "open_run synth_1",
-            f"report_power -file {str(self._get_report_path())}",  # Convert path to string
+            # Convert path to string
+            f"report_power -file {str(self._get_report_path())}",
             "close_project",
         ]
 
@@ -206,7 +206,8 @@ class PowerAnalyzer:
                         )
                     except (ValueError, IndexError) as e:
                         logger.error(
-                            f"Failed to parse power supply line '{line}': {str(e)}"
+                            f"Failed to parse power supply line '{line}': {
+                                str(e)}"
                         )
 
         return supplies

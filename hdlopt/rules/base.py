@@ -1,7 +1,8 @@
+import inspect
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Dict, List, Any, Optional
-import inspect
+from typing import Any, Dict, List, Optional
+
 from ..patterns.base import Pattern
 from ..patterns.string_match import StringMatchPattern
 
@@ -99,7 +100,6 @@ class Rule(ABC):
     @abstractmethod
     def generate_expected(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
         """Generate expected outputs for given inputs."""
-        pass
 
     def matches(self, filename: str) -> bool:
         """Check if rule matches filename."""

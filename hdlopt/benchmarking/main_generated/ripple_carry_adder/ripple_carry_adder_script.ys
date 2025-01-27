@@ -1,9 +1,0 @@
-
-    read_verilog generated\ripple_carry_adder\full_adder\full_adder.v
-read_verilog generated\ripple_carry_adder\full_adder\half_adder\half_adder.v
-read_verilog generated\ripple_carry_adder\ripple_carry_adder.v
-
-    synth -top ripple_carry_adder
-    write_json generated\ripple_carry_adder\ripple_carry_adder_netlist.json
-    stat
-    

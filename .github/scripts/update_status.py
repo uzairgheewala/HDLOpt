@@ -1,10 +1,11 @@
-import os
 import json
-from pathlib import Path
-from datetime import datetime
-from github import Github
-import numpy as np
+import os
 import re
+from datetime import datetime
+from pathlib import Path
+
+from github import Github
+
 
 class StatusUpdater:
     """Updates and maintains module implementation status."""
@@ -69,8 +70,8 @@ class StatusUpdater:
             "total_modules": total_modules,
             "implemented_modules": implemented_modules,
             "verified_modules": verified_modules,
-            "implementation_progress": f"{(implemented_modules/total_modules)*100:.1f}%",
-            "verification_progress": f"{(verified_modules/total_modules)*100:.1f}%",
+            "implementation_progress": f"{(implemented_modules / total_modules) * 100:.1f}%",
+            "verification_progress": f"{(verified_modules / total_modules) * 100:.1f}%",
             "last_updated": datetime.now().isoformat(),
         }
 
@@ -146,9 +147,9 @@ class StatusUpdater:
             )
 
         # Generate status report
-        report = f"# Module Implementation Status\n\n"
+        report = "# Module Implementation Status\n\n"
         report += f"Last updated: {status['summary']['last_updated']}\n\n"
-        report += f"Overall progress:\n"
+        report += "Overall progress:\n"
         report += f"- {status['summary']['implementation_progress']} implemented\n"
         report += f"- {status['summary']['verification_progress']} verified\n\n"
 

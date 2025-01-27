@@ -1,6 +1,6 @@
-from reportlab.lib.units import inch
-from reportlab.platypus import Spacer, Table, PageBreak
 from reportlab.lib import colors
+from reportlab.lib.units import inch
+from reportlab.platypus import PageBreak, Spacer, Table
 
 from .base import PageTemplate
 

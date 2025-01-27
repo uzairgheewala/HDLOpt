@@ -1,8 +1,8 @@
-import pytest
-import subprocess
 import shutil
+import subprocess
 from pathlib import Path
-from unittest.mock import patch
+
+import pytest
 
 from ..scripts.analysis.waveform import WaveformAnalyzer, WaveformConfig
 
@@ -51,13 +51,13 @@ endmodule
         """
 module counter_tb;
     parameter WIDTH = 4;
-    
+
     // Testbench signals
     reg clk = 0;
     reg rst = 0;
     reg en = 0;
     wire [WIDTH-1:0] count;
-    
+
     // Instantiate counter
     counter #(WIDTH) dut (
         .clk(clk),
@@ -65,30 +65,30 @@ module counter_tb;
         .en(en),
         .count(count)
     );
-    
+
     // Clock generation
     always #5 clk = ~clk;
-    
+
     // VCD dump
     initial begin
         $dumpfile("counter.vcd");
         $dumpvars(0, counter_tb);
-        
+
         // Test sequence
         rst = 1;
         #10;
         rst = 0;
         en = 1;
-        
+
         // Let it count for a while
         repeat(10) @(posedge clk);
-        
+
         en = 0;
         #10;
-        
+
         $finish;
     end
-    
+
 endmodule
 """
     )
@@ -223,10 +223,10 @@ def test_waveform_analysis_with_simulation(temp_work_dir):
 """
 @pytest.fixture
 def sample_vcd_file(temp_waveform_dir):
-    
+
     Creates a minimal VCD file with a single signal toggling 0->1->0
     at times 10ns and 20ns.
-    
+
     vcd_path = temp_waveform_dir / "test_component.vcd"
     with open(vcd_path, "w") as f:
         f.write(
@@ -254,7 +254,7 @@ $end
 
 def test_waveform_analysis(sample_vcd_file, temp_waveform_dir):
     analyzer = WaveformAnalyzer("test_component", WaveformConfig(signals=["my_signal"]))
-    
+
     results = analyzer.analyze(sample_vcd_file)
     assert "signals" in results
     assert "metrics" in results
@@ -272,7 +272,7 @@ def test_waveform_analysis(sample_vcd_file, temp_waveform_dir):
 
     # Check transitions
     assert metrics["transitions"][sig_obj.name] == 2  # 0->1, 1->0
-    
+
     # Now let's generate a PDF
     out_pdf = temp_waveform_dir / "test_component_analysis.pdf"
     analyzer.generate_report(sample_vcd_file, results)

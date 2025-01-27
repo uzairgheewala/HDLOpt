@@ -5,8 +5,9 @@ and their components (signals, parameters, etc.).
 """
 
 from dataclasses import dataclass
-from typing import List, Dict, Optional, Union
 from datetime import datetime
+from typing import Dict, List, Optional
+
 from .exceptions import SerializationError
 
 

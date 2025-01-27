@@ -1,17 +1,16 @@
 """Tests for base parser classes."""
 
-import pytest
-import os
-from datetime import datetime
 from typing import List
 
-from ..scripts.parsing.base import VerilogParserBase, ParserMode
-from ..scripts.parsing.models import Signal, VerilogModule
+import pytest
+
+from ..scripts.parsing.base import ParserMode, VerilogParserBase
 from ..scripts.parsing.exceptions import (
-    VerilogParsingError,
     FileProcessingError,
     ParserConfigurationError,
+    VerilogParsingError,
 )
+from ..scripts.parsing.models import Signal, VerilogModule
 
 
 class MockParser(VerilogParserBase):

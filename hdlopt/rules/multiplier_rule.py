@@ -1,5 +1,5 @@
-from .base import Rule
 from ..patterns.substring import SubstringPattern
+from .base import Rule
 
 
 class MultiplierRule(Rule):

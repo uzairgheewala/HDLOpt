@@ -16,7 +16,8 @@ def to_binary_string(value, bit_width, sign):
     if sign == "signed":
         # Handle signed conversion
         if value < 0:
-            value = (1 << bit_width) + value  # Two's complement for negative numbers
+            # Two's complement for negative numbers
+            value = (1 << bit_width) + value
         binary_str = f"{value:0{bit_width}b}"
         msb = binary_str[0]
         padding_char = msb

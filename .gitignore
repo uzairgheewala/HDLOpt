@@ -1,8 +1,10 @@
 __pycache__/
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
 .ipynb_checkpoints/
 .Xil/
+
 power_reports/
 test_reports/
 timing_reports/
@@ -19,6 +21,7 @@ hdlopt/benchmarking/
 directory_structure.py
 directory_structure.txt
 desired_structure.txt
+code_quality.py
 
 *.code-workspace
 *.v

@@ -1,19 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-import os
-import json
+from ..scripts.analysis.timing import ClockSummary, TimingAnalyzer, TimingSummary
+from .test_analysis_fixtures import temp_component_dir
+
 import subprocess
-from pathlib import Path
-
-from ..scripts.analysis.timing import TimingAnalyzer, TimingSummary, ClockSummary
-from ..scripts.analysis.power import (
-    PowerAnalyzer,
-    PowerSummary,
-    ComponentPower,
-    PowerSupply,
-)
-from .test_analysis_fixtures import *
-
+from unittest.mock import MagicMock, patch
+import pytest
 
 class TestTimingAnalyzer:
     """Test suite for timing analysis."""

@@ -1,12 +1,12 @@
-from reportlab.lib import colors
-from reportlab.platypus import Table, TableStyle, Spacer, Image, Paragraph
-from reportlab.lib.units import inch
-import matplotlib.pyplot as plt
 import io
-import numpy as np
 
-from ...reporting.templates.base import PageTemplate
+import matplotlib.pyplot as plt
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
+
 from ...logger import logger
+from ...reporting.templates.base import PageTemplate
 
 
 class PowerTemplate(PageTemplate):

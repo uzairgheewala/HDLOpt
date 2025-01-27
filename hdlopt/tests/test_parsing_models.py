@@ -1,9 +1,9 @@
 """Tests for Verilog parser data models."""
 
 import pytest
-from datetime import datetime
-from ..scripts.parsing.models import Signal, VerilogModule
+
 from ..scripts.parsing.exceptions import SerializationError
+from ..scripts.parsing.models import Signal, VerilogModule
 
 
 class TestSignal:
@@ -174,7 +174,8 @@ class TestVerilogModule:
         """Test serialization error handling."""
         module = VerilogModule("test")
         # Create a condition that would cause serialization to fail
-        module.inputs.append("invalid_signal")  # This should be a Signal object
+        # This should be a Signal object
+        module.inputs.append("invalid_signal")
 
         with pytest.raises(SerializationError):
             module.to_dict()

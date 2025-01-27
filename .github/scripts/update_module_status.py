@@ -1,7 +1,8 @@
-import os
 import json
-from pathlib import Path
+import os
 from datetime import datetime
+from pathlib import Path
+
 from github import Github
 
 MODULES_ROOT = Path("modules")
@@ -73,8 +74,8 @@ Last updated: {status['last_updated']}
             page.edit("Module Implementation Status", content)
         else:
             wiki.create_page("Module-Implementation-Status", content)
-    except:
-        pass  # Wiki might not be enabled
+    except Exception as e:
+        print(str(e))
 
 
 if __name__ == "__main__":

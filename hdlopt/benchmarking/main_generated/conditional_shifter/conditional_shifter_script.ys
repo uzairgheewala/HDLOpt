@@ -1,9 +1,0 @@
-
-    read_verilog generated\conditional_shifter\arithmetic_shifter\arithmetic_shifter.v
-read_verilog generated\conditional_shifter\conditional_shifter.v
-read_verilog generated\conditional_shifter\logic_shifter\logic_shifter.v
-
-    synth -top conditional_shifter
-    write_json generated\conditional_shifter\conditional_shifter_netlist.json
-    stat
-    

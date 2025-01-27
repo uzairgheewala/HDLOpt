@@ -1,17 +1,18 @@
-import pytest
-from pathlib import Path
-import os
-import json
-import shutil
-import subprocess
-from unittest.mock import patch, MagicMock
-import sqlite3
-from io import StringIO
-import sys
+from hdlopt.runner import AnalysisType, HDLAnalysisRunner, RunnerConfig
+from hdlopt.runner import main as runner_main
+
 import argparse
+import json
+import os
+import shutil
+import sqlite3
+import subprocess
+import sys
+from io import StringIO
+from pathlib import Path
+from unittest.mock import MagicMock, patch
 
-from hdlopt.runner import HDLAnalysisRunner, RunnerConfig, AnalysisType, main as runner_main
-
+import pytest
 
 @pytest.fixture
 def temp_workspace(tmp_path):
@@ -42,21 +43,21 @@ def temp_workspace(tmp_path):
             output cout
         );
             wire sum1, cout1, cout2;
-            
+
             half_adder ha1(
                 .a(a),
                 .b(b),
                 .sum(sum1),
                 .cout(cout1)
             );
-            
+
             half_adder ha2(
                 .a(sum1),
                 .b(cin),
                 .sum(sum),
                 .cout(cout2)
             );
-            
+
             assign cout = cout1 | cout2;
         endmodule
         """,
@@ -114,7 +115,7 @@ def mock_simulators():
                 # Create mock testbench file
                 if args[0]:
                     test_name = "tb_test.v"
-                    mock_tb = create_mock_testbench(Path(args[0][-1]).parent, test_name)
+                    create_mock_testbench(Path(args[0][-1]).parent, test_name)
 
                 # Return a successful mock result for simulator commands
                 return MagicMock(returncode=0, stdout=b"", stderr=b"")
@@ -146,10 +147,10 @@ endobj
 endobj
 xref
 0 4
-0000000000 65535 f 
-0000000018 00000 n 
-0000000069 00000 n 
-0000000122 00000 n 
+0000000000 65535 f
+0000000018 00000 n
+0000000069 00000 n
+0000000122 00000 n
 trailer
 <</Size 4/Root 1 0 R>>
 startxref
@@ -216,10 +217,10 @@ class TestHDLAnalysisRunner:
         endobj
         xref
         0 4
-        0000000000 65535 f 
-        0000000018 00000 n 
-        0000000069 00000 n 
-        0000000122 00000 n 
+        0000000000 65535 f
+        0000000018 00000 n
+        0000000069 00000 n
+        0000000122 00000 n
         trailer
         <</Size 4/Root 1 0 R>>
         startxref
@@ -365,10 +366,10 @@ class TestHDLAnalysisRunner:
     endobj
     xref
     0 4
-    0000000000 65535 f 
-    0000000018 00000 n 
-    0000000069 00000 n 
-    0000000122 00000 n 
+    0000000000 65535 f
+    0000000018 00000 n
+    0000000069 00000 n
+    0000000122 00000 n
     trailer
     <</Size 4/Root 1 0 R>>
     startxref

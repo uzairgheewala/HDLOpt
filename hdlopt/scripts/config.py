@@ -2,6 +2,7 @@ import os
 import platform
 import subprocess
 from pathlib import Path
+
 from .logger import logger
 
 YOSYS_PATH = r"C:\oss-cad-suite\bin\yosys.exe"
@@ -48,7 +49,7 @@ class EnvironmentSetup:
                     os.environ["PATH"] += f":{yosys_bin.parent}"
                     return True
 
-        raise EnvironmentError("Yosys not found. Please install Yosys or OSS CAD Suite")
+        raise OSError("Yosys not found. Please install Yosys or OSS CAD Suite")
 
     def setup_graphviz(self):
         """Ensure Graphviz 'dot' is available in the PATH"""
@@ -56,30 +57,36 @@ class EnvironmentSetup:
             subprocess.run(["dot", "-V"], capture_output=True, text=True, check=True)
             return True
         except FileNotFoundError:
-            raise EnvironmentError(
+            raise OSError(
                 "Graphviz 'dot' not found. Please install Graphviz and add it to PATH."
             )
         except subprocess.CalledProcessError as e:
             logger.error(f"Graphviz 'dot' encountered an error: {e.stderr}")
-            raise EnvironmentError(f"Graphviz 'dot' encountered an error: {e.stderr}")
+            raise OSError(
+                f"Graphviz 'dot' encountered an error: {
+                    e.stderr}"
+            )
 
     def _setup_oss_cad_suite(self, oss_cad_path):
         """Setup OSS CAD Suite environment variables by running the batch script and capturing its environment"""
         env_script = oss_cad_path / "environment.bat"
         if env_script.exists():
             # Run the batch file and capture the environment variables it sets
-            # This approach uses the `set` command to output all environment variables after running the script
+            # This approach uses the `set` command to output all environment
+            # variables after running the script
             command = f'cmd.exe /c "call {env_script} && set"'
             process = subprocess.run(
                 command, capture_output=True, text=True, shell=True
             )
             if process.returncode != 0:
-                logger.error(f"Failed to setup OSS CAD Suite: {process.stderr}")
-                raise EnvironmentError(
-                    f"Failed to setup OSS CAD Suite: {process.stderr}"
+                logger.error(
+                    f"Failed to setup OSS CAD Suite: {
+                        process.stderr}"
                 )
+                raise OSError(f"Failed to setup OSS CAD Suite: {process.stderr}")
 
-            # Parse the environment variables from the output and update os.environ
+            # Parse the environment variables from the output and update
+            # os.environ
             for line in process.stdout.splitlines():
                 key, sep, value = line.partition("=")
                 if sep:  # Ensure that '=' was found

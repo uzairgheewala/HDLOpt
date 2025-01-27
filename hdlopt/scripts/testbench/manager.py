@@ -1,16 +1,14 @@
-from dataclasses import dataclass
-from typing import List, Dict, Optional, Set
-import multiprocessing
-import math
 import json
+import math
+import multiprocessing
+from dataclasses import dataclass
 from pathlib import Path
-import time
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from typing import Dict, List, Optional
 
-from .optimizer import TestOptimizer, ModuleComplexity, TestCasePriority
-from .core import TestbenchGenerator, ConstraintConfig, TimingConfig, SignalConfig
-from .runner import TestbenchRunner, TestResult, TestbenchResult, timing_wrapper
 from ..logger import logger
+from .core import ConstraintConfig, SignalConfig, TestbenchGenerator, TimingConfig
+from .optimizer import TestOptimizer
+from .runner import TestbenchResult, TestbenchRunner
 
 
 @dataclass
@@ -92,11 +90,17 @@ class IntegratedTestManager:
         Returns:
             TestExecutionPlan
         """
-        logger.debug(f"Planning tests for {self.component_name}: {desired_cases} cases")
+        logger.debug(
+            f"Planning tests for {
+                self.component_name}: {desired_cases} cases"
+        )
 
         # Calculate module complexity
         complexity = self.optimizer.calculate_module_complexity(module_details)
-        logger.debug(f"Module complexity score: {complexity.calculate_score()}")
+        logger.debug(
+            f"Module complexity score: {
+                complexity.calculate_score()}"
+        )
 
         # Get input ranges
         input_ranges = self.generator._calculate_input_ranges(module_details)
@@ -131,7 +135,8 @@ class IntegratedTestManager:
                     int(regular_cases_needed * scaling_factor),
                 )
                 logger.debug(
-                    f"Reduced to {len(regular_cases)} cases to meet time constraint"
+                    f"Reduced to {
+                        len(regular_cases)} cases to meet time constraint"
                 )
                 est_time = available_time
         else:

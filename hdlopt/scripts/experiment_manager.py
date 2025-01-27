@@ -1,13 +1,13 @@
-import sqlite3
-from datetime import datetime
+import difflib
 import hashlib
-from typing import Dict, List, Optional, Set
-from pathlib import Path
 import json
 import shutil
-import difflib
+import sqlite3
+from dataclasses import asdict, dataclass, is_dataclass
+from datetime import datetime
 from enum import Enum
-from dataclasses import dataclass, is_dataclass, asdict
+from pathlib import Path
+from typing import Dict, List, Optional
 
 from .logger import logger
 
@@ -118,7 +118,8 @@ class ExperimentManager:
             detect_types=sqlite3.PARSE_DECLTYPES,
         )
         conn.execute("PRAGMA journal_mode=DELETE")  # Disable WAL mode
-        conn.execute("PRAGMA busy_timeout=30000")  # Set busy timeout to 30 seconds
+        # Set busy timeout to 30 seconds
+        conn.execute("PRAGMA busy_timeout=30000")
         self.active_connections.add(conn)
         return conn
 
@@ -364,7 +365,7 @@ class ExperimentManager:
                 """
                 SELECT ch1.file_path, ch1.file_hash, ch2.file_hash
                 FROM component_history ch1
-                LEFT JOIN component_history ch2 ON 
+                LEFT JOIN component_history ch2 ON
                     ch2.run_id = ? AND ch2.component_name = ch1.component_name
                 WHERE ch1.run_id = ? AND ch1.component_name = ?
             """,

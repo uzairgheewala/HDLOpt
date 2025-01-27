@@ -1,5 +1,5 @@
-from .base import Rule
 from ..patterns.string_match import StringMatchPattern
+from .base import Rule
 
 
 class CarryLogicRule(Rule):

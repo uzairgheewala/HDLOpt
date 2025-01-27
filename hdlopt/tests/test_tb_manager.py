@@ -1,18 +1,14 @@
-import pytest
 import json
-import shutil
-from pathlib import Path
-from unittest.mock import patch, MagicMock
-from typing import List, Dict
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 from ..scripts.testbench.manager import (
     IntegratedTestManager,
-    TestExecutionPlan,
     TestbenchResult,
-    TestResult,
+    TestExecutionPlan,
 )
 from ..scripts.testbench.optimizer import TestCaseMetrics
-from ..rules.base import MockRule
 
 
 @pytest.fixture
@@ -87,7 +83,7 @@ def sample_component_dir(tmp_path, sample_module_details):
             output reg [WIDTH:0] sum
         );
             reg [WIDTH-1:0] carry, temp;
-            
+
             always @(posedge clk) begin
                 if (rst)
                     sum <= 0;
@@ -246,7 +242,7 @@ class TestIntegratedTestManager:
             sample_module_details, param_comb, param_names
         )
 
-        plan = integrated_manager.plan_tests(
+        integrated_manager.plan_tests(
             module_details=details, desired_cases=100, available_time=60
         )
 

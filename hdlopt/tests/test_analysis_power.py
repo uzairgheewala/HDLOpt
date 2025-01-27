@@ -1,18 +1,15 @@
-import pytest
-from unittest.mock import patch, MagicMock
-import os
-import json
-import subprocess
-from pathlib import Path
-
 from ..scripts.analysis.power import (
+    ComponentPower,
     PowerAnalyzer,
     PowerSummary,
-    ComponentPower,
     PowerSupply,
 )
-from .test_analysis_fixtures import *
+from .test_analysis_fixtures import temp_component_dir
 
+import subprocess
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+import pytest
 
 class TestPowerAnalyzer:
     """Test suite for power analysis."""

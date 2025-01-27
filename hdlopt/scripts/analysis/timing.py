@@ -1,12 +1,10 @@
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-import os
-import json
-from pathlib import Path
 import subprocess
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional
 
-from ..logger import logger
 from ..config import EnvironmentSetup
+from ..logger import logger
 from ..reporting.generator import PDFReportGenerator
 from ..reporting.templates.timing import TimingTemplate
 
@@ -179,7 +177,10 @@ class TimingAnalyzer:
                                 tpws=float(values[9]),
                             )
                         except (ValueError, IndexError) as e:
-                            logger.error(f"Failed to parse timing values: {str(e)}")
+                            logger.error(
+                                f"Failed to parse timing values: {
+                                    str(e)}"
+                            )
 
         logger.error("No timing summary found in report")
         return TimingSummary(
@@ -222,7 +223,8 @@ class TimingAnalyzer:
                         )
                     except (ValueError, IndexError) as e:
                         logger.error(
-                            f"Failed to parse clock data from line '{line}': {str(e)}"
+                            f"Failed to parse clock data from line '{line}': {
+                                str(e)}"
                         )
 
         return clocks

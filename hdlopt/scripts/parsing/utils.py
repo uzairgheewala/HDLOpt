@@ -5,7 +5,7 @@ implementations.
 """
 
 import re
-from typing import List, Dict, Tuple, Optional
+from typing import List, Optional, Tuple
 
 
 def clean_comments(text: str) -> str:
@@ -60,12 +60,14 @@ def split_port_list(port_text: str) -> List[str]:
 
         current_port.append(line)
 
-        # Port declaration is complete if all pairs are balanced and we hit a comma
+        # Port declaration is complete if all pairs are balanced and we hit a
+        # comma
         if paren_count == 0 and bracket_count == 0:
             # Join and clean the current port
             port = " ".join(current_port)
 
-            # Check if it's a complete declaration (ends with comma or semicolon)
+            # Check if it's a complete declaration (ends with comma or
+            # semicolon)
             if port.rstrip().endswith(",") or port.rstrip().endswith(";"):
                 port = port.rstrip(",;").strip()
                 if port:

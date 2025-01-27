@@ -1,33 +1,33 @@
-from pathlib import Path
+import argparse
 import importlib
 import importlib.util
 import inspect
 import json
-import os
-import argparse
 import logging
-from typing import List, Dict, Optional
+import os
 from dataclasses import dataclass
-from enum import Enum, auto
 from datetime import datetime
+from enum import Enum, auto
+from pathlib import Path
+from typing import Dict, List, Optional
 
-from hdlopt.scripts.experiment_manager import ExperimentManager, ExperimentConfig
+from hdlopt.rules.base import Rule
+from hdlopt.scripts.analysis.netlist import NetlistAnalyzer
+from hdlopt.scripts.analysis.power import PowerAnalyzer
+from hdlopt.scripts.analysis.schematic import SchematicGenerator
+from hdlopt.scripts.analysis.timing import TimingAnalyzer
+from hdlopt.scripts.analysis.waveform import WaveformAnalyzer
 from hdlopt.scripts.directory_structure import (
     create_directory_structure,
     print_directory_structure,
 )
-from hdlopt.scripts.parsing.factory import VerilogParser
+from hdlopt.scripts.experiment_manager import ExperimentConfig, ExperimentManager
+from hdlopt.scripts.logger import logger
 from hdlopt.scripts.parsing.base import ParserMode
+from hdlopt.scripts.parsing.factory import VerilogParser
+from hdlopt.scripts.reporting.generator import PDFReportGenerator
 from hdlopt.scripts.testbench.manager import IntegratedTestManager
 from hdlopt.scripts.testbench.runner import TestbenchRunner
-from hdlopt.scripts.analysis.netlist import NetlistAnalyzer
-from hdlopt.scripts.analysis.timing import TimingAnalyzer
-from hdlopt.scripts.analysis.power import PowerAnalyzer
-from hdlopt.scripts.analysis.waveform import WaveformAnalyzer
-from hdlopt.scripts.analysis.schematic import SchematicGenerator
-from hdlopt.scripts.reporting.generator import PDFReportGenerator
-from hdlopt.scripts.logger import logger
-from hdlopt.rules.base import Rule
 
 
 class AnalysisType(Enum):
@@ -83,7 +83,8 @@ class RunnerConfig:
 
         # Set default experiment name if not provided
         if self.experiment_name is None:
-            self.experiment_name = f"hdl_analysis_{datetime.now().strftime('%Y%m%d')}"
+            self.experiment_name = f"hdl_analysis_{
+                datetime.now().strftime('%Y%m%d')}"
 
 
 class HDLAnalysisRunner:
@@ -258,7 +259,10 @@ class HDLAnalysisRunner:
 
         rules = self._find_rules_for_module(module_path)
         if not rules:
-            logger.warning(f"No matching rules found for module {module_path.stem}")
+            logger.warning(
+                f"No matching rules found for module {
+                    module_path.stem}"
+            )
 
         # Add submodule rules
         if module_name in hierarchy:
@@ -277,7 +281,8 @@ class HDLAnalysisRunner:
         # Step 3: Generate and run testbench if requested
         if AnalysisType.TESTBENCH in self.config.analyses:
             logger.info(
-                f"Generating testbench with {len(rules)} matching rules for {module_name}"
+                f"Generating testbench with {
+                    len(rules)} matching rules for {module_name}"
             )
             try:
                 # Initialize IntegratedTestManager
@@ -339,7 +344,11 @@ class HDLAnalysisRunner:
                     logger.debug(f"Report generated. {report}")
                     reports.append(report)
             except Exception as e:
-                logger.error(f"Failed to run {analysis.name} analysis: {str(e)}")
+                logger.error(
+                    f"Failed to run {
+                        analysis.name} analysis: {
+                        str(e)}"
+                )
 
         # Track metrics for this module's analysis
         metrics = {
@@ -384,7 +393,7 @@ class HDLAnalysisRunner:
                     combined_report.merge_pdfs(
                         valid_reports, str(module_dir / f"{module_name}_analysis.pdf")
                     )
-                    logger.info(f"Generated combined analysis report")
+                    logger.info("Generated combined analysis report")
                 else:
                     logger.warning("No valid reports to combine")
             except Exception as e:
@@ -421,7 +430,10 @@ class HDLAnalysisRunner:
                     if inspect.isclass(obj) and issubclass(obj, Rule) and obj != Rule:
                         rule = obj()
                         if rule.matches(module_path.stem):
-                            logger.debug(f"Rule {name} matches {module_path.stem}")
+                            logger.debug(
+                                f"Rule {name} matches {
+                                    module_path.stem}"
+                            )
                             rules.append(rule)
 
             except Exception as e:
@@ -527,7 +539,12 @@ class HDLAnalysisRunner:
         if run:
             print(f"\nRun Details: {run_id}")
             print(f"Timestamp: {run.timestamp}")
-            print(f"Experiment: {run.config.get('experiment_name', 'Unnamed')}")
+            print(
+                f"Experiment: {
+                    run.config.get(
+                        'experiment_name',
+                        'Unnamed')}"
+            )
             print(f"\nComponents Analyzed: {', '.join(run.components)}")
             print("\nMetrics:")
             for name, value in run.metrics.items():

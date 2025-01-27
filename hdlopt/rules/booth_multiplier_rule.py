@@ -1,5 +1,5 @@
-from .base import Rule
 from ..patterns.string_match import StringMatchPattern
+from .base import Rule
 
 
 class BoothMultiplierRule(Rule):
@@ -17,8 +17,6 @@ class BoothMultiplierRule(Rule):
         self.set_signal_spec("Z", bit_width * 2, signed=True)
 
     def generate_expected(self, test_case):
-        max_val = (1 << (2 * self.bit_width)) - 1
-
         multiplicand = test_case["X"]
         multiplier = test_case["Y"]
         product = multiplicand * multiplier

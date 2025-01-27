@@ -1,11 +1,10 @@
 """Tests for Verilog parser utilities."""
 
-import pytest
 from ..scripts.parsing.utils import (
-    clean_comments,
-    split_port_list,
-    extract_bit_width,
     calculate_width,
+    clean_comments,
+    extract_bit_width,
+    split_port_list,
     validate_identifier,
 )
 

@@ -1,25 +1,18 @@
-import pytest
-import tempfile
-from pathlib import Path
-import json
-import sqlite3
-import gc
-import os
-from datetime import datetime, timedelta
-import shutil
-import platform
-
-from hdlopt.scripts.experiment_manager import (
-    ExperimentManager,
-    ExperimentConfig,
-    ExperimentRun,
-    ComponentChange,
-)
-
-from functools import wraps
-from tenacity import retry, stop_after_attempt, wait_fixed
-import time
 import errno
+import json
+import os
+import platform
+import shutil
+import sqlite3
+import tempfile
+import time
+from functools import wraps
+from pathlib import Path
+
+import pytest
+from tenacity import retry, stop_after_attempt, wait_fixed
+
+from hdlopt.scripts.experiment_manager import ExperimentConfig, ExperimentManager
 
 
 def windows_file_retry(max_attempts=3, delay=0.1):

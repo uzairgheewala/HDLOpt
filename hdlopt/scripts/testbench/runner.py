@@ -1,17 +1,16 @@
-import os
-import subprocess
-import re
-import json
-from pathlib import Path
-from typing import List, Dict, Optional, Union
-from dataclasses import dataclass
-import warnings
-from datetime import datetime
 import functools
+import json
+import os
+import re
+import subprocess
 import time
+from dataclasses import dataclass
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional, Union
 
-from .utils import find_component_directory
 from ..logger import logger
+from .utils import find_component_directory
 
 
 @dataclass
@@ -116,7 +115,8 @@ def timing_wrapper(func):
 
         if hasattr(result, "execution_time"):
             logger.debug(
-                f"Overwriting {func.__name__} result.execution_time with {elapsed_time}"
+                f"Overwriting {
+                    func.__name__} result.execution_time with {elapsed_time}"
             )
             result.execution_time = elapsed_time
 
@@ -155,14 +155,15 @@ class TestbenchRunner:
                 logger.debug("Creating ModelSim work library.")
                 subprocess.run(["vlib", "work"], cwd=self.work_dir, check=True)
         elif self.simulator == "iverilog":
-            result = subprocess.run(["iverilog", "-V"], capture_output=True, text=True)
+            subprocess.run(["iverilog", "-V"], capture_output=True, text=True)
 
     def _compile_source(
         self, source_files: List[str], force_recompile: bool = False
     ) -> None:
         """Compile Verilog source files"""
         logger.debug(
-            f"Starting compilation of {len(source_files)} files: {source_files}"
+            f"Starting compilation of {
+                len(source_files)} files: {source_files}"
         )
         for src_file in source_files:
             logger.debug(f"Checking existence of {src_file}")
@@ -190,7 +191,10 @@ class TestbenchRunner:
                     cmd = ["iverilog", "-o", str(out_path)] + all_files
                 else:
                     logger.error(f"Unsupported simulator: {self.simulator}")
-                    raise ValueError(f"Unsupported simulator: {self.simulator}")
+                    raise ValueError(
+                        f"Unsupported simulator: {
+                            self.simulator}"
+                    )
 
                 logger.debug(f"Running command: {cmd} in cwd={self.work_dir}")
                 result = subprocess.run(
@@ -255,9 +259,14 @@ class TestbenchRunner:
             logger.debug(f"Simulation stderr={result.stderr!r}")
 
             if result.returncode != 0:
-                logger.error(f"Simulation command returned code {result.returncode}")
+                logger.error(
+                    f"Simulation command returned code {
+                        result.returncode}"
+                )
                 raise RuntimeError(
-                    f"Simulation failed with code {result.returncode}: {result.stderr}"
+                    f"Simulation failed with code {
+                        result.returncode}: {
+                        result.stderr}"
                 )
 
             return result.stdout
@@ -268,7 +277,7 @@ class TestbenchRunner:
 
     def _parse_simulation_output(self, output: str) -> List[TestResult]:
         """Parse simulation output and extract test results"""
-        logger.debug(f"Parsing simulation output:")
+        logger.debug("Parsing simulation output:")
         results = []
         for line in output.splitlines():
             line = line.lstrip("# ").strip()
@@ -472,7 +481,10 @@ class TestbenchRunner:
 
         testbench_files = list(Path(component_dir).glob(f"tb_*{component_name}.v"))
         source_files = self._collect_source_files(component_dir)
-        logger.debug(f"Found {len(testbench_files)} testbench(es) in {component_dir}")
+        logger.debug(
+            f"Found {
+                len(testbench_files)} testbench(es) in {component_dir}"
+        )
 
         for tb_file in testbench_files:
             logger.debug(f"Running testbench file={tb_file}")
@@ -484,7 +496,9 @@ class TestbenchRunner:
                 logger.debug(f"Recursing into submodule={submodule_name}")
                 sub_results = self.run_recursive(
                     submodule_name,
-                    base_dir=component_dir,  # so submodule is found under "component_dir/submodule_name"
+                    base_dir=component_dir,
+                    # so submodule is found under
+                    # "component_dir/submodule_name"
                     force_recompile=force_recompile,
                 )
                 results.extend(sub_results)
@@ -500,5 +514,8 @@ class TestbenchRunner:
             if not file.stem.startswith("tb_"):
                 source_files.append(str(file))
 
-        logger.debug(f"Collected {len(source_files)} source file(s): {source_files}")
+        logger.debug(
+            f"Collected {
+                len(source_files)} source file(s): {source_files}"
+        )
         return source_files

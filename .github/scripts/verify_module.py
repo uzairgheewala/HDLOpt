@@ -1,12 +1,13 @@
-import os
 import json
-import sys
-import shutil
-from pathlib import Path
-from github import Github
+import os
 import re
-from datetime import datetime
+import shutil
 import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+
+from github import Github
 
 
 class ModuleVerifier:
@@ -82,7 +83,10 @@ class ModuleVerifier:
         # Check generated files exist
         generated_dir = Path("generated") / module_info["name"]
         if not generated_dir.exists():
-            raise ValueError(f"No generated files found for {module_info['name']}")
+            raise ValueError(
+                f"No generated files found for {
+                    module_info['name']}"
+            )
 
         # Verify required files exist
         required_files = [
@@ -140,7 +144,7 @@ class ModuleVerifier:
 
     def copy_implementation(self, module_info: dict):
         """Copy verified implementation to modules directory."""
-        print(f"Copying implementation to modules directory...")
+        print("Copying implementation to modules directory...")
         target_dir = self.get_target_directory(module_info)
 
         # Create directory structure

@@ -1,11 +1,12 @@
-import re
 import os
-from typing import List, Dict, Optional
+import re
 from pprint import pformat
-from .base import VerilogParserBase
-from .models import Signal, VerilogModule
-from .exceptions import VerilogParsingError, ModuleDefinitionError, FileProcessingError
+from typing import Dict, List, Optional
+
 from ..logger import logger
+from .base import VerilogParserBase
+from .exceptions import FileProcessingError, ModuleDefinitionError, VerilogParsingError
+from .models import Signal, VerilogModule
 
 PROCEDURAL_KEYWORDS = {
     "always",
@@ -48,7 +49,7 @@ class NativeVerilogParser(VerilogParserBase):
             # Try to read as file first
             if os.path.exists(file_or_content):
                 try:
-                    with open(file_or_content, "r") as f:
+                    with open(file_or_content) as f:
                         content = f.read()
                 except Exception as e:
                     raise FileProcessingError(
@@ -81,7 +82,12 @@ class NativeVerilogParser(VerilogParserBase):
                     # Collect all errors before failing
                     errors.append(f"Module {idx + 1}: {str(e)}")
                 except Exception as e:
-                    errors.append(f"Module {idx + 1}: Unexpected error: {str(e)}")
+                    errors.append(
+                        f"Module {
+                            idx +
+                            1}: Unexpected error: {
+                            str(e)}"
+                    )
 
             if errors:
                 if len(errors) == len(module_texts):
@@ -102,7 +108,10 @@ class NativeVerilogParser(VerilogParserBase):
             raise
         except Exception as e:
             # Wrap unexpected errors
-            raise FileProcessingError(f"Error processing Verilog content: {str(e)}")
+            raise FileProcessingError(
+                f"Error processing Verilog content: {
+                    str(e)}"
+            )
 
     def _split_into_modules(self, content: str) -> List[str]:
         """Split Verilog content into individual module texts.
@@ -223,14 +232,14 @@ class NativeVerilogParser(VerilogParserBase):
                     bit_width, i = self._parse_bit_width(parts, i)
                     # Validate bit width format
                     if (
-                        not ":" in bit_width
+                        ":" not in bit_width
                         and not bit_width.isdigit()
                         and not any(p["name"] in bit_width for p in (parameters or []))
                     ):
                         raise VerilogParsingError(
                             f"Invalid bit width format: {bit_width}"
                         )
-                except Exception as e:
+                except Exception:
                     raise VerilogParsingError(
                         f"Invalid bit width in declaration: {declaration}"
                     )
@@ -316,7 +325,6 @@ class NativeVerilogParser(VerilogParserBase):
             List of cleaned port declarations
         """
         ports = []
-        current_port = []
         lines = port_text.split("\n")
         i = 0
 
@@ -328,7 +336,8 @@ class NativeVerilogParser(VerilogParserBase):
                 i += 1
                 continue
 
-            # Check if this is a port declaration line (starts with input/output)
+            # Check if this is a port declaration line (starts with
+            # input/output)
             if line.startswith("input") or line.startswith("output"):
                 # Start collecting a new port declaration
                 port_parts = []
@@ -476,7 +485,9 @@ class NativeVerilogParser(VerilogParserBase):
             if stack:
                 unclosed = stack[-1]
                 raise ModuleDefinitionError(
-                    f"Unclosed '{unclosed[0]}' block starting at line {unclosed[1]}"
+                    f"Unclosed '{
+                        unclosed[0]}' block starting at line {
+                        unclosed[1]}"
                 )
 
         def validate_port_list(text: str) -> None:
@@ -507,7 +518,8 @@ class NativeVerilogParser(VerilogParserBase):
                         param_count -= 1
                     pos += 1
                     logger.debug(
-                        f"Parameter scanning position {pos}, count {param_count}, char: {text[pos] if pos < len(text) else 'EOF'}"
+                        f"Parameter scanning position {pos}, count {param_count}, char: {
+                            text[pos] if pos < len(text) else 'EOF'}"
                     )
                 port_list_start = text.find("(", pos)
                 logger.debug(
@@ -616,9 +628,12 @@ class NativeVerilogParser(VerilogParserBase):
 
             try:
                 raw_name = parts[1]
-                # Remove any trailing '(' or other punctuation like ';' if it appears directly
-                raw_name = re.sub(r"[\(\);]+", "", raw_name)  # optional, but helpful
-                raw_name = raw_name.split("#")[0]  # remove parameter section if any
+                # Remove any trailing '(' or other punctuation like ';' if it
+                # appears directly
+                # optional, but helpful
+                raw_name = re.sub(r"[\(\);]+", "", raw_name)
+                # remove parameter section if any
+                raw_name = raw_name.split("#")[0]
                 module_name = raw_name.strip()
 
                 if not module_name or not re.match(
@@ -640,7 +655,11 @@ class NativeVerilogParser(VerilogParserBase):
                 self._parse_port_section(module_text, module)
                 self._parse_internal_signals(module_text, module)
 
-                logger.debug(f"Parsed module structure:\n{pformat(module.to_dict())}")
+                logger.debug(
+                    f"Parsed module structure:\n{
+                        pformat(
+                            module.to_dict())}"
+                )
                 return module
 
             except Exception as e:
@@ -779,7 +798,7 @@ class NativeVerilogParser(VerilogParserBase):
                         if i < len(parts):
                             width_parts.append(parts[i])
                         width = " ".join(width_parts).strip("[]")
-                        if not ":" in width:
+                        if ":" not in width:
                             width = f"{width}:0"
                         i += 1
                     else:
@@ -798,7 +817,8 @@ class NativeVerilogParser(VerilogParserBase):
                         else:
                             # Generate appropriate default value based on type
                             if sig_type == "reg":
-                                # For registers, default to 0 with appropriate width
+                                # For registers, default to 0 with appropriate
+                                # width
                                 if ":" in width:
                                     msb, lsb = width.split(":")
                                     try:

@@ -1,7 +1,7 @@
-from .base import Rule
 from ..patterns.string_match import StringMatchPattern
-from .logical_shifter_rule import LogicalShifterRule
 from .arithmetic_shifter_rule import ArithmeticShifterRule
+from .base import Rule
+from .logical_shifter_rule import LogicalShifterRule
 
 
 class ConditionalShifterRule(Rule):
@@ -42,7 +42,8 @@ class ConditionalShifterRule(Rule):
         mask = (1 << self.bit_width) - 1
 
         if test_case["shifter_sel"] == 0:
-            # Use Arithmetic Shifter - need to mask result to match Verilog behavior
+            # Use Arithmetic Shifter - need to mask result to match Verilog
+            # behavior
             result = self.arithmetic_shifter.generate_expected(
                 {
                     "data_in": test_case["signed_data_in"],
@@ -68,7 +69,7 @@ class ConditionalShifterRule(Rule):
     def generate_expected(self, test_case):
         shift_amount = test_case["shift_amount"]
         direction = test_case["direction"]
-        
+
         if test_case["shifter_sel"] == 0:
             # Use Arithmetic Shifter
             return self.arithmetic_shifter.generate_expected({

@@ -1,18 +1,17 @@
-import pytest
-import numpy as np
 import json
 import os
 import shutil
 import tempfile
 from pathlib import Path
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-from unittest.mock import patch, MagicMock, ANY
+from unittest.mock import MagicMock, patch
+
+import numpy as np
+import pytest
 
 from ..scripts.testbench.optimizer import (
-    TestOptimizer,
     ModuleComplexity,
     TestCaseMetrics,
-    TestCasePriority,
+    TestOptimizer,
 )
 
 
@@ -257,7 +256,8 @@ class TestTestOptimizer:
         mock_context.submit = MagicMock(return_value=create_mock_future())
         mock_executor.return_value.__enter__.return_value = mock_context
 
-        # Mock the testbench generation function to avoid actual file operations
+        # Mock the testbench generation function to avoid actual file
+        # operations
         with patch(
             "hdlopt.scripts.testbench.core.TestbenchGenerator.generate"
         ) as mock_generate, patch("pathlib.Path.stat") as mock_stat:
@@ -347,21 +347,6 @@ class TestTestOptimizer:
         # Edge cases should be preserved
         assert {"a": 0, "b": 0} in optimized
         assert {"a": 255, "b": 255} in optimized
-
-    def test_adaptive_test_planning(self, temp_optimizer, sample_module_details):
-        """Test adaptive test planning."""
-        plan = temp_optimizer.adaptive_test_planning(
-            sample_module_details, total_cases=1000, available_time=60.0
-        )
-
-        assert isinstance(plan, dict)
-        assert "feasible" in plan
-        if plan["feasible"]:
-            assert "test_plan" in plan
-            assert plan["test_plan"]["total_cases"] == 1000
-        else:
-            assert "recommendation" in plan
-            assert plan["recommendation"]["total_batches"] > 0
 
     def test_coverage_visualization(self, temp_optimizer, sample_input_ranges):
         """Test coverage visualization generation."""

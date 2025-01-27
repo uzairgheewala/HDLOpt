@@ -1,6 +1,6 @@
-from .base import Rule
 from ..patterns.string_match import StringMatchPattern
 from ..utils import to_binary_string
+from .base import Rule
 
 
 class ArithmeticShifterRule(Rule):
@@ -41,9 +41,11 @@ class ArithmeticShifterRule(Rule):
             if direction == 0:
                 # Logical left shift
                 result_bin = binary_str[shift:] + "0" * shift
-                result_bin = result_bin[: self.bit_width]  # Trim to the bit width
+                # Trim to the bit width
+                result_bin = result_bin[: self.bit_width]
             else:
-                # Arithmetic right shift: Keep sign extension for negative numbers
+                # Arithmetic right shift: Keep sign extension for negative
+                # numbers
                 sign_bit = binary_str[0]
                 result_bin = sign_bit * shift + binary_str[:-shift]
                 result_bin = result_bin[

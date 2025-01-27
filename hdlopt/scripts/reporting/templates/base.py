@@ -1,5 +1,5 @@
 from reportlab.lib.units import inch
-from reportlab.platypus import Frame, Paragraph, Spacer, PageBreak
+from reportlab.platypus import Frame, PageBreak, Paragraph, Spacer
 
 
 class PageTemplate:
@@ -35,7 +35,7 @@ class PageTemplate:
         )
         element_height = element.wrap(frame._width, frame._height)[1]
 
-        if self.current_page_height - element_height < 0 and not "PageBreak" in str(
+        if self.current_page_height - element_height < 0 and "PageBreak" not in str(
             element
         ):
             self.elements.append(PageBreak())

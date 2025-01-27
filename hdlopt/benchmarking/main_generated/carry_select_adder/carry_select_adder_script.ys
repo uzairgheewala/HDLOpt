@@ -1,9 +1,0 @@
-
-    read_verilog generated\carry_select_adder\carry_select_adder.v
-read_verilog generated\carry_select_adder\full_adder\full_adder.v
-read_verilog generated\carry_select_adder\full_adder\half_adder\half_adder.v
-
-    synth -top carry_select_adder
-    write_json generated\carry_select_adder\carry_select_adder_netlist.json
-    stat
-    

@@ -1,8 +1,8 @@
-import pytest
-from ..scripts.analysis.netlist import NetlistAnalyzer, ModuleMetrics
+from ..scripts.analysis.netlist import ModuleMetrics, NetlistAnalyzer
 from ..scripts.analysis.resource import ResourceAnalysisConfig
-from .test_analysis_fixtures import *
+from .test_analysis_fixtures import sample_netlist, temp_component_dir
 
+import pytest
 
 class TestNetlistAnalyzer:
     """Test suite for netlist analysis functionality"""
@@ -96,7 +96,8 @@ class TestNetlistAnalyzer:
         assert metrics.cells["$_AND_"] == 1
 
         # Verify raw gates (including from submodules)
-        assert metrics.raw_gates["$_AND_"] == 2  # One local, one from full_adder
+        # One local, one from full_adder
+        assert metrics.raw_gates["$_AND_"] == 2
         assert metrics.raw_gates["$_XOR_"] == 1  # From full_adder
 
         # Verify submodule tracking
@@ -123,7 +124,8 @@ class TestNetlistAnalyzer:
         assert test_module.cells["full_adder"] == 5  # Original + 4 increments
         # Raw gates should scale accordingly
         assert test_module.raw_gates["$_XOR_"] == 5  # One per full_adder
-        assert test_module.raw_gates["$_AND_"] == 6  # Original + 5 from full_adders
+        # Original + 5 from full_adders
+        assert test_module.raw_gates["$_AND_"] == 6
 
     def test_error_handling(self, sample_netlist):
         """Test error handling in analysis"""

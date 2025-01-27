@@ -1,6 +1,6 @@
 import os
+
 import nbformat
-from IPython import get_ipython
 
 
 def to_binary_string(value, bit_width, sign):
@@ -18,7 +18,8 @@ def to_binary_string(value, bit_width, sign):
     if sign == "signed":
         # Handle signed conversion
         if value < 0:
-            value = (1 << bit_width) + value  # Two's complement for negative numbers
+            # Two's complement for negative numbers
+            value = (1 << bit_width) + value
         binary_str = f"{value:0{bit_width}b}"
         msb = binary_str[0]
         padding_char = msb
@@ -53,7 +54,7 @@ def determine_input_ranges(bit_width, sign_type):
 
 
 def count_lines_in_notebook(notebook_path):
-    with open(notebook_path, "r") as f:
+    with open(notebook_path) as f:
         notebook = nbformat.read(f, as_version=4)
 
     # Count lines in code cells
@@ -74,7 +75,7 @@ def count_lines_in_verilog(src_dir):
         for file in files:
             if file.endswith(".v") or file.endswith(".sv"):  # Check for Verilog files
                 file_path = os.path.join(root, file)
-                with open(file_path, "r") as verilog_file:
+                with open(file_path) as verilog_file:
                     lines = verilog_file.readlines()
                     verilog_line_count += len(lines)
 
@@ -90,7 +91,7 @@ def count_lines_in_py_files(src_dir):
         for file in files:
             if file.endswith(".py"):  # Check for Python files
                 file_path = os.path.join(root, file)
-                with open(file_path, "r") as py_file:
+                with open(file_path) as py_file:
                     lines = py_file.readlines()
                     py_line_count += len(lines)
 
@@ -99,7 +100,7 @@ def count_lines_in_py_files(src_dir):
 
 
 def count_lines():
-    notebook_path = os.path.join(os.getcwd(), "benchmarking.ipynb")
+    notebook_path = os.path.join(os.getcwd(), "hdlopt/benchmarking.ipynb")
     if notebook_path is None:
         raise ValueError("Couldn't determine notebook path.")
 

@@ -1,30 +1,19 @@
-from dataclasses import dataclass
-from typing import Dict, List, Optional, Union, Callable
-import jinja2
-import os
-import sys
-import json
-import random
-import math
-import re
-import itertools
-from pathlib import Path
 import copy
-import shutil
-from datetime import datetime
+import itertools
+import json
+import math
+import os
+import random
+import re
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Callable, Dict, List, Optional, Union
 
-# Add parent directories to path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-scripts_dir = os.path.dirname(current_dir)
-project_dir = os.path.dirname(scripts_dir)
-if project_dir not in sys.path:
-    sys.path.insert(0, project_dir)
+import jinja2
 
-from .utils import to_binary_string
-from ...patterns.substring import SubstringPattern
-from ...patterns.string_match import StringMatchPattern
-from ...rules.base import Rule, MockRule
+from ...rules.base import MockRule, Rule
 from ..logger import logger
+from .utils import to_binary_string
 
 
 @dataclass
@@ -116,9 +105,9 @@ class TestbenchGenerator:
             try:
                 signal_name, conn_type, sign_type, bit_width = inp
             except ValueError:
-                signal_name, conn_type, sign_type, bit_width, comment, default_val = [
+                signal_name, conn_type, sign_type, bit_width, comment, default_val = (
                     inp[key] for key in inp.keys()
-                ]
+                )
             input_range = list(self._determine_input_ranges(bit_width, sign_type))
             input_ranges[signal_name] = [input_range[0], input_range[-1]]
 
@@ -237,7 +226,7 @@ class TestbenchGenerator:
             for i, period in enumerate(periods):
                 clk_block = f"""
                 always begin
-                    #{int(period/2)} {clk_list[i]} = ~{clk_list[i]};
+                    #{int(period / 2)} {clk_list[i]} = ~{clk_list[i]};
                 end"""
                 clk_blocks.append(clk_block)
             component_details["clock_blocks"] = "\n".join(clk_blocks)
@@ -280,7 +269,7 @@ class TestbenchGenerator:
         """
         num_possible_tests = 1
         for port, input_range in input_ranges.items():
-            if not port in self._get_special_signals():
+            if port not in self._get_special_signals():
                 num_possible_tests *= input_range[1] - input_range[0] + 1
 
         return num_possible_tests
@@ -307,7 +296,10 @@ class TestbenchGenerator:
         self, test_cases: List[Dict[str, int]], component_details: Dict
     ) -> List[Dict[str, int]]:
         """Assign rules to test cases and generate expected outputs"""
-        logger.debug(f"Starting rule assignment for {len(test_cases)} test cases")
+        logger.debug(
+            f"Starting rule assignment for {
+                len(test_cases)} test cases"
+        )
         # logger.debug(f"Available rules: {[r.name for r in self.rules]}")
         logger.debug(f"Component name: {component_details['component_name']}")
 
@@ -385,7 +377,9 @@ class TestbenchGenerator:
                         break
                     except Exception as e:
                         logger.error(
-                            f"Error generating expected value: {str(e)}", exc_info=True
+                            f"Error generating expected value: {
+                                str(e)}",
+                            exc_info=True,
                         )
                         raise
 
@@ -437,7 +431,7 @@ class TestbenchGenerator:
         test_cases: List[Dict[str, int]],
     ) -> None:
         """Generate testbench using pre-generated test cases."""
-        logger.debug(f"Starting testbench generation with pre-generated cases")
+        logger.debug("Starting testbench generation with pre-generated cases")
 
         component_details = copy.deepcopy(component_details)
 
@@ -518,10 +512,13 @@ class TestbenchGenerator:
         logger.debug("Setting up special signals")
         component_details = self._setup_special_signals(component_details)
         logger.debug(
-            f"Special signals setup: start={component_details.get('start_present')}, valid={component_details.get('valid_present')}"
+            f"Special signals setup: start={
+                component_details.get('start_present')}, valid={
+                component_details.get('valid_present')}"
         )
 
-        # Turn param_comb (a tuple like (1,1)) into [('WIDTH',1),('DEPTH',1)] or similar
+        # Turn param_comb (a tuple like (1,1)) into [('WIDTH',1),('DEPTH',1)]
+        # or similar
         param_comb_list = list(zip(param_names, param_comb))
         component_details["param_comb"] = param_comb_list
 
@@ -581,7 +578,10 @@ class TestbenchGenerator:
                 )
             return str(component_dir)
         except Exception as e:
-            raise FileNotFoundError(f"Error finding component directory: {str(e)}")
+            raise FileNotFoundError(
+                f"Error finding component directory: {
+                    str(e)}"
+            )
 
     def _load_component_details(self, component_dir: str) -> Dict:
         """Load component details from JSON file"""
@@ -623,13 +623,13 @@ class TestbenchGenerator:
         for z in range(len(lines)):
             inp = lines[z]
             # logger.debug(f"inp={inp},\n len(inp)={len(inp)}")
-            if type(inp) == list:
+            if type(inp) is list:
                 # For test
                 signal_name, conn_type, sign_type, bit_width = inp
             else:
-                signal_name, conn_type, sign_type, bit_width, comment, default_val = [
+                signal_name, conn_type, sign_type, bit_width, comment, default_val = (
                     inp[key] for key in inp.keys()
-                ]
+                )
             # logger.debug(f"{signal_name, conn_type, sign_type, bit_width}")
 
             # Function to replace parameters in the bit width string
@@ -746,7 +746,8 @@ class TestbenchGenerator:
                 "operation_delay": self._get_operation_delay(),
                 "rule_delay": self._get_rule_delay(),
                 "component_name": self.component_name,
-                "param_component_name": f"{param_comb_str}_{self.component_name}",
+                "param_component_name": f"{param_comb_str}_{
+                    self.component_name}",
             }
         )
 

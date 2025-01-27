@@ -1,7 +1,0 @@
-
-    read_verilog generated\skip_logic\skip_logic.v
-
-    synth -top skip_logic
-    write_json generated\skip_logic\skip_logic_netlist.json
-    stat
-    

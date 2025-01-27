@@ -1,27 +1,20 @@
-from reportlab.lib import colors
-from reportlab.platypus import (
-    Table,
-    TableStyle,
-    Spacer,
-    Image,
-    Paragraph,
-    Flowable,
-    PageBreak,
-)
-from reportlab.lib.units import inch
-from reportlab.lib.styles import ParagraphStyle
 import io
+import re
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+from typing import List, Optional
+
 import graphviz
 from PIL import Image as PILImage
 from PIL import ImageDraw, ImageFont
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-from pathlib import Path
-import tempfile
-import re
+from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
-from ...reporting.templates.base import PageTemplate
 from ...logger import logger
+from ...reporting.templates.base import PageTemplate
 
 
 @dataclass
@@ -206,10 +199,10 @@ class SchematicTemplate(PageTemplate):
                 self.max_image_width / width,
                 self.max_image_height / height
             )
-            
+
             new_width = width * scale
             new_height = height * scale
-            
+
             img = img.resize(
                 (int(new_width), int(new_height)),
                 PILImage.LANCZOS
@@ -299,7 +292,9 @@ class SchematicTemplate(PageTemplate):
             logger.error(f"Failed to add schematic image: {str(e)}")
             self.add_element(
                 Paragraph(
-                    f"Error displaying schematic: {str(e)}", self.styles["BodyText"]
+                    f"Error displaying schematic: {
+                        str(e)}",
+                    self.styles["BodyText"],
                 )
             )
 
@@ -332,7 +327,7 @@ class SchematicTemplate(PageTemplate):
 
             for match in instances:
                 module_type = match.group(1)
-                instance_name = match.group(2)
+                # instance_name = match.group(2)
 
                 if module_type != component_name and module_type not in seen:
                     seen.add(module_type)

@@ -26,28 +26,18 @@ class VerilogParsingError(Exception):
 class ModuleDefinitionError(VerilogParsingError):
     """Raised when there's an error in the module definition."""
 
-    pass
-
 
 class SignalDeclarationError(VerilogParsingError):
     """Raised when there's an error in signal declarations."""
-
-    pass
 
 
 class FileProcessingError(VerilogParsingError):
     """Raised when there's an error processing the Verilog file."""
 
-    pass
-
 
 class ParserConfigurationError(VerilogParsingError):
     """Raised when there's an error in parser configuration or initialization."""
 
-    pass
-
 
 class SerializationError(VerilogParsingError):
     """Raised when there's an error serializing parser output to JSON."""
-
-    pass

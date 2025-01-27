@@ -1,13 +1,12 @@
-import pytest
-from unittest.mock import patch, MagicMock, call
+from ..scripts.analysis.netlist import ModuleMetrics
+from ..scripts.analysis.resource import ResourceAnalysisConfig, ResourceAnalyzer
+from .test_analysis_fixtures import temp_component_dir, sample_netlist
+
 import json
 import os
 import subprocess
-
-from ..scripts.analysis.resource import ResourceAnalyzer, ResourceAnalysisConfig
-from ..scripts.analysis.netlist import ModuleMetrics
-from .test_analysis_fixtures import *
-
+from unittest.mock import MagicMock, patch
+import pytest
 
 class TestResourceAnalyzer:
     """Test suite for resource analyzer"""
@@ -221,7 +220,7 @@ class TestResourceAnalyzer:
         assert analyzer._calculate_increment_step(4) == 4  # 4->8 changes clog2
         assert analyzer._calculate_increment_step(8) == 8  # 8->16 changes clog2
 
-    def test_raw_gate_collection(self, sample_netlist):
+    def test_raw_gate_collection(self, sample_netlist, temp_component_dir):
         """Test raw gate counting"""
         analyzer = ResourceAnalyzer("test_component", base_dir=str(temp_component_dir))
         raw_gates = {}
@@ -230,7 +229,8 @@ class TestResourceAnalyzer:
             sample_netlist["modules"]["test_module"], sample_netlist, raw_gates
         )
 
-        assert raw_gates["$_AND_"] == 2  # One in test_module, one in full_adder
+        # One in test_module, one in full_adder
+        assert raw_gates["$_AND_"] == 2
         assert raw_gates["$_XOR_"] == 1  # One in full_adder
 
     def test_yosys_script_generation(self, temp_component_dir):

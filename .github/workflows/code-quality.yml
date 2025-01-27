@@ -32,17 +32,18 @@ jobs:
           pip install radon
           pip install bandit
 
-      - name: Run code quality checks
+      - name: Run complexity checks
         run: |
-          # Complexity checks
           radon cc . -a -s -n B
           radon mi . -s
 
-          # Security checks
+      - name: Run security checks
+        run: |
           bandit -r . -f json -o bandit-report.json
 
-          # Coverage
-          pytest --cov=hdlopt --cov-report=xml
+      - name: Run tests with coverage
+        run: |
+          pytest tests -v --cov=hdlopt --cov-report=xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -51,6 +52,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Upload reports
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: code-quality-reports

@@ -1,12 +1,13 @@
-import os
+import datetime
 import importlib
 import inspect
-from typing import List, Dict, Type
+import os
 import random
 from pathlib import Path
-import datetime
-from reportlab.platypus import PageBreak
+from typing import Dict, List, Type
+
 import pytest
+from reportlab.platypus import PageBreak
 
 from ..rules.base import Rule, TestCase, TestResult
 from ..scripts.reporting.generator import PDFReportGenerator
@@ -153,7 +154,7 @@ class RuleTestFactory:
                 ["Total Tests", len(results)],
                 ["Passed Tests", passed_tests],
                 ["Failed Tests", len(results) - passed_tests],
-                ["Pass Rate", f"{(passed_tests/len(results))*100:.2f}%"],
+                ["Pass Rate", f"{(passed_tests / len(results)) * 100:.2f}%"],
             ]
             pdf_gen.add_table([["Metric", "Value"]] + summary_data)
 
@@ -167,7 +168,10 @@ class RuleTestFactory:
                     pdf_gen.add_paragraph(
                         f"Expected: {result.test_case.expected_outputs}"
                     )
-                    pdf_gen.add_paragraph(f"Actual: {result.test_case.actual_outputs}")
+                    pdf_gen.add_paragraph(
+                        f"Actual: {
+                            result.test_case.actual_outputs}"
+                    )
                     pdf_gen.add_paragraph("---")
 
                 if len(failed_tests) > 5:
@@ -308,7 +312,8 @@ def test_rules_with_different_bit_widths(rule_factory, bit_width):
                         f"{spec.width}-bit {'signed' if spec.signed else 'unsigned'} "
                         f"range [{min_val}, {max_val}] in {rule_name}"
                     )
-                except:
+                except Exception as e:
+                    print(str(e))
                     print(
                         rule_name,
                         bit_width,

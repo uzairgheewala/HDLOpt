@@ -1,39 +1,35 @@
-import tempfile
 import os
-from typing import List, Dict, Optional, Union
-from .base import VerilogParserBase
-from .models import Signal, VerilogModule
-from .exceptions import (
-    VerilogParsingError,
-    ModuleDefinitionError,
-    SignalDeclarationError,
-    FileProcessingError,
-)
+import tempfile
+from typing import Dict, List, Optional
+
 from ..logger import logger
+from .base import VerilogParserBase
+from .exceptions import FileProcessingError, SignalDeclarationError
+from .models import Signal, VerilogModule
 
 try:
-    from pyverilog.vparser.parser import parse
     from pyverilog.vparser.ast import (
-        Source,
+        Decl,
         Description,
+        Identifier,
+        Inout,
+        Input,
+        InstanceList,
+        IntConst,
+        Ioport,
         ModuleDef,
         Node,
-        Paramlist,
-        Portlist,
-        Port,
-        Width,
-        IntConst,
-        InstanceList,
-        Wire,
-        Reg,
-        Parameter,
-        Decl,
-        Ioport,
-        Input,
         Output,
-        Inout,
-        Identifier,
+        Parameter,
+        Paramlist,
+        Port,
+        Portlist,
+        Reg,
+        Source,
+        Width,
+        Wire,
     )
+    from pyverilog.vparser.parser import parse
 
     PYVERILOG_AVAILABLE = True
 except ImportError:
@@ -129,7 +125,7 @@ class PyVerilogParser(VerilogParserBase):
         try:
             # Determine if input is file or content
             if os.path.exists(file_or_content):
-                with open(file_or_content, "r") as f:
+                with open(file_or_content) as f:
                     content = f.read()
             else:
                 content = file_or_content
@@ -218,7 +214,10 @@ class PyVerilogParser(VerilogParserBase):
             logger.error(f"Module node structure: {module_node}")
             if module_node.paramlist:
                 logger.error(f"Parameter list content: {dir(module_node.paramlist)}")
-                logger.error(f"Parameter list structure: {module_node.paramlist}")
+                logger.error(
+                    f"Parameter list structure: {
+                        module_node.paramlist}"
+                )
             raise
 
     def _get_parameter_value(self, param_node) -> str:
@@ -351,7 +350,8 @@ class PyVerilogParser(VerilogParserBase):
     def _create_signal_from_declaration(self, decl) -> Signal:
         """Create a Signal object from a PyVerilog declaration node."""
         try:
-            # The actual name might be in different places depending on the AST structure
+            # The actual name might be in different places depending on the AST
+            # structure
             if hasattr(decl, "name"):
                 name = decl.name
             elif hasattr(decl, "children"):
@@ -430,14 +430,6 @@ class PyVerilogParser(VerilogParserBase):
                     "Ioport has no valid name in Input/Output node"
                 )
 
-            # Determine direction
-            if isinstance(direction_node, self.ast_types["Input"]):
-                direction = "input"
-            elif isinstance(direction_node, self.ast_types["Output"]):
-                direction = "output"
-            else:
-                direction = "inout"  # If you need to handle inout
-
             # If Output + reg = True => type = 'reg', else 'wire'
             sig_type = "wire"
             if isinstance(direction_node, self.ast_types["Output"]) and getattr(
@@ -470,16 +462,17 @@ class PyVerilogParser(VerilogParserBase):
             # 1) Determine signal name
             #    Port nodes may store the name in different attributes depending on AST structure.
             #    Typically, `port.name` is the actual string, and `port.width` is the bit width.
-            #    If it’s an `Output` node with `reg` specified, you might do extra checks.
+            # If it’s an `Output` node with `reg` specified, you might do extra
+            # checks.
             name = getattr(port, "name", None)
             if not name:
                 # Fallback logic if the name attribute is not present
                 raise SignalDeclarationError("Port has no valid name")
 
             # 2) Determine direction (input vs output) – can be used to infer default_value or type
-            direction = (
-                "input" if isinstance(port, self.ast_types["Input"]) else "output"
-            )
+            # direction = (
+            #    "input" if isinstance(port, self.ast_types["Input"]) else "output"
+            # )
 
             # 3) Determine the bit width
             bit_width = "1"
@@ -491,7 +484,8 @@ class PyVerilogParser(VerilogParserBase):
 
             # 4) If it’s output reg, you might see something like port.__class__.__name__ == 'Output' and port.reg is True
             #    Or you can store a small helper to check if 'reg' is declared
-            #    For now, assume 'wire' for all inputs/outputs except if you detect "output reg"
+            # For now, assume 'wire' for all inputs/outputs except if you
+            # detect "output reg"
             sig_type = "wire"
             if isinstance(port, self.ast_types["Output"]) and getattr(
                 port, "reg", False
@@ -508,7 +502,8 @@ class PyVerilogParser(VerilogParserBase):
                 default_value=None,  # This can be determined from your existing logic if needed
             )
 
-            # If clk/rst detection is relevant for setting module.mode, that logic is in _parse_ports anyway
+            # If clk/rst detection is relevant for setting module.mode, that
+            # logic is in _parse_ports anyway
             return signal
 
     def _get_value(self, node) -> str:
@@ -541,8 +536,8 @@ class PyVerilogParser(VerilogParserBase):
                 return cleaned
             if "'" in cleaned:  # Handle Verilog literals like 8'b0
                 return cleaned
-        except:
-            pass
+        except Exception as e:
+            print(str(e))
 
         return str(node)
 

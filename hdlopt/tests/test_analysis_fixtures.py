@@ -1,6 +1,6 @@
-import pytest
-from pathlib import Path
 import json
+
+import pytest
 
 
 @pytest.fixture
@@ -70,7 +70,7 @@ def temp_component_dir(tmp_path):
         always @(posedge clk)
             if (rst)
                 out <= 0;
-            else 
+            else
                 out <= in_a + in_b;
     endmodule
     """
@@ -84,9 +84,9 @@ def temp_component_dir(tmp_path):
         reg clk, rst;
         reg [WIDTH-1:0] in_a, in_b;
         wire [WIDTH-1:0] out;
-        
+
         test_component #(WIDTH) dut (.*);
-        
+
         initial begin
             // Test stimulus
         end

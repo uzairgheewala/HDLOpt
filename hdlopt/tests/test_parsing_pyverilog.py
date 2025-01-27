@@ -1,15 +1,11 @@
 """Tests for PyVerilog parser implementation."""
 
+from unittest.mock import patch
+
 import pytest
-from unittest.mock import patch, MagicMock
-from ..scripts.parsing.pyverilog import PyVerilogParser, PYVERILOG_AVAILABLE
-from ..scripts.parsing.models import Signal, VerilogModule
-from ..scripts.parsing.exceptions import (
-    VerilogParsingError,
-    ModuleDefinitionError,
-    SignalDeclarationError,
-    FileProcessingError,
-)
+
+from ..scripts.parsing.exceptions import SignalDeclarationError
+from ..scripts.parsing.pyverilog import PYVERILOG_AVAILABLE, PyVerilogParser
 
 
 @pytest.fixture
@@ -28,14 +24,14 @@ def sample_verilog_text():
         // Internal signals
         wire [WIDTH:0] temp;
         reg [3:0] state;
-        
+
         // Submodule instance
         adder add1 (
             .a(a),
             .b(temp),
             .sum(result)
         );
-        
+
     endmodule
     """
 
@@ -47,18 +43,15 @@ def mock_pyverilog_ast():
         return None
 
     from pyverilog.vparser.ast import (
-        Source,
         Description,
-        ModuleDef,
-        Node,
-        Paramlist,
-        Portlist,
-        Port,
-        Width,
         IntConst,
-        Input,
-        Output,
-        Identifier,
+        ModuleDef,
+        Parameter,
+        Paramlist,
+        Port,
+        Portlist,
+        Source,
+        Width,
     )
 
     # Create mock AST structure
@@ -143,7 +136,7 @@ class TestPyVerilogParser:
         with pytest.raises(SignalDeclarationError) as exc_info:
             parser.parse_signal(signal_text)
         msg = exc_info.value
-        if type(msg) != str:
+        if type(msg) is not str:
             msg = msg.message
         assert expected_error in msg
 
