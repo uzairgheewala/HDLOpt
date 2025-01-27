@@ -257,13 +257,10 @@ class TestbenchRunner:
 
             if result.returncode != 0:
                 logger.error(
-                    f"Simulation command returned code {
-                        result.returncode}"
+                    f"Simulation command returned code {result.returncode}"
                 )
                 raise RuntimeError(
-                    f"Simulation failed with code {
-                        result.returncode}: {
-                        result.stderr}"
+                    f"Simulation failed with code {result.returncode}: {result.stderr}"
                 )
 
             return result.stdout
@@ -479,8 +476,7 @@ class TestbenchRunner:
         testbench_files = list(Path(component_dir).glob(f"tb_*{component_name}.v"))
         source_files = self._collect_source_files(component_dir)
         logger.debug(
-            f"Found {
-                len(testbench_files)} testbench(es) in {component_dir}"
+            f"Found {len(testbench_files)} testbench(es) in {component_dir}"
         )
 
         for tb_file in testbench_files:
@@ -512,7 +508,6 @@ class TestbenchRunner:
                 source_files.append(str(file))
 
         logger.debug(
-            f"Collected {
-                len(source_files)} source file(s): {source_files}"
+            f"Collected {len(source_files)} source file(s): {source_files}"
         )
         return source_files

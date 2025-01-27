@@ -575,8 +575,7 @@ class TestbenchGenerator:
             return str(component_dir)
         except Exception as e:
             raise FileNotFoundError(
-                f"Error finding component directory: {
-                    str(e)}"
+                f"Error finding component directory: {str(e)}"
             )
 
     def _load_component_details(self, component_dir: str) -> Dict:
@@ -742,8 +741,7 @@ class TestbenchGenerator:
                 "operation_delay": self._get_operation_delay(),
                 "rule_delay": self._get_rule_delay(),
                 "component_name": self.component_name,
-                "param_component_name": f"{param_comb_str}_{
-                    self.component_name}",
+                "param_component_name": f"{param_comb_str}_{self.component_name}",
             }
         )
 

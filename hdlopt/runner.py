@@ -342,9 +342,7 @@ class HDLAnalysisRunner:
                     reports.append(report)
             except Exception as e:
                 logger.error(
-                    f"Failed to run {
-                        analysis.name} analysis: {
-                        str(e)}"
+                    f"Failed to run {analysis.name} analysis: {str(e)}"
                 )
 
         # Track metrics for this module's analysis
@@ -428,8 +426,7 @@ class HDLAnalysisRunner:
                         rule = obj()
                         if rule.matches(module_path.stem):
                             logger.debug(
-                                f"Rule {name} matches {
-                                    module_path.stem}"
+                                f"Rule {name} matches {module_path.stem}"
                             )
                             rules.append(rule)
 
@@ -538,9 +535,7 @@ class HDLAnalysisRunner:
             print(f"Timestamp: {run.timestamp}")
             print(
                 f"Experiment: {
-                    run.config.get(
-                        'experiment_name',
-                        'Unnamed')}"
+                    run.config.get('experiment_name', 'Unnamed')}"
             )
             print(f"\nComponents Analyzed: {', '.join(run.components)}")
             print("\nMetrics:")

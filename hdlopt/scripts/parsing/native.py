@@ -511,10 +511,7 @@ class NativeVerilogParser(VerilogParserBase):
                     elif text[pos] == ")":
                         param_count -= 1
                     pos += 1
-                    logger.debug(
-                        f"Parameter scanning position {pos}, count {param_count}, char: {
-                            text[pos] if pos < len(text) else 'EOF'}"
-                    )
+                    logger.debug(f"Parameter scanning position {pos}, count {param_count}, char: {text[pos] if pos < len(text) else 'EOF'}")
                 port_list_start = text.find("(", pos)
                 logger.debug(
                     f"After parameter list, found port list start at: {port_list_start}"
@@ -650,9 +647,7 @@ class NativeVerilogParser(VerilogParserBase):
                 self._parse_internal_signals(module_text, module)
 
                 logger.debug(
-                    f"Parsed module structure:\n{
-                        pformat(
-                            module.to_dict())}"
+                    f"Parsed module structure:\n{pformat(module.to_dict())}"
                 )
                 return module
 

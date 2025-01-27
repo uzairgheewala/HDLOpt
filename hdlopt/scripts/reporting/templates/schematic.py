@@ -292,8 +292,7 @@ class SchematicTemplate(PageTemplate):
             logger.error(f"Failed to add schematic image: {str(e)}")
             self.add_element(
                 Paragraph(
-                    f"Error displaying schematic: {
-                        str(e)}",
+                    f"Error displaying schematic: {str(e)}",
                     self.styles["BodyText"],
                 )
             )
@@ -356,7 +355,6 @@ class SchematicTemplate(PageTemplate):
             logger.error(f"Failed to generate hierarchy view: {str(e)}")
             self.add_element(
                 Paragraph(
-                    f"Error generating hierarchy view: {str(e)}",
-                    self.styles["BodyText"],
+                    f"Error generating hierarchy view: {str(e)}", self.styles["BodyText"],
                 )
             )

@@ -206,8 +206,7 @@ class TimingTemplate(PageTemplate):
 
             except Exception as e:
                 logger.error(
-                    f"Failed to generate clock comparison plot: {
-                        str(e)}"
+                    f"Failed to generate clock comparison plot: {str(e)}"
                 )
                 self.add_element(
                     Paragraph(
@@ -260,13 +259,11 @@ class TimingTemplate(PageTemplate):
 
         except Exception as e:
             logger.error(
-                f"Failed to generate slack distribution plot: {
-                    str(e)}"
+                f"Failed to generate slack distribution plot: {str(e)}"
             )
             self.add_element(
                 Paragraph(
-                    f"Error generating slack distribution visualization: {
-                        str(e)}",
+                    f"Error generating slack distribution visualization: {str(e)}",
                     self.styles["BodyText"],
                 )
             )
@@ -334,8 +331,7 @@ class TimingTemplate(PageTemplate):
             # Add error message to report instead of plot
             self.add_element(
                 Paragraph(
-                    f"Error generating clock comparison visualization: {
-                        str(e)}",
+                    f"Error generating clock comparison visualization: {str(e)}",
                     self.styles["BodyText"],
                 )
             )
@@ -384,14 +380,12 @@ class TimingTemplate(PageTemplate):
 
         except Exception as e:
             logger.error(
-                f"Failed to generate slack distribution plot: {
-                    str(e)}"
+                f"Failed to generate slack distribution plot: {str(e)}"
             )
             # Add error message to report instead of plot
             self.add_element(
                 Paragraph(
-                    f"Error generating slack distribution visualization: {
-                        str(e)}",
+                    f"Error generating slack distribution visualization: {str(e)}",
                     self.styles["BodyText"],
                 )
             )
