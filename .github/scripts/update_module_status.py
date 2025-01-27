@@ -53,7 +53,7 @@ def main():
         json.dump(status, f, indent=2)
 
     # Update GitHub repo status
-    gh = Github(os.environ["GITHUB_TOKEN"])
+    gh = Github(os.environ["=WIKI_ACCESS_TOKEN"])
     repo = gh.get_repo(os.environ["GITHUB_REPOSITORY"])
 
     # Create/update status page in wiki

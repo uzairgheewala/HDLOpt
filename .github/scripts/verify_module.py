@@ -13,7 +13,7 @@ class ModuleVerifier:
     """Verifies new module implementations and manages their integration."""
 
     def __init__(self):
-        self.gh = Github(os.environ["GITHUB_TOKEN"])
+        self.gh = Github(os.environ["=WIKI_ACCESS_TOKEN"])
         self.repo = self.gh.get_repo(os.environ["GITHUB_REPOSITORY"])
         self.pr = self.repo.get_pull(int(os.environ["PR_NUMBER"]))
 

@@ -2,95 +2,95 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: [3.8, 3.9, '3.10']
+        python-version: [3.8, 3.9, "3.10"]
         exclude:
           # Exclude combinations that might be problematic
           - os: windows-latest
             python-version: 3.8
 
     runs-on: ${{ matrix.os }}
-    
+
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
 
-    - name: Install HDL tools (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y iverilog yosys
+      - name: Install HDL tools (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog yosys
 
-    - name: Install HDL tools (MacOS)
-      if: matrix.os == 'macos-latest'
-      run: |
-        brew install icarus-verilog
-        brew install yosys
+      - name: Install HDL tools (MacOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          brew install icarus-verilog
+          brew install yosys
 
-    - name: Install HDL tools (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install iverilog
-        choco install yosys
+      - name: Install HDL tools (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install iverilog
+          choco install yosys
 
-    - name: Code Quality
-      run: |
-        black --check hdlopt/ tests/
-        pylint hdlopt/ tests/
-        flake8 hdlopt/ tests/
-        mypy hdlopt/
+      - name: Code Quality
+        run: |
+          black --check hdlopt/ tests/
+          pylint hdlopt/ tests/
+          flake8 hdlopt/ tests/
+          mypy hdlopt/
 
-    - name: Run tests
-      run: |
-        pytest tests/ -v --cov=hdlopt
+      - name: Run tests
+        run: |
+          pytest tests/ -v --cov=hdlopt
 
-    - name: Run integration tests
-      run: |
-        python -m hdlopt.runner test all
+      - name: Run integration tests
+        run: |
+          python -m hdlopt.runner test all
 
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
 
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.8
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        pip install -r docs/requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install -r docs/requirements.txt
 
-    - name: Build documentation
-      run: |
-        cd docs/
-        make html
+      - name: Build documentation
+        run: |
+          cd docs/
+          make html
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          personal_token: ${{ secrets.WIKI_ACCESS_TOKEN }}
+          publish_dir: ./docs/_build/html

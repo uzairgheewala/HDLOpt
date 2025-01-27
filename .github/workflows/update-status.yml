@@ -19,12 +19,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install PyGithub
+          python -m pip install --upgrade pip
+          pip install numpy pandas matplotlib PyGithub
+          pip install -r requirements.txt
 
       - name: Update module status
         run: python .github/scripts/update_status.py
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
 
       - name: Update status badge
         run: |
