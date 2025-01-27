@@ -115,8 +115,7 @@ def timing_wrapper(func):
 
         if hasattr(result, "execution_time"):
             logger.debug(
-                f"Overwriting {
-                    func.__name__} result.execution_time with {elapsed_time}"
+                f"Overwriting {func.__name__} result.execution_time with {elapsed_time}"
             )
             result.execution_time = elapsed_time
 

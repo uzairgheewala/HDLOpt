@@ -169,8 +169,7 @@ class RuleTestFactory:
                         f"Expected: {result.test_case.expected_outputs}"
                     )
                     pdf_gen.add_paragraph(
-                        f"Actual: {
-                            result.test_case.actual_outputs}"
+                        f"Actual: {result.test_case.actual_outputs}"
                     )
                     pdf_gen.add_paragraph("---")
 

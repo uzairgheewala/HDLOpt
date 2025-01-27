@@ -122,8 +122,7 @@ class VerilogParserBase(ABC):
         except Exception as e:
             # Wrap other exceptions
             raise FileProcessingError(
-                f"Error processing file {filepath}: {
-                    str(e)}"
+                f"Error processing file {filepath}: {str(e)}"
             )
 
     def parse_files(self, filepaths: List[str]) -> Dict[str, List[VerilogModule]]:

@@ -65,8 +65,7 @@ class WaveformAnalyzer:
             results = self._analyze_vcd(waveform_file)
         else:
             raise ValueError(
-                f"Unsupported waveform format: {
-                    self.config.format}"
+                f"Unsupported waveform format: {self.config.format}"
             )
 
         logger.info("Waveform analysis completed.")

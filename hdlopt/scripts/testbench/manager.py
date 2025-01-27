@@ -91,8 +91,7 @@ class IntegratedTestManager:
             TestExecutionPlan
         """
         logger.debug(
-            f"Planning tests for {
-                self.component_name}: {desired_cases} cases"
+            f"Planning tests for {self.component_name}: {desired_cases} cases"
         )
 
         # Calculate module complexity

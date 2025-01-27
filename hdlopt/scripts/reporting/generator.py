@@ -69,11 +69,7 @@ class PDFReportGenerator:
         print(f"Initialized PDFReportGenerator for {filename}")
         print(f"Page size: {self.page_size}")
         print(
-            f"Margins: {
-                self.doc.rightMargin}, {
-                self.doc.leftMargin}, {
-                self.doc.topMargin}, {
-                    self.doc.bottomMargin}"
+            f"Margins: {self.doc.rightMargin}, {self.doc.leftMargin}, {self.doc.topMargin}, {self.doc.bottomMargin}"
         )
 
     def adjust_page_size_for_table(self, table_data):

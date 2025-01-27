@@ -297,8 +297,7 @@ class TestbenchGenerator:
     ) -> List[Dict[str, int]]:
         """Assign rules to test cases and generate expected outputs"""
         logger.debug(
-            f"Starting rule assignment for {
-                len(test_cases)} test cases"
+            f"Starting rule assignment for {len(test_cases)} test cases"
         )
         # logger.debug(f"Available rules: {[r.name for r in self.rules]}")
         logger.debug(f"Component name: {component_details['component_name']}")

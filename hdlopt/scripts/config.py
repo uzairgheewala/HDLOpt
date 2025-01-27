@@ -63,8 +63,7 @@ class EnvironmentSetup:
         except subprocess.CalledProcessError as e:
             logger.error(f"Graphviz 'dot' encountered an error: {e.stderr}")
             raise OSError(
-                f"Graphviz 'dot' encountered an error: {
-                    e.stderr}"
+                f"Graphviz 'dot' encountered an error: {e.stderr}"
             )
 
     def _setup_oss_cad_suite(self, oss_cad_path):

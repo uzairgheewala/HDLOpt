@@ -83,8 +83,7 @@ class RunnerConfig:
 
         # Set default experiment name if not provided
         if self.experiment_name is None:
-            self.experiment_name = f"hdl_analysis_{
-                datetime.now().strftime('%Y%m%d')}"
+            self.experiment_name = f"hdl_analysis_{datetime.now().strftime('%Y%m%d')}"
 
 
 class HDLAnalysisRunner:

@@ -215,8 +215,7 @@ class PyVerilogParser(VerilogParserBase):
             if module_node.paramlist:
                 logger.error(f"Parameter list content: {dir(module_node.paramlist)}")
                 logger.error(
-                    f"Parameter list structure: {
-                        module_node.paramlist}"
+                    f"Parameter list structure: {module_node.paramlist}"
                 )
             raise
 

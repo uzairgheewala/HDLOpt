@@ -137,9 +137,7 @@ class SchematicGenerator:
             subprocess.TimeoutExpired: If execution times out
         """
         logger.info(
-            f"Generating {
-                self.config.level.value} schematic for {
-                self.component_name}"
+            f"Generating {self.config.level.value} schematic for {self.component_name}"
         )
 
         try:

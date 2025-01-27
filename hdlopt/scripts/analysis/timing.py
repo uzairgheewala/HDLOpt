@@ -178,8 +178,7 @@ class TimingAnalyzer:
                             )
                         except (ValueError, IndexError) as e:
                             logger.error(
-                                f"Failed to parse timing values: {
-                                    str(e)}"
+                                f"Failed to parse timing values: {str(e)}"
                             )
 
         logger.error("No timing summary found in report")

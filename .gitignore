@@ -18,7 +18,6 @@ hdlopt/design_gen/
 hdlopt/ds_exp/
 hdlopt/benchmarking/
 
-directory_structure.py
 directory_structure.txt
 desired_structure.txt
 code_quality.py

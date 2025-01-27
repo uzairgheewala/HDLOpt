@@ -83,10 +83,7 @@ class NativeVerilogParser(VerilogParserBase):
                     errors.append(f"Module {idx + 1}: {str(e)}")
                 except Exception as e:
                     errors.append(
-                        f"Module {
-                            idx +
-                            1}: Unexpected error: {
-                            str(e)}"
+                        f"Module {idx +1}: Unexpected error: {str(e)}"
                     )
 
             if errors:

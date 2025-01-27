@@ -137,8 +137,7 @@ class PowerAnalyzer:
             str(f) for f in self._collect_source_files()
         ]  # Convert paths to strings
         script = [
-            f"create_project {
-                self.component_name}_power -part xc7a35tcsg324-1",
+            f"create_project {self.component_name}_power -part xc7a35tcsg324-1",
             *[f"add_files {f}" for f in source_files],
             f"set_property top {self.component_name} [current_fileset]",
             "synth_design -top $component_name",
