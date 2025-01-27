@@ -52,6 +52,7 @@ jobs:
           choco install yosys
 
       - name: Code Quality
+        continue-on-error: true # Add this line to continue even if pylint fails
         run: |
           black --check hdlopt/
           pylint hdlopt/

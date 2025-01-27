@@ -36,7 +36,7 @@ jobs:
           git status --porcelain | grep "modules/" || echo "No changes"
 
       - name: Commit Directory Structure
-        if: steps.git-check.outputs.stdout != 'No changes'
+        if: steps.git-check.outputs.stdout != ''
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
