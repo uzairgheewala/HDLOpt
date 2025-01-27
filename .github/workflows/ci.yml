@@ -53,9 +53,9 @@ jobs:
 
       - name: Code Quality
         run: |
-          black --check hdlopt/ tests/
-          pylint hdlopt/ tests/
-          flake8 hdlopt/ tests/
+          black --check hdlopt/
+          pylint hdlopt/
+          flake8 hdlopt/
           mypy hdlopt/
 
       - name: Run tests

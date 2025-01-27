@@ -4,13 +4,13 @@ from pathlib import Path
 from datetime import datetime
 from github import Github
 import numpy as np
-
+import re
 
 class StatusUpdater:
     """Updates and maintains module implementation status."""
 
     def __init__(self):
-        self.gh = Github(os.environ["=WIKI_ACCESS_TOKEN"])
+        self.gh = Github(os.environ["WIKI_ACCESS_TOKEN"])
         self.repo = self.gh.get_repo(os.environ["GITHUB_REPOSITORY"])
 
     def collect_module_status(self) -> dict:
