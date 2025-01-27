@@ -1,0 +1,1 @@
+{"function": "dummy_function", "args": "(1,)", "kwargs": "{'test': True}", "elapsed_time": 0.003816366195678711, "num_tests": 10, "timestamp": "2025-01-26 22:08:35"}

@@ -10,7 +10,7 @@ from io import StringIO
 import sys
 import argparse
 
-from ..runner import HDLAnalysisRunner, RunnerConfig, AnalysisType, main as runner_main
+from hdlopt.runner import HDLAnalysisRunner, RunnerConfig, AnalysisType, main as runner_main
 
 
 @pytest.fixture

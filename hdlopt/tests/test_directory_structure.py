@@ -3,7 +3,7 @@ import shutil
 import pytest
 import logging
 
-from ..scripts.directory_structure import (
+from hdlopt.scripts.directory_structure import (
     identify_submodules,
     filter_filenames,
     create_directory_structure,

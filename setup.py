@@ -101,7 +101,8 @@ class PostEggInfoCommand(egg_info):
 setup(
     name="hdlopt",
     version="0.1.0",
-    packages=find_packages(),
+    packages=find_packages(include=["hdlopt", "hdlopt.scripts"]),  # Explicitly include scripts
+    package_dir={"hdlopt": "hdlopt"},
     include_package_data=True,
     install_requires=[
         "jinja2",
