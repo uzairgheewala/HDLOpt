@@ -1,10 +1,16 @@
 from .base import Rule
 from ..patterns.string_match import StringMatchPattern
 
+
 class SkipLogicRule(Rule):
     def __init__(self, default_bit_width=4):
-        super().__init__(input_vars=["a", "b", "cin", "cout"], output_vars=["cin_next"],
-                         name="SkipLogicRule", pattern=StringMatchPattern("skip_logic"), default_bit_width=default_bit_width)
+        super().__init__(
+            input_vars=["a", "b", "cin", "cout"],
+            output_vars=["cin_next"],
+            name="SkipLogicRule",
+            pattern=StringMatchPattern("skip_logic"),
+            default_bit_width=default_bit_width,
+        )
 
     def generate_expected(self, test_case):
         width = self.bit_width
@@ -16,6 +22,4 @@ class SkipLogicRule(Rule):
         P = all(propagate)
         cin_next = (P & test_case["cin"]) | test_case["cout"]
 
-        return {
-            "cin_next": cin_next
-        }
+        return {"cin_next": cin_next}

@@ -11,32 +11,39 @@ from ..logger import logger
 from ..reporting.generator import PDFReportGenerator
 from ..reporting.templates.waveform import WaveformTemplate
 
+
 @dataclass
 class SignalData:
     """Container for signal waveform data"""
+
     name: str
     times: List[int]
     values: List[str]
     width: int = 1
     is_bus: bool = False
 
-@dataclass 
+
+@dataclass
 class WaveformConfig:
     """Configuration for waveform analysis"""
-    signals: List[str] = field(default_factory=lambda: ["*"])# Signals to analyze
+
+    signals: List[str] = field(default_factory=lambda: ["*"])  # Signals to analyze
     start_time: int = 0
     end_time: Optional[int] = None
     include_value_changes: bool = True
     include_timing_violations: bool = True
     format: str = "vcd"  # vcd, fst, wlf
 
+
 class WaveformAnalyzer:
     """Analyzes digital waveforms from simulation"""
-    
-    def __init__(self, 
-                 component_name: str,
-                 config: Optional[WaveformConfig] = None,
-                 base_dir: Optional[str] = None):
+
+    def __init__(
+        self,
+        component_name: str,
+        config: Optional[WaveformConfig] = None,
+        base_dir: Optional[str] = None,
+    ):
         self.component_name = component_name
         self.config = config or WaveformConfig(signals=["*"])
         self.base_dir = base_dir
@@ -53,19 +60,21 @@ class WaveformAnalyzer:
         logger.info(f"Starting waveform analysis on {waveform_file}")
         if not waveform_file.exists():
             raise FileNotFoundError(f"Waveform file not found: {waveform_file}")
-        
+
         if self.config.format.lower() == "vcd":
             results = self._analyze_vcd(waveform_file)
         else:
             raise ValueError(f"Unsupported waveform format: {self.config.format}")
-        
+
         logger.info("Waveform analysis completed.")
         return results
-    
+
     def _analyze_vcd(self, vcd_file: Path) -> Dict:
         try:
             with open(vcd_file, "rb") as f:
-                signals = {}  # Key: id_code -> {name, width, values: [(time, val), ...]}
+                signals = (
+                    {}
+                )  # Key: id_code -> {name, width, values: [(time, val), ...]}
                 times_encountered = set()
                 current_time = 0
 
@@ -79,42 +88,45 @@ class WaveformAnalyzer:
                         # This defines a new variable
                         id_code = token.data.id_code
                         signals[id_code] = {
-                            'name': token.data.reference,
-                            'width': token.data.size,
-                            'values': []
+                            "name": token.data.reference,
+                            "width": token.data.size,
+                            "values": [],
                         }
 
-                    elif token.kind in [TokenKind.CHANGE_SCALAR, TokenKind.CHANGE_VECTOR]:
+                    elif token.kind in [
+                        TokenKind.CHANGE_SCALAR,
+                        TokenKind.CHANGE_VECTOR,
+                    ]:
                         id_code = token.data.id_code
                         if id_code in signals:
                             # Use the last known current_time
-                            signals[id_code]['values'].append(
+                            signals[id_code]["values"].append(
                                 (current_time, token.data.value)
                             )
 
                 # Build signal_data, etc. (unchanged below)
                 if not times_encountered:
-                    return {'signals': {}, 'metrics': {}, 'time_range': (0, 0)}
+                    return {"signals": {}, "metrics": {}, "time_range": (0, 0)}
 
                 # Now build SignalData objects
                 signal_data = {}
                 all_times = sorted(times_encountered)
 
                 for id_code, info in signals.items():
-                    if not info['values']:
+                    if not info["values"]:
                         continue
                     # Unzip the times/values
-                    times_list = [tv[0] for tv in info['values']]
-                    values_list = [tv[1] for tv in info['values']]
-                    w = info['width']
-                    is_bus = (w > 1)
+                    times_list = [tv[0] for tv in info["values"]]
+                    values_list = [tv[1] for tv in info["values"]]
+                    w = info["width"]
+                    is_bus = w > 1
 
                     signal_data[id_code] = SignalData(
-                        name=info['name'],  # e.g. "mybus[3:0]"
+                        name=info["name"],  # e.g. "mybus[3:0]"
                         times=times_list,
                         values=values_list,
                         width=w,
-                        is_bus=is_bus
+                        is_bus=is_bus,
                     )
 
                 # Calculate timing metrics
@@ -123,30 +135,36 @@ class WaveformAnalyzer:
 
                 # Optionally filter time range
                 start_t = max(all_times[0], self.config.start_time)
-                end_t   = min(all_times[-1], self.config.end_time) if self.config.end_time else all_times[-1]
+                end_t = (
+                    min(all_times[-1], self.config.end_time)
+                    if self.config.end_time
+                    else all_times[-1]
+                )
                 time_range = (start_t, end_t)
 
                 return {
-                    'signals': signal_data,
-                    'metrics': metrics,
-                    'time_range': time_range
+                    "signals": signal_data,
+                    "metrics": metrics,
+                    "time_range": time_range,
                 }
 
         except Exception as e:
             logger.error(f"Failed to parse VCD file: {e}")
             raise
 
-    def _calculate_metrics(self, signal_data: Dict[str, SignalData], all_times: List[int]) -> Dict:
+    def _calculate_metrics(
+        self, signal_data: Dict[str, SignalData], all_times: List[int]
+    ) -> Dict:
         """
         Returns a dictionary of metrics with keys like 'transitions', 'toggle_rates',
         'min_pulse_widths', 'glitches', 'violations', etc.
         """
         metrics = {
-            'transitions': {},
-            'toggle_rates': {},
-            'min_pulse_widths': {},
-            'violations': [],
-            'glitches': []
+            "transitions": {},
+            "toggle_rates": {},
+            "min_pulse_widths": {},
+            "violations": [],
+            "glitches": [],
         }
 
         if not all_times:
@@ -155,7 +173,7 @@ class WaveformAnalyzer:
         total_time = all_times[-1] - all_times[0]
         if total_time <= 0:
             return metrics
-        
+
         glitch_threshold = 0.01 * total_time  # 1% of total time as glitch threshold
 
         # For each signal, count transitions, note pulse widths, detect small pulses
@@ -173,22 +191,26 @@ class WaveformAnalyzer:
 
                     # check glitch
                     if pw < glitch_threshold:
-                        metrics['glitches'].append({
-                            'signal': sig.name,
-                            'time': t,
-                            'width': pw,
-                            'old_value': last_value,
-                            'new_value': v
-                        })
+                        metrics["glitches"].append(
+                            {
+                                "signal": sig.name,
+                                "time": t,
+                                "width": pw,
+                                "old_value": last_value,
+                                "new_value": v,
+                            }
+                        )
 
                     last_edge_time = t
                 last_value = v
-            
-            metrics['transitions'][sig.name] = transitions
-            metrics['toggle_rates'][sig.name] = transitions / total_time if total_time > 0 else 0
-            
+
+            metrics["transitions"][sig.name] = transitions
+            metrics["toggle_rates"][sig.name] = (
+                transitions / total_time if total_time > 0 else 0
+            )
+
             if pulse_widths:
-                metrics['min_pulse_widths'][sig.name] = min(pulse_widths)
+                metrics["min_pulse_widths"][sig.name] = min(pulse_widths)
 
         return metrics
 
@@ -197,10 +219,10 @@ class WaveformAnalyzer:
         # Get the output path in same directory as waveform file
         report_path = waveform_file.parent / f"{waveform_file.stem}_analysis.pdf"
         print(f"Generating report at: {report_path}")
-        
+
         report = PDFReportGenerator(str(report_path))
         logger.info(f"Created PDFReportGenerator for {report_path}")
-        
+
         # Generate plots first and verify they exist
         plots = self._generate_plots(analysis_results)
         for name, buf in plots.items():
@@ -209,62 +231,62 @@ class WaveformAnalyzer:
 
         report.add_title_page(f"Waveform Analysis Report - {self.component_name}")
         print("Added title page")
-        
+
         # Add waveform analysis
         template = WaveformTemplate(report)
         template.generate_page(self.component_name, analysis_results, plots)
         print("Generated template page")
-        
+
         report.add_template(template.elements)
         print("Added template elements")
-        
+
         # Build the document
         report.save()
         print("Saved report")
-        
+
         # Verify file size after save
         if report_path.exists():
             size = report_path.stat().st_size
             print(f"Final PDF size: {size} bytes")
-            
+
             # Read the first few bytes to verify it's a valid PDF
-            with open(report_path, 'rb') as f:
+            with open(report_path, "rb") as f:
                 header = f.read(10)
                 print(f"PDF header: {header}")
-                
+
             if size < 1000:
                 logger.error(f"PDF file suspiciously small ({size} bytes)")
-            if not header.startswith(b'%PDF'):
+            if not header.startswith(b"%PDF"):
                 logger.error("File does not appear to be a valid PDF")
-                
+
         else:
             logger.error(f"PDF file was not created at {report_path}")
-        
+
         logger.debug(f"Saved waveform analysis report to {report_path}")
 
     def _generate_plots(self, analysis_results: Dict) -> Dict[str, io.BytesIO]:
         """Return a dictionary of plot buffers.
-        
+
         Args:
             analysis_results: Dict containing:
                 - signals: Dict[str, SignalData]
                 - metrics: Dict with timing metrics
-                
+
         Returns:
             Dict mapping plot names to BytesIO buffers containing PNG images
         """
         plots = {}
-        signal_data: Dict[str, SignalData] = analysis_results['signals']
-        metrics = analysis_results['metrics']
+        signal_data: Dict[str, SignalData] = analysis_results["signals"]
+        metrics = analysis_results["metrics"]
 
         # Set high quality plotting defaults
-        plt.rcParams['figure.dpi'] = 300
-        plt.rcParams['savefig.dpi'] = 300
-        plt.rcParams['figure.figsize'] = [12, 8]
-        plt.rcParams['figure.autolayout'] = True
-        plt.rcParams['lines.linewidth'] = 2
-        plt.rcParams['axes.grid'] = True
-        plt.rcParams['font.size'] = 10
+        plt.rcParams["figure.dpi"] = 300
+        plt.rcParams["savefig.dpi"] = 300
+        plt.rcParams["figure.figsize"] = [12, 8]
+        plt.rcParams["figure.autolayout"] = True
+        plt.rcParams["lines.linewidth"] = 2
+        plt.rcParams["axes.grid"] = True
+        plt.rcParams["font.size"] = 10
 
         # Separate single-bit signals vs multi-bit buses
         singles = {}
@@ -272,7 +294,7 @@ class WaveformAnalyzer:
 
         for id_code, sig in signal_data.items():
             if sig.is_bus:
-                base_name = sig.name.split('[')[0]  
+                base_name = sig.name.split("[")[0]
                 if base_name not in buses:
                     buses[base_name] = []
                 buses[base_name].append(sig)
@@ -282,10 +304,13 @@ class WaveformAnalyzer:
         # Plot single-bit signals
         if singles:
             total_height = max(2 * len(singles), 6)  # Minimum height of 6 inches
-            fig, axes = plt.subplots(len(singles), 1, 
-                                    figsize=(12, total_height), 
-                                    gridspec_kw={'hspace': 0.4},
-                                    sharex=True)
+            fig, axes = plt.subplots(
+                len(singles),
+                1,
+                figsize=(12, total_height),
+                gridspec_kw={"hspace": 0.4},
+                sharex=True,
+            )
             if len(singles) == 1:
                 axes = [axes]
 
@@ -293,28 +318,40 @@ class WaveformAnalyzer:
                 numeric_vals = []
                 for v in sig.values:
                     if isinstance(v, str):
-                        if v in ('0', '1'):
+                        if v in ("0", "1"):
                             numeric_vals.append(int(v))
                         else:
                             numeric_vals.append(0)
                     else:
                         numeric_vals.append(int(bool(v)))
-                        
-                ax.step(sig.times, numeric_vals, where='post', label=name, 
-                    color='darkblue', linewidth=2)
+
+                ax.step(
+                    sig.times,
+                    numeric_vals,
+                    where="post",
+                    label=name,
+                    color="darkblue",
+                    linewidth=2,
+                )
                 ax.set_ylabel(name, fontsize=10)
                 ax.set_ylim(-0.2, 1.2)  # Add padding around 0/1 values
                 ax.set_yticks([0, 1])
-                ax.grid(True, which='both', alpha=0.3)
+                ax.grid(True, which="both", alpha=0.3)
                 ax.legend(loc="upper right", fontsize=10)
 
-            axes[-1].set_xlabel('Time', fontsize=10)
-            plt.suptitle('Digital Signal Waveforms', fontsize=12)
+            axes[-1].set_xlabel("Time", fontsize=10)
+            plt.suptitle("Digital Signal Waveforms", fontsize=12)
             plt.tight_layout()
 
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=300, bbox_inches='tight', 
-                    pad_inches=0.2, facecolor='white')
+            plt.savefig(
+                buf,
+                format="png",
+                dpi=300,
+                bbox_inches="tight",
+                pad_inches=0.2,
+                facecolor="white",
+            )
             buf.seek(0)
             plt.close()
             plots["singles"] = buf
@@ -322,7 +359,7 @@ class WaveformAnalyzer:
         # Plot bus signals
         for bus_name, sig_list in buses.items():
             fig, ax = plt.subplots(figsize=(12, 4))
-            
+
             all_bus_times = sorted(set(t for sig in sig_list for t in sig.times))
             if not all_bus_times:
                 continue
@@ -336,7 +373,7 @@ class WaveformAnalyzer:
                     col_i = time_index[t]
                     try:
                         if isinstance(v, str):
-                            if set(v).issubset({'0', '1'}):
+                            if set(v).issubset({"0", "1"}):
                                 val_int = int(v, 2)
                             else:
                                 val_int = 0
@@ -347,65 +384,92 @@ class WaveformAnalyzer:
                         val_int = 0
                     data_matrix[row_i, col_i] = val_int
 
-            im = ax.imshow(data_matrix, aspect='auto', interpolation='none',
-                        cmap='viridis')
-            plt.colorbar(im, ax=ax, label='Value')
+            im = ax.imshow(
+                data_matrix, aspect="auto", interpolation="none", cmap="viridis"
+            )
+            plt.colorbar(im, ax=ax, label="Value")
             ax.set_title(f"Bus: {bus_name}", fontsize=12)
             ax.set_xlabel("Time index", fontsize=10)
             ax.set_ylabel("Bit index", fontsize=10)
             plt.tight_layout()
 
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=300, bbox_inches='tight',
-                    pad_inches=0.2, facecolor='white')
+            plt.savefig(
+                buf,
+                format="png",
+                dpi=300,
+                bbox_inches="tight",
+                pad_inches=0.2,
+                facecolor="white",
+            )
             buf.seek(0)
             plt.close()
             plots[bus_name] = buf
 
         # Plot timing events if any exist
         events = []
-        for g in metrics.get('glitches', []):
-            events.append({
-                'time': g['time'],
-                'description': f"Glitch on {g['signal']}",
-                'type': 'glitch'
-            })
-            
-        for v in metrics.get('violations', []):
-            events.append({
-                'time': v.get('time', 0),
-                'description': f"{v.get('type','Unknown')} violation on {v.get('signal','?')}",
-                'type': 'violation'
-            })
+        for g in metrics.get("glitches", []):
+            events.append(
+                {
+                    "time": g["time"],
+                    "description": f"Glitch on {g['signal']}",
+                    "type": "glitch",
+                }
+            )
+
+        for v in metrics.get("violations", []):
+            events.append(
+                {
+                    "time": v.get("time", 0),
+                    "description": f"{v.get('type','Unknown')} violation on {v.get('signal','?')}",
+                    "type": "violation",
+                }
+            )
 
         if events:
             fig, ax = plt.subplots(figsize=(12, 3))
-            events.sort(key=lambda e: e['time'])
-            times = [e['time'] for e in events]
-            labels = [e['description'] for e in events]
-            colors = ["#FF4444" if e['type']=="violation" else "#FFA500" 
-                    for e in events]
-            
-            ax.scatter(times, [1]*len(times), c=colors, s=100)
+            events.sort(key=lambda e: e["time"])
+            times = [e["time"] for e in events]
+            labels = [e["description"] for e in events]
+            colors = [
+                "#FF4444" if e["type"] == "violation" else "#FFA500" for e in events
+            ]
+
+            ax.scatter(times, [1] * len(times), c=colors, s=100)
             ax.set_yticks([])
-            
+
             for x, label, c in zip(times, labels, colors):
-                ax.axvline(x=x, color=c, linestyle='--', alpha=0.3)
-                ax.text(x, 1.05, label, rotation=45, ha='right', 
-                    va='bottom', color=c, fontsize=10)
+                ax.axvline(x=x, color=c, linestyle="--", alpha=0.3)
+                ax.text(
+                    x,
+                    1.05,
+                    label,
+                    rotation=45,
+                    ha="right",
+                    va="bottom",
+                    color=c,
+                    fontsize=10,
+                )
 
             ax.set_title("Timing Events (Glitches/Violations)", fontsize=12)
             ax.set_xlabel("Time", fontsize=10)
             plt.tight_layout()
 
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=300, bbox_inches='tight',
-                    pad_inches=0.2, facecolor='white')
+            plt.savefig(
+                buf,
+                format="png",
+                dpi=300,
+                bbox_inches="tight",
+                pad_inches=0.2,
+                facecolor="white",
+            )
             buf.seek(0)
             plt.close()
             plots["events"] = buf
 
         return plots
+
     """
     def _generate_plots(self, analysis_results: Dict) -> Dict[str, io.BytesIO]:
         

@@ -9,10 +9,11 @@ from typing import List, Dict, Optional, Union
 from datetime import datetime
 from .exceptions import SerializationError
 
+
 @dataclass
 class Signal:
     """Represents a Verilog signal with its properties.
-    
+
     Attributes:
         name (str): Signal name
         type (str): Signal type (wire/reg)
@@ -21,6 +22,7 @@ class Signal:
         comment (str): Associated comment
         default_value (Optional[str]): Default value if specified
     """
+
     name: str
     type: str
     sign: str = "unsigned"
@@ -36,11 +38,11 @@ class Signal:
             "sign": self.sign,
             "bit_width": self.bit_width,
             "comment": self.comment,
-            "default_value": self.default_value
+            "default_value": self.default_value,
         }
 
     @classmethod
-    def from_dict(cls, data: Dict) -> 'Signal':
+    def from_dict(cls, data: Dict) -> "Signal":
         """Create a Signal instance from a dictionary."""
         return cls(
             name=data["name"],
@@ -48,12 +50,13 @@ class Signal:
             sign=data.get("sign", "unsigned"),
             bit_width=data.get("bit_width", "1"),
             comment=data.get("comment", ""),
-            default_value=data.get("default_value")
+            default_value=data.get("default_value"),
         )
+
 
 class VerilogModule:
     """Represents a parsed Verilog module with all its components.
-    
+
     Attributes:
         name (str): Module name
         parameters (List[Dict]): Module parameters
@@ -63,6 +66,7 @@ class VerilogModule:
         mode (str): Circuit mode (combinational/sequential)
         submodules (List[str]): Instantiated submodules
     """
+
     def __init__(self, name: str):
         self.name: str = name
         self.parameters: List[Dict[str, str]] = []
@@ -75,7 +79,7 @@ class VerilogModule:
         self.dependencies: Dict
         self._metadata: Dict = {
             "parse_time": datetime.utcnow().isoformat(),
-            "parser_version": "1.0.0"
+            "parser_version": "1.0.0",
         }
 
     def set_file_metadata(self, file_path: str, last_modified: Optional[str] = None):
@@ -86,11 +90,9 @@ class VerilogModule:
 
     def add_parameter(self, name: str, value: str, description: str = ""):
         """Add a parameter to the module."""
-        self.parameters.append({
-            "name": name,
-            "value": value,
-            "description": description
-        })
+        self.parameters.append(
+            {"name": name, "value": value, "description": description}
+        )
 
     def add_signal(self, signal: Signal, signal_type: str):
         """Add a signal to the appropriate list based on type."""
@@ -112,10 +114,7 @@ class VerilogModule:
         """Get module dependencies."""
         direct_deps = [f"{submod}.v" for submod in self.submodules]
         param_deps = [param["name"] for param in self.parameters]
-        return {
-            "direct": direct_deps,
-            "parameters": param_deps
-        }
+        return {"direct": direct_deps, "parameters": param_deps}
 
     def to_dict(self) -> Dict:
         """Convert the module to a dictionary representation."""
@@ -129,13 +128,15 @@ class VerilogModule:
                 "mode": self.mode,
                 "submodules": self.submodules,
                 "metadata": self._metadata,
-                "dependencies": self.get_dependencies()
+                "dependencies": self.get_dependencies(),
             }
         except Exception as e:
-            raise SerializationError(f"Failed to serialize module {self.name}: {str(e)}")
+            raise SerializationError(
+                f"Failed to serialize module {self.name}: {str(e)}"
+            )
 
     @classmethod
-    def from_dict(cls, data: Dict) -> 'VerilogModule':
+    def from_dict(cls, data: Dict) -> "VerilogModule":
         """Create a VerilogModule instance from a dictionary."""
         module = cls(name=data["component_name"])
         module.parameters = data["parameters"]

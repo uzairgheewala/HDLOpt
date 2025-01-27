@@ -3,21 +3,23 @@ from dataclasses import dataclass
 
 from ..logger import logger
 
+
 def parse_netlist(netlist_path: str) -> Dict:
     """Parse Yosys JSON netlist file
-    
+
     Args:
         netlist_path: Path to netlist JSON file
-        
+
     Returns:
         Parsed netlist dictionary
-        
+
     Raises:
         FileNotFoundError: If netlist file not found
         ValueError: If netlist parsing fails
     """
     try:
         import json
+
         with open(netlist_path) as f:
             return json.load(f)
     except FileNotFoundError:
@@ -25,11 +27,13 @@ def parse_netlist(netlist_path: str) -> Dict:
     except json.JSONDecodeError as e:
         raise ValueError(f"Failed to parse netlist: {str(e)}")
 
+
 @dataclass
 class ModuleMetrics:
     """Metrics for a single module"""
+
     wire_count: int = 0
-    wire_bits: int = 0  
+    wire_bits: int = 0
     port_count: int = 0
     port_bits: int = 0
     cell_count: int = 0
@@ -47,46 +51,44 @@ class ModuleMetrics:
         if self.sub_modules is None:
             self.sub_modules = {}
 
+
 class NetlistAnalyzer:
     """Analyzes Yosys JSON netlist structure"""
-    
-    def analyze(self, netlist: Dict, module_name: str, 
-                param_config: Dict, config) -> Dict[str, ModuleMetrics]:
+
+    def analyze(
+        self, netlist: Dict, module_name: str, param_config: Dict, config
+    ) -> Dict[str, ModuleMetrics]:
         """Analyze netlist structure and metrics
-        
+
         Args:
             netlist: Yosys JSON netlist
             module_name: Top module name
             param_config: Parameter configuration
             config: Analysis configuration
-            
+
         Returns:
             Dict mapping module names to metrics
         """
         analysis = {}
-        
+
         # Analyze each module
         for module_name, module_data in netlist["modules"].items():
-            metrics = self._analyze_module(
-                module_data, 
-                netlist,
-                param_config,
-                config
-            )
+            metrics = self._analyze_module(module_data, netlist, param_config, config)
             analysis[module_name] = metrics
-            
+
         return analysis
 
-    def _analyze_module(self, module_data: Dict, netlist: Dict,
-                       param_config: Dict, config) -> ModuleMetrics:
+    def _analyze_module(
+        self, module_data: Dict, netlist: Dict, param_config: Dict, config
+    ) -> ModuleMetrics:
         """Analyze a single module
-        
+
         Args:
             module_data: Module section from netlist
             netlist: Complete netlist
-            param_config: Parameter configuration 
+            param_config: Parameter configuration
             config: Analysis configuration
-            
+
         Returns:
             ModuleMetrics object
         """
@@ -99,46 +101,48 @@ class NetlistAnalyzer:
             hierarchy_depth=self._calculate_depth(module_data["name"], netlist),
             cells={},
             raw_gates={},
-            sub_modules={}
+            sub_modules={},
         )
-        
+
         # Analyze cells
         self._analyze_cells(metrics, module_data, netlist)
-        
+
         # Apply scaling rules
         if config.increment_rules:
-            self._apply_increment_rules(metrics, param_config, config.increment_rules, netlist)
-            
+            self._apply_increment_rules(
+                metrics, param_config, config.increment_rules, netlist
+            )
+
         return metrics
 
     def _calculate_depth(self, module_name: str, netlist: Dict, depth: int = 0) -> int:
         """Calculate hierarchy depth recursively"""
         module = netlist["modules"][module_name]
         max_depth = depth
-        
+
         for cell in module["cells"].values():
             if cell["type"] in netlist["modules"]:
                 cell_depth = self._calculate_depth(cell["type"], netlist, depth + 1)
                 max_depth = max(max_depth, cell_depth)
-                
+
         return max_depth
 
     def _analyze_cells(self, metrics: ModuleMetrics, module_data: Dict, netlist: Dict):
         """Analyze module cells and gates"""
         for cell_name, cell_data in module_data["cells"].items():
             cell_type = cell_data["type"]
-            
+
             # Track cell count
             if cell_type not in metrics.cells:
                 metrics.cells[cell_type] = 0
             metrics.cells[cell_type] += 1
-            
+
             # Handle submodules vs raw gates
             if cell_type in netlist["modules"]:
                 if cell_type not in metrics.sub_modules:
                     metrics.sub_modules[cell_type] = 0
                 metrics.sub_modules[cell_type] += 1
-                
+
                 # Recursively add raw gates from submodule
                 self._add_raw_gates(metrics, cell_type, netlist)
             else:
@@ -149,10 +153,10 @@ class NetlistAnalyzer:
     def _add_raw_gates(self, metrics: ModuleMetrics, module_name: str, netlist: Dict):
         """Add raw gates from submodule recursively"""
         module = netlist["modules"][module_name]
-        
+
         for cell in module["cells"].values():
             cell_type = cell["type"]
-            
+
             if cell_type in netlist["modules"]:
                 self._add_raw_gates(metrics, cell_type, netlist)
             else:
@@ -165,7 +169,7 @@ class NetlistAnalyzer:
         metrics: ModuleMetrics,
         param_config: Dict,
         increment_rules: Dict,
-        netlist: Dict
+        netlist: Dict,
     ):
         """
         Apply parameter increment rules *and* add
@@ -208,7 +212,7 @@ class NetlistAnalyzer:
                 # Step 2: add "increments" more copies of these gates
                 for gate_type, count_per_submodule in sub_metrics.raw_gates.items():
                     metrics.raw_gates[gate_type] = (
-                        metrics.raw_gates.get(gate_type, 0) 
+                        metrics.raw_gates.get(gate_type, 0)
                         + increments * count_per_submodule
                     )
 

@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from ..scripts.analysis.waveform import WaveformAnalyzer, WaveformConfig
 
+
 @pytest.fixture
 def temp_waveform_dir(tmp_path):
     # Create a temporary directory for waveform tests
@@ -13,15 +14,17 @@ def temp_waveform_dir(tmp_path):
     d.mkdir()
     return d
 
+
 @pytest.fixture
 def temp_work_dir(tmp_path):
     """Create temporary work directory with Verilog files"""
     work_dir = tmp_path / "waveform_test"
     work_dir.mkdir()
-    
+
     # Write counter.v
     counter_v = work_dir / "counter.v"
-    counter_v.write_text('''
+    counter_v.write_text(
+        """
 module counter #(
     parameter WIDTH = 4
 ) (
@@ -39,11 +42,13 @@ module counter #(
     end
 
 endmodule
-''')
+"""
+    )
 
     # Write testbench
     counter_tb = work_dir / "counter_tb.v"
-    counter_tb.write_text('''
+    counter_tb.write_text(
+        """
 module counter_tb;
     parameter WIDTH = 4;
     
@@ -85,14 +90,16 @@ module counter_tb;
     end
     
 endmodule
-''')
+"""
+    )
 
     return work_dir
+
 
 def run_simulation(work_dir):
     """Compile and run simulation with Icarus Verilog"""
     print("Running simulation...")
-    
+
     try:
         # Compile
         cmd = ["iverilog", "-o", "counter.vvp", "counter.v", "counter_tb.v"]
@@ -101,7 +108,7 @@ def run_simulation(work_dir):
         if result.returncode != 0:
             print(f"Compilation failed:\n{result.stderr}")
             return False
-            
+
         # Run simulation
         cmd = ["vvp", "counter.vvp"]
         print(f"Simulating: {' '.join(cmd)}")
@@ -109,51 +116,52 @@ def run_simulation(work_dir):
         if result.returncode != 0:
             print(f"Simulation failed:\n{result.stderr}")
             return False
-            
+
         # Check VCD was created
         vcd_file = work_dir / "counter.vcd"
         if not vcd_file.exists():
             print("VCD file was not created")
             return False
-            
+
         return True
-        
+
     except Exception as e:
         print(f"Error running simulation: {str(e)}")
         return False
 
+
 def test_waveform_analysis_with_simulation(temp_work_dir):
     """Test complete flow from simulation through analysis"""
-    
+
     # Run simulation first
     assert run_simulation(temp_work_dir), "Simulation failed"
-    
+
     vcd_file = temp_work_dir / "counter.vcd"
     assert vcd_file.exists(), "VCD file not generated"
 
     # Verify VCD file has content
     vcd_size = vcd_file.stat().st_size
     print(f"VCD file size: {vcd_size} bytes")
-    
+
     # Create analyzer with specific signal config
     config = WaveformConfig(
         signals=["count", "clk", "rst", "en"],
         include_value_changes=True,
-        include_timing_violations=True
+        include_timing_violations=True,
     )
     analyzer = WaveformAnalyzer("counter", config)
-    
+
     # Run analysis
     results = analyzer.analyze(vcd_file)
     assert "signals" in results
     assert "metrics" in results
-    
+
     # Verify signals were captured
     signals = results["signals"]
     assert len(signals) >= 4  # Should have all our signals
     for sig_name, sig_data in signals.items():
         print(f"Signal {sig_name}: {len(sig_data.times)} samples")
-    
+
     # Verify transitions
     metrics = results["metrics"]
     assert "transitions" in metrics
@@ -161,7 +169,7 @@ def test_waveform_analysis_with_simulation(temp_work_dir):
         print(f"Signal {sig} transitions: {count}")
     # Clock should have many transitions
     assert any(count > 5 for count in metrics["transitions"].values())
-    
+
     # Test plot generation separately first
     plots = analyzer._generate_plots(results)
     assert plots, "No plots were generated"
@@ -172,21 +180,23 @@ def test_waveform_analysis_with_simulation(temp_work_dir):
 
     out_pdf = temp_work_dir / "counter_analysis.pdf"
     analyzer.generate_report(vcd_file, results)
-    assert out_pdf.exists(), f"Expected waveform analysis PDF to be generated at {out_pdf}."
+    assert (
+        out_pdf.exists()
+    ), f"Expected waveform analysis PDF to be generated at {out_pdf}."
     pdf_size = out_pdf.stat().st_size
     print(f"Generated PDF size: {pdf_size} bytes")
-    
+
     # Read PDF header
-    with open(out_pdf, 'rb') as f:
+    with open(out_pdf, "rb") as f:
         header = f.read(10)
     print(f"PDF header: {header}")
-    
+
     assert pdf_size > 1000, f"PDF too small: {pdf_size} bytes"
-    assert header.startswith(b'%PDF'), "Not a valid PDF file"
+    assert header.startswith(b"%PDF"), "Not a valid PDF file"
 
     print("\nPDF content verification:")
     if pdf_size < 1000:
-        with open(out_pdf, 'rb') as f:
+        with open(out_pdf, "rb") as f:
             content = f.read()
             print(f"Full content ({len(content)} bytes):")
             print(content)
@@ -202,12 +212,13 @@ def test_waveform_analysis_with_simulation(temp_work_dir):
     print(f"Copied PDF from {out_pdf} to {final_pdf.resolve()}")
     pdf_size = final_pdf.stat().st_size
     print(f"Final PDF size: {pdf_size} bytes")
-    
-    # Verify PDF  
+
+    # Verify PDF
     assert final_pdf.exists()
     assert final_pdf.stat().st_size > 1000  # Should be reasonably sized
-    
+
     print(f"Generated PDF report at {out_pdf}")
+
 
 """
 @pytest.fixture
@@ -281,12 +292,14 @@ def test_waveform_analysis(sample_vcd_file, temp_waveform_dir):
     assert pdf_size > 0, "The PDF file is empty!"
 """
 
+
 def test_waveform_format_unsupported(temp_waveform_dir):
     # Test that we raise an error if config.format is not "vcd"
     analyzer = WaveformAnalyzer("test_component", WaveformConfig(format="fst"))
     fake_path = temp_waveform_dir / "nonexistent.fst"
     with pytest.raises(FileNotFoundError):
         analyzer.analyze(fake_path)
+
 
 def test_waveform_file_not_found():
     # If the VCD doesn't exist, we should get FileNotFoundError

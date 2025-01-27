@@ -6,12 +6,13 @@ from .logger import logger
 
 YOSYS_PATH = r"C:\oss-cad-suite\bin\yosys.exe"
 
+
 class EnvironmentSetup:
     """Handles environment setup for external tools like Yosys"""
-    
+
     def __init__(self):
         self.original_env = os.environ.copy()
-        
+
     def setup_yosys(self):
         """Setup Yosys environment based on platform and installation"""
         system = platform.system()
@@ -22,7 +23,7 @@ class EnvironmentSetup:
             if oss_cad_path.exists():
                 self._setup_oss_cad_suite(oss_cad_path)
                 if self._check_system_yosys():
-                    return True  
+                    return True
 
             # Check conda installation
             """
@@ -55,7 +56,9 @@ class EnvironmentSetup:
             subprocess.run(["dot", "-V"], capture_output=True, text=True, check=True)
             return True
         except FileNotFoundError:
-            raise EnvironmentError("Graphviz 'dot' not found. Please install Graphviz and add it to PATH.")
+            raise EnvironmentError(
+                "Graphviz 'dot' not found. Please install Graphviz and add it to PATH."
+            )
         except subprocess.CalledProcessError as e:
             logger.error(f"Graphviz 'dot' encountered an error: {e.stderr}")
             raise EnvironmentError(f"Graphviz 'dot' encountered an error: {e.stderr}")
@@ -67,10 +70,14 @@ class EnvironmentSetup:
             # Run the batch file and capture the environment variables it sets
             # This approach uses the `set` command to output all environment variables after running the script
             command = f'cmd.exe /c "call {env_script} && set"'
-            process = subprocess.run(command, capture_output=True, text=True, shell=True)
+            process = subprocess.run(
+                command, capture_output=True, text=True, shell=True
+            )
             if process.returncode != 0:
                 logger.error(f"Failed to setup OSS CAD Suite: {process.stderr}")
-                raise EnvironmentError(f"Failed to setup OSS CAD Suite: {process.stderr}")
+                raise EnvironmentError(
+                    f"Failed to setup OSS CAD Suite: {process.stderr}"
+                )
 
             # Parse the environment variables from the output and update os.environ
             for line in process.stdout.splitlines():
@@ -81,7 +88,9 @@ class EnvironmentSetup:
     def _check_system_yosys(self):
         """Check if Yosys is available in system path"""
         try:
-            subprocess.run(["yosys", "--version"], capture_output=True, text=True, check=True)
+            subprocess.run(
+                ["yosys", "--version"], capture_output=True, text=True, check=True
+            )
             return True
         except FileNotFoundError:
             return False

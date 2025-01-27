@@ -3,6 +3,7 @@ from ..scripts.analysis.netlist import NetlistAnalyzer, ModuleMetrics
 from ..scripts.analysis.resource import ResourceAnalysisConfig
 from .test_analysis_fixtures import *
 
+
 class TestNetlistAnalyzer:
     """Test suite for netlist analysis functionality"""
 
@@ -19,7 +20,7 @@ class TestNetlistAnalyzer:
         assert metrics.raw_gates == {}
         assert metrics.sub_modules == {}
 
-        # Test with values 
+        # Test with values
         metrics = ModuleMetrics(
             wire_count=10,
             wire_bits=32,
@@ -29,7 +30,7 @@ class TestNetlistAnalyzer:
             hierarchy_depth=2,
             cells={"full_adder": 2},
             raw_gates={"$_AND_": 4},
-            sub_modules={"half_adder": 1}
+            sub_modules={"half_adder": 1},
         )
         assert metrics.wire_count == 10
         assert metrics.cells["full_adder"] == 2
@@ -41,19 +42,14 @@ class TestNetlistAnalyzer:
         config = ResourceAnalysisConfig()
         param_config = {"WIDTH": 4}
 
-        analysis = analyzer.analyze(
-            sample_netlist,
-            "test_module",
-            param_config,
-            config
-        )
+        analysis = analyzer.analyze(sample_netlist, "test_module", param_config, config)
 
         # Verify test_module metrics
         test_module = analysis["test_module"]
         assert test_module.wire_count == 2  # net1, net2
-        assert test_module.wire_bits == 4   # 1 + 3 bits
+        assert test_module.wire_bits == 4  # 1 + 3 bits
         assert test_module.port_count == 3  # clk, rst, out
-        assert test_module.port_bits == 6   # 1 + 1 + 4 bits
+        assert test_module.port_bits == 6  # 1 + 1 + 4 bits
         assert test_module.cell_count == 2  # add1, $and1
         assert test_module.hierarchy_depth == 1
         assert test_module.cells["full_adder"] == 1
@@ -71,7 +67,7 @@ class TestNetlistAnalyzer:
     def test_hierarchical_analysis(self, sample_netlist):
         """Test hierarchical depth calculation"""
         analyzer = NetlistAnalyzer()
-        
+
         depth = analyzer._calculate_depth("test_module", sample_netlist)
         assert depth == 1  # test_module -> full_adder
 
@@ -80,9 +76,7 @@ class TestNetlistAnalyzer:
             "type": "half_adder"
         }
         sample_netlist["modules"]["half_adder"] = {
-            "cells": {
-                "$xor": {"type": "$_XOR_"}
-            }
+            "cells": {"$xor": {"type": "$_XOR_"}}
         }
 
         depth = analyzer._calculate_depth("test_module", sample_netlist)
@@ -94,9 +88,7 @@ class TestNetlistAnalyzer:
         metrics = ModuleMetrics()
 
         analyzer._analyze_cells(
-            metrics,
-            sample_netlist["modules"]["test_module"],
-            sample_netlist
+            metrics, sample_netlist["modules"]["test_module"], sample_netlist
         )
 
         # Verify cell counts
@@ -119,18 +111,13 @@ class TestNetlistAnalyzer:
                     "param_name": "WIDTH",
                     "cell_type": "full_adder",
                     "increment_per_param": 1,
-                    'base_value': 4
+                    "base_value": 4,
                 }
             }
         )
         param_config = {"WIDTH": 8}  # Base value was 4
 
-        analysis = analyzer.analyze(
-            sample_netlist,
-            "test_module",
-            param_config,
-            config
-        )
+        analysis = analyzer.analyze(sample_netlist, "test_module", param_config, config)
 
         test_module = analysis["test_module"]
         assert test_module.cells["full_adder"] == 5  # Original + 4 increments
@@ -145,10 +132,7 @@ class TestNetlistAnalyzer:
         # Test missing module
         with pytest.raises(KeyError):
             analyzer._analyze_module(
-                {"name": "missing"},
-                sample_netlist,
-                {},
-                ResourceAnalysisConfig()
+                {"name": "missing"}, sample_netlist, {}, ResourceAnalysisConfig()
             )
 
         # Test invalid cell reference
@@ -156,10 +140,7 @@ class TestNetlistAnalyzer:
             "type": "nonexistent_module"
         }
         metrics = analyzer.analyze(
-            sample_netlist,
-            "test_module",
-            {},
-            ResourceAnalysisConfig()
+            sample_netlist, "test_module", {}, ResourceAnalysisConfig()
         )
         # Should skip invalid cell but complete analysis
         assert "test_module" in metrics
@@ -167,11 +148,7 @@ class TestNetlistAnalyzer:
     def test_multiple_configurations(self, sample_netlist):
         """Test analysis with multiple parameter configurations"""
         analyzer = NetlistAnalyzer()
-        configs = [
-            {"WIDTH": 4},
-            {"WIDTH": 8},
-            {"WIDTH": 16}
-        ]
+        configs = [{"WIDTH": 4}, {"WIDTH": 8}, {"WIDTH": 16}]
 
         all_analyses = {}
         for cfg in configs:
@@ -186,16 +163,16 @@ class TestNetlistAnalyzer:
                             "param_name": "WIDTH",
                             "cell_type": "full_adder",
                             "increment_per_param": 1,
-                            "base_value": 4
+                            "base_value": 4,
                         }
                     }
-                )
+                ),
             )
             all_analyses[str(cfg)] = analysis
-        
+
         # Verify distinct results for each configuration
         assert len(all_analyses) == 3
-        
+
         width4 = all_analyses[str({"WIDTH": 4})]["test_module"]
         width8 = all_analyses[str({"WIDTH": 8})]["test_module"]
         width16 = all_analyses[str({"WIDTH": 16})]["test_module"]

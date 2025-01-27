@@ -2,17 +2,20 @@ from typing import Dict, Type, List
 from .base import Rule
 from ..patterns.base import Pattern
 
+
 class RuleFactory:
     """Factory for creating and managing rules."""
-    
+
     _rules: Dict[str, Type[Rule]] = {}
 
     @classmethod
     def register(cls, rule_type: str) -> callable:
         """Decorator to register a rule class."""
+
         def inner(wrapped_class: Type[Rule]) -> Type[Rule]:
             cls._rules[rule_type] = wrapped_class
             return wrapped_class
+
         return inner
 
     @classmethod

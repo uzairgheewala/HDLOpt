@@ -1,10 +1,16 @@
 from .base import Rule
 from ..patterns.string_match import StringMatchPattern
 
+
 class CarrySaveAdderL2Rule(Rule):
     def __init__(self, default_bit_width=8):
-        super().__init__(input_vars=["a", "b", "c"], output_vars=["sum", "carry"],
-                         name="CarrySaveAdderRule", pattern=StringMatchPattern("carry_save_adder_l2"), default_bit_width=default_bit_width)
+        super().__init__(
+            input_vars=["a", "b", "c"],
+            output_vars=["sum", "carry"],
+            name="CarrySaveAdderRule",
+            pattern=StringMatchPattern("carry_save_adder_l2"),
+            default_bit_width=default_bit_width,
+        )
 
     def generate_expected(self, test_case):
         max_val = (1 << self.bit_width) - 1
@@ -23,7 +29,4 @@ class CarrySaveAdderL2Rule(Rule):
         sum_val = sum(sum_i << i for i, sum_i in enumerate(sum_vals))
         carry_val = sum(carry_i << i for i, carry_i in enumerate(carry_vals))
 
-        return {
-            "sum": sum_val & max_val,
-            "carry": carry_val & max_val
-        }
+        return {"sum": sum_val & max_val, "carry": carry_val & max_val}

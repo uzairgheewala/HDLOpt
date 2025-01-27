@@ -5,9 +5,10 @@ from datetime import datetime
 from ..scripts.parsing.models import Signal, VerilogModule
 from ..scripts.parsing.exceptions import SerializationError
 
+
 class TestSignal:
     """Test suite for Signal class."""
-    
+
     def test_signal_creation(self):
         """Test basic signal creation with default values."""
         signal = Signal(name="clk", type="wire")
@@ -26,7 +27,7 @@ class TestSignal:
             sign="signed",
             bit_width="7:0",
             comment="Data input",
-            default_value="8'b0"
+            default_value="8'b0",
         )
         assert signal.name == "data"
         assert signal.type == "reg"
@@ -43,16 +44,16 @@ class TestSignal:
             sign="unsigned",
             bit_width="31:0",
             comment="Address bus",
-            default_value="32'b0"
+            default_value="32'b0",
         )
-        
+
         # Test to_dict
         data = original.to_dict()
         assert isinstance(data, dict)
         assert data["name"] == "addr"
         assert data["type"] == "wire"
         assert data["bit_width"] == "31:0"
-        
+
         # Test from_dict
         reconstructed = Signal.from_dict(data)
         assert reconstructed.name == original.name
@@ -62,32 +63,27 @@ class TestSignal:
         assert reconstructed.comment == original.comment
         assert reconstructed.default_value == original.default_value
 
+
 class TestVerilogModule:
     """Test suite for VerilogModule class."""
-    
+
     @pytest.fixture
     def sample_module(self):
         """Create a sample module for testing."""
         module = VerilogModule(name="test_module")
         module.add_parameter("WIDTH", "8", "Data width")
-        
+
         # Add some signals
-        module.add_signal(
-            Signal("clk", "wire", comment="Clock signal"),
-            "input"
-        )
+        module.add_signal(Signal("clk", "wire", comment="Clock signal"), "input")
         module.add_signal(
             Signal("data", "reg", "signed", "WIDTH-1:0", "Data output", "8'b0"),
-            "output"
+            "output",
         )
-        module.add_signal(
-            Signal("temp", "wire", bit_width="8"),
-            "internal"
-        )
-        
+        module.add_signal(Signal("temp", "wire", bit_width="8"), "internal")
+
         # Add a submodule
         module.add_submodule("counter")
-        
+
         return module
 
     def test_module_creation(self):
@@ -115,11 +111,11 @@ class TestVerilogModule:
         """Test adding signals of different types."""
         module = VerilogModule("test")
         signal = Signal("clk", "wire")
-        
+
         module.add_signal(signal, "input")
         assert len(module.inputs) == 1
         assert module.inputs[0].name == "clk"
-        
+
         with pytest.raises(ValueError):
             module.add_signal(signal, "invalid_type")
 
@@ -128,7 +124,7 @@ class TestVerilogModule:
         module = VerilogModule("test")
         module.add_submodule("counter")
         assert "counter" in module.submodules
-        
+
         # Test duplicate addition
         module.add_submodule("counter")
         assert module.submodules.count("counter") == 1
@@ -138,7 +134,7 @@ class TestVerilogModule:
         module = VerilogModule("test")
         module.add_parameter("WIDTH", "8")
         module.add_submodule("counter")
-        
+
         deps = module.get_dependencies()
         assert "counter.v" in deps["direct"]
         assert "WIDTH" in deps["parameters"]
@@ -147,7 +143,7 @@ class TestVerilogModule:
         """Test metadata handling."""
         module = VerilogModule("test")
         module.set_file_metadata("test.v", "2025-01-17T10:30:00Z")
-        
+
         assert module._metadata["file_path"] == "test.v"
         assert module._metadata["last_modified"] == "2025-01-17T10:30:00Z"
         assert "parse_time" in module._metadata
@@ -165,7 +161,7 @@ class TestVerilogModule:
         assert len(data["internals"]) == 1
         assert "metadata" in data
         assert "dependencies" in data
-        
+
         # Test from_dict
         reconstructed = VerilogModule.from_dict(data)
         assert reconstructed.name == sample_module.name
@@ -179,6 +175,6 @@ class TestVerilogModule:
         module = VerilogModule("test")
         # Create a condition that would cause serialization to fail
         module.inputs.append("invalid_signal")  # This should be a Signal object
-        
+
         with pytest.raises(SerializationError):
             module.to_dict()

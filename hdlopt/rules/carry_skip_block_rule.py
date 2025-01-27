@@ -1,10 +1,16 @@
 from .base import Rule
 from ..patterns.string_match import StringMatchPattern
 
+
 class CarrySkipBlockRule(Rule):
     def __init__(self, default_bit_width=4):
-        super().__init__(input_vars=["a", "b", "cin"], output_vars=["sum", "cout", "block_carry_out"],
-                         name="CarrySkipBlockRule", pattern=StringMatchPattern("carry_skip_block"), default_bit_width=default_bit_width)
+        super().__init__(
+            input_vars=["a", "b", "cin"],
+            output_vars=["sum", "cout", "block_carry_out"],
+            name="CarrySkipBlockRule",
+            pattern=StringMatchPattern("carry_skip_block"),
+            default_bit_width=default_bit_width,
+        )
 
     def generate_expected(self, test_case):
         width = self.bit_width
@@ -23,13 +29,9 @@ class CarrySkipBlockRule(Rule):
             g[i] = a_bits[i] & b_bits[i]
             p[i] = a_bits[i] | b_bits[i]
 
-        block_carry_out = g[width-1] | (p[width-1] & carry[width-1])
+        block_carry_out = g[width - 1] | (p[width - 1] & carry[width - 1])
         cout = carry[width]
 
         sum_int = sum(sum_[i] << i for i in range(width))
 
-        return {
-            "sum": sum_int,
-            "cout": cout,
-            "block_carry_out": block_carry_out
-        }
+        return {"sum": sum_int, "cout": cout, "block_carry_out": block_carry_out}

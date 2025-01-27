@@ -2,6 +2,7 @@ import pytest
 from pathlib import Path
 import json
 
+
 @pytest.fixture
 def sample_netlist():
     """Create sample Yosys JSON netlist"""
@@ -12,7 +13,7 @@ def sample_netlist():
                 "ports": {
                     "clk": {"direction": "input", "bits": [2]},
                     "rst": {"direction": "input", "bits": [3]},
-                    "out": {"direction": "output", "bits": [4, 5, 6, 7]}
+                    "out": {"direction": "output", "bits": [4, 5, 6, 7]},
                 },
                 "cells": {
                     "add1": {
@@ -20,24 +21,17 @@ def sample_netlist():
                         "port_directions": {
                             "a": "input",
                             "b": "input",
-                            "cin": "input", 
+                            "cin": "input",
                             "sum": "output",
-                            "cout": "output"
-                        }
+                            "cout": "output",
+                        },
                     },
                     "$and1": {
                         "type": "$_AND_",
-                        "port_directions": {
-                            "A": "input",
-                            "B": "input",
-                            "Y": "output"
-                        }
-                    }
+                        "port_directions": {"A": "input", "B": "input", "Y": "output"},
+                    },
                 },
-                "netnames": {
-                    "net1": {"bits": [0]},
-                    "net2": {"bits": [1, 2, 3]}
-                }
+                "netnames": {"net1": {"bits": [0]}, "net2": {"bits": [1, 2, 3]}},
             },
             "full_adder": {
                 "name": "full_adder",
@@ -46,19 +40,14 @@ def sample_netlist():
                     "b": {"direction": "input", "bits": [1]},
                     "cin": {"direction": "input", "bits": [2]},
                     "sum": {"direction": "output", "bits": [3]},
-                    "cout": {"direction": "output", "bits": [4]}
+                    "cout": {"direction": "output", "bits": [4]},
                 },
-                "cells": {
-                    "$xor1": {"type": "$_XOR_"},
-                    "$and1": {"type": "$_AND_"}
-                },
-                "netnames": {
-                    "net1": {"bits": [0]},
-                    "net2": {"bits": [1]}
-                }
-            }
+                "cells": {"$xor1": {"type": "$_XOR_"}, "$and1": {"type": "$_AND_"}},
+                "netnames": {"net1": {"bits": [0]}, "net2": {"bits": [1]}},
+            },
         }
     }
+
 
 @pytest.fixture
 def temp_component_dir(tmp_path):
@@ -66,7 +55,7 @@ def temp_component_dir(tmp_path):
     # Create component directory
     comp_dir = tmp_path / "test_component"
     comp_dir.mkdir()
-    
+
     # Create Verilog source
     src = """
     module test_component #(
@@ -85,9 +74,9 @@ def temp_component_dir(tmp_path):
                 out <= in_a + in_b;
     endmodule
     """
-    
+
     (comp_dir / "test_component.v").write_text(src)
-    
+
     # Create testbench
     tb = """
     module tb_WIDTH4_test_component;
@@ -103,9 +92,9 @@ def temp_component_dir(tmp_path):
         end
     endmodule
     """
-    
+
     (comp_dir / "tb_WIDTH4_test_component.v").write_text(tb)
-    
+
     # Create component details
     details = {
         "component_name": "test_component",
@@ -114,17 +103,16 @@ def temp_component_dir(tmp_path):
             ["input", "wire", "unsigned", "1", "clk"],
             ["input", "wire", "unsigned", "1", "rst"],
             ["input", "wire", "unsigned", "WIDTH-1:0", "in_a"],
-            ["input", "wire", "unsigned", "WIDTH-1:0", "in_b"]
+            ["input", "wire", "unsigned", "WIDTH-1:0", "in_b"],
         ],
-        "outputs": [
-            ["output", "reg", "unsigned", "WIDTH-1:0", "out"]
-        ]
+        "outputs": [["output", "reg", "unsigned", "WIDTH-1:0", "out"]],
     }
-    
+
     with open(comp_dir / "test_component_details.json", "w") as f:
         json.dump(details, f)
-        
+
     return comp_dir
+
 
 if __name__ == "__main__":
     pytest.main([__file__])
