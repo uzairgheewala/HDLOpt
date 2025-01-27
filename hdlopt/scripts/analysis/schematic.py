@@ -345,8 +345,7 @@ class SchematicGenerator:
             logger.error(f"Tool execution failed: {str(e)}")
             if "Module not found" in str(e.stderr):
                 raise FileNotFoundError(
-                    f"Component {
-                        self.component_name} not found"
+                    f"Component {self.component_name} not found"
                 )
             raise
 

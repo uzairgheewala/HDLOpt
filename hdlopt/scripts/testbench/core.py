@@ -510,9 +510,7 @@ class TestbenchGenerator:
         logger.debug("Setting up special signals")
         component_details = self._setup_special_signals(component_details)
         logger.debug(
-            f"Special signals setup: start={
-                component_details.get('start_present')}, valid={
-                component_details.get('valid_present')}"
+            f"Special signals setup: start={component_details.get('start_present')}, valid={component_details.get('valid_present')}"
         )
 
         # Turn param_comb (a tuple like (1,1)) into [('WIDTH',1),('DEPTH',1)]

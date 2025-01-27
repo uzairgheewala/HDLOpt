@@ -279,8 +279,7 @@ class HDLAnalysisRunner:
         # Step 3: Generate and run testbench if requested
         if AnalysisType.TESTBENCH in self.config.analyses:
             logger.info(
-                f"Generating testbench with {
-                    len(rules)} matching rules for {module_name}"
+                f"Generating testbench with {len(rules)} matching rules for {module_name}"
             )
             try:
                 # Initialize IntegratedTestManager

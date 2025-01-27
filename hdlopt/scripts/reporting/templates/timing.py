@@ -161,13 +161,11 @@ class TimingTemplate(PageTemplate):
 
             except Exception as e:
                 logger.error(
-                    f"Failed to generate slack distribution plot: {
-                        str(e)}"
+                    f"Failed to generate slack distribution plot: {str(e)}"
                 )
                 self.add_element(
                     Paragraph(
-                        f"Error generating visualization: {str(e)}",
-                        self.styles["BodyText"],
+                        f"Error generating visualization: {str(e)}", self.styles["BodyText"]
                     )
                 )
 

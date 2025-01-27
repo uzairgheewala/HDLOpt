@@ -481,9 +481,7 @@ class NativeVerilogParser(VerilogParserBase):
             if stack:
                 unclosed = stack[-1]
                 raise ModuleDefinitionError(
-                    f"Unclosed '{
-                        unclosed[0]}' block starting at line {
-                        unclosed[1]}"
+                    f"Unclosed '{unclosed[0]}' block starting at line {unclosed[1]}"
                 )
 
         def validate_port_list(text: str) -> None:

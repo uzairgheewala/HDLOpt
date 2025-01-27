@@ -133,8 +133,7 @@ class IntegratedTestManager:
                     int(regular_cases_needed * scaling_factor),
                 )
                 logger.debug(
-                    f"Reduced to {
-                        len(regular_cases)} cases to meet time constraint"
+                    f"Reduced to {len(regular_cases)} cases to meet time constraint"
                 )
                 est_time = available_time
         else:

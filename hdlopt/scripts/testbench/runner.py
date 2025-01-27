@@ -190,8 +190,7 @@ class TestbenchRunner:
                 else:
                     logger.error(f"Unsupported simulator: {self.simulator}")
                     raise ValueError(
-                        f"Unsupported simulator: {
-                            self.simulator}"
+                        f"Unsupported simulator: {self.simulator}"
                     )
 
                 logger.debug(f"Running command: {cmd} in cwd={self.work_dir}")

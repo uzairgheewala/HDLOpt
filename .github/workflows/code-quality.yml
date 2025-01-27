@@ -48,10 +48,20 @@ jobs:
           pytest hdlopt/tests -v --cov=hdlopt --cov-report=xml
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Disable automatic analysis
+          args: >
+            -Dsonar.projectKey=uzairgheewala_HDLOpt
+            -Dsonar.organization=your-organization
+            -Dsonar.sources=.
+            -Dsonar.tests=hdlopt/tests
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.verbose=true
+            -Dsonar.qualitygate.wait=true
 
       - name: Upload reports
         if: always()
