@@ -6,10 +6,14 @@ build-backend = "setuptools.build_meta"
 name = "hdlopt"
 version = "0.1.0"
 description = "Comprehensive HDL Design Analysis Tool"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.8"
+dynamic = ["dependencies"]
 authors = [
     {name = "Uzair Gheewala", email = "uzairgheewala474@gmail.com"}
 ]
-requires-python = ">=3.8"
+
 dependencies = [
     "pyvips",
     "fusesoc",
@@ -31,7 +35,10 @@ dependencies = [
     "pyvcd",
     "graphviz",
     "vcd",
-    "tenacity"
+    "tenacity",
+    "black",
+    "pylint",
+    "flake8",
 ]
 
 [project.scripts]
@@ -45,3 +52,10 @@ addopts = "-v --cov=hdlopt"
 [project.urls]
 Homepage = "https://github.com/uzairgheewala/hdlopt"
 Documentation = "https://hdlopt.readthedocs.io/"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["hdlopt", "hdlopt.scripts"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
