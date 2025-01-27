@@ -1,0 +1,48 @@
+name: Module Implementation
+description: Submit a new HDL module implementation
+title: "[Module]: "
+labels: ["module-implementation"]
+body:
+  - type: input
+    id: module-name
+    attributes:
+      label: Module Name
+      description: Name of the module being implemented
+      placeholder: "half_adder"
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      description: Module category from the directory structure
+      placeholder: "adders/basic"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Module Description
+      description: Describe the module's functionality
+    validations:
+      required: true
+  - type: textarea
+    id: test-results
+    attributes:
+      label: Test Results
+      description: Provide test pass rate and coverage metrics
+    validations:
+      required: true
+  - type: checkboxes
+    id: implementation-checklist
+    attributes:
+      label: Implementation Checklist
+      options:
+        - label: Verilog implementation follows coding standards
+          required: true
+        - label: Tests achieve >95% pass rate
+          required: true
+        - label: Documentation is complete
+          required: true
+        - label: All analyses pass (timing, power, etc.)
+          required: true

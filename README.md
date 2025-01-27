@@ -1,6 +1,14 @@
 # HDLOpt
 
-HDLOpt is a comprehensive toolset for optimizing and analyzing hardware description language (HDL) code, with a focus on Verilog. It provides robust parsing, analysis, and optimization capabilities for HDL designs.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![CI](https://github.com/uzairgheewala/hdlopt/workflows/CI/badge.svg)](https://github.com/uzairgheewala/hdlopt/actions)
+[![Documentation Status](https://readthedocs.org/projects/hdlopt/badge/?version=latest)](https://hdlopt.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/hdlopt.svg)](https://badge.fury.io/py/hdlopt)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Modules Implemented](https://img.shields.io/badge/Modules%20Implemented-0%25-red)]()
+
+HDLOpt is a comprehensive toolset for optimizing and analyzing hardware description language (HDL) code, with a focus on Verilog (for now). It provides robust parsing, analysis, and optimization capabilities for HDL designs.
 
 ## Table of Contents
 
@@ -1087,4 +1095,4 @@ _(Contributing guidelines will be added here)_
 
 ## License
 
-_(License information will be added here)_
+This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.

@@ -206,13 +206,22 @@ class IntegratedTestManager:
             
             # Update metrics database
             self.optimizer._metrics_db.setdefault(self.component_name, {})
-            self.optimizer._metrics_db[self.component_name]["test_cases"] = \
-                self.optimizer._metrics_db[self.component_name].get("test_cases", []) + [{
-                    "execution_time": metrics.execution_time,
-                    "memory_usage": metrics.memory_usage,
-                    "file_size": metrics.file_size,
-                    "complexity_score": metrics.complexity_score,
-                }]
+            try:
+                self.optimizer._metrics_db[self.component_name]["test_cases"] = \
+                    self.optimizer._metrics_db[self.component_name].get("test_cases", []) + [{
+                        "execution_time": metrics.execution_time,
+                        "memory_usage": metrics.memory_usage,
+                        "file_size": metrics.file_size,
+                        "complexity_score": metrics.complexity_score
+                    }]
+            except AttributeError:
+                self.optimizer._metrics_db[self.component_name]["test_cases"] = \
+                    self.optimizer._metrics_db[self.component_name].get("test_cases", []) + [{
+                        "execution_time": metrics['execution_time'],
+                        "memory_usage": metrics['memory_usage'],
+                        "file_size": metrics['file_size'],
+                        "complexity_score": metrics['complexity_score']
+                    }]
             
             combined_results.append(tb_result)
             

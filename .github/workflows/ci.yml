@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, '3.10']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Install HDL tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y iverilog yosys
+        
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 hdlopt/ tests/
+
+    - name: Type check with mypy
+      run: |
+        pip install mypy
+        mypy hdlopt/
+
+    - name: Check formatting with black
+      run: |
+        pip install black
+        black --check hdlopt/ tests/
+
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=hdlopt
+
+    - name: Run integration tests
+      run: |
+        python -m hdlopt.runner test all
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r docs/requirements.txt
+
+    - name: Build documentation
+      run: |
+        cd docs/
+        make html
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/_build/html

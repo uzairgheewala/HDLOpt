@@ -1,0 +1,35 @@
+name: Module Directory Setup
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  setup-directories:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Create Module Directories
+        run: python .github/scripts/setup_modules.py
+        
+      - name: Check for Changes
+        id: git-check
+        run: |
+          git add modules/
+          git status --porcelain | grep "modules/" || echo "No changes"
+          
+      - name: Commit Directory Structure
+        if: steps.git-check.outputs.stdout != 'No changes'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update module directory structure"
+          git push

@@ -25,12 +25,14 @@ class EnvironmentSetup:
                     return True  
 
             # Check conda installation
+            """
             if "CONDA_PREFIX" in os.environ:
                 conda_path = Path(os.environ["CONDA_PREFIX"])
                 yosys_exe = conda_path / "bin" / "yosys.exe"
                 if yosys_exe.exists():
                     os.environ["PATH"] += f";{yosys_exe.parent}"
                     return True
+            """
 
         elif system in ["Linux", "Darwin"]:
             # Check system installation

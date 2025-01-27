@@ -403,12 +403,12 @@ class TestOptimizer:
             
         return edge_case_files + regular_files
     
-    """
+    
     def parallel_generate_testbenches(self, 
                                     test_case_files: List[List[Dict[str, int]]],
                                     module_details: Dict,
                                     base_path: Path):
-        Generate multiple testbench files in parallel.
+        #Generate multiple testbench files in parallel.
         logger.info("Generating testbenches for %d test case files", len(test_case_files))
 
         self.module_details = module_details
@@ -442,7 +442,7 @@ class TestOptimizer:
                                 module_details: Dict,
                                 base_path: Path,
                                 worker_id: int) -> List[TestCaseMetrics]:
-        enerate a chunk of testbenches in a single process.
+        #Generate a chunk of testbenches in a single process.
         metrics = []
         component_name = module_details['component_name']
         
@@ -461,42 +461,20 @@ class TestOptimizer:
                     process_dir,
                     tb_filename
                 )
-                metrics.append(result)
+                
+                src_file = process_dir / tb_filename
+                if src_file.exists():
+                    dest_path = base_path / tb_filename
+                    shutil.copy2(str(src_file), str(dest_path))
+                    logger.debug(f"Generated testbench saved to {dest_path}")
+                    metrics.append(result)
+
                 
             return metrics
         finally:
             # Clean up worker directory
             shutil.rmtree(process_dir, ignore_errors=True)
 
-    """
-    def parallel_generate_testbenches(self, 
-                                    test_case_files: List[List[Dict[str, int]]],
-                                    module_details: Dict,
-                                    base_path: Path):
-        """Generate multiple testbench files in parallel."""
-        logger.info("Generating testbenches for %d test case files", len(test_case_files))
-        self.module_details = module_details
-        self.complexity_score = self.calculate_module_complexity(module_details).calculate_score()
-
-        with ProcessPoolExecutor(max_workers=min(self.max_parallel, len(test_case_files))) as executor:
-            futures = []
-            
-            for i, test_cases in enumerate(test_case_files):
-                # Create unique output path for each executor
-                tb_filename = f"tb_{i}_{module_details['component_name']}.v"
-                future = executor.submit(
-                    self._generate_single_testbench,
-                    test_cases,
-                    module_details.copy(),  # Pass copy to avoid shared state
-                    base_path,
-                    tb_filename
-                )
-                futures.append(future)
-                
-            # Wait for all generations to complete
-            for future in futures:
-                future.result()  # Propagate exceptions
-                
     def _generate_single_testbench(self, 
                                  test_cases: List[Dict[str, int]],
                                  module_details: Dict,
@@ -548,10 +526,41 @@ class TestOptimizer:
             # Clean up temporary directory
             shutil.rmtree(process_dir, ignore_errors=True)
 
+    """
+    def parallel_generate_testbenches(self, 
+                                    test_case_files: List[List[Dict[str, int]]],
+                                    module_details: Dict,
+                                    base_path: Path):
+        Generate multiple testbench files in parallel.
+        logger.info("Generating testbenches for %d test case files", len(test_case_files))
+        self.module_details = module_details
+        self.complexity_score = self.calculate_module_complexity(module_details).calculate_score()
+
+        with ProcessPoolExecutor(max_workers=min(self.max_parallel, len(test_case_files))) as executor:
+            futures = []
+            
+            for i, test_cases in enumerate(test_case_files):
+                # Create unique output path for each executor
+                tb_filename = f"tb_{i}_{module_details['component_name']}.v"
+                future = executor.submit(
+                    self._generate_single_testbench,
+                    test_cases,
+                    module_details.copy(),  # Pass copy to avoid shared state
+                    base_path,
+                    tb_filename
+                )
+                futures.append(future)
+                
+            # Wait for all generations to complete
+            for future in futures:
+                future.result()  # Propagate exceptions
+                
+    
+
     def parallel_execute_testbenches(self, 
                                    testbench_files: List[Path],
                                    simulator: str = "modelsim") -> Dict:
-        """Execute multiple testbenches in parallel."""
+        #Execute multiple testbenches in parallel.
         with ThreadPoolExecutor(max_workers=self.max_parallel) as executor:
             futures = []
             
@@ -570,11 +579,53 @@ class TestOptimizer:
                 
             return results
 
+    def _execute_single_testbench(self, 
+                                testbench_file: Path,
+                                simulator: str) -> Dict:
+        #Execute a single testbench and collect metrics.
+        start_time = time.time()
+            
+        # Execute testbench
+        runner = Runner(simulator=simulator, work_dir=testbench_file.parent)
+        result = runner.run_testbench(testbench_file, source_files=runner._collect_source_files(testbench_file.parent))
+        
+        execution_time = time.time() - start_time
+        
+        # Collect memory usage if available
+        try:
+            import psutil
+            process = psutil.Process()
+            memory_usage = process.memory_info().rss / 1024 / 1024  # MB
+        except:
+            memory_usage = 0
+            
+        try:
+            metrics = TestCaseMetrics(
+                execution_time=execution_time,
+                memory_usage=memory_usage,
+                complexity_score=self.complexity_score
+            )
+        except:
+            metrics = TestCaseMetrics(
+                execution_time=execution_time,
+                memory_usage=memory_usage
+            )
+        
+        return {
+            "result": result,
+            "metrics": metrics
+        }
     """
+
+    
     def parallel_execute_testbenches(self, 
                                testbench_files: List[Path],
                                simulator: str = "modelsim") -> Dict:
-        Execute multiple testbenches in parallel.
+        """Execute multiple testbenches in parallel."""
+
+        if not testbench_files:
+            return {}
+        
         # Split testbenches into chunks for parallel execution
         num_workers = min(self.max_parallel, len(testbench_files))
         chunk_size = math.ceil(len(testbench_files) / num_workers)
@@ -602,7 +653,7 @@ class TestOptimizer:
     def _execute_testbench_chunk(self,
                             testbench_chunk: List[Path],
                             simulator: str) -> Dict:
-        Execute a chunk of testbenches in a single thread.
+        """Execute a chunk of testbenches in a single thread."""
         chunk_results = {}
         
         for tb_file in testbench_chunk:
@@ -625,11 +676,17 @@ class TestOptimizer:
             except:
                 memory_usage = 0
                 
-            metrics = TestCaseMetrics(
-                execution_time=execution_time,
-                memory_usage=memory_usage,
-                complexity_score=self.complexity_score
-            )
+            try:
+                metrics = TestCaseMetrics(
+                    execution_time=execution_time,
+                    memory_usage=memory_usage,
+                    complexity_score=self.complexity_score
+                )
+            except:
+                metrics = TestCaseMetrics(
+                    execution_time=execution_time,
+                    memory_usage=memory_usage
+                )
             
             chunk_results[tb_file] = {
                 "result": result,
@@ -637,38 +694,6 @@ class TestOptimizer:
             }
             
         return chunk_results
-    """
-
-    def _execute_single_testbench(self, 
-                                testbench_file: Path,
-                                simulator: str) -> Dict:
-        """Execute a single testbench and collect metrics."""
-        start_time = time.time()
-            
-        # Execute testbench
-        runner = Runner(simulator=simulator, work_dir=testbench_file.parent)
-        result = runner.run_testbench(testbench_file, source_files=runner._collect_source_files(testbench_file.parent))
-        
-        execution_time = time.time() - start_time
-        
-        # Collect memory usage if available
-        try:
-            import psutil
-            process = psutil.Process()
-            memory_usage = process.memory_info().rss / 1024 / 1024  # MB
-        except:
-            memory_usage = 0
-            
-        metrics = TestCaseMetrics(
-            execution_time=execution_time,
-            memory_usage=memory_usage,
-            complexity_score=self.complexity_score
-        )
-        
-        return {
-            "result": result,
-            "metrics": metrics
-        }
 
     def visualize_coverage(self, 
                           test_cases: List[Dict[str, int]],

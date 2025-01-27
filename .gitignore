@@ -11,8 +11,9 @@ tmp/
 generated/*
 !generated/.gitkeep
 
-design_gen/
-ds_exp/
+hdlopt/design_gen/
+hdlopt/ds_exp/
+hdlopt/benchmarking/
 
 directory_structure.py
 directory_structure.txt

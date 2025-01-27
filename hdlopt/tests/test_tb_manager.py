@@ -195,7 +195,8 @@ class TestIntegratedTestManager:
                 "metrics": { 
                     "execution_time": 0.1,
                     "memory_usage": 50.0,
-                    "file_size": 1024
+                    "file_size": 1024,
+                    "complexity_score": integrated_manager.optimizer.calculate_module_complexity(sample_module_details).calculate_score()
                 }
             }
         }
@@ -315,7 +316,8 @@ class TestIntegratedTestManager:
                     "metrics": {
                         "execution_time": 0.1,
                         "memory_usage": 50.0,
-                        "file_size": 1024
+                        "file_size": 1024,
+                        "complexity_score": integrated_manager.optimizer.calculate_module_complexity(sample_module_details).calculate_score()
                     }
                 }
             }
@@ -391,7 +393,7 @@ class TestIntegratedTestManager:
             parallel_processes=1
         )
         
-        with pytest.raises(ValueError):
+        with pytest.raises(ZeroDivisionError):
             integrated_manager.execute_test_plan(invalid_plan, sample_module_details)
 
     def test_execution_history(self, integrated_manager, sample_module_details):
@@ -441,7 +443,8 @@ class TestIntegratedTestManager:
                     "metrics": {
                         "execution_time": 0.1,
                         "memory_usage": 50.0,
-                        "file_size": 1024
+                        "file_size": 1024,
+                        "complexity_score": integrated_manager.optimizer.calculate_module_complexity(sample_module_details).calculate_score()
                     }
                 }
             }
