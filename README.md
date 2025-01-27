@@ -17,8 +17,6 @@ HDLOpt is a comprehensive toolset for optimizing and analyzing hardware descript
 3. [Usage](#usage)
 4. [Architecture](#architecture)
 5. [Module Documentation](#module-documentation)
-6. [Contributing](#contributing)
-7. [License](#license)
 
 ## Prerequisites
 
@@ -1088,11 +1086,3 @@ class ModuleMetrics:
     raw_gates: Dict[str, int] = None    # Gate-level counts
     sub_modules: Dict[str, int] = None  # Submodule instance counts
 ```
-
-## Contributing
-
-_(Contributing guidelines will be added here)_
-
-## License
-
-This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.

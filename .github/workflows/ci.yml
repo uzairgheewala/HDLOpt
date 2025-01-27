@@ -8,11 +8,17 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.8, 3.9, '3.10']
+        exclude:
+          # Exclude combinations that might be problematic
+          - os: windows-latest
+            python-version: 3.8
 
+    runs-on: ${{ matrix.os }}
+    
     steps:
     - uses: actions/checkout@v3
 
@@ -27,25 +33,30 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
 
-    - name: Install HDL tools
+    - name: Install HDL tools (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y iverilog yosys
-        
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        flake8 hdlopt/ tests/
 
-    - name: Type check with mypy
+    - name: Install HDL tools (MacOS)
+      if: matrix.os == 'macos-latest'
       run: |
-        pip install mypy
-        mypy hdlopt/
+        brew install icarus-verilog
+        brew install yosys
 
-    - name: Check formatting with black
+    - name: Install HDL tools (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
-        pip install black
+        choco install iverilog
+        choco install yosys
+
+    - name: Code Quality
+      run: |
         black --check hdlopt/ tests/
+        pylint hdlopt/ tests/
+        flake8 hdlopt/ tests/
+        mypy hdlopt/
 
     - name: Run tests
       run: |

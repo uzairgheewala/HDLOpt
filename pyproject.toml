@@ -1,3 +1,42 @@
 [build-system]
 requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "hdlopt"
+version = "0.1.0"
+description = "Comprehensive HDL Design Analysis Tool"
+authors = [
+    {name = "Uzair Gheewala", email = "uzairgheewala474@gmail.com"}
+]
+requires-python = ">=3.8"
+dependencies = [
+    "pyvips",
+    "fusesoc",
+    "jinja2",
+    "ply",
+    "pyverilog",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "deap",
+    "cocotb",
+    "simpy",
+    "vunit-hdl",
+    "networkx",
+    "pyreadline3",
+    "ipython-genutils",
+    "reportlab",
+    "pymupdf",
+    "pyvcd",
+    "graphviz",
+    "vcd",
+    "tenacity"
+]
+
+[project.scripts]
+hdlopt = "hdlopt.runner:run"
+
+[project.urls]
+Homepage = "https://github.com/uzairgheewala/hdlopt"
+Documentation = "https://hdlopt.readthedocs.io/"
