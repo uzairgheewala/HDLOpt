@@ -1018,7 +1018,7 @@ class NativeVerilogParser(VerilogParserBase):
             # Provide minimal correct default
             return "'b0" if is_input or signal_type == "reg" else "'bz"
 
-    def _parse_bit_width(self, parts: List[str], start_idx: int) -> tuple[str, int]:
+    def _parse_bit_width(self, parts: List[str], start_idx: int):
         """Parse bit width specification, handling multi-dimensional arrays."""
         width_parts = []
         i = start_idx

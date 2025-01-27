@@ -386,7 +386,7 @@ class PDFReportGenerator:
             new_pdf.insert_pdf(pdf_document, from_page=page_num, to_page=page_num)
         new_pdf.save(pdf_filename)
 
-    def calculate_content_dimensions(self, elements) -> tuple[float, float]:
+    def calculate_content_dimensions(self, elements):
         """Calculate maximum width and height needed for all content."""
         max_width = 0
         total_height = 0

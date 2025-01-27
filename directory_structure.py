@@ -8,7 +8,7 @@ def generate_directory_tree(
     output_file: str,
     exclude_extensions: Set[str] = None,
     exclude_folders: Set[str] = None
-) -> tuple[List[str], List[str]]:
+):
     """
     Generates a directory tree starting from root_dir and writes it to output_file.
 
