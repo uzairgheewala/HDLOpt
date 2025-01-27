@@ -47,6 +47,12 @@ jobs:
         run: |
           pytest hdlopt/tests -v --cov=hdlopt --cov-report=xml
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin" # Eclipse Temurin distribution
+          java-version: "17" # Use Java 17
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v1
         env:

@@ -534,8 +534,7 @@ class HDLAnalysisRunner:
             print(f"\nRun Details: {run_id}")
             print(f"Timestamp: {run.timestamp}")
             print(
-                f"Experiment: {
-                    run.config.get('experiment_name', 'Unnamed')}"
+                f"Experiment: {run.config.get('experiment_name', 'Unnamed')}"
             )
             print(f"\nComponents Analyzed: {', '.join(run.components)}")
             print("\nMetrics:")
