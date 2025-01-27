@@ -9,8 +9,15 @@ on:
 jobs:
   code-quality:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Important for SonarCloud
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -24,7 +31,6 @@ jobs:
           pip install -r requirements-dev.txt
           pip install radon
           pip install bandit
-          pip install sonar-scanner-cli
 
       - name: Run code quality checks
         run: |
