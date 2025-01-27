@@ -37,6 +37,11 @@ dependencies = [
 [project.scripts]
 hdlopt = "hdlopt.runner:run"
 
+[tool.pytest]
+testpaths = ["hdlopt/tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=hdlopt"
+
 [project.urls]
 Homepage = "https://github.com/uzairgheewala/hdlopt"
 Documentation = "https://hdlopt.readthedocs.io/"

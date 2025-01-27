@@ -61,7 +61,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest tests/ -v --cov=hdlopt
+          pytest hdlopt/tests -v --cov=hdlopt
 
       - name: Run integration tests
         run: |
