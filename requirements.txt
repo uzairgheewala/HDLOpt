@@ -19,3 +19,5 @@ pyvcd>=0.3.0
 graphviz>=0.19.1
 vcd>=0.6.0
 tenacity>=8.0.1
+vlib
+seaborn
