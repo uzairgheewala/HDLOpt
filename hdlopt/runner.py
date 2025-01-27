@@ -11,13 +11,13 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from datetime import datetime
 
-from .scripts.experiment_manager import ExperimentManager, ExperimentConfig
-from .scripts.directory_structure import (
+from hdlopt.scripts.experiment_manager import ExperimentManager, ExperimentConfig
+from hdlopt.scripts.directory_structure import (
     create_directory_structure,
     print_directory_structure,
 )
-from .scripts.parsing.factory import VerilogParser
-from .scripts.parsing.base import ParserMode
+from hdlopt.scripts.parsing.factory import VerilogParser
+from hdlopt.scripts.parsing.base import ParserMode
 from hdlopt.scripts.testbench.manager import IntegratedTestManager
 from hdlopt.scripts.testbench.runner import TestbenchRunner
 from hdlopt.scripts.analysis.netlist import NetlistAnalyzer

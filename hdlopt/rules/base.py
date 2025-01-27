@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Dict, List, Any, Optional, Type, Union
+from typing import Dict, List, Any, Optional
 import inspect
 from ..patterns.base import Pattern
 from ..patterns.string_match import StringMatchPattern
@@ -33,7 +33,7 @@ class BitWidthSpec:
     width: int
     signed: bool = False
 
-    def get_range(self) -> tuple[int, int]:
+    def get_range(self):
         """Get valid range for this bit width spec."""
         if self.signed:
             min_val = -(1 << (self.width - 1))
