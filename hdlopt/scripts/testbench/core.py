@@ -376,8 +376,7 @@ class TestbenchGenerator:
                         break
                     except Exception as e:
                         logger.error(
-                            f"Error generating expected value: {
-                                str(e)}",
+                            f"Error generating expected value: {str(e)}",
                             exc_info=True,
                         )
                         raise

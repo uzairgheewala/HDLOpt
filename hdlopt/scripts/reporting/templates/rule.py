@@ -10,9 +10,7 @@ class RuleTemplate(PageTemplate):
         """Generate a page displaying rule details."""
         self.add_element(
             Paragraph(
-                f"Rule: {
-                    rule.name}",
-                self.styles["Heading2"],
+                f"Rule: {rule.name}", self.styles["Heading2"],
             )
         )
         self.add_element(

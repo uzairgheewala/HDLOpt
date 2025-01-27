@@ -79,8 +79,7 @@ class EnvironmentSetup:
             )
             if process.returncode != 0:
                 logger.error(
-                    f"Failed to setup OSS CAD Suite: {
-                        process.stderr}"
+                    f"Failed to setup OSS CAD Suite: {process.stderr}"
                 )
                 raise OSError(f"Failed to setup OSS CAD Suite: {process.stderr}")
 

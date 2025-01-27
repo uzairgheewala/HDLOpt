@@ -425,13 +425,7 @@ class WaveformAnalyzer:
             events.append(
                 {
                     "time": v.get("time", 0),
-                    "description": f"{
-                        v.get(
-                            'type',
-                            'Unknown')} violation on {
-                        v.get(
-                            'signal',
-                            '?')}",
+                    "description": f"{v.get('type', 'Unknown')} violation on {v.get('signal', '?')}",
                     "type": "violation",
                 }
             )

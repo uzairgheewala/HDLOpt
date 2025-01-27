@@ -106,8 +106,7 @@ class NativeVerilogParser(VerilogParserBase):
         except Exception as e:
             # Wrap unexpected errors
             raise FileProcessingError(
-                f"Error processing Verilog content: {
-                    str(e)}"
+                f"Error processing Verilog content: {str(e)}"
             )
 
     def _split_into_modules(self, content: str) -> List[str]:

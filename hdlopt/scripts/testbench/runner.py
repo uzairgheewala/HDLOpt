@@ -161,8 +161,7 @@ class TestbenchRunner:
     ) -> None:
         """Compile Verilog source files"""
         logger.debug(
-            f"Starting compilation of {
-                len(source_files)} files: {source_files}"
+            f"Starting compilation of {len(source_files)} files: {source_files}"
         )
         for src_file in source_files:
             logger.debug(f"Checking existence of {src_file}")

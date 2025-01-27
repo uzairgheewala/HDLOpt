@@ -204,10 +204,7 @@ class PowerAnalyzer:
                             )
                         )
                     except (ValueError, IndexError) as e:
-                        logger.error(
-                            f"Failed to parse power supply line '{line}': {
-                                str(e)}"
-                        )
+                        logger.error(f"Failed to parse power supply line '{line}': {str(e)}")
 
         return supplies
 

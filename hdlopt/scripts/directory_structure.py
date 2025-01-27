@@ -87,9 +87,7 @@ def filter_filenames(source_dir, patterns=None, filenames=None, subs=False):
             for pattern in patterns:
                 if pattern.matches(file):
                     filtered_files.append(file)
-                    logger.debug(
-                        f"File '{file}' matches pattern '{
-                            pattern.pattern}'")
+                    logger.debug(f"File '{file}' matches pattern '{pattern.pattern}'")
                     break
     else:
         filtered_files = all_files

@@ -259,8 +259,7 @@ class HDLAnalysisRunner:
         rules = self._find_rules_for_module(module_path)
         if not rules:
             logger.warning(
-                f"No matching rules found for module {
-                    module_path.stem}"
+                f"No matching rules found for module {module_path.stem}"
             )
 
         # Add submodule rules

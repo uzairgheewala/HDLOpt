@@ -97,8 +97,7 @@ class IntegratedTestManager:
         # Calculate module complexity
         complexity = self.optimizer.calculate_module_complexity(module_details)
         logger.debug(
-            f"Module complexity score: {
-                complexity.calculate_score()}"
+            f"Module complexity score: {complexity.calculate_score()}"
         )
 
         # Get input ranges

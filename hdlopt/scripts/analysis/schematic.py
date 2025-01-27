@@ -336,8 +336,7 @@ class SchematicGenerator:
 
         except subprocess.TimeoutExpired:
             logger.error(
-                f"Tool execution timed out after {
-                    self.config.timeout}s"
+                f"Tool execution timed out after {self.config.timeout}s"
             )
             raise
         except FileNotFoundError:

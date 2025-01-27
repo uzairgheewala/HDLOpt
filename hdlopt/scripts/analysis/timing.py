@@ -177,9 +177,7 @@ class TimingAnalyzer:
                                 tpws=float(values[9]),
                             )
                         except (ValueError, IndexError) as e:
-                            logger.error(
-                                f"Failed to parse timing values: {str(e)}"
-                            )
+                            logger.error(f"Failed to parse timing values: {str(e)}")
 
         logger.error("No timing summary found in report")
         return TimingSummary(
@@ -222,8 +220,7 @@ class TimingAnalyzer:
                         )
                     except (ValueError, IndexError) as e:
                         logger.error(
-                            f"Failed to parse clock data from line '{line}': {
-                                str(e)}"
+                            f"Failed to parse clock data from line '{line}': {str(e)}"
                         )
 
         return clocks
