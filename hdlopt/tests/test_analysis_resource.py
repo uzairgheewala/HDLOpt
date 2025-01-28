@@ -7,6 +7,7 @@ import os
 import subprocess
 from unittest.mock import MagicMock, patch
 import pytest
+import shutil
 
 class TestResourceAnalyzer:
     """Test suite for resource analyzer"""
@@ -248,6 +249,7 @@ class TestResourceAnalyzer:
         assert script_path.exists()
         assert script_path.name == "test_component_script.ys"
 
+    @pytest.mark.skipif(not shutil.which("yosys"), reason="Yosys not available")
     def test_environment_setup(self, temp_component_dir):
         """Test environment setup and teardown"""
         analyzer = ResourceAnalyzer("test_component", base_dir=str(temp_component_dir))

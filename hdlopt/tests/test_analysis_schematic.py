@@ -273,7 +273,7 @@ def test_vivado_generation(temp_component_dir, mock_vivado):
     assert output_path.exists()
     assert output_path.stat().st_size > 0
 
-
+@pytest.mark.skipif(not shutil.which("yosys"), reason="Yosys not available")
 def test_error_handling(temp_component_dir, schematic_config, mock_yosys):
     """Test error handling for a nonexistent component (Yosys test)."""
     with pytest.raises(RuntimeError):

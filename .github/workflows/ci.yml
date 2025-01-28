@@ -56,7 +56,7 @@ jobs:
           choco install graphviz
 
       - name: Code Quality
-        continue-on-error: true # Add this line to continue even if pylint fails
+        continue-on-error: true
         run: |
           black --check hdlopt/
           pylint hdlopt/
