@@ -201,7 +201,8 @@ class TestHDLAnalysisRunner:
         config = RunnerConfig(
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
-            simulator="iverilog"
+            simulator="iverilog",
+            verbose=True
         )
         runner = HDLAnalysisRunner(config)
 
@@ -458,7 +459,7 @@ class TestCommandLine:
                 str(temp_workspace / "generated"),
                 "-src",
                 str(temp_workspace / "src"),
-                "-s", "iverilog",
+                "--simulator", "iverilog",
                 "-v",
             ],
         ):
@@ -607,7 +608,8 @@ class TestExperimentTracking:
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
             experiment_name="multi_test",
-            simulator="iverilog"
+            simulator="iverilog",
+            verbose=True
         )
         runner = HDLAnalysisRunner(config)
 

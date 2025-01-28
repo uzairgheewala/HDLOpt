@@ -153,7 +153,7 @@ class HDLAnalysisRunner:
                 modules = list(self.src_dir.glob("*.v"))
 
             logger.info(
-                f"Analyzing {len(modules)} modules: {[m.stem for m in modules]}"
+                f"Analyzing {len(modules)} modules: {[m.stem for m in modules]} with {self.config.simulator}"
             )
 
             # Start experiment run

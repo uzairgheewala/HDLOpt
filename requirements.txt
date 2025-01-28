@@ -22,3 +22,4 @@ tenacity>=8.0.1
 vlib
 seaborn
 nbformat
+psutil

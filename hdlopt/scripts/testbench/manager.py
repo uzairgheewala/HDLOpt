@@ -175,7 +175,7 @@ class IntegratedTestManager:
         Returns:
             List of TestbenchResult objects
         """
-        logger.debug(f"Executing test plan for {self.component_name}")
+        logger.debug(f"Executing test plan for {self.component_name} with {self.simulator}")
 
         # Split test cases into batches
         test_batches = self.optimizer.split_test_cases(
