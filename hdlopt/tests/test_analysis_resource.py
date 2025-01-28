@@ -271,7 +271,7 @@ class TestResourceAnalyzer:
             if "environment.bat" in calls[0][0][0]:
                 assert "--version" in calls[1][0][0] 
             else:
-                assert "-version" in calls[0][0][0]
+                assert "--version" in calls[0][0][0]
                 
         # Teardown
         analyzer.env.teardown()

@@ -47,6 +47,7 @@ class IntegratedTestManager:
         self.constraints = constraints
         self.timing = timing
         self.signals = signals
+        self.simulator = simulator
 
         # Initialize subsystems
         self.optimizer = TestOptimizer(
@@ -199,7 +200,7 @@ class IntegratedTestManager:
 
         # Run testbenches
         results = self.optimizer.parallel_execute_testbenches(
-            testbench_files, self.runner.simulator
+            testbench_files, self.simulator
         )
 
         # Collect and process results

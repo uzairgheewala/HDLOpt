@@ -289,7 +289,7 @@ class HDLAnalysisRunner:
                     base_dir=str(module_dir),
                     max_parallel=4,
                     target_cases_per_file=1000,
-                    simulator=self.config.simulator,
+                    simulator=self.config.simulator
                 )
 
                 # Load module details

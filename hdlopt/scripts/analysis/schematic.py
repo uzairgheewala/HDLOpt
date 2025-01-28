@@ -259,8 +259,8 @@ class SchematicGenerator:
             logger.debug("Yosys stderr:\n%s", result.stderr)
 
             # Get DOT file path
-            logger.debug(f"Files in dot path: {os.listdir(dot_path.parent)}")
-            logger.debug(f"Files in script_path: {os.listdir(script_path.parent)}")
+            logger.debug(f"Files in dot path {dot_path}: {[x for x in os.listdir(dot_path.parent) if x.endswith('.dot')]}")
+            logger.debug(f"Files in script_path {script_path}: {[x for x in os.listdir(script_path.parent) if x.endswith('.dot')]}")
             # dot_path = script_path.parent / f"{self.component_name}_schematic.dot"
             if not dot_path.exists():
                 raise RuntimeError(f"Yosys completed but DOT not found at {dot_path}")
