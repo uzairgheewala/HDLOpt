@@ -255,6 +255,7 @@ class IntegratedTestManager:
                     rules=self.rules,
                     base_dir=self.base_dir,
                     max_parallel=self.max_parallel,
+                    simulator=self.simulator,
                 )
                 # Load submodule details
                 submodule_dir = self.base_dir / submodule
