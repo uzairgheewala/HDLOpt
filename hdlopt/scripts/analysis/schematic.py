@@ -237,8 +237,8 @@ class SchematicGenerator:
         script_path = self._get_temp_path("ys")
         ys_script, dot_path = self._generate_yosys_script(script_path)
         self.temp_files.add(script_path)
-        # print("Script path:", script_path)
-        # print("Yosys script:", ys_script)
+        print("Script path:", script_path)
+        print("Yosys script:", ys_script)
 
         with open(script_path, "w") as f:
             f.write(ys_script)

@@ -21,3 +21,4 @@ vcd>=0.6.0
 tenacity>=8.0.1
 vlib
 seaborn
+nbformat
