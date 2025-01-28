@@ -51,7 +51,27 @@ jobs:
       - name: Install HDL tools (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          choco install iverilog yosys graphviz
+          # Install IcarusVerilog and Graphviz
+          choco install iverilog
+          choco install graphviz
+
+          # Download OSS CAD Suite
+          Invoke-WebRequest -Uri "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2025-01-27/oss-cad-suite-windows-x64-20250127.exe" -OutFile "C:\oss-cad-suite.exe"
+
+          # Run installer silently
+          Start-Process -FilePath "C:\oss-cad-suite.exe" -Wait
+
+          # Setup OSS CAD Suite environment
+          cmd.exe /c "call C:\oss-cad-suite\environment.bat && set > env.txt"
+          Get-Content env.txt | ForEach-Object {
+              $name, $value = $_.split('=')
+              if ($name -and $value) {
+                  echo "$name=$value" >> $env:GITHUB_ENV
+              }
+          }
+
+          # Verify installation
+          yosys --version
 
       - name: Code Quality
         continue-on-error: true # Add this line to continue even if pylint fails

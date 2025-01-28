@@ -7,7 +7,6 @@ from .logger import logger
 
 YOSYS_PATH = r"C:\oss-cad-suite\bin\yosys.exe"
 
-
 class EnvironmentSetup:
     """Handles environment setup for external tools like Yosys"""
 
