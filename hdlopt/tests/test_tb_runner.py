@@ -254,6 +254,7 @@ class TestTestbenchRunner:
             assert "num_tests" in log_entry
             assert log_entry["num_tests"] == 10
 
+    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_recursive_run(self, runner, temp_testbench_dir):
         """Test recursive testbench execution"""
         # Create submodule
