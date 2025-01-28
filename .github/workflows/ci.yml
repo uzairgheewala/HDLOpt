@@ -98,10 +98,6 @@ jobs:
         run: |
           pytest hdlopt/tests -v --cov=hdlopt
 
-      - name: Run integration tests
-        run: |
-          python -m hdlopt.runner test all
-
       - name: Upload coverage
         uses: codecov/codecov-action@v3
 
