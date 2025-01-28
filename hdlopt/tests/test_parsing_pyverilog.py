@@ -1,7 +1,7 @@
 """Tests for PyVerilog parser implementation."""
 
 from unittest.mock import patch
-
+import os
 import pytest
 
 from ..scripts.parsing.exceptions import SignalDeclarationError
@@ -41,6 +41,8 @@ def mock_pyverilog_ast():
     """Create mock PyVerilog AST for testing."""
     if not PYVERILOG_AVAILABLE:
         return None
+    
+    os.environ["PLY_WRITE_TABLES"] = "0"  # Prevent parser table generation
 
     from pyverilog.vparser.ast import (
         Description,

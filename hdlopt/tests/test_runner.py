@@ -195,12 +195,13 @@ class TestHDLAnalysisRunner:
         assert runner.output_dir == Path(temp_workspace) / "generated"
         assert runner.config.analyses == list(AnalysisType)
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_directory_creation(self, temp_workspace, mock_simulators, mock_analysis):
         """Test directory structure creation."""
         config = RunnerConfig(
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
+            simulator="iverilog"
         )
         runner = HDLAnalysisRunner(config)
 
@@ -283,12 +284,13 @@ class TestHDLAnalysisRunner:
             temp_workspace / "generated" / "full_adder" / "full_adder_analysis.pdf"
         ).exists()
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_module_parsing(self, temp_workspace, mock_simulators, mock_analysis):
         """Test Verilog module parsing."""
         config = RunnerConfig(
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
+            simulator="iverilog"
         )
         runner = HDLAnalysisRunner(config)
 
@@ -322,7 +324,7 @@ class TestHDLAnalysisRunner:
             analysis_types = [call[0][0] for call in mock_analysis.call_args_list]
             assert set(analysis_types) == {AnalysisType.TIMING, AnalysisType.POWER}
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_testbench_generation(self, temp_workspace, mock_simulators, mock_analysis):
         """Test testbench generation and simulation."""
         config = RunnerConfig(
@@ -353,6 +355,7 @@ class TestHDLAnalysisRunner:
             output_dir=str(temp_workspace / "generated"),
             combine_pdfs=True,
             src_dir=str(temp_workspace / "src"),
+            simulator="iverilog"
         )
         runner = HDLAnalysisRunner(config)
 
@@ -443,7 +446,7 @@ class TestHDLAnalysisRunner:
 class TestCommandLine:
     """Test command line interface."""
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_cli_all_modules(self, temp_workspace, mock_simulators):
         """Test running all modules from command line."""
         with patch(
@@ -455,6 +458,7 @@ class TestCommandLine:
                 str(temp_workspace / "generated"),
                 "-src",
                 str(temp_workspace / "src"),
+                "-s", "iverilog",
                 "-v",
             ],
         ):
@@ -485,6 +489,7 @@ class TestCommandLine:
                 str(temp_workspace / "generated"),
                 "-src",
                 str(temp_workspace / "src"),
+                "-s", "iverilog",
                 "-v",
             ],
         ), patch(
@@ -498,7 +503,7 @@ class TestCommandLine:
         assert (counter_dir / "counter_power_report.pdf").exists()
         assert not (counter_dir / "counter_netlist.json").exists()
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_cli_simulator_selection(self, temp_workspace, mock_simulators):
         """Test simulator selection from command line."""
         with patch(
@@ -594,7 +599,7 @@ class TestExperimentTracking:
         assert run.metrics
         assert any("counter" in key for key in run.metrics.keys())
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_multiple_runs(self, temp_workspace, mock_simulators, mock_analysis):
         """Test handling multiple analysis runs."""
         config = RunnerConfig(
@@ -602,6 +607,7 @@ class TestExperimentTracking:
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
             experiment_name="multi_test",
+            simulator="iverilog"
         )
         runner = HDLAnalysisRunner(config)
 
@@ -620,14 +626,15 @@ class TestExperimentTracking:
             len(comparison["component_changes"]) > 0
         )  # Should detect different modules
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_module_history(self, temp_workspace, mock_simulators, mock_analysis):
         """Test tracking module version history."""
         config = RunnerConfig(
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
             experiment_name="history_test",
-            verbose=True,
+            simulator="iverilog",
+            verbose=True
         )
         runner = HDLAnalysisRunner(config)
 
@@ -651,7 +658,7 @@ class TestExperimentTracking:
         assert history[0]["run_id"] == run2_id
         assert history[1]["run_id"] == run1_id
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_cli_experiment_options(
         self, temp_workspace, mock_simulators, mock_analysis
     ):
@@ -672,6 +679,7 @@ class TestExperimentTracking:
                 "-t",
                 "type=cli",
                 "testcase=basic",
+                "-s", "iverilog",
                 "-o",
                 str(temp_workspace / "generated"),
                 "-src",
@@ -695,7 +703,7 @@ class TestExperimentTracking:
             assert run_data.get("experiment_name") == "cli_test"
             assert run_data.get("experiment_version") == "2.0"
 
-    @pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
+    #@pytest.mark.skipif(shutil.which('vlib') is None, reason="ModelSim not available")
     def test_experiment_commands(self, temp_workspace, mock_simulators, mock_analysis):
         """Test experiment management commands."""
 
@@ -704,7 +712,8 @@ class TestExperimentTracking:
             output_dir=str(temp_workspace / "generated"),
             src_dir=str(temp_workspace / "src"),
             experiment_name="command_test",
-            verbose=True,
+            simulator="iverilog",
+            verbose=True
         )
         runner = HDLAnalysisRunner(config)
 

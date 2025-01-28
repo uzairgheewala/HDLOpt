@@ -4,6 +4,7 @@ __pycache__/
 .ruff_cache/
 .ipynb_checkpoints/
 .Xil/
+.vscode/
 
 power_reports/
 test_reports/
@@ -21,6 +22,10 @@ hdlopt/benchmarking/
 directory_structure.txt
 desired_structure.txt
 code_quality.py
+parser.out
+parsetab.py
+full_adder_schematic.dot
+tb_test.v
 
 *.code-workspace
 *.v

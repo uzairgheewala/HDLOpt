@@ -107,11 +107,13 @@ def timing_wrapper(func):
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         }
 
+        """
         log_file = Path(f"{func.__name__}_timing_logs.json")
         mode = "a" if log_file.exists() else "w"
         with open(log_file, mode) as f:
             json.dump(log_entry, f)
             f.write("\n")
+        """
 
         if hasattr(result, "execution_time"):
             logger.debug(

@@ -42,11 +42,6 @@ jobs:
         run: |
           bandit -r . -f json -o bandit-report.json
 
-      - name: Run tests with coverage
-        continue-on-error: true
-        run: |
-          pytest hdlopt/tests -v --cov=hdlopt --cov-report=xml
-
       - name: Set up Java
         uses: actions/setup-java@v3
         with:

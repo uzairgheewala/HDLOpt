@@ -37,19 +37,21 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y iverilog yosys
+          sudo apt-get install -y iverilog yosys graphviz
+          # For ModelSim Starter Edition
+          wget https://download.altera.com/akdlm/software/acdsinst/20.1std.1/720/ib_installers/ModelSimSetup-20.1.1.720-linux.run
+          chmod +x ModelSimSetup-20.1.1.720-linux.run
+          ./ModelSimSetup-20.1.1.720-linux.run --mode unattended --accept_eula 1
 
       - name: Install HDL tools (MacOS)
         if: matrix.os == 'macos-latest'
         run: |
-          brew install icarus-verilog
-          brew install yosys
+          brew install icarus-verilog yosys graphviz
 
       - name: Install HDL tools (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          choco install iverilog
-          choco install yosys
+          choco install iverilog yosys graphviz
 
       - name: Code Quality
         continue-on-error: true # Add this line to continue even if pylint fails

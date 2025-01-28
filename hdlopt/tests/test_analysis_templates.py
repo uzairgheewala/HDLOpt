@@ -553,6 +553,7 @@ class TestPowerTemplate:
         pdf_report.save()
 
         # Copy to real directory
+        
         real_pdf = (
             output_dir
             / f"power_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"

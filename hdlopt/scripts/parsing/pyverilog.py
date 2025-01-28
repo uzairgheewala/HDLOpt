@@ -2,6 +2,8 @@ import os
 import tempfile
 from typing import Dict, List, Optional
 
+os.environ["PLY_WRITE_TABLES"] = "0"  # Prevent parser table generation
+
 from ..logger import logger
 from .base import VerilogParserBase
 from .exceptions import FileProcessingError, SignalDeclarationError
@@ -123,6 +125,10 @@ class PyVerilogParser(VerilogParserBase):
             FileProcessingError: If parsing fails
         """
         try:
+             # Set PLY parsing options
+            #import ply.yacc
+            #ply.yacc.yacc(debug=False, write_tables=False)
+            
             # Determine if input is file or content
             if os.path.exists(file_or_content):
                 with open(file_or_content) as f:

@@ -228,6 +228,11 @@ class SchematicGenerator:
             subprocess.CalledProcessError: If tool execution fails
             subprocess.TimeoutExpired: If execution times out
         """
+
+        # Setup environment
+        self.env.setup_yosys()
+        self.env.setup_graphviz()
+
         # Create Yosys script
         script_path = self._get_temp_path("ys")
         ys_script, dot_path = self._generate_yosys_script(script_path)
@@ -250,11 +255,12 @@ class SchematicGenerator:
                 text=True,
             )
             # Log Yosys output
-            # logger.debug("Yosys stdout:\n%s", result.stdout)
-            # logger.debug("Yosys stderr:\n%s", result.stderr)
+            logger.debug("Yosys stdout:\n%s", result.stdout)
+            logger.debug("Yosys stderr:\n%s", result.stderr)
 
             # Get DOT file path
-            # print("Files in dot path:", os.listdir(dot_path.parent))
+            logger.debug(f"Files in dot path: {os.listdir(dot_path.parent)}")
+            logger.debug(f"Files in script_path: {os.listdir(script_path.parent)}")
             # dot_path = script_path.parent / f"{self.component_name}_schematic.dot"
             if not dot_path.exists():
                 raise RuntimeError(f"Yosys completed but DOT not found at {dot_path}")
@@ -284,20 +290,22 @@ class SchematicGenerator:
                 str(output_path),
                 str(dot_path),
             ]
+            """
             env = os.environ.copy()
             env["PATH"] = (
                 r"C:\Program Files\Graphviz\bin;" + env["PATH"]
             )  # Add your Graphviz path
+            """
             result = subprocess.run(
                 ["dot", "-V"], shell=True, check=True
             )  # Should print the version
             # print(result, result.stdout, result.stderr)
             result = subprocess.run(
                 dot_cmd,
-                env=env,  # Pass the modified environment
+                #env=env,  # Pass the modified environment
                 capture_output=True,
                 text=True,
-                check=True,
+                check=True
             )
             logger.debug("Graphviz stdout: %s", result.stdout)
             logger.debug("Graphviz stderr: %s", result.stderr)
@@ -461,11 +469,4 @@ class SchematicGenerator:
             except Exception as e:
                 logger.warning(f"Failed to remove temp file {temp_file}: {str(e)}")
         
-        # Also cleanup known temp files by pattern
-        import glob
-        for pattern in [f"{self.component_name}_*.dot", f"{self.component_name}_*.ys"]:
-            for f in glob.glob(os.path.join("/tmp", pattern)):
-                try:
-                    os.remove(f)
-                except Exception as e:
-                    logger.warning(f"Failed to remove temp file {f}: {str(e)}")
+        self.temp_files.clear()
