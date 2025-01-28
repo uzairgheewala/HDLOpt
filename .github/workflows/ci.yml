@@ -55,37 +55,6 @@ jobs:
           choco install iverilog
           choco install graphviz
 
-          # Download OSS CAD Suite
-          Invoke-WebRequest -Uri "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2025-01-27/oss-cad-suite-windows-x64-20250127.exe" -OutFile "C:\oss-cad-suite.exe"
-
-          # Run installer silently
-          Start-Process -FilePath "C:\oss-cad-suite.exe" -Wait
-
-          # Setup OSS CAD Suite environment
-          cmd.exe /c "call C:\oss-cad-suite\environment.bat && set > %CD%\env.txt"
-
-          # Read and set environment variables if file exists
-          if (Test-Path "env.txt") {
-              Get-Content "env.txt" | ForEach-Object {
-                  $name, $value = $_.split('=')
-                  if ($name -and $value) {
-                      echo "$name=$value" >> $env:GITHUB_ENV
-                  }
-              }
-          } else {
-              echo "Environment file not created - manual PATH setup"
-              echo "C:\oss-cad-suite\bin" >> $env:GITHUB_PATH
-          }
-
-          # Add fallback PATH update
-          $env:Path = "C:\oss-cad-suite\bin;$env:Path"
-
-          # Verify installation
-          Write-Host "Verifying Yosys installation..."
-          Write-Host "Current PATH: $env:Path"
-          cmd.exe /c "where yosys.exe"
-          cmd.exe /c "yosys --version"
-
       - name: Code Quality
         continue-on-error: true # Add this line to continue even if pylint fails
         run: |
