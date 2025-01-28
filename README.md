@@ -4,8 +4,6 @@
 [![CI](https://github.com/uzairgheewala/hdlopt/workflows/CI/badge.svg)](https://github.com/uzairgheewala/hdlopt/actions)
 [![Documentation Status](https://readthedocs.org/projects/hdlopt/badge/?version=latest)](https://hdlopt.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/hdlopt.svg)](https://badge.fury.io/py/hdlopt)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Modules Implemented](https://img.shields.io/badge/Modules%20Implemented-0%25-red)]()
 
 HDLOpt is a comprehensive toolset for optimizing and analyzing hardware description language (HDL) code, with a focus on Verilog (for now). It provides robust parsing, analysis, and optimization capabilities for HDL designs.
@@ -21,13 +19,15 @@ HDLOpt is a comprehensive toolset for optimizing and analyzing hardware descript
 ## Prerequisites
 
 - Python 3.8+
-- Git
 - One of the following HDL simulators:
-  - ModelSim/Questa (recommended)
+  - ModelSim
   - Icarus Verilog (iverilog)
-- For resource analysis:
+- For netlist, resource usage analyses:
   - Yosys synthesis tool
   - OSS CAD Suite (recommended for Windows users)
+  - Graphviz
+- For timing, power analyses:
+  - Vivado
 
 ### Installation
 
@@ -51,11 +51,6 @@ venv\Scripts\activate
 3. Install required packages:
 ```bash
 pip install -r requirements.txt
-```
-
-4. Optional: Install PyVerilog for enhanced parsing capabilities:
-```bash
-pip install pyverilog
 ```
 
 ### Environment Setup
