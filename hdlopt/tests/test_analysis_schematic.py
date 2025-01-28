@@ -276,7 +276,7 @@ def test_vivado_generation(temp_component_dir, mock_vivado):
 
 def test_error_handling(temp_component_dir, schematic_config, mock_yosys):
     """Test error handling for a nonexistent component (Yosys test)."""
-    with pytest.raises(subprocess.CalledProcessError):
+    with pytest.raises(RuntimeError):
         gen = SchematicGenerator(
             "nonexistent", schematic_config, base_dir=str(temp_component_dir)
         )

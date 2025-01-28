@@ -32,6 +32,11 @@ jobs:
           pip install radon
           pip install bandit
 
+      - name: Install HDL tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog yosys graphviz
+
       - name: Run complexity checks
         run: |
           radon cc . -a -s -n B
@@ -41,6 +46,10 @@ jobs:
         continue-on-error: true
         run: |
           bandit -r . -f json -o bandit-report.json
+
+      - name: Run tests with coverage
+        run: |
+          pytest hdlopt/tests -v --cov=hdlopt --cov-report=xml
 
       - name: Set up Java
         uses: actions/setup-java@v3

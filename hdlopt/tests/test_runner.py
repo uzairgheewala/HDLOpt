@@ -102,9 +102,9 @@ def mock_simulators():
 
     # Save the original subprocess.run before mocking
     original_run = subprocess.run
-    with patch("subprocess.run") as mock_run, patch("shutil.copy2") as mock_copy, patch(
-        "shutil.move"
-    ) as mock_move:
+    with patch("subprocess.run") as mock_run, \
+        patch("shutil.copy2", wraps=shutil.copy2) as mock_copy, \
+        patch("shutil.move", wraps=shutil.move) as mock_move:
 
         def side_effect(*args, **kwargs):
             # Check if the command is a simulator command
@@ -124,8 +124,8 @@ def mock_simulators():
                 return original_run(*args, **kwargs)
 
         mock_run.side_effect = side_effect
-        mock_copy.side_effect = shutil.copy2
-        mock_move.side_effect = shutil.move
+        #mock_copy.side_effect = shutil.copy2
+        #mock_move.side_effect = shutil.move
         yield mock_run
 
 
