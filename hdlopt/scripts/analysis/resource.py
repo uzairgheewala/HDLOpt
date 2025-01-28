@@ -121,7 +121,11 @@ class ResourceAnalyzer:
 
         script.extend(
             [
+                f"hierarchy -top {self.component_name}",
+                "proc",
+                "opt",
                 f"synth -top {self.component_name}",
+                f"show -format dot -prefix {self.component_name}_schematic",
                 f"write_json {self._get_netlist_path()}",
                 "stat",
             ]

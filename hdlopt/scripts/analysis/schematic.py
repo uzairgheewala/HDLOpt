@@ -459,6 +459,13 @@ class SchematicGenerator:
                 if temp_file.exists():
                     temp_file.unlink()
             except Exception as e:
-                logger.warning(
-                    f"Failed to remove temp file {temp_file}: {str(e)}"
-                )
+                logger.warning(f"Failed to remove temp file {temp_file}: {str(e)}")
+        
+        # Also cleanup known temp files by pattern
+        import glob
+        for pattern in [f"{self.component_name}_*.dot", f"{self.component_name}_*.ys"]:
+            for f in glob.glob(os.path.join("/tmp", pattern)):
+                try:
+                    os.remove(f)
+                except Exception as e:
+                    logger.warning(f"Failed to remove temp file {f}: {str(e)}")
