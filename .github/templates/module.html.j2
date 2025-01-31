@@ -1,0 +1,100 @@
+<!-- module.html.j2 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HDLOpt - {{ config.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="text-xl font-bold">HDLOpt</a>
+                    </div>
+                    <div class="ml-6 flex space-x-8">
+                        <a href="index.html" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium">
+                            Modules
+                        </a>
+                        <a href="status.html" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium">
+                            Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold mb-2">{{ config.name }}</h1>
+                <div class="flex space-x-4">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if config.status == 'implemented' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {{ config.status|title }}
+                    </span>
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if config.verification_status == 'verified' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {{ config.verification_status|title }}
+                    </span>
+                </div>
+                <p class="text-gray-600 mt-2">Last updated: {{ config.implementation_date }}</p>
+            </div>
+
+            <!-- Documentation -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+                <div class="px-4 py-5 sm:px-6">
+                    <h2 class="text-lg leading-6 font-medium text-gray-900">Documentation</h2>
+                </div>
+                <div class="border-t border-gray-200">
+                    <div class="px-4 py-5 sm:p-6">
+                        {{ documentation|safe }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+                <div class="px-4 py-5 sm:px-6">
+                    <h2 class="text-lg leading-6 font-medium text-gray-900">Implementation</h2>
+                </div>
+                <div class="border-t border-gray-200">
+                    <div class="px-4 py-5 sm:p-6">
+                        <pre class="language-verilog"><code>{{ implementation }}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Results -->
+            {% if test_results %}
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h2 class="text-lg leading-6 font-medium text-gray-900">Test Results</h2>
+                </div>
+                <div class="border-t border-gray-200">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="grid grid-cols-1 gap-4">
+                            {% for result in test_results %}
+                            <div class="border-l-4 {% if result.passed %}border-green-400{% else %}border-red-400{% endif %} p-4">
+                                <p class="text-sm">
+                                    {% if result.passed %}
+                                    ✅ Test passed
+                                    {% else %}
+                                    ❌ Test failed: {{ result.error_message }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

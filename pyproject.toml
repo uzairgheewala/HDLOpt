@@ -9,7 +9,6 @@ description = "Comprehensive HDL Design Analysis Tool"
 readme = "README.md"
 license = {text = "Apache-2.0"}
 requires-python = ">=3.8"
-dynamic = ["dependencies"]
 authors = [
     {name = "Uzair Gheewala", email = "uzairgheewala474@gmail.com"}
 ]
@@ -35,7 +34,11 @@ dependencies = [
     "pyvcd",
     "graphviz",
     "vcd",
-    "tenacity",
+    "tenacity"
+]
+
+[project.optional-dependencies]
+dev = [
     "black",
     "pylint",
     "flake8",
@@ -56,6 +59,3 @@ Documentation = "https://hdlopt.readthedocs.io/"
 [tool.setuptools]
 include-package-data = true
 packages = ["hdlopt", "hdlopt.scripts"]
-
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}

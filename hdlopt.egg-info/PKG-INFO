@@ -1,3 +1,42 @@
+Metadata-Version: 2.2
+Name: hdlopt
+Version: 0.1.0
+Summary: Comprehensive HDL Design Analysis Tool
+Home-page: https://github.com/uzairgheewala/hdlopt
+Author: Uzair Gheewala
+Author-email: Uzair Gheewala <uzairgheewala474@gmail.com>
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/uzairgheewala/hdlopt
+Project-URL: Documentation, https://hdlopt.readthedocs.io/
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyvips
+Requires-Dist: fusesoc
+Requires-Dist: jinja2
+Requires-Dist: ply
+Requires-Dist: pyverilog
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: deap
+Requires-Dist: cocotb
+Requires-Dist: simpy
+Requires-Dist: vunit-hdl
+Requires-Dist: networkx
+Requires-Dist: pyreadline3
+Requires-Dist: ipython-genutils
+Requires-Dist: reportlab
+Requires-Dist: pymupdf
+Requires-Dist: pyvcd
+Requires-Dist: graphviz
+Requires-Dist: vcd
+Requires-Dist: tenacity
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: pylint; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+
 # HDLOpt
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)

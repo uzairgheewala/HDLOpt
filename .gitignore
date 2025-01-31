@@ -5,6 +5,7 @@ __pycache__/
 .ipynb_checkpoints/
 .Xil/
 .vscode/
+hdlopt.egg-info/
 
 power_reports/
 test_reports/

@@ -1,0 +1,63 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 0 * * *" # Daily update
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jinja2 markdown pygments
+
+      - name: Create docs directory structure
+        run: |
+          mkdir -p docs/_build/html
+          mkdir -p docs/templates
+          mkdir -p docs/assets/css
+
+      - name: Copy templates
+        run: |
+          cp .github/templates/module.html.j2 docs/templates/
+          cp .github/templates/index.html.j2 docs/templates/
+          cp .github/templates/status.html.j2 docs/templates/
+
+      - name: Generate pages
+        run: python .github/scripts/generate_pages.py
+
+      - name: Copy additional assets
+        run: |
+          cp -r docs/assets docs/_build/html/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
+          force_orphan: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "docs: update documentation"
+
+      - name: Update status badge
+        run: |
+          STATUS=$(cat status.json | jq -r '.percent_implemented')
+          COLOR=$([ $STATUS -lt 30 ] && echo "red" || ([ $STATUS -lt 70 ] && echo "yellow" || echo "green"))
+          curl -X POST https://img.shields.io/badge/Modules%20Implemented-${STATUS}%25-${COLOR} \
+            -d "link=https://github.com/${{ github.repository }}/blob/main/status.json" \
+            -d "logo=github"
