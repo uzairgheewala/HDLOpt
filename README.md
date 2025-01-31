@@ -55,12 +55,6 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Optional: Install PyVerilog for enhanced parsing capabilities:
-
-```bash
-pip install pyverilog
-```
-
 ### Environment Setup
 
 #### ModelSim/Questa Setup
