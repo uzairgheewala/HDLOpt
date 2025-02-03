@@ -31,7 +31,7 @@ jobs:
             if [ -f "$file" ]; then
               module_name=$(basename "$file" .v)
               echo "Analyzing module: $module_name"
-              python -m hdlopt.runner analyze "$module_name"
+              python -m hdlopt analyze "$module_name"
             fi
           done
 

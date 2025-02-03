@@ -127,6 +127,8 @@ class PowerAnalyzer:
             f"create_project {project_name} {project_dir_str} -part xc7a35tcsg324-1 -force",
         ]
 
+        report_path = str(self._get_report_path()).replace("\\", "/")
+
         # Add source files
         for file in source_files_str:
             script.append(f"add_files {file}")
@@ -137,7 +139,7 @@ class PowerAnalyzer:
             "launch_runs synth_1",
             "wait_on_run synth_1", 
             "open_run synth_1",
-            f"report_power -file {str(self._get_report_path()).replace('\\', '/')}",
+            f"report_power -file {report_path}",
             "close_project"
         ])
 
