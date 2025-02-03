@@ -75,22 +75,22 @@ class TestPowerAnalyzer:
 
         # Verify power summary
         summary = power_data["summary"]
-        assert summary.total_on_chip == 1.5
-        assert summary.dynamic == 0.8
-        assert summary.device_static == 0.7
+        assert summary['total_on_chip'] == 1.5
+        assert summary['dynamic'] == 0.8
+        assert summary['device_static'] == 0.7
 
         # Verify component breakdown
         components = power_data["on_chip_components"]
         assert len(components) == 2
-        assert components[0].name == "LUT"
-        assert components[0].power == 0.2
-        assert components[0].used == 100
+        assert components[0]['name'] == "LUT"
+        assert components[0]['power'] == 0.2
+        assert components[0]['used'] == 100
 
         # Verify power supplies
         supplies = power_data["power_supply"]
         assert len(supplies) == 1
-        assert supplies[0].source == "Vccint"
-        assert supplies[0].voltage == 1.0
+        assert supplies[0]['source'] == "Vccint"
+        assert supplies[0]['voltage'] == 1.0
 
     def test_tcl_script_generation(self, temp_component_dir):
         """Test generation of Vivado TCL script."""

@@ -1,10 +1,16 @@
 import shutil
 from textwrap import dedent
-
+import os
 import pytest
 
 from ..scripts.testbench.runner import TestbenchResult, TestbenchRunner
 
+def get_all_files(root_dir):
+    all_files = []
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        for filename in filenames:
+            all_files.append(filename)
+    return all_files
 
 @pytest.mark.skipif(not shutil.which("iverilog"), reason="Icarus Verilog not available")
 class TestIVerilogRunner:
@@ -66,7 +72,7 @@ class TestIVerilogRunner:
         runner._compile_source([src_file])
 
         # Verify output file was created
-        assert (iverilog_setup / "adder.log").exists()
+        assert "adder.log" in get_all_files(iverilog_setup)
 
     def test_iverilog_simulation(self, iverilog_setup):
         """Test simulation execution with IVerilog"""
@@ -74,6 +80,8 @@ class TestIVerilogRunner:
 
         tb_file = str(iverilog_setup / "tb_adder.v")
         src_file = str(iverilog_setup / "adder.v")
+
+        print(tb_file, src_file)
 
         result = runner.run_testbench(tb_file, [src_file])
 

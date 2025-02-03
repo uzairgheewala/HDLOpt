@@ -61,15 +61,13 @@ class WaveformAnalyzer:
         if not waveform_file.exists():
             raise FileNotFoundError(f"Waveform file not found: {waveform_file}")
 
-        if self.config.format.lower() == "vcd":
+        try:
             results = self._analyze_vcd(waveform_file)
-        else:
-            raise ValueError(
-                f"Unsupported waveform format: {self.config.format}"
-            )
-
-        logger.info("Waveform analysis completed.")
-        return results
+            logger.info("Waveform analysis completed.")
+            return results
+        except Exception as e:
+            logger.error(f"Waveform analysis failed: {str(e)}")
+            raise
 
     def _analyze_vcd(self, vcd_file: Path) -> Dict:
         try:
@@ -217,8 +215,9 @@ class WaveformAnalyzer:
 
         return metrics
 
+    """
     def generate_report(self, waveform_file: Path, analysis_results: Dict) -> None:
-        """Generate PDF report of waveform analysis."""
+        Generate PDF report of waveform analysis.
         # Get the output path in same directory as waveform file
         report_path = waveform_file.parent / f"{waveform_file.stem}_analysis.pdf"
         print(f"Generating report at: {report_path}")
@@ -266,6 +265,35 @@ class WaveformAnalyzer:
             logger.error(f"PDF file was not created at {report_path}")
 
         logger.debug(f"Saved waveform analysis report to {report_path}")
+    """
+    def generate_report(self, wave_data: Dict[str, Dict]) -> None:
+        """Generate PDF report for all analyzed waveforms.
+        
+        Args:
+            wave_data: Dictionary mapping parameter combinations to analysis results
+        """
+        report_path = Path(self.base_dir) / f"{self.component_name}_waveform_report.pdf"
+        logger.info(f"Generating report at: {report_path}")
+        
+        try:
+            report = PDFReportGenerator(str(report_path))
+            report.add_title_page(f"Waveform Analysis Report - {self.component_name}")
+            
+            # Create template for each parameter combination
+            for param_str, data in wave_data.items():
+                template = WaveformTemplate(report)
+                plots = self._generate_plots(data)
+                title = f"Parameter Configuration: {param_str}"
+                logger.debug(f"Generating page for {param_str} with {len(plots)} plots")
+                template.generate_page(self.component_name, data, plots)
+                report.add_template(template.elements)
+            
+            report.save()
+            logger.info(f"Generated waveform analysis report at {report_path}")
+            
+        except Exception as e:
+            logger.error(f"Failed to generate waveform report: {str(e)}")
+            raise
 
     def _generate_plots(self, analysis_results: Dict) -> Dict[str, io.BytesIO]:
         """Return a dictionary of plot buffers.

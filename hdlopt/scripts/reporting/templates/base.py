@@ -1,6 +1,125 @@
 from reportlab.lib.units import inch
 from reportlab.platypus import Frame, PageBreak, Paragraph, Spacer
+from dataclasses import dataclass
+from typing import Dict
 
+@dataclass
+class TimingSummary:
+    """Container for timing analysis summary data"""
+
+    wns: float  # Worst Negative Slack
+    tns: float  # Total Negative Slack
+    whs: float  # Worst Hold Slack
+    ths: float  # Total Hold Slack
+    wpws: float  # Worst Pulse Width Slack
+    tpws: float  # Total Pulse Width Slack
+    failing_endpoints: int
+    total_endpoints: int
+
+    def to_dict(self) -> dict:
+        """Convert to JSON-serializable dictionary."""
+        return {
+            'wns': self.wns,
+            'tns': self.tns,
+            'whs': self.whs,
+            'ths': self.ths,
+            'wpws': self.wpws,
+            'tpws': self.tpws,
+            'failing_endpoints': self.failing_endpoints,
+            'total_endpoints': self.total_endpoints
+        }
+
+
+@dataclass
+class ClockSummary:
+    """Summary of clock domain timing"""
+
+    name: str
+    period: float
+    wns: float
+    tns: float
+    failing_endpoints: int
+    total_endpoints: int
+
+    def to_dict(self) -> dict:
+        """Convert to JSON-serializable dictionary."""
+        return {
+            'name': self.name,
+            'period': self.period,
+            'wns': self.wns,
+            'tns': self.tns,
+            'failing_endpoints': self.failing_endpoints,
+            'total_endpoints': self.total_endpoints
+        }
+    
+@dataclass
+class PowerSummary:
+    """Summary of power consumption"""
+
+    total_on_chip: float
+    dynamic: float
+    static: float
+    device_static: float
+    effective_thetaja: float
+    max_ambient: float
+    junction_temp: float
+
+    def to_dict(self) -> Dict:
+        return {
+            "total_on_chip": self.total_on_chip,
+            "dynamic": self.dynamic,
+            "static": self.static,
+            "device_static": self.device_static,
+            "effective_thetaja": self.effective_thetaja,
+            "max_ambient": self.max_ambient,
+            "junction_temp": self.junction_temp,
+        }
+
+
+@dataclass
+class ComponentPower:
+    """Power consumption for a component"""
+
+    name: str
+    power: float
+    used: int
+    available: int
+    utilization: float
+
+    def to_dict(self) -> Dict:
+        return {
+            "name": self.name,
+            "power": self.power,
+            "used": self.used,
+            "available": self.available,
+            "utilization": self.utilization,
+        }
+
+
+@dataclass
+class PowerSupply:
+    """Power supply characteristics"""
+
+    source: str
+    voltage: float
+    total_current: float
+    dynamic_current: float
+    static_current: float
+    powerup_current: float
+    budget: float
+    margin: float
+
+    def to_dict(self) -> Dict:
+        return {
+            "source": self.source,
+            "voltage": self.voltage,
+            "total_current": self.total_current,
+            "dynamic_current": self.dynamic_current,
+            "static_current": self.static_current,
+            "powerup_current": self.powerup_current,
+            "budget": self.budget,
+            "margin": self.margin,
+        }
 
 class PageTemplate:
     """Base class for PDF report page templates."""

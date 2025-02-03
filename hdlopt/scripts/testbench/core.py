@@ -55,6 +55,7 @@ class TestbenchGenerator:
         signals: Optional[SignalConfig] = None,
         base_dir: str = "generated",
         min_params: Optional[Dict[str, Dict[str, int]]] = None,
+        output_filename: Optional[str] = None
     ):
         self.component_name = component_name
         self.rules = rules
@@ -63,6 +64,7 @@ class TestbenchGenerator:
         self.signals = signals or SignalConfig()
         self.base_dir = base_dir
         self.min_params = min_params or {}
+        self.output_filename = output_filename
 
         # Load testbench template
         self.template = jinja2.Template(self._get_template())
@@ -457,6 +459,9 @@ class TestbenchGenerator:
         self._update_component_details(
             component_details, param_comb_str, test_cases, expected_values
         )
+        #logger.debug(f"Final component details: {component_details}")
+        if self.output_filename:
+            component_details["param_component_name"] = self.output_filename.strip(".v").strip("tb_")
 
         # Generate and save testbench
         tb_code = self.template.render(component_details)
@@ -551,8 +556,9 @@ class TestbenchGenerator:
             # Recursively generate for that submodule
             submodule_gen.generate(recursive=True)
 
+    
     def _save_testbench(self, tb_code: str, param_comb_str: str) -> None:
-        """Save generated testbench to file"""
+        #Save generated testbench to file
         component_dir = self._find_component_dir()
         tb_filename = os.path.join(
             component_dir, f"tb_{param_comb_str}_{self.component_name}.v"
@@ -562,6 +568,27 @@ class TestbenchGenerator:
             f.write(tb_code)
 
         print(f"Generated testbench saved to {tb_filename}")
+    """
+    def _save_testbench(self, tb_code: str, param_comb_str: str) -> None:
+       
+        component_dir = self._find_component_dir()
+        
+        # Use consistent naming between file and module name
+        unique_suffix = hash(tb_code) % 1000  # Use hash of code for uniqueness
+        tb_name = f"tb_{param_comb_str}_{unique_suffix}_{self.component_name}"
+        tb_filename = os.path.join(component_dir, f"{tb_name}.v")
+        
+        # Replace module name in code to match filename
+        tb_code = tb_code.replace(
+            f"module tb_{param_comb_str}_{self.component_name}",
+            f"module {tb_name}"
+        )
+        
+        with open(tb_filename, "w") as f:
+            f.write(tb_code)
+            
+        print(f"Generated testbench saved to {tb_filename}")
+    """
 
     def _find_component_dir(self) -> str:
         """Find the directory containing component files"""

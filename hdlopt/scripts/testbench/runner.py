@@ -1,6 +1,7 @@
 import functools
 import json
 import os
+import shutil
 import re
 import subprocess
 import time
@@ -147,115 +148,319 @@ class TestbenchRunner:
             f"work_dir={self.work_dir}, timeout={self.timeout}"
         )
 
+    def _monitor_process(self, process):
+        """Monitor a running process and log its resource usage."""
+        import psutil
+        p = psutil.Process(process.pid)
+        while process.poll() is None:
+            try:
+                logger.debug(f"Process {process.pid} - CPU: {p.cpu_percent()}%, Memory: {p.memory_info().rss / 1024 / 1024:.1f}MB")
+                time.sleep(1)
+            except psutil.NoSuchProcess:
+                break
+
     def _setup_simulator(self) -> None:
         """Setup simulator environment"""
         logger.debug(f"Setting up simulator environment for {self.simulator}")
         if self.simulator == "modelsim":
             work_lib = Path(self.work_dir) / "work"
-            if not work_lib.exists():
-                logger.debug("Creating ModelSim work library.")
-                subprocess.run(["vlib", "work"], cwd=self.work_dir, check=True)
+            #if not work_lib.exists():
+                #logger.debug("Creating ModelSim work library.")
+                #subprocess.run(["vlib", "work"], cwd=self.work_dir, check=True)
         elif self.simulator == "iverilog":
             subprocess.run(["iverilog", "-V"], capture_output=True, text=True)
+
+    def _compile_all_files(self, files: List[str], force_recompile: bool = False) -> None:
+        """Compile all files sequentially to ensure proper library population."""
+        for src_file in files:
+            logger.debug(f"Compiling {src_file}")
+            if not os.path.exists(src_file):
+                raise FileNotFoundError(f"Source file not found: {src_file}")
+                
+            if not force_recompile and Path(src_file).with_suffix('.log').exists():
+                logger.debug(f"Skipping compilation of {src_file} (already compiled)")
+                continue
+                
+            try:
+                if self.simulator == "modelsim":
+                    cmd = ["vlog", "-work", "work", "-sv", src_file]
+                elif self.simulator == "iverilog":
+                    out_path = Path(src_file).with_suffix('.out')
+                    cmd = ["iverilog", "-o", str(out_path), src_file]
+                    
+                result = subprocess.run(cmd, capture_output=True, text=True, cwd=self.work_dir)
+                
+                if result.returncode != 0:
+                    raise RuntimeError(f"Compilation failed for {src_file}: {result.stderr}")
+                    
+            except subprocess.TimeoutExpired:
+                raise TimeoutError(f"Compilation timed out for {src_file}")
 
     def _compile_source(
         self, source_files: List[str], force_recompile: bool = False
     ) -> None:
         """Compile Verilog source files"""
-        logger.debug(
-            f"Starting compilation of {len(source_files)} files: {source_files}"
-        )
-        for src_file in source_files:
-            logger.debug(f"Checking existence of {src_file}")
-            if not os.path.exists(src_file):
-                logger.error(f"File not found: {src_file}")
-                raise FileNotFoundError(f"Source file not found: {src_file}")
+        logger.debug(f"Starting compilation of {len(source_files)} files: {source_files}")
+    
+        # Create unique work directory for this compilation using thread ID instead of PID
+        import threading
+        temp_work_dir = Path(self.work_dir) / f"work_{threading.get_ident()}_{time.time_ns()}"
+        temp_work_dir.mkdir(parents=True, exist_ok=True)
+        logger.debug(f"Created temporary work directory: {temp_work_dir}")
 
-            output_file = Path(src_file).with_suffix(".log")
+        try:
+            # First copy all source files to temp directory to avoid parallel access issues
+            temp_sources = []
+            for src_file in source_files:
+                logger.debug(f"Checking existence of {src_file}")
+                if not os.path.exists(src_file):
+                    logger.error(f"File not found: {src_file}")
+                    raise FileNotFoundError(f"Source file not found: {src_file}")
 
-            # Skip if already compiled and not forcing recompile
-            if not force_recompile and output_file.exists():
-                logger.debug(f"Skipping compilation of {src_file} (already compiled)")
-                continue
+                temp_src = temp_work_dir / Path(src_file).name
+                shutil.copy2(src_file, temp_src)
+                logger.debug(f"Copied {src_file} to {temp_src}")
+                temp_sources.append(temp_src)
 
-            logger.debug(
-                f"Compiling {src_file} -> {output_file} with {self.simulator} ..."
-            )
-            try:
-                if self.simulator == "modelsim":
-                    cmd = ["vlog", "-work", "work", "-sv", src_file]
-                elif self.simulator == "iverilog":
-                    all_files = source_files  # e.g. [adder.v, tb_adder.v]
-                    tb_file = source_files[-1]
-                    out_path = Path(tb_file).with_suffix(".out")
-                    cmd = ["iverilog", "-o", str(out_path)] + all_files
-                else:
-                    logger.error(f"Unsupported simulator: {self.simulator}")
-                    raise ValueError(
-                        f"Unsupported simulator: {self.simulator}"
+            # Create ModelSim work library
+            if self.simulator == "modelsim":
+                work_path = temp_work_dir / "work"
+                result = subprocess.run(
+                    ["vlib", str(work_path)],
+                    capture_output=True,
+                    text=True,
+                    cwd=temp_work_dir
+                )
+                if result.returncode != 0:
+                    raise RuntimeError(f"Failed to create work library: {result.stderr}")
+                logger.debug(f"Created ModelSim work library at {work_path}")
+
+                # Compile each file individually
+                for temp_src in temp_sources:
+                    output_file = temp_src.with_suffix(".log")
+                    if not force_recompile and output_file.exists():
+                        logger.debug(f"Skipping compilation of {temp_src} (already compiled)")
+                        continue
+
+                    logger.debug(f"Compiling {temp_src}")
+                    cmd = ["vlog", "-work", "work", "-sv", str(temp_src)]
+                    result = subprocess.run(
+                        cmd,
+                        capture_output=True,
+                        text=True,
+                        cwd=temp_work_dir,
+                        timeout=60
                     )
 
-                logger.debug(f"Running command: {cmd} in cwd={self.work_dir}")
+                    # Save compilation output
+                    with open(output_file, "w") as f:
+                        f.write(result.stdout)
+                        if result.stderr:
+                            f.write("\nErrors:\n" + result.stderr)
+
+                    if result.returncode != 0:
+                        raise RuntimeError(f"Compilation failed for {temp_src}: {result.stderr}")
+
+            elif self.simulator == "iverilog":
+                # For iverilog, compile all files together
+                tb_file = temp_sources[-1]  # Assume testbench is last file
+                output_path = tb_file.with_suffix(".out")
+                
+                cmd = ["iverilog", "-o", str(output_path)]
+                cmd.extend(str(src) for src in temp_sources)
+                
+                logger.debug(f"Running command: {cmd}")
                 result = subprocess.run(
                     cmd,
                     capture_output=True,
                     text=True,
-                    cwd=self.work_dir,
-                    timeout=self.timeout,
+                    cwd=temp_work_dir,
+                    timeout=60
                 )
 
-                stdout_str = str(result.stdout)
-                stderr_str = str(result.stderr)
-
-                logger.debug(f"Compile returncode={result.returncode}")
-                logger.debug(f"Compile stdout={stdout_str!r}")
-                logger.debug(f"Compile stderr={stderr_str!r}")
-
                 # Save compilation output
+                output_file = tb_file.with_suffix(".log")
                 with open(output_file, "w") as f:
-                    f.write(stdout_str)
-                    if stderr_str:
-                        f.write("\nErrors:\n" + stderr_str)
+                    if type(result.stdout) == bytes:
+                        f.write(result.stdout.decode('utf-8'))
+                    elif type(result.stdout) == str:
+                        f.write(result.stdout)
+                    if result.stderr:
+                        f.write("\nErrors:\n" + result.stderr)
 
                 if result.returncode != 0:
-                    logger.error(f"Compilation failed for {src_file}")
-                    raise RuntimeError(
-                        f"Compilation failed for {src_file}: {stderr_str}"
-                    )
+                    raise RuntimeError(f"Compilation failed: {result.stderr}")
 
-            except subprocess.TimeoutExpired:
-                logger.error(f"Compilation timeout for {src_file}")
-                raise
+            else:
+                raise ValueError(f"Unsupported simulator: {self.simulator}")
+
+            # Copy successful compilation outputs back to original work directory
+            if self.simulator == "modelsim":
+                # Copy work library back
+                work_dest = Path(self.work_dir) / "work"
+                if work_dest.exists():
+                    shutil.rmtree(work_dest)
+                shutil.copytree(temp_work_dir / "work", work_dest)
+                logger.debug(f"Copied work library to {work_dest}")
+        finally:
+            pass
+            """
+            # Clean up temp directory
+            try:
+                shutil.rmtree(temp_work_dir)
+                logger.debug(f"Cleaned up temporary directory: {temp_work_dir}")
+            except Exception as e:
+                logger.warning(f"Failed to clean up temp directory: {str(e)}")
+            """
 
     def _run_simulation(self, testbench_file: str) -> str:
         """Run simulation and return output"""
         module_name = Path(testbench_file).stem
-        logger.debug(
-            f"Running simulation for testbench file={testbench_file}, module={module_name}"
-        )
+
+        # Extract parameter combination from testbench name
+        param_config = self._extract_params_from_filename(testbench_file)
+        param_str = "_".join(f"{k}{v}" for k,v in param_config.items()) if param_config else "default"
+        comp_name = self._extract_component_name(testbench_file)
+        
+        # Use the same VCD filename format as in template
+        vcd_file = f"{module_name}__wave.vcd"
+        
+        logger.debug(f"Running simulation for testbench file={testbench_file}, module={module_name}")
+
+        # Create unique temp work directory
+        temp_work_dir = Path(self.work_dir) / f"work_{os.getpid()}_{time.time_ns()}"
+        temp_work_dir.mkdir(parents=True, exist_ok=True)
+        logger.debug(f"Created temporary work directory: {temp_work_dir}")
 
         try:
             if self.simulator == "modelsim":
-                cmd = ["vsim", "-c", "-do", "run -all; exit", f"work.{module_name}"]
+                # Create new work library in temp directory
+                logger.debug("Creating ModelSim work library in temp directory")
+                subprocess.run(["vlib", "work"], cwd=temp_work_dir, check=True)
+                
+                # Copy and compile source files in temp directory
+                logger.debug("Copying and compiling source files")
+                source_files = self._collect_source_files(self.work_dir)
+                for src_file in source_files:
+                    temp_src = temp_work_dir / Path(src_file).name
+                    shutil.copy2(src_file, temp_src)
+                    compile_cmd = ["vlog", "-work", "work", "-sv", str(temp_src)]
+                    result = subprocess.run(
+                        compile_cmd,
+                        capture_output=True,
+                        text=True,
+                        cwd=temp_work_dir
+                    )
+                    if result.returncode != 0:
+                        raise RuntimeError(f"Failed to compile {temp_src}: {result.stderr}")
+
+                # Copy and compile testbench
+                temp_tb = temp_work_dir / Path(testbench_file).name
+                shutil.copy2(testbench_file, temp_tb)
+                compile_cmd = ["vlog", "-work", "work", "-sv", str(temp_tb)]
+                result = subprocess.run(
+                    compile_cmd,
+                    capture_output=True,
+                    text=True,
+                    cwd=temp_work_dir
+                )
+                if result.returncode != 0:
+                    raise RuntimeError(f"Failed to compile {temp_tb}: {result.stderr}")
+
+                # Create do file in temp directory
+                do_file = temp_work_dir / f"{module_name}.do"
+                with open(do_file, 'w') as f:
+                    f.write(f"""
+                        vcd file {vcd_file}
+                        vcd add -r /*
+                        run -all
+                        vcd flush
+                        quit -f
+                    """)
+
+                # Run simulation
+                cmd = [
+                    "vsim",
+                    "-c",
+                    "-do", str(do_file),
+                    f"work.{module_name}"
+                ]
+
             elif self.simulator == "iverilog":
-                output_file = Path(testbench_file).with_suffix(".out")
+                # Find the compiled output file by searching parent directory recursively
+                parent_dir = Path(self.work_dir)
+                logger.debug(f"Searching for compiled output in {parent_dir}")
+                
+                # Search for a .out file matching the testbench name
+                compiled_outputs = list(parent_dir.rglob(f"{Path(testbench_file).stem}.out"))
+                
+                if not compiled_outputs:
+                    logger.debug("No existing compiled output found, compiling now...")
+                    
+                    # Copy source files to temp directory
+                    source_files = self._collect_source_files(parent_dir)
+                    logger.debug(f"Found source files: {source_files}")
+                    
+                    temp_sources = []
+                    for src_file in source_files + [testbench_file]:
+                        temp_src = temp_work_dir / Path(src_file).name
+                        shutil.copy2(src_file, temp_src)
+                        temp_sources.append(temp_src)
+                        logger.debug(f"Copied {src_file} to {temp_src}")
+
+                    # Compile all files together
+                    output_file = temp_work_dir / f"{Path(testbench_file).stem}.out"
+                    cmd = ["iverilog", "-o", str(output_file)]
+                    cmd.extend(str(src) for src in temp_sources)
+                    
+                    logger.debug(f"Running compilation command: {cmd}")
+                    result = subprocess.run(
+                        cmd,
+                        capture_output=True,
+                        text=True,
+                        cwd=temp_work_dir
+                    )
+                    
+                    if result.returncode != 0:
+                        raise RuntimeError(f"Compilation failed: {result.stderr}")
+                        
+                    logger.debug(f"Successfully compiled to {output_file}")
+                else:
+                    logger.debug(f"Using existing compiled output: {compiled_outputs[0]}")
+                    output_file = compiled_outputs[0]
+
+                # Run simulation
                 cmd = ["vvp", str(output_file)]
+            
             else:
                 logger.error(f"Unsupported simulator: {self.simulator}")
                 raise ValueError(f"Unsupported simulator: {self.simulator}")
 
-            logger.debug(f"Simulation command: {cmd} in cwd={self.work_dir}")
+            logger.debug(f"Simulation command: {cmd} in cwd={temp_work_dir}")
             result = subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
-                cwd=self.work_dir,
-                timeout=self.timeout,
+                cwd=temp_work_dir
             )
 
             logger.debug(f"Simulation returncode={result.returncode}")
-            logger.debug(f"Simulation stdout={result.stdout!r}")
+            #logger.debug(f"Simulation stdout={result.stdout!r}")
             logger.debug(f"Simulation stderr={result.stderr!r}")
+
+            # Verify VCD file was created
+            vcd_path = temp_work_dir / vcd_file
+            if not vcd_path.exists():
+                logger.warning(f"VCD file not generated at {vcd_path}")
+            else:
+                logger.debug(f"VCD file generated at {vcd_path}")
+                # Copy VCD file to original work directory if needed
+                dest_vcd = Path(self.work_dir) / vcd_file
+                try:
+                    shutil.copy2(vcd_path, dest_vcd)
+                    logger.debug(f"Copied VCD file to {dest_vcd}")
+                except Exception as e:
+                    logger.warning(f"Failed to copy VCD file: {str(e)}")
 
             if result.returncode != 0:
                 logger.error(
@@ -270,6 +475,13 @@ class TestbenchRunner:
         except subprocess.TimeoutExpired:
             logger.error(f"Simulation timeout for {testbench_file}")
             raise
+        finally:
+            # Clean up temp directory
+            try:
+                shutil.rmtree(temp_work_dir, ignore_errors=True)
+                logger.debug(f"Cleaned up temporary directory: {temp_work_dir}")
+            except Exception as e:
+                logger.warning(f"Failed to clean up temp directory: {str(e)}")
 
     def _parse_simulation_output(self, output: str) -> List[TestResult]:
         """Parse simulation output and extract test results"""
@@ -320,9 +532,9 @@ class TestbenchRunner:
                 outputs.get(key) == expected.get(key) for key in outputs.keys()
             )
 
-            logger.debug(
-                f"Parsed values - Inputs: {inputs}, Outputs: {outputs}, Expected: {expected}"
-            )
+            #logger.debug(
+            #    f"Parsed values - Inputs: {inputs}, Outputs: {outputs}, Expected: {expected}"
+            #)
 
             results.append(
                 TestResult(
@@ -357,6 +569,19 @@ class TestbenchRunner:
             return int(value)
         except ValueError:
             return float(value)
+        
+    def _cleanup(self):
+        """Clean up temporary directories"""
+        if hasattr(self, '_current_work_dir'):
+            try:
+                work_dir = self._current_work_dir
+                if work_dir.exists():
+                    shutil.rmtree(work_dir, ignore_errors=True)
+                    logger.debug(f"Cleaned up temporary directory: {work_dir}")
+                delattr(self, '_current_work_dir')
+            except Exception as e:
+                logger.warning(f"Failed to clean up temp directory: {str(e)}")
+
 
     @timing_wrapper
     def run_testbench(
@@ -374,10 +599,12 @@ class TestbenchRunner:
             # Setup simulator
             self._setup_simulator()
 
+            # FIRST: Sequential compilation of all files
+            #self._compile_all_files(source_files + [testbench_file], force_recompile)
             # Compile sources
             self._compile_source(source_files + [testbench_file], force_recompile)
 
-            # Run simulation
+            # THEN: Run simulation
             output = self._run_simulation(testbench_file)
 
             # Parse results
@@ -401,12 +628,16 @@ class TestbenchRunner:
                 execution_time=0.0,  # overwritten by timing_wrapper
                 test_results=results,
             )
-            logger.debug(f"Testbench completed: {tb_result}")
+            logger.debug(f"Testbench completed")
             return tb_result
 
         except Exception as e:
             logger.error(f"Error running testbench {testbench_file}: {str(e)}")
             raise
+        
+        finally:
+            # Clean up temp files
+            self._cleanup()
 
     def _extract_params_from_filename(self, filename: str) -> Dict[str, int]:
         """Extract parameter configuration from testbench filename"""
@@ -500,16 +731,17 @@ class TestbenchRunner:
 
         return results
 
-    def _collect_source_files(self, directory: Union[str, Path]) -> List[str]:
-        """Collect all Verilog source files in directory (but skip testbenches)"""
+    def _collect_source_files(self, directory: Union[str, Path], skip_temp: bool = True) -> List[str]:
+        """Collect all Verilog source files in directory (but skip testbenches and temp directories)"""
         directory = Path(directory)
         source_files = []
         logger.debug(f"Collecting source files in {directory}")
-        for file in directory.rglob("*.v"):
-            if not file.stem.startswith("tb_"):
+        
+        # Only look at files directly in the directory, not recursively
+        for file in directory.glob("*.v"):
+            # Skip testbenches and temporary directories
+            if not file.stem.startswith("tb_") and not "work_" in str(file):
                 source_files.append(str(file))
 
-        logger.debug(
-            f"Collected {len(source_files)} source file(s): {source_files}"
-        )
+        logger.debug(f"Collected {len(source_files)} source file(s): {source_files}")
         return source_files

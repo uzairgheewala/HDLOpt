@@ -65,7 +65,7 @@ class SchematicConfig:
     """
 
     format: SchematicFormat = SchematicFormat.PDF
-    tool: SchematicTool = SchematicTool.VIVADO
+    tool: SchematicTool = SchematicTool.YOSYS
     level: SchematicLevel = SchematicLevel.RTL
     orientation: SchematicOrientation = SchematicOrientation.LANDSCAPE
     include_ports: bool = True
@@ -155,7 +155,7 @@ class SchematicGenerator:
 
         except Exception as e:
             logger.error(f"Schematic generation failed: {str(e)}")
-            raise
+            raise e
         finally:
             if self.config.cleanup_temp:
                 self._cleanup()
@@ -172,18 +172,26 @@ class SchematicGenerator:
 
     def _generate_vivado_schematic(self) -> Path:
         """Generate schematic using Vivado.
-
+        
         Returns:
             Path to generated schematic
-
+            
         Raises:
             subprocess.CalledProcessError: If Vivado execution fails
-            subprocess.TimeoutExpired: If execution times out
         """
-        # Create Vivado script
-        tcl_script = self._generate_vivado_script()
-        script_path = self._get_temp_path("tcl")
-        self.temp_files.add(script_path)
+        if not shutil.which("vivado"):
+            raise FileNotFoundError("Vivado executable not found in PATH. Please ensure Vivado is installed and its 'bin' directory is in your PATH.")
+
+        # Get the component directory path
+        component_dir = self._get_component_dir()
+
+        # Create output directory if needed
+        output_path = self._get_schematic_path()
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Generate and write Vivado TCL script in component directory
+        tcl_script = self._generate_tcl_script()
+        script_path = component_dir / f"{self.component_name}_schematic.tcl"
 
         with open(script_path, "w") as f:
             f.write(tcl_script)
@@ -191,31 +199,31 @@ class SchematicGenerator:
         try:
             # Run Vivado
             logger.debug(f"Running Vivado with script: {script_path}")
+            logger.debug(f"Command: vivado -mode batch -source {script_path} -verbose")
             result = subprocess.run(
-                ["vivado", "-mode", "batch", "-source", str(script_path)],
-                check=True,
+                ["vivado", "-mode", "batch", "-source", str(script_path), '-verbose'],
+                check=False,  # Don't raise error immediately
                 capture_output=True,
-                timeout=self.config.timeout,
-                shell=True,
                 text=True,
+                shell=True
             )
-            logger.debug("Vivado stdout:\n%s", result.stdout)
-            logger.debug("Vivado stderr:\n%s", result.stderr)
+            logger.debug(f"Vivado output: {result.stdout}")
+            logger.debug(f"Vivado error: {result.stderr}")
+            if result.returncode != 0:
+                logger.warning(f"Vivado returned nonzero exit code {result.returncode}. "
+                           f"Error message: {result.stderr}")
 
             # Check output path exists
-            output_path = self._get_schematic_path()
             if not output_path.exists():
-                raise RuntimeError(
-                    f"Vivado completed but output not found at {output_path}"
-                )
+                raise RuntimeError(f"Vivado completed but output not found at {output_path}")
 
             return output_path
 
-        except subprocess.TimeoutExpired:
-            logger.error(f"Vivado timed out after {self.config.timeout}s")
-            raise
         except subprocess.CalledProcessError as e:
-            logger.error(f"Vivado failed: {e.stderr}")
+            logger.error(f"Vivado failed:\nstdout: {e.stdout}\nstderr: {e.stderr}")
+            raise
+        except Exception as e:
+            logger.error(f"Schematic generation failed: {str(e)}")
             raise
 
     def _generate_yosys_schematic(self) -> Path:
@@ -234,11 +242,12 @@ class SchematicGenerator:
         self.env.setup_graphviz()
 
         # Create Yosys script
-        script_path = self._get_temp_path("ys")
+        component_dir = self._get_component_dir()
+        script_path = component_dir / f"{self.component_name}_schematic.ys"
         ys_script, dot_path = self._generate_yosys_script(script_path)
-        self.temp_files.add(script_path)
-        print("Script path:", script_path)
-        print("Yosys script:", ys_script)
+        #self.temp_files.add(script_path)
+        logger.debug("Yosys script path: %s", script_path)
+        logger.debug("Yosys script contents:\n%s", ys_script)
 
         with open(script_path, "w") as f:
             f.write(ys_script)
@@ -248,7 +257,7 @@ class SchematicGenerator:
             logger.debug(f"Running Yosys with script: {script_path}")
             result = subprocess.run(
                 ["yosys", str(script_path)],
-                check=True,
+                check=False,
                 capture_output=True,
                 timeout=self.config.timeout,
                 shell=True,
@@ -288,7 +297,7 @@ class SchematicGenerator:
                 "-T" + self.config.format.value,
                 "-o",
                 str(output_path),
-                str(dot_path),
+                str(dot_path)
             ]
             """
             env = os.environ.copy()
@@ -305,7 +314,8 @@ class SchematicGenerator:
                 #env=env,  # Pass the modified environment
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                shell=True
             )
             logger.debug("Graphviz stdout: %s", result.stdout)
             logger.debug("Graphviz stderr: %s", result.stderr)
@@ -357,29 +367,35 @@ class SchematicGenerator:
                 )
             raise
 
-    def _generate_vivado_script(self) -> str:
+    def _generate_tcl_script(self) -> str:
         """Generate Vivado TCL script for schematic generation."""
-        output_path = self._get_schematic_path()
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        # Get the component directory (where the project will be created)
+        component_dir = self._get_component_dir()
+        # Define a dedicated project directory for schematic generation.
+        project_dir = component_dir / "vivado_schematic"
+        project_name = f"{self.component_name}_schematic"
+        source_files = self._collect_source_files()
 
+        # Use forward slashes for TCL
+        project_dir_str = str(project_dir).replace('\\', '/')
+        source_files_str = [str(f).replace('\\', '/') for f in source_files]
+        output_path = str(self._get_schematic_path()).replace('\\', '/')
+
+        # Ensure that the project directory exists by instructing Tcl to make it.
         script = [
             "# Generated by SchematicGenerator",
-            f"# {datetime.now()}",
-            "",
-            f"create_project -force {self.component_name}_schematic tmp -part xc7a35tcsg324-1",
-            f"cd {output_path.parent}",  # Change to output directory
+            f"create_project -force {project_name} {project_dir_str} -part xc7a35tcsg324-1",
         ]
 
-        # Add source files with absolute paths
-        source_files = self._collect_source_files()
-        for src_file in source_files:
-            script.append(f"add_files {os.path.abspath(src_file)}")
+        # Add source files
+        for file in source_files_str:
+            script.append(f"add_files {file}")
 
         script.extend(
             [
                 f"set_property top {self.component_name} [current_fileset]",
-                "synth_design -top $component_name -mode out_of_context",
-                f"write_schematic -force -format {self.config.format.value} {str(output_path)}",
+                "synth_design -rtl -name rtl_1",
+                f"write_schematic -format {self.config.format.value} -force {output_path}",
                 "close_project",
             ]
         )
@@ -413,30 +429,26 @@ class SchematicGenerator:
 
         # Generate dot file with explicit path
         dot_path = script_path.parent / Path(
-            f"{self.component_name}_schematic.dot"
+            f"{self.component_name}_schematic"
         )  # self._get_temp_path("dot").with_suffix("")
         script.append(f"show -format dot -prefix {dot_path}")
-        script.append(f"write_dot {dot_path}")
+        #script.append(f"write_dot {dot_path}")
 
         print("Dot path to generate DOT file at for yosys:", dot_path)
 
-        return "\n".join(script), dot_path
+        return "\n".join(script), Path(f"{dot_path}.dot")
 
     def _get_component_dir(self) -> Path:
-        """Get component directory path."""
+        """Get component directory path"""
         if self.base_dir:
             component_dir = Path(self.base_dir)
-            # print("component_dir", component_dir, component_dir.exists(), os.listdir(component_dir))
             if component_dir.exists():
                 return component_dir
 
         from .utils import find_component_directory
-
         component_dir = find_component_directory(self.component_name)
         if not component_dir:
-            raise FileNotFoundError(
-                f"Component directory not found for {self.component_name}"
-            )
+            raise FileNotFoundError(f"Component directory not found for {self.component_name}")
         return Path(component_dir)
 
     def _get_temp_path(self, ext: str) -> Path:
@@ -456,9 +468,18 @@ class SchematicGenerator:
     def _collect_source_files(self) -> List[str]:
         """Collect Verilog source files."""
         component_dir = self._get_component_dir()
-        return [
-            str(f) for f in component_dir.rglob("*.v") if not f.name.startswith("tb_")
-        ]
+        source_files = []
+        
+        # Find all .v files except testbenches and temp files
+        for file in component_dir.rglob("*.v"):
+            if not file.name.startswith("tb_") and "work_" not in str(file):
+                source_files.append(str(file))
+        
+        if not source_files:
+            raise FileNotFoundError(f"No source files found in {component_dir}")
+            
+        logger.debug(f"Found source files: {source_files}")
+        return source_files
 
     def _cleanup(self) -> None:
         """Clean up temporary files."""

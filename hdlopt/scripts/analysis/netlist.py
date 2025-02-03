@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict
 
+from ..config import EnvironmentSetup
 
 def parse_netlist(netlist_path: str) -> Dict:
     """Parse Yosys JSON netlist file
@@ -49,9 +50,27 @@ class ModuleMetrics:
         if self.sub_modules is None:
             self.sub_modules = {}
 
+    def to_dict(self) -> dict:
+        """Convert to JSON-serializable dictionary."""
+        return {
+            'wire_count': self.wire_count,
+            'wire_bits': self.wire_bits,
+            'port_count': self.port_count,
+            'port_bits': self.port_bits,
+            'cell_count': self.cell_count,
+            'hierarchy_depth': self.hierarchy_depth,
+            'cells': self.cells,
+            'raw_gates': self.raw_gates,
+            'sub_modules': self.sub_modules
+        }
+
 
 class NetlistAnalyzer:
     """Analyzes Yosys JSON netlist structure"""
+
+    def __init__(self):
+        self.env = EnvironmentSetup()
+        self.env.setup_yosys()
 
     def analyze(
         self, netlist: Dict, module_name: str, param_config: Dict, config
@@ -70,7 +89,8 @@ class NetlistAnalyzer:
         analysis = {}
 
         # Analyze each module
-        for module_name, module_data in netlist["modules"].items():
+        for module_id, module_data in netlist["modules"].items():
+            module_data["name"] = module_id
             metrics = self._analyze_module(module_data, netlist, param_config, config)
             analysis[module_name] = metrics
 
@@ -115,20 +135,23 @@ class NetlistAnalyzer:
 
     def _calculate_depth(self, module_name: str, netlist: Dict, depth: int = 0) -> int:
         """Calculate hierarchy depth recursively"""
-        module = netlist["modules"][module_name]
+        module = netlist["modules"].get(module_name, {})
         max_depth = depth
 
         for cell in module["cells"].values():
-            if cell["type"] in netlist["modules"]:
-                cell_depth = self._calculate_depth(cell["type"], netlist, depth + 1)
+            cell_type = cell.get("type")
+            if cell_type in netlist["modules"]:
+                cell_depth = self._calculate_depth(cell_type, netlist, depth + 1)
                 max_depth = max(max_depth, cell_depth)
 
         return max_depth
 
     def _analyze_cells(self, metrics: ModuleMetrics, module_data: Dict, netlist: Dict):
         """Analyze module cells and gates"""
-        for cell_name, cell_data in module_data["cells"].items():
+        for cell_name, cell_data in module_data.get("cells", {}).items():
             cell_type = cell_data["type"]
+            if not cell_type:
+                continue
 
             # Track cell count
             if cell_type not in metrics.cells:

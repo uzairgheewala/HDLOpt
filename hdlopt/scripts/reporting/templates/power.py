@@ -6,7 +6,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
 
 from ...logger import logger
-from ...reporting.templates.base import PageTemplate
+from ...reporting.templates.base import PageTemplate, PowerSummary, ComponentPower, PowerSupply
 
 
 class PowerTemplate(PageTemplate):
@@ -52,16 +52,28 @@ class PowerTemplate(PageTemplate):
         """Add power summary section."""
         self.add_heading("Power Summary", level=2)
 
-        data = [
-            ["Metric", "Value"],
-            ["Total On-Chip Power", f"{summary.total_on_chip:.3f} W"],
-            ["Dynamic Power", f"{summary.dynamic:.3f} W"],
-            ["Static Power", f"{summary.static:.3f} W"],
-            ["Device Static Power", f"{summary.device_static:.3f} W"],
-            ["Effective θJA", f"{summary.effective_thetaja:.1f} °C/W"],
-            ["Max Ambient", f"{summary.max_ambient:.1f} °C"],
-            ["Junction Temperature", f"{summary.junction_temp:.1f} °C"],
-        ]
+        if type(summary) is PowerSummary:
+            data = [
+                ["Metric", "Value"],
+                ["Total On-Chip Power", f"{summary.total_on_chip:.3f} W"],
+                ["Dynamic Power", f"{summary.dynamic:.3f} W"],
+                ["Static Power", f"{summary.static:.3f} W"],
+                ["Device Static Power", f"{summary.device_static:.3f} W"],
+                ["Effective θJA", f"{summary.effective_thetaja:.1f} °C/W"],
+                ["Max Ambient", f"{summary.max_ambient:.1f} °C"],
+                ["Junction Temperature", f"{summary.junction_temp:.1f} °C"],
+            ]
+        else:
+            data = [
+                ["Metric", "Value"],
+                ["Total On-Chip Power", f"{summary['total_on_chip']:.3f} W"],
+                ["Dynamic Power", f"{summary['dynamic']:.3f} W"],
+                ["Static Power", f"{summary['static']:.3f} W"],
+                ["Device Static Power", f"{summary['device_static']:.3f} W"],
+                ["Effective θJA", f"{summary['effective_thetaja']:.1f} °C/W"],
+                ["Max Ambient", f"{summary['max_ambient']:.1f} °C"],
+                ["Junction Temperature", f"{summary['junction_temp']:.1f} °C"],
+            ]
 
         self._add_styled_table(data, "Power Summary Metrics")
 
@@ -71,15 +83,26 @@ class PowerTemplate(PageTemplate):
 
         data = [["Component", "Power (W)", "Used", "Available", "Utilization (%)"]]
         for comp in components:
-            data.append(
-                [
-                    comp.name,
-                    f"{comp.power:.3f}",
-                    str(comp.used),
-                    str(comp.available),
-                    f"{comp.utilization:.1f}",
-                ]
-            )
+            if type(comp) is ComponentPower:
+                data.append(
+                    [
+                        comp.name,
+                        f"{comp.power:.3f}",
+                        str(comp.used),
+                        str(comp.available),
+                        f"{comp.utilization:.1f}"
+                    ]
+                )
+            else:
+                data.append(
+                    [
+                        comp["name"],
+                        f"{comp['power']:.3f}",
+                        str(comp["used"]),
+                        str(comp["available"]),
+                        f"{comp['utilization']:.1f}"
+                    ]
+                )
 
         self._add_styled_table(data, "Component Power Usage")
 
@@ -101,18 +124,32 @@ class PowerTemplate(PageTemplate):
         ]
 
         for supply in supplies:
-            data.append(
-                [
-                    supply.source,
-                    f"{supply.voltage:.3f}",
-                    f"{supply.total_current:.3f}",
-                    f"{supply.dynamic_current:.3f}",
-                    f"{supply.static_current:.3f}",
-                    f"{supply.powerup_current:.3f}",
-                    f"{supply.budget:.3f}",
-                    f"{supply.margin:.3f}",
-                ]
-            )
+            if type(supply) is PowerSupply:
+                data.append(
+                    [
+                        supply.source,
+                        f"{supply.voltage:.3f}",
+                        f"{supply.total_current:.3f}",
+                        f"{supply.dynamic_current:.3f}",
+                        f"{supply.static_current:.3f}",
+                        f"{supply.powerup_current:.3f}",
+                        f"{supply.budget:.3f}",
+                        f"{supply.margin:.3f}",
+                    ]
+                )
+            else:
+                data.append(
+                    [
+                        supply["source"],
+                        f"{supply['voltage']:.3f}",
+                        f"{supply['total_current']:.3f}",
+                        f"{supply['dynamic_current']:.3f}",
+                        f"{supply['static_current']:.3f}",
+                        f"{supply['powerup_current']:.3f}",
+                        f"{supply['budget']:.3f}",
+                        f"{supply['margin']:.3f}"
+                    ]
+                )
 
         self._add_styled_table(data, "Power Supply Characteristics")
 
@@ -159,11 +196,18 @@ class PowerTemplate(PageTemplate):
             if power_data["summary"]:
                 plt.figure(figsize=(8, 8))
 
-                values = [
-                    power_data["summary"].dynamic,
-                    power_data["summary"].static,
-                    power_data["summary"].device_static,
-                ]
+                if type(power_data["summary"]) is PowerSummary:
+                    values = [
+                        power_data["summary"].dynamic,
+                        power_data["summary"].static,
+                        power_data["summary"].device_static
+                    ]
+                else:
+                    values = [
+                        power_data["summary"]["dynamic"],
+                        power_data["summary"]["static"],
+                        power_data["summary"]["device_static"]
+                    ]
                 labels = ["Dynamic", "Static", "Device Static"]
 
                 plt.pie(values, labels=labels, autopct="%1.1f%%")
@@ -188,8 +232,12 @@ class PowerTemplate(PageTemplate):
                 plt.figure(figsize=(10, 6))
 
                 components = power_data["on_chip_components"]
-                names = [c.name for c in components]
-                powers = [c.power for c in components]
+                if type(components[0]) is ComponentPower:
+                    names = [c.name for c in components]
+                    powers = [c.power for c in components]
+                else:
+                    names = [c["name"] for c in components]
+                    powers = [c["power"] for c in components]
 
                 plt.barh(names, powers)
                 plt.xlabel("Power (W)")
@@ -223,7 +271,10 @@ class PowerTemplate(PageTemplate):
         plt.figure(figsize=(8, 8))
 
         # Data for pie chart
-        values = [summary.dynamic, summary.static, summary.device_static]
+        if type(summary) is PowerSummary:
+            values = [summary.dynamic, summary.static, summary.device_static]
+        else:
+            values = [summary["dynamic"], summary["static"], summary["device_static"]]
         labels = ["Dynamic", "Static", "Device Static"]
 
         plt.pie(values, labels=labels, autopct="%1.1f%%")
@@ -247,8 +298,12 @@ class PowerTemplate(PageTemplate):
         """Create and add component power comparison plot."""
         plt.figure(figsize=(10, 6))
 
-        names = [c.name for c in components]
-        powers = [c.power for c in components]
+        if type(components[0]) is ComponentPower:
+            names = [c.name for c in components]
+            powers = [c.power for c in components]
+        else:
+            names = [c["name"] for c in components]
+            powers = [c["power"] for c in components]
 
         plt.barh(names, powers)
         plt.xlabel("Power (W)")

@@ -71,43 +71,48 @@ class ExperimentManager:
 
     def __init__(self, config: ExperimentConfig):
         self.config = config
-        self.db_path = self.config.base_path / "experiments.db"
+        self.db_path = Path(config.base_path) / "experiments.db"
         self.active_connections = set()
         self.setup_database()
 
     def setup_database(self):
         """Initialize SQLite database schema"""
-        self.db_path.parent.mkdir(
-            parents=True, exist_ok=True
-        )  # Ensure directory exists
-        with self._get_connection() as conn:
-            conn.execute("PRAGMA journal_mode=DELETE;")  # Disable WAL
-            conn.execute(
+        try:
+            # Ensure all parent directories exist
+            db_dir = self.db_path.parent
+            db_dir.mkdir(parents=True, exist_ok=True)
+            with self._get_connection() as conn:
+                conn.execute("PRAGMA journal_mode=DELETE;")  # Disable WAL
+                conn.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS runs (
+                        run_id TEXT PRIMARY KEY,
+                        timestamp TEXT,
+                        components TEXT,
+                        component_hashes TEXT,
+                        config TEXT,
+                        metrics TEXT,
+                        artifacts TEXT,
+                        last_updated TEXT
+                    )
                 """
-                CREATE TABLE IF NOT EXISTS runs (
-                    run_id TEXT PRIMARY KEY,
-                    timestamp TEXT,
-                    components TEXT,
-                    component_hashes TEXT,
-                    config TEXT,
-                    metrics TEXT,
-                    artifacts TEXT
                 )
-            """
-            )
 
-            conn.execute(
+                conn.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS component_history (
+                        run_id TEXT,
+                        component_name TEXT,
+                        file_hash TEXT,
+                        file_path TEXT,
+                        PRIMARY KEY (run_id, component_name)
+                    )
                 """
-                CREATE TABLE IF NOT EXISTS component_history (
-                    run_id TEXT,
-                    component_name TEXT,
-                    file_hash TEXT,
-                    file_path TEXT,
-                    PRIMARY KEY (run_id, component_name)
                 )
-            """
-            )
-        self._close_connections()
+            self._close_connections()
+        except Exception as e:
+            logger.error(f"Failed to setup database: {str(e)}")
+            raise
 
     def _get_connection(self):
         """Create and track a new connection"""
@@ -437,3 +442,89 @@ class ExperimentManager:
                 }
 
         return changes
+    
+    def update_metrics(self, run_id: str, metrics: Dict) -> None:
+        """Update metrics for current run with hierarchical metrics tracking.
+        
+        Args:
+            run_id: Run identifier
+            metrics: Dictionary containing metrics like:
+                - {module_name}_hierarchy_depth: int
+                - {module_name}_submodule_count: int 
+                - {module_name}_file_count: int
+                - {module_name}_analyses_run: List[str]
+                - {module_name}_total_tests: int
+                - {module_name}_passed_tests: int
+                - {module_name}_failed_tests: int
+                And analysis-specific metrics from netlist, timing, power analyzers
+        """
+        try:
+            with self._get_connection() as conn:
+                # First get existing metrics
+                cursor = conn.execute(
+                    "SELECT metrics FROM runs WHERE run_id = ?",
+                    (run_id,)
+                )
+                row = cursor.fetchone()
+                if not row:
+                    raise ValueError(f"Run {run_id} not found")
+                    
+                existing_metrics = json.loads(row[0]) if row[0] else {}
+                
+                # Update metrics hierarchically
+                for key, value in metrics.items():
+                    # Parse module name from metric key
+                    if "_" in key:
+                        module_name = key.split("_")[0]
+                        if module_name not in existing_metrics:
+                            existing_metrics[module_name] = {}
+                        existing_metrics[module_name][key] = value
+                    else:
+                        # Top-level metrics
+                        existing_metrics[key] = value
+                
+                # Convert analysis run names to list if needed
+                for module in existing_metrics:
+                    if isinstance(module, dict) and f"{module}_analyses_run" in module:
+                        if isinstance(module[f"{module}_analyses_run"], str):
+                            module[f"{module}_analyses_run"] = [module[f"{module}_analyses_run"]]
+
+                # Save updated metrics
+                conn.execute(
+                    """
+                    UPDATE runs 
+                    SET metrics = ?, 
+                        last_updated = ?
+                    WHERE run_id = ?
+                    """,
+                    (
+                        json.dumps(existing_metrics),
+                        datetime.now().isoformat(),
+                        run_id
+                    )
+                )
+
+        except Exception as e:
+            logger.error(f"Failed to update metrics for run {run_id}: {str(e)}")
+            raise
+
+    def _validate_metrics(self, metrics: Dict) -> None:
+        """Validate metrics format and data types."""
+        for key, value in metrics.items():
+            # Validate metric naming convention
+            if "_" not in key:
+                raise ValueError(f"Invalid metric key format: {key}")
+                
+            # Validate metric values
+            if "count" in key or "depth" in key:
+                if not isinstance(value, (int, float)):
+                    raise ValueError(f"Count/depth metric {key} must be numeric")
+                    
+            if "analyses_run" in key:
+                if not isinstance(value, list):
+                    raise ValueError(f"Analyses run metric {key} must be a list")
+                    
+            # Validate test metrics
+            if "tests" in key:
+                if not isinstance(value, (int, float)):
+                    raise ValueError(f"Test metric {key} must be numeric")

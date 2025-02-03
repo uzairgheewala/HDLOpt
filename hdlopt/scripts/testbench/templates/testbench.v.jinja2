@@ -37,6 +37,10 @@ module tb_{{ param_component_name }};
     {% endif %}
     
     initial begin
+        // VCD file setup
+        $dumpfile("{{ param_component_name }}_{{ module_name }}_wave.vcd");
+        $dumpvars(0, tb_{{ param_component_name }});
+
         // Initialize Inputs
         {% for signal_name, data_type, sign_type, bit_width in inputs %}
         {{ signal_name }} = 0;

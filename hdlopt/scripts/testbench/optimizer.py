@@ -9,6 +9,7 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from dataclasses import asdict, dataclass
 from enum import Enum
 from math import log1p  # Natural logarithm of (1 + x)
+import itertools
 from pathlib import Path
 from typing import Dict, List, Optional, Set
 
@@ -125,6 +126,7 @@ class TestOptimizer:
         constraints: Optional[int] = None,
         timing: Optional[int] = None,
         signals: Optional[int] = None,
+        timeout: Optional[float] = float('inf')
     ):
         self.base_path = Path(base_path)
         self.max_parallel = max_parallel or multiprocessing.cpu_count()
@@ -134,6 +136,7 @@ class TestOptimizer:
         self.constraints = constraints
         self.timing = timing
         self.signals = signals
+        self.timeout = timeout
 
         logger.debug(
             "Initialized TestOptimizer with max_parallel=%d, target_cases=%d",
@@ -286,10 +289,11 @@ class TestOptimizer:
         # Remove param and I/O factors to simplify
         return num_cases * time_per_case
 
+    """
     def identify_edge_cases(
         self, input_ranges: Dict[str, List[int]], special_signals: Set[str]
     ) -> List[Dict[str, int]]:
-        """Identify edge cases for testing."""
+        Identify edge cases for testing.
         edge_cases = []
 
         for signal, range_vals in input_ranges.items():
@@ -333,14 +337,101 @@ class TestOptimizer:
                     full_edge_cases.append(combined)
 
         return full_edge_cases
+    """
+    def identify_edge_cases(self, input_ranges: Dict[str, List[int]], special_signals: Set[str]) -> List[Dict[str, int]]:
+        """Identify edge cases for testing."""
+        edge_vals_per_signal = {}
+        for signal, (min_val, max_val) in input_ranges.items():
+            if signal in special_signals:
+                continue
 
+            values = set()
+            # Always include min and max
+            values.add(min_val)
+            values.add(max_val)
+
+            # For larger ranges, add midpoint and near-boundary values
+            if max_val - min_val > 1:
+                mid_val = (min_val + max_val) // 2
+                values.add(mid_val)
+                # Add values near boundaries if range permits
+                if min_val + 1 <= max_val:
+                    values.add(min_val + 1)
+                if max_val - 1 >= min_val:
+                    values.add(max_val - 1)
+
+            # For control signals (like clk, rst_n), just use min/max
+            if signal in {'clk', 'rst_n'}:
+                values = {min_val, max_val}
+
+            # For data signals, also add common special values if in range
+            else:
+                # Add 0 if in range
+                if min_val <= 0 <= max_val:
+                    values.add(0)
+                # Add power-of-2 boundaries if in range
+                pot = 1
+                while pot <= max_val:
+                    if min_val <= pot <= max_val:
+                        values.add(pot)
+                    if min_val <= pot-1 <= max_val:
+                        values.add(pot-1)
+                    pot *= 2
+
+            edge_vals_per_signal[signal] = sorted(values)
+            logger.debug(f"Edge values for {signal}: {edge_vals_per_signal[signal]}")
+
+        # Generate combinations, but limit for wider signals
+        signals = sorted(edge_vals_per_signal.keys())
+        all_combinations = list(itertools.product(*[edge_vals_per_signal[s] for s in signals]))
+        
+        # Convert to list of dictionaries
+        edge_cases = []
+        for combo in all_combinations:
+            case = {sig: val for sig, val in zip(signals, combo)}
+            edge_cases.append(case)
+            
+        logger.debug(f"Generated {len(edge_cases)}")
+        return edge_cases
+
+    def generate_test_distribution(self, input_ranges: Dict[str, List[int]], num_cases: int, granularity: float = 0.1) -> List[Dict[str, int]]:
+        """Generate regular test cases avoiding edge cases."""
+        test_cases = []
+        max_attempts = num_cases * 2
+
+        # Calculate total possible combinations
+        total_combinations = 1
+        for _, (min_val, max_val) in input_ranges.items():
+            total_combinations *= (max_val - min_val + 1)
+
+        # Track already seen combinations (including edge cases)
+        seen_combinations = set()
+        
+        # Generate cases
+        attempts = 0
+        while len(test_cases) < num_cases and attempts < max_attempts:
+            case = {}
+            for signal, (min_val, max_val) in input_ranges.items():
+                case[signal] = random.randint(min_val, max_val)
+                
+            case_tuple = tuple(sorted(case.items()))
+            if case_tuple not in seen_combinations:
+                test_cases.append(case)
+                seen_combinations.add(case_tuple)
+                
+            attempts += 1
+            
+        logger.debug(f"Generated {len(test_cases)} regular cases out of requested {num_cases}")
+        return test_cases
+
+    """
     def generate_test_distribution(
         self,
         input_ranges: Dict[str, List[int]],
         num_cases: int,
         granularity: float = 0.1,
     ) -> List[Dict[str, int]]:
-        """Generate test cases with binary search distribution."""
+        #Generate test cases with binary search distribution.
         test_cases = []
         interval_points = []
         max_attempts = num_cases * 2  # Prevent infinite loops
@@ -390,6 +481,7 @@ class TestOptimizer:
                 test_cases.append(random.choice(test_cases))
 
         return test_cases
+    """
 
     def split_test_cases(
         self,
@@ -447,11 +539,15 @@ class TestOptimizer:
         test_case_files: List[List[Dict[str, int]]],
         module_details: Dict,
         base_path: Path,
+        param_comb: Optional[tuple] = None,
+        param_names: Optional[List[str]] = None
     ):
-        # Generate multiple testbench files in parallel.
-        logger.info(
-            "Generating testbenches for %d test case files", len(test_case_files)
-        )
+        logger.info("Generating testbenches for %d test case files", len(test_case_files))
+        logger.debug("Received %d test case file batches", len(test_case_files))
+        logger.debug("Module details: %s", module_details)
+        logger.debug("Base path: %s", base_path)
+        logger.debug("Parameter combination: %s", param_comb)
+        logger.debug("Parameter names: %s", param_names)
 
         self.module_details = module_details
         self.complexity_score = self.calculate_module_complexity(
@@ -460,29 +556,36 @@ class TestOptimizer:
 
         # Split test cases into chunks for each worker
         num_workers = min(self.max_parallel, len(test_case_files))
+        logger.debug("Using %d workers", num_workers)
         chunk_size = math.ceil(len(test_case_files) / num_workers)
+        logger.debug("Chunk size (number of batches per worker): %d", chunk_size)
         chunks = [
             test_case_files[i : i + chunk_size]
             for i in range(0, len(test_case_files), chunk_size)
         ]
+        #logger.debug("Chunks created: %s", chunks)
 
         with ProcessPoolExecutor(max_workers=num_workers) as executor:
             futures = []
 
             for worker_id, chunk in enumerate(chunks):
-                # Each worker gets its own chunk of test cases
+                logger.debug("Submitting chunk for worker %d with %d batches", worker_id, len(chunk))
                 future = executor.submit(
                     self._generate_testbench_chunk,
                     chunk,
                     module_details.copy(),
                     base_path,
                     worker_id,
+                    param_comb,
+                    param_names
                 )
                 futures.append(future)
 
-            # Wait for all chunks to complete
-            for future in futures:
-                future.result()  # Propagate exceptions
+            for idx, future in enumerate(futures):
+                logger.debug("Waiting for worker %d to finish", idx)
+                result = future.result()  # Propagate exceptions
+                logger.debug("Worker %d finished with result: %s", idx, result)
+        logger.info("Exiting parallel_generate_testbenches")
 
     def _generate_testbench_chunk(
         self,
@@ -490,34 +593,55 @@ class TestOptimizer:
         module_details: Dict,
         base_path: Path,
         worker_id: int,
+        param_comb: Optional[tuple] = None,
+        param_names: Optional[List[str]] = None
     ) -> List[TestCaseMetrics]:
-        # Generate a chunk of testbenches in a single process.
+        logger.info("Entering _generate_testbench_chunk for worker %d", worker_id)
+        logger.debug("Test cases chunk length: %d", len(test_cases_chunk))
         metrics = []
         component_name = module_details["component_name"]
+        logger.debug("Component name: %s", component_name)
 
         # Create worker-specific directory
         process_dir = base_path / f"temp_worker_{worker_id}"
+        logger.debug("Creating worker directory: %s", process_dir)
         process_dir.mkdir(parents=True, exist_ok=True)
 
         try:
             for i, test_cases in enumerate(test_cases_chunk):
-                # Generate unique filename for this batch
-                tb_filename = f"tb_{worker_id}_{i}_{component_name}.v"
-
+                # Create parameter-aware filename
+                if param_comb and param_names:
+                    param_str = "_".join(f"{name}{val}" for name, val in zip(param_names, param_comb))
+                    tb_filename = f"tb_{param_str}_{worker_id}_{i}_{component_name}.v"
+                else:
+                    tb_filename = f"tb_{worker_id}_{i}_{component_name}.v"
                 result = self._generate_single_testbench(
                     test_cases, module_details, process_dir, tb_filename
+                )
+                
+                logger.debug("Worker %d, batch %d: using filename %s", worker_id, i, tb_filename)
+
+                result = self._generate_single_testbench(
+                    test_cases, 
+                    module_details, 
+                    process_dir, 
+                    tb_filename
                 )
 
                 src_file = process_dir / tb_filename
                 if src_file.exists():
                     dest_path = base_path / tb_filename
+                    logger.debug("Copying generated file from %s to %s", src_file, dest_path)
                     shutil.copy2(str(src_file), str(dest_path))
-                    logger.debug(f"Generated testbench saved to {dest_path}")
                     metrics.append(result)
+                else:
+                    logger.error("Expected source file %s does not exist!", src_file)
 
+            logger.info("Worker %d: Exiting _generate_testbench_chunk", worker_id)
             return metrics
+
         finally:
-            # Clean up worker directory
+            logger.debug("Worker %d: Cleaning up temporary directory %s", worker_id, process_dir)
             shutil.rmtree(process_dir, ignore_errors=True)
 
     def _generate_single_testbench(
@@ -528,21 +652,26 @@ class TestOptimizer:
         output_filename: str,
     ) -> TestCaseMetrics:
         """Generate a single testbench file."""
+        logger.info("Entering _generate_single_testbench with output filename: %s", output_filename)
         start_time = time.time()
-
         component_name = module_details["component_name"]
+        logger.debug("Component name: %s", component_name)
+        logger.debug("Test cases count: %d", len(test_cases))
 
         # Create unique working directory for this process
         process_dir = base_path / f"temp_{os.getpid()}"
+        logger.debug("Creating process-specific directory: %s", process_dir)
         process_dir.mkdir(parents=True, exist_ok=True)
 
         try:
             # Create component directory structure within process dir
             component_dir = process_dir / component_name
+            logger.debug("Creating component directory: %s", component_dir)
             component_dir.mkdir(exist_ok=True)
 
-            # Write component details
+            # Write component details for reference
             details_file = component_dir / f"{component_name}_details.json"
+            logger.debug("Writing component details to %s", details_file)
             with open(details_file, "w") as f:
                 json.dump(module_details, f, indent=2)
 
@@ -554,15 +683,23 @@ class TestOptimizer:
                 constraints=self.constraints,
                 timing=self.timing,
                 signals=self.signals,
+                output_filename=output_filename
             )
 
-            # Generate testbench in process directory
+            logger.info("Generating testbench file using generator.generate()")
             generator.generate(test_cases=test_cases)
+            logger.debug("Testbench generation complete for %s", output_filename)
 
             # Move generated file to final location
+            logger.debug("Looking for generated file in %s", component_dir)
             generated_path = next(component_dir.glob(f"tb_*{component_name}.v"))
             final_path = base_path / output_filename
+            logger.debug("Moving generated file from %s to final destination %s", generated_path, final_path)
             shutil.move(str(generated_path), str(final_path))
+
+            generation_time = time.time() - start_time
+            file_size = final_path.stat().st_size
+            logger.info("Generated testbench %s in %.3f seconds (file size: %d bytes)", output_filename, generation_time, file_size)
 
             return TestCaseMetrics(
                 generation_time=time.time() - start_time,
@@ -570,8 +707,8 @@ class TestOptimizer:
             )
 
         finally:
-            # Clean up temporary directory
-            shutil.rmtree(process_dir, ignore_errors=True)
+            logger.debug("Cleaning up process-specific directory: %s", process_dir)
+            #shutil.rmtree(process_dir, ignore_errors=True)
 
     """
     def parallel_generate_testbenches(self,
@@ -707,9 +844,9 @@ class TestOptimizer:
             start_time = time.time()
 
             # Execute testbench
-            runner = Runner(simulator=simulator, work_dir=tb_file.parent)
+            runner = Runner(simulator=simulator, work_dir=tb_file.parent, timeout=self.timeout)
             result = runner.run_testbench(
-                tb_file, source_files=runner._collect_source_files(tb_file.parent)
+                tb_file, source_files=runner._collect_source_files(tb_file.parent), force_recompile=True
             )
 
             execution_time = time.time() - start_time

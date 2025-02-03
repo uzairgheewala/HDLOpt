@@ -5,14 +5,17 @@ import inspect
 import json
 import logging
 import os
-from dataclasses import dataclass
+import sys
+import shutil
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum, auto
 from pathlib import Path
 from typing import Dict, List, Optional
+import subprocess
 
 from hdlopt.rules.base import Rule
-from hdlopt.scripts.analysis.netlist import NetlistAnalyzer
+from hdlopt.scripts.analysis.netlist import NetlistAnalyzer, parse_netlist
 from hdlopt.scripts.analysis.power import PowerAnalyzer
 from hdlopt.scripts.analysis.schematic import SchematicGenerator
 from hdlopt.scripts.analysis.timing import TimingAnalyzer
@@ -28,6 +31,7 @@ from hdlopt.scripts.parsing.factory import VerilogParser
 from hdlopt.scripts.reporting.generator import PDFReportGenerator
 from hdlopt.scripts.testbench.manager import IntegratedTestManager
 from hdlopt.scripts.testbench.runner import TestbenchRunner
+from hdlopt.config_manager import ConfigManager
 
 
 class AnalysisType(Enum):
@@ -74,6 +78,8 @@ class RunnerConfig:
     experiment_version: str = "1.0"
     experiment_desc: Optional[str] = None
     experiment_tags: Optional[Dict[str, str]] = None
+    last_updated: str = field(default_factory=lambda: datetime.now().isoformat())
+    timeout: int = float('inf')
 
     def __post_init__(self):
         if self.analyses is None or (
@@ -104,7 +110,7 @@ class HDLAnalysisRunner:
 
         # Initialize TestbenchRunner
         self.tb_runner = TestbenchRunner(
-            simulator=config.simulator, work_dir=Path(config.output_dir), timeout=300
+            simulator=config.simulator, work_dir=Path(config.output_dir), timeout=self.config.timeout
         )
 
         # Initialize ExperimentManager with configuration
@@ -162,8 +168,15 @@ class HDLAnalysisRunner:
             )
 
             try:
+                # Run analyses for each module
                 for module in modules:
-                    self._analyze_module(module, run_id)
+                    metrics = self._analyze_module(module, run_id)
+                    
+                    # Update experiment metrics
+                    if metrics:
+                        self.experiment_manager.update_metrics(run_id, {
+                            module.stem: metrics
+                        })
             except Exception as e:
                 logger.error(f"Analysis failed: {str(e)}")
                 raise (e)
@@ -183,6 +196,7 @@ class HDLAnalysisRunner:
             module_path: Path to module .v file
             run_id: Current experiment run ID
         """
+        metrics = {}
         module_name = module_path.stem
         logger.info(f"Analyzing module: {module_name}")
         logger.debug(f"Module path: {module_path}")
@@ -300,7 +314,7 @@ class HDLAnalysisRunner:
                 test_plan = test_manager.plan_tests(
                     module_details=module_details,
                     desired_cases=1000,
-                    available_time=300,  # 5 minute timeout
+                    available_time=self.config.timeout
                 )
 
                 # Execute test plan
@@ -344,6 +358,7 @@ class HDLAnalysisRunner:
                 logger.error(
                     f"Failed to run {analysis.name} analysis: {str(e)}"
                 )
+                raise(e)
 
         # Track metrics for this module's analysis
         metrics = {
@@ -355,7 +370,70 @@ class HDLAnalysisRunner:
             ],
         }
 
-        # Add test metrics if available
+        # Add netlist analysis metrics
+        if AnalysisType.NETLIST in self.config.analyses:
+            netlist_path = module_dir / f"{module_name}_netlist_analysis.json"
+            if netlist_path.exists():
+                with open(netlist_path) as f:
+                    netlist_data = json.load(f)
+                    metrics.update({
+                        f"{module_name}_wire_count": netlist_data[module_name]['wire_count'],
+                        f"{module_name}_wire_bits": netlist_data[module_name]['wire_bits'],
+                        f"{module_name}_port_count": netlist_data[module_name]['port_count'],
+                        f"{module_name}_port_bits": netlist_data[module_name]['port_bits'],
+                        f"{module_name}_cell_count": netlist_data[module_name]['cell_count'],
+                        f"{module_name}_hierarchy_depth": netlist_data[module_name]['hierarchy_depth'],
+                        f"{module_name}_raw_gate_types": len(netlist_data[module_name]['raw_gates']),
+                        f"{module_name}_total_raw_gates": sum(netlist_data[module_name]['raw_gates'].values()),
+                        f"{module_name}_submodule_instances": sum(netlist_data[module_name]['sub_modules'].values() if netlist_data[module_name]['sub_modules'] else [0])
+                    })
+
+        # Add timing analysis metrics
+        if AnalysisType.TIMING in self.config.analyses:
+            timing_path = module_dir / f"{module_name}_timing.json"
+            if timing_path.exists():
+                with open(timing_path) as f:
+                    timing_data = json.load(f)
+                    # Basic timing metrics
+                    timing_summary = timing_data.get('timing_summary', {})
+                    metrics.update({
+                        f"{module_name}_wns": timing_summary.get('wns', 0.0),
+                        f"{module_name}_tns": timing_summary.get('tns', 0.0),
+                        f"{module_name}_whs": timing_summary.get('whs', 0.0),
+                        f"{module_name}_ths": timing_summary.get('ths', 0.0),
+                        f"{module_name}_failing_endpoints": timing_summary.get('failing_endpoints', 0),
+                        f"{module_name}_total_endpoints": timing_summary.get('total_endpoints', 0)
+                    })
+                    # Clock domain metrics
+                    clock_summary = timing_data.get('clock_summary', [])
+                    if clock_summary:
+                        metrics[f"{module_name}_clock_domains"] = len(clock_summary)
+                        metrics[f"{module_name}_max_clock_period"] = max(
+                            c.get('period', 0.0) for c in clock_summary
+                        )
+
+        # Add power analysis metrics
+        if AnalysisType.POWER in self.config.analyses:
+            power_path = module_dir / f"{module_name}_power.json"
+            if power_path.exists():
+                with open(power_path) as f:
+                    power_data = json.load(f)
+                    power_summary = power_data.get('summary', {})
+                    metrics.update({
+                        f"{module_name}_total_power": power_summary.get('total_on_chip', 0.0),
+                        f"{module_name}_dynamic_power": power_summary.get('dynamic', 0.0),
+                        f"{module_name}_static_power": power_summary.get('static', 0.0),
+                        f"{module_name}_junction_temp": power_summary.get('junction_temp', 0.0)
+                    })
+                    # Component power breakdown
+                    components = power_data.get('on_chip_components', [])
+                    if components:
+                        metrics[f"{module_name}_power_components"] = len(components)
+                        metrics[f"{module_name}_max_component_power"] = max(
+                            c.get('power', 0.0) for c in components
+                        )
+
+        # Add testbench metrics
         if AnalysisType.TESTBENCH in self.config.analyses:
             test_results_path = module_dir / "testbench_results.json"
             if test_results_path.exists():
@@ -369,8 +447,19 @@ class HDLAnalysisRunner:
                         f"{module_name}_failed_tests": sum(
                             1 for r in results if not r.get("passed", False)
                         ),
+                        f"{module_name}_test_coverage": sum(
+                            1 for r in results if r.get("passed", False)
+                        ) / len(results) if results else 0
                     }
                     metrics.update(test_metrics)
+
+        # Add schematic metrics
+        if AnalysisType.SCHEMATIC in self.config.analyses:
+            schematic_path = module_dir / f"{module_name}_schematic.pdf"
+            if schematic_path.exists():
+                metrics[f"{module_name}_has_schematic"] = True
+                # Could add more metrics like schematic complexity, node count, etc.
+
 
         # Update experiment metrics
         self.experiment_manager.update_metrics(run_id, metrics)
@@ -379,7 +468,7 @@ class HDLAnalysisRunner:
         if self.config.combine_pdfs and reports:
             try:
                 # Filter out None values and check paths exist
-                valid_reports = [r for r in reports if r and Path(r).exists()]
+                valid_reports = [r for r in reports if r and Path(r).exists() and str(r).endswith('.pdf')]
 
                 if valid_reports:
                     combined_report = PDFReportGenerator(
@@ -395,45 +484,112 @@ class HDLAnalysisRunner:
                 logger.error(f"Failed to combine PDFs: {str(e)}")
 
             # Track reports as artifacts
-            for report in valid_reports:
-                self.experiment_manager.add_artifact(
-                    run_id, f"{module_name}_{Path(report).stem}", Path(report)
-                )
+            if valid_reports:
+                for report in valid_reports:
+                    self.experiment_manager.add_artifact(
+                        run_id, f"{module_name}_{Path(report).stem}", Path(report)
+                    )
 
     def _find_rules_for_module(self, module_path: Path) -> List[Rule]:
         """Find all rules that apply to a given module.
+        
+        Checks both package rules and local working directory rules.
 
         Args:
             module_path: Path to module .v file
-
+            
         Returns:
             List of applicable Rule instances
         """
         logger.debug(f"Finding rules for module: {module_path.stem}")
         rules = []
-        rules_dir = Path(__file__).parent / "rules"
 
-        for rule_file in rules_dir.glob("*.py"):
-            if rule_file.name in ["__init__.py", "base.py"]:
-                continue
+        # Define and create local rules directory if it doesn't exist
+        local_rules_dir = Path.cwd() / "rules"
+        if not local_rules_dir.exists():
+            local_rules_dir.mkdir(parents=True)
+            # Copy default rules to local directory
+            self._setup_default_rules(local_rules_dir)
+        
+        # Search in package rules directory
+        package_rules_dir = Path(__file__).parent / "rules"
+        
+        # Search both locations for rules
+        for rules_dir in [package_rules_dir, local_rules_dir]:
+            logger.debug(f"Searching for rules in: {rules_dir}")
+            
+            for rule_file in rules_dir.glob("*.py"):
+                if rule_file.name in ["__init__.py", "base.py", "__pycache__"]:
+                    continue
 
-            try:
-                module_name = f"hdlopt.rules.{rule_file.stem}"
-                rule_module = importlib.import_module(module_name)
+                try:
+                    if rules_dir == package_rules_dir:
+                        module_name = f"hdlopt.rules.{rule_file.stem}"
+                    else:
+                        # Add local directory to Python path temporarily
+                        sys.path.insert(0, str(local_rules_dir.parent))
+                        module_name = f"rules.{rule_file.stem}"
+                    
+                    try:
+                        rule_module = importlib.import_module(module_name)
+                        
+                        for name, obj in inspect.getmembers(rule_module):
+                            if inspect.isclass(obj) and issubclass(obj, Rule) and obj != Rule:
+                                rule = obj()
+                                if rule.matches(module_path.stem):
+                                    logger.debug(f"Rule {name} matches {module_path.stem}")
+                                    rules.append(rule)
+                    finally:
+                        if rules_dir != package_rules_dir:
+                            sys.path.pop(0)  # Remove local dir from path
 
-                for name, obj in inspect.getmembers(rule_module):
-                    if inspect.isclass(obj) and issubclass(obj, Rule) and obj != Rule:
-                        rule = obj()
-                        if rule.matches(module_path.stem):
-                            logger.debug(
-                                f"Rule {name} matches {module_path.stem}"
-                            )
-                            rules.append(rule)
-
-            except Exception as e:
-                logger.error(f"Error checking rule {rule_file.name}: {str(e)}")
+                except Exception as e:
+                    logger.error(f"Error checking rule {rule_file.name}: {str(e)}")
 
         return rules
+    
+    def _setup_default_rules(self, local_rules_dir: Path) -> None:
+        """Set up default rules in local directory.
+        
+        Args:
+            local_rules_dir: Path to local rules directory
+        """
+        # Create __init__.py
+        (local_rules_dir / "__init__.py").touch()
+        
+        # Copy base.py
+        shutil.copy(Path(__file__).parent / "rules" / "base.py", 
+                    local_rules_dir / "base.py")
+        
+        # Create example_rule.py
+        example_rule = """from .base import Rule
+    from ..patterns.string_match import StringMatchPattern
+
+    class ExampleModuleRule(Rule):
+        def __init__(self, default_bit_width=8):
+            super().__init__(
+                input_vars=["clk", "rst_n", "data_in"],
+                output_vars=["data_out"],
+                name="ExampleModuleRule",
+                pattern=StringMatchPattern("example_module"),
+                default_bit_width=default_bit_width
+            )
+
+        def generate_expected(self, test_case):
+            \"\"\"Generate expected outputs for given inputs.\"\"\"
+            # Simple register behavior: data_out follows data_in
+            # Reset puts zeros on output
+            if test_case["rst_n"] == 0:
+                return {
+                    "data_out": 0
+                }
+            else:
+                return {
+                    "data_out": test_case["data_in"]
+                }
+    """
+        with open(local_rules_dir / "example_rule.py", 'w') as f:
+            f.write(example_rule)
 
     def _run_analysis(
         self,
@@ -456,17 +612,84 @@ class HDLAnalysisRunner:
         logger.info(f"Running {analysis.name} analysis")
 
         if analysis == AnalysisType.NETLIST:
-            analyzer = NetlistAnalyzer()
-            netlist = analyzer.analyze(module_name, base_dir=str(module_dir))
+            try:
+                analyzer = NetlistAnalyzer()
 
-            with open(module_dir / f"{module_name}_netlist.json", "w") as f:
-                json.dump(netlist, f, indent=4)
+                # Step 1: Generate netlist using Yosys
+                netlist_path = module_dir / f"{module_name}_netlist.json"
+                
+                # Create Yosys script
+                script = [
+                    f"read_verilog {module_dir / f'{module_name}.v'}",
+                    f"hierarchy -top {module_name}",
+                    "proc",
+                    "opt",
+                    "fsm",
+                    "opt",
+                    "memory",
+                    "opt",
+                    f"write_json {netlist_path}"
+                ]
+                
+                script_path = module_dir / "netlist.ys"
+                with open(script_path, 'w') as f:
+                    f.write('\n'.join(script))
 
-            return None
+                # Run Yosys
+                subprocess.run(["yosys", "-q", str(script_path)], check=True)
+                
+                if not netlist_path.exists():
+                    raise FileNotFoundError(f"Yosys failed to generate netlist at {netlist_path}")
+
+                # Step 2: Parse and analyze netlist
+                netlist = parse_netlist(str(netlist_path))
+
+                logger.debug(f"netlist: {netlist}")
+                
+                # Get parameter config from module details
+                param_config = {
+                    param["name"]: int(param["value"]) 
+                    for param in module_details.get("parameters", [])
+                }
+                
+                # Create basic config object with increment rules
+                class Config:
+                    def __init__(self):
+                        self.increment_rules = {}
+                        
+                config = Config()
+
+                # Run analysis
+                analysis_results = analyzer.analyze(
+                    netlist=netlist,
+                    module_name=module_name,
+                    param_config=param_config,
+                    config=config
+                )
+
+                analysis_dict = {
+                    module: metrics.to_dict() 
+                    for module, metrics in analysis_results.items()
+                }
+
+                # Save analysis results
+                with open(module_dir / f"{module_name}_netlist_analysis.json", "w") as f:
+                    json.dump(analysis_dict, f, indent=4)
+
+                return netlist_path
+
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Yosys execution failed: {e.stderr}")
+                raise
+            except Exception as e:
+                logger.error(f"Netlist analysis failed: {str(e)}")
+                raise
 
         elif analysis == AnalysisType.TIMING:
             analyzer = TimingAnalyzer(module_name, base_dir=str(module_dir))
             timing_data, report_path = analyzer.analyze()
+
+           # print(timing_data, report_path)
 
             # Save timing data
             with open(module_dir / f"{module_name}_timing.json", "w") as f:
@@ -480,21 +703,43 @@ class HDLAnalysisRunner:
             analyzer = PowerAnalyzer(module_name, base_dir=str(module_dir))
             power_data, report_path = analyzer.analyze()
 
+            #print(power_data, report_path)
+
             with open(module_dir / f"{module_name}_power.json", "w") as f:
                 json.dump(power_data, f, indent=4)
 
             # report_path = module_dir / f"{module_name}_power_report.pdf"
             # analyzer.generate_report(power_data)
             return report_path
-
+        
         elif analysis == AnalysisType.WAVEFORM:
             if self.config.generate_waves:
                 analyzer = WaveformAnalyzer(module_name, base_dir=str(module_dir))
-                wave_data = analyzer.analyze(module_dir / "wave.vcd")
+                wave_data = {}
+                
+                # Look for all VCD files matching our naming pattern
+                vcd_files = list(module_dir.glob("*__wave.vcd"))
+                if not vcd_files:
+                    logger.warning(f"No VCD files found in {module_dir}")
+                    return None
+                    
+                logger.debug(f"Found {len(vcd_files)} VCD files: {vcd_files}")
+                for vcd_file in vcd_files:
+                    # Each VCD file name indicates parameter combination
+                    param_str = vcd_file.stem.split('__')[0]  # Get part before __wave
+                    try:
+                        file_data = analyzer.analyze(vcd_file)
+                        wave_data[param_str] = file_data
+                        logger.debug(f"Analyzed waveform for {param_str}")
+                    except Exception as e:
+                        logger.error(f"Failed to analyze VCD file {vcd_file}: {str(e)}")
 
+                # Generate report with all waveform data
                 report_path = module_dir / f"{module_name}_waveform_report.pdf"
                 analyzer.generate_report(wave_data)
+                logger.debug(f"Generated waveform report at {report_path}")
                 return report_path
+
             return None
 
         elif analysis == AnalysisType.SCHEMATIC:
@@ -670,6 +915,9 @@ Examples:
         help="Simulator to use",
     )
     analyze_parser.add_argument(
+        "--timeout", help="Maximum time to run testbench"
+    )
+    analyze_parser.add_argument(
         "--no-waves", action="store_true", help="Don't generate waveforms"
     )
     analyze_parser.add_argument(
@@ -713,10 +961,7 @@ Examples:
     args = parser.parse_args()
 
     if args.command == "analyze":
-        # Convert analyses strings to enum values
-        analyses = None
-        if args.analyses:
-            analyses = [AnalysisType[a.upper()] for a in args.analyses]
+        config_manager = ConfigManager()
 
         # Parse tags if provided
         tags = {}
@@ -724,22 +969,44 @@ Examples:
             for tag in args.tags:
                 key, value = tag.split("=")
                 tags[key.strip()] = value.strip()
+        
+        overrides = {
+            'src_dir': args.src_dir if args.src_dir != "src" else None,
+            'output_dir': args.output_dir if args.output_dir != "generated" else None,
+            'simulator': args.simulator if args.simulator != "modelsim" else None,
+            'combine_pdfs': not args.no_combine_pdfs,
+            'generate_waves': not args.no_waves,
+            'recursive': not args.no_recursive,
+            'verbose': args.verbose,
+            'timeout': int(args.timeout) if args.timeout else None,
+            'experiment_name': args.experiment_name,
+            'experiment_version': args.version,
+            'experiment_desc': args.description,
+            'experiment_tags': tags
+        }
+        overrides = {k: v for k, v in overrides.items() if v is not None}
+        
+        # Update stored configuration if overrides provided
+        if overrides:
+            config_manager.update_config(**overrides)
+        
+        # Ensure directories exist
+        src_dir, output_dir = config_manager.ensure_directories()
 
-        config = RunnerConfig(
-            analyses=analyses,
-            src_dir=args.src_dir,
-            output_dir=args.output_dir,
-            combine_pdfs=not args.no_combine_pdfs,
-            simulator=args.simulator,
-            generate_waves=not args.no_waves,
-            recursive=not args.no_recursive,
-            verbose=args.verbose,
-            experiment_name=args.experiment_name,
-            experiment_version=args.version,
-            experiment_desc=args.description,
-            experiment_tags=tags,
-        )
+        # Convert analyses strings to enum values
+        analyses = None
+        if args.analyses:
+            analyses = [AnalysisType[a.upper()] for a in args.analyses]
 
+        runner_config = config_manager.get_runner_config({
+            'analyses': analyses,
+            'experiment_name': args.experiment_name,
+            'experiment_version': args.version,
+            'experiment_desc': args.description,
+            'experiment_tags': tags
+        })
+        
+        config = RunnerConfig(**runner_config)
         runner = HDLAnalysisRunner(config)
         run_id = runner.run(args.modules)
         print(f"\nAnalysis complete. Run ID: {run_id}")

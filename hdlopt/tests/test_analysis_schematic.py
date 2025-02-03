@@ -200,7 +200,7 @@ class TestSchematicConfig:
         """Test basic initialization."""
         config = SchematicConfig()
         assert config.format == SchematicFormat.PDF
-        assert config.tool == SchematicTool.VIVADO
+        assert config.tool == SchematicTool.YOSYS
         assert config.cleanup_temp
 
     def test_string_enum_conversion(self):

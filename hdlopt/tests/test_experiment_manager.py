@@ -156,7 +156,7 @@ def test_update_metrics(experiment_manager, sample_verilog):
     """Test updating run metrics."""
     run_id = experiment_manager.start_run(components=sample_verilog, config={})
 
-    test_metrics = {"passed_tests": 42, "failed_tests": 3, "execution_time": 1.23}
+    test_metrics = {"passed":{"passed_tests": 42}, "failed":{"failed_tests": 3}, "execution":{"execution_time": 1.23}}
 
     experiment_manager.update_metrics(run_id, test_metrics)
 
@@ -325,7 +325,7 @@ def test_large_experiment(experiment_manager, temp_dir):
     # Verify data integrity
     run = experiment_manager._load_run(run_id)
     assert len(run.components) == len(test_files)
-    assert len(run.metrics) == len(metrics)
+    assert len(run.metrics['metric']) == len(metrics)
 
 
 def test_database_consistency(experiment_manager, sample_verilog):

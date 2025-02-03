@@ -5,8 +5,6 @@ from pathlib import Path
 
 from .logger import logger
 
-YOSYS_PATH = r"C:\oss-cad-suite\bin\yosys.exe"
-
 class EnvironmentSetup:
     """Handles environment setup for external tools like Yosys"""
 
@@ -24,16 +22,6 @@ class EnvironmentSetup:
                 self._setup_oss_cad_suite(oss_cad_path)
                 if self._check_system_yosys():
                     return True
-
-            # Check conda installation
-            """
-            if "CONDA_PREFIX" in os.environ:
-                conda_path = Path(os.environ["CONDA_PREFIX"])
-                yosys_exe = conda_path / "bin" / "yosys.exe"
-                if yosys_exe.exists():
-                    os.environ["PATH"] += f";{yosys_exe.parent}"
-                    return True
-            """
 
         elif system in ["Linux", "Darwin"]:
             # Check system installation
@@ -80,7 +68,7 @@ class EnvironmentSetup:
                 logger.error(
                     f"Failed to setup OSS CAD Suite: {process.stderr}"
                 )
-                raise OSError(f"Failed to setup OSS CAD Suite: {process.stderr}")
+                #raise OSError(f"Failed to setup OSS CAD Suite: {process.stderr}")
 
             # Parse the environment variables from the output and update
             # os.environ

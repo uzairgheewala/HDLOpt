@@ -65,18 +65,18 @@ class TestTimingAnalyzer:
 
         # Verify timing summary
         summary = timing_data["timing_summary"]
-        assert summary.wns == 10.0
-        assert summary.tns == -2.5
-        assert summary.failing_endpoints == 3
-        assert summary.total_endpoints == 100
+        assert summary['wns'] == 10.0
+        assert summary['tns'] == -2.5
+        assert summary['failing_endpoints'] == 3
+        assert summary['total_endpoints'] == 100
 
         # Verify clock summary
         clocks = timing_data["clock_summary"]
         assert len(clocks) == 2
-        assert clocks[0].name == "clk1"
-        assert clocks[0].period == 100.0
-        assert clocks[1].name == "clk2"
-        assert clocks[1].period == 200.0
+        assert clocks[0]['name'] == "clk1"
+        assert clocks[0]['period'] == 100.0
+        assert clocks[1]['name'] == "clk2"
+        assert clocks[1]['period'] == 200.0
 
     def test_tcl_script_generation(self, temp_component_dir):
         """Test generation of Vivado TCL script."""
