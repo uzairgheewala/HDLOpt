@@ -29,7 +29,6 @@ full_adder_schematic.dot
 tb_test.v
 
 *.code-workspace
-*.v
 *.ipynb
 *.log
 *.pdf
